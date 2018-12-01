@@ -6,9 +6,9 @@ type CardChooserProps = {
   gameState: State;
 };
 
-//type CardChooserState = { };
+type CardChooserState = { };
 
-export class CardChooser extends React.Component<CardChooserProps, State> {
+export class CardChooser extends React.Component<CardChooserProps, CardChooserState> {
   public static Instance: CardChooser;
 
   constructor(props: CardChooserProps) {
@@ -68,7 +68,7 @@ class App extends React.Component {
 
         </div>
 
-        <CardChooser gameState={this.state} />
+        <CardChooser gameState={this.state} text={ "foo" }/>
       </div>
     );
   }
