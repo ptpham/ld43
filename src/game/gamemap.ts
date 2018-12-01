@@ -7,6 +7,7 @@ import { C } from "./constants";
 import { Caravan } from "./caravan";
 import { Graphics } from "pixi.js";
 import { random } from "lodash";
+import { Idol } from "./idol";
 
 function makeSprite(texture: PIXI.Texture, x: number, y: number): PIXI.Sprite {
   const sprite = new PIXI.Sprite(texture);
@@ -29,6 +30,7 @@ export class GameMap extends Entity {
     this.graphSprite = this.makeGraph();
 
     this.makeCaravan();
+    this.makeIdol();
   }
 
   makeBG(): void {
@@ -97,6 +99,12 @@ export class GameMap extends Entity {
     return caravan;
   }
 
+  makeIdol(): Idol {
+    const idol = new Idol(this.state);
+
+    return idol;
+  }
+
   update(state: State) {
     // update some circles
   }
@@ -130,6 +138,16 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
         node.position.x,
         node.position.y,
       ));
+    } else if (node.locationType == 'Forest') {
+      this.addChild(makeSprite(PIXI.loader.resources['forest'].texture,
+        node.position.x,
+        node.position.y,
+      ));
+    } else {
+      this.addChild(makeSprite(PIXI.loader.resources['test'].texture,
+        node.position.x,
+        node.position.y,
+      ));
     }
 
     this.interactive = true;
@@ -143,12 +161,20 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
   onClick(): void {
     // can only select nodes adjacent to current caravan location
     if (this.state.caravan_location.neighbors.indexOf(this.node) > -1) {
-      this.selected = !this.selected;
-
-      if (!this.selected) {
+      if (this.selected) {
+        this.selected = false;
         // we just double clicked this node
         this.state.caravan_location = this.node;
         this.state.isLocationDone = false;
+      } else {
+        // unselect the other guy
+        let lastLocation = this.state.selectedNextLocation;
+        if (lastLocation) {
+          lastLocation.selected = false;
+          lastLocation.render();
+        }
+        this.state.selectedNextLocation = this;
+        this.selected = true;
       }
 
       this.render();

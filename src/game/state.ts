@@ -3,14 +3,15 @@ import { C } from './constants';
 import * as Graph from './graph';
 import { CardType } from './data';
 import { IEntity } from './entity';
+import { GameMapCircle } from './gamemap';
 
 type IdolState = 
   | {
       state: "carried";
     }
   | {
-      state   : "dropped";
-      position: Graph.Node;
+      state : "dropped";
+      node  : Graph.Node;
     }
   ;
 
@@ -36,6 +37,7 @@ export class State {
   stage           : PIXI.Container;
   graph           : Graph.Node[];
   caravan_location: Graph.Node;
+  selectedNextLocation: GameMapCircle | undefined;
   isLocationDone  : boolean;
   meat            : number;
   walkAnimation?  : PIXI.ticker.Ticker;
@@ -69,10 +71,21 @@ export class State {
   }
 
   onDropIdol(): void {
-    this.hasIdol = false;
+    if (this.idolState.state === "carried") {
+      this.hasIdol = false;
+
+      this.idolState = {
+        state: "dropped",
+        node: this.caravan_location,
+      };
+    }
   }
 
   onPickUpIdol(): void {
+
+  }
+
+  onChange(e: () => void) {
 
   }
 }
