@@ -3,6 +3,7 @@ import { C } from './constants';
 import * as Graph from './graph';
 import { CardType } from './data';
 import { IEntity } from './entity';
+import { GameMapCircle } from './gamemap';
 
 type IdolState = 
   | {
@@ -36,7 +37,7 @@ export class State {
   stage           : PIXI.Container;
   graph           : Graph.Node[];
   caravan_location: Graph.Node;
-  selectedNextLocation: Graph.Node | undefined;
+  selectedNextLocation: GameMapCircle | undefined;
   isLocationDone  : boolean;
   meat            : number;
   walkAnimation?  : PIXI.ticker.Ticker;
