@@ -22,7 +22,7 @@ export class GameMap extends Entity {
     }
 
     for (let node of this.state.graph) {
-      graphSprite.addChild(new GameMapCircle(node));
+      graphSprite.addChild(new GameMapCircle(node, state));
       //const graphCircle = new PIXI.Graphics();
       //graphCircle.lineWidth = 1;
       //graphCircle.lineStyle(1, 0x000000);
