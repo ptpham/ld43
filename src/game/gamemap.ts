@@ -115,6 +115,8 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
   public state: State;
   public selected: boolean = false;
 
+  private mousedOver = false;
+
   constructor(props: { 
     node: Node;
     state: State;
@@ -166,11 +168,15 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
   }
 
   mouseOver(): void {
+    this.mousedOver = true;
 
+    this.render();
   }
 
   mouseOut(): void {
+    this.mousedOver = false;
 
+    this.render();
   }
 
   onClick(): void {
