@@ -64,7 +64,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
           {' '}
           <a 
             href="javascript:;"
-            onClick={() => this.clickDropOrPickUp()}
+            onClick={ () => this.clickDropOrPickUp(idolAction) }
           >
             {
             }
