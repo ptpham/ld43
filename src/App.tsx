@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Game, State } from './game/main';
+import { CardType } from './game/data';
 
 type CardChooserProps = {
   gameState: State;
@@ -19,8 +20,29 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
     CardChooser.Instance = this;
     this.state = {
       text: "ok",
+      cards: [
+        {
+          type: "Builder",
+          meat: 3,
+          skill: 7,
+        },
+        {
+          type: "Storyteller",
+          meat: 7,
+          skill: 2,
+        },
+        {
+          type: "Fighter",
+          meat: 1,
+          skill: 1,
+        },
+        {
+          type: "Stupid",
+          meat: 1,
+          skill: 9,
+        },
+      ]
     };
-
   }
 
   public update(state: CardChooserState) {
