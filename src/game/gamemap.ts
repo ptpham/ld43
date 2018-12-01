@@ -7,6 +7,7 @@ import { C } from "./constants";
 import { Caravan } from "./caravan";
 import { Graphics } from "pixi.js";
 import { random } from "lodash";
+import { Idol } from "./idol";
 
 function makeSprite(texture: PIXI.Texture, x: number, y: number): PIXI.Sprite {
   const sprite = new PIXI.Sprite(texture);
@@ -96,6 +97,10 @@ export class GameMap extends Entity {
     this.graphSprite.addChild(caravan);
 
     return caravan;
+  }
+
+  makeIdol(): Idol {
+    const idol = new Idol();
   }
 
   update(state: State) {
