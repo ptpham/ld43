@@ -68,4 +68,3 @@ export class EventChooser extends React.Component<EventChooserProps> {
     </div>;
   }
 }
-
