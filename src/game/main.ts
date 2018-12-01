@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 import { C } from './constants';
 import * as Graph from './graph';
 import { CardType } from './data';
-import { GameMap } from './map';
+import { GameMap } from './gamemap';
 
 /**
  * This will be the god object that holds all state. 
