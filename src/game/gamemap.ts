@@ -3,6 +3,8 @@ import { Entity, IEntity } from "./entity";
 import { State } from "./state";
 import { Node } from "./graph";
 
+import { C } from "./constants";
+
 export class GameMap extends Entity {
   state: State;
 
@@ -61,27 +63,25 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
     // add a sprite
     if (node.locationType == 'Start') {
       // caravan starts here
-      let stest;
-      stest = new PIXI.Sprite(PIXI.loader.resources['grass'].texture);
-      stest.x = node.position.x - 16;
-      stest.y = node.position.y - 16;
-      stest.scale = new PIXI.Point(2, 2);
-      this.addChild(stest);
 
-      stest = new PIXI.Sprite(PIXI.loader.resources['caravan'].texture);
-      stest.x = node.position.x - 2;
-      stest.y = node.position.y - 2;
-      stest.scale = new PIXI.Point(2, 2);
-      this.addChild(stest);
+      this.addChild(this.renderSprite(PIXI.loader.resources['grass'].texture,
+        node.position.x,
+        node.position.y,
+      ));
+
+      this.addChild(this.renderSprite(PIXI.loader.resources['caravan'].texture,
+        node.position.x + 14,
+        node.position.y + 14,
+      ));
+
       state.caravan_location_graphix = this;
 
     } else if (node.locationType == 'Finish') {
       // mount DOOM!
-      const stest = new PIXI.Sprite(PIXI.loader.resources['volcano'].texture);
-      stest.x = node.position.x - 16;
-      stest.y = node.position.y - 16;
-      stest.scale = new PIXI.Point(2, 2);
-      this.addChild(stest);
+      this.addChild(this.renderSprite(PIXI.loader.resources['volcano'].texture,
+        node.position.x,
+        node.position.y,
+      ));
     }
 
     this.lineWidth = 1;
@@ -120,6 +120,14 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
       this.onUpdate.map(fn => fn());
       this.onUpdate = [];
     })
+  }
+
+  private renderSprite(texture: PIXI.Texture, x: number, y: number): PIXI.Sprite {
+    const sprite = new PIXI.Sprite(texture);
+    sprite.x = x - sprite.width * C.FG_SPRITE_SCALE / 2;
+    sprite.y = y - sprite.height * C.FG_SPRITE_SCALE / 2;
+    sprite.scale = new PIXI.Point(C.FG_SPRITE_SCALE, C.FG_SPRITE_SCALE);
+    return sprite;
   }
 
   update(state: State): void {
