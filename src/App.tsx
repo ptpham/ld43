@@ -2,6 +2,7 @@ import * as React from 'react';
 import { State } from './game/state';
 import { Game } from './game/main';
 import { CardChooser } from './components/cardchooser';
+import { EventChooser } from './components/eventchooser';
 import './App.css';
 import { Toolbar } from './components/meat';
 import { Sidebar } from './components/sidebar';
@@ -33,6 +34,12 @@ class App extends React.Component<{ game: Game }, AppState>  {
         return true;
       }
     });
+
+    // stupid stuff to ensure we always propagate changes to react.
+
+    props.game.state.addChangeListener((gameState) => {
+      this.setState({ gameState })
+    });
   }
 
   componentDidMount(): void {
@@ -45,16 +52,14 @@ class App extends React.Component<{ game: Game }, AppState>  {
       this.setState({ showMap: false });
     };
 
-
-    switch (state.caravan_location.locationType) {
+    let { locationType } = state.caravan_location;
+    switch (locationType) {
       case 'Start':
         return <CardChooser gameState={state} onDone={onDone}/>;
+      default:
+        return <EventChooser gameState={state} onDone={onDone}
+          locationType={locationType}/>;
     }
-
-    return <div className="column" onClick={onDone}>
-      Woah you're on a {state.caravan_location.locationType} now.
-      <button onClick={onDone}>OK</button>
-    </div>;
   }
 
   renderGameStateComponents() {

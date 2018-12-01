@@ -79,13 +79,38 @@ export class State {
         node: this.caravan_location,
       };
     }
+
+    this.onChange();
   }
 
   onPickUpIdol(): void {
+    if (
+      this.idolState.state === "dropped" &&
+      this.caravan_location.equals(this.idolState.node)
+      ) {
+      this.hasIdol = false;
 
+      this.idolState = {
+        state: "dropped",
+        node: this.caravan_location,
+      };
+    }
+
+    this.onChange();
   }
 
-  onChange(e: () => void) {
 
+  // stupid stuff to ensure we always propagate changes to react.
+
+  changeListeners: ((state: State) => void)[] = [];
+
+  addChangeListener(e: (state: State) => void) {
+    this.changeListeners.push(e);
+  }
+
+  onChange(): void {
+    for (const listener of this.changeListeners) {
+      listener(this);
+    }
   }
 }

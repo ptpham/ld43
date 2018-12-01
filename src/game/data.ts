@@ -1,23 +1,25 @@
 
-const LocationTypes = {
-  Start: true,
-  Finish: true,
-  Forest: true,
-  GoblinNest: true,
-  Canyon: true,
-  Desert: true,
-  River: true,
-  Mountain: true
+export const LocationTypeData = {
+  Start: {},
+  Finish: {},
+  Forest: { targetSkill: 'Forester' },
+  GoblinNest: {},
+  Canyon: { targetSkill: 'Builder' },
+  Desert: { targetSkill: 'Priest' },
+  River: {},
+  Mountain: {}
 };
 
-export type LocationType = keyof typeof LocationTypes;
-export const LocationTypeNames = Object.keys(LocationTypes);
+export type LocationType = keyof typeof LocationTypeData;
+export const LocationTypeNames = Object.keys(LocationTypeData);
 
 export type CardVocationType = 
   | "Builder"
   | "Storyteller"
   | "Stupid"
   | "Fighter"
+  | "Forester"
+  | "Priest"
 ;
 
 export type CardType = {
