@@ -55,6 +55,7 @@ export class Game {
   }
 
   private setUpPixiStuff(div: HTMLDivElement): void {
+    PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
     this.renderer = PIXI.autoDetectRenderer(
       C.CANVAS_WIDTH,
       C.CANVAS_HEIGHT, {
