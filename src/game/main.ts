@@ -58,6 +58,7 @@ export class Game {
     const stest = new PIXI.Sprite(PIXI.loader.resources['test'].texture);
     stest.x = 10;
     stest.y = 10;
+    stest.scale = new PIXI.Point(4, 4);
     this.stage.addChild(stest);
 
     this.animate();
