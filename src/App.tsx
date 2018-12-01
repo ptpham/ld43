@@ -69,7 +69,7 @@ class App extends React.Component {
     if (game == null || game.state == null || game.state.isLocationDone) return null;
 
     return <div className={`modal ${showMap ? 'show-map' : ''}`}>
-      { !showMap ? <button onClick={() => this.setState({ showMap: true })}>Show Map</button> : null }
+      { !showMap ? <button onClick={() => this.setState({ showMap: true })}>Hide Event</button> : null }
       { showMap ? <button className="glowing" onClick={() => this.setState({ showMap: false })}>Show Event</button> : null }
       <div className="content"> { this.renderCurrentLocation(game.state) } </div>
     </div>;
