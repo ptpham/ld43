@@ -44,7 +44,6 @@ export class Card extends React.Component<CardProps, CardState> {
               : this.props.card.skill
           }
         </div>
-        <div>Skill: { this.props.card.level }</div>
         <div>Meat: { this.props.card.meat }</div>
 
         <div style={{ paddingTop: "20px" }}>
