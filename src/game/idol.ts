@@ -7,7 +7,7 @@ import { IEntity } from "./entity";
 export class Idol extends PIXI.Sprite implements IEntity {
   constructor(state: State) {
     super(
-      PIXI.loader.resources['test'].texture
+      PIXI.loader.resources['idol'].texture
     );
 
     state.addEntity(this);
