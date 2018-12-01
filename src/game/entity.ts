@@ -8,3 +8,7 @@ export class Entity {
 
   }
 }
+
+export interface IEntity {
+  update: (state: State) => void;
+}
