@@ -80,6 +80,7 @@ class GameMapCircle extends PIXI.Graphics implements IEntity {
           this.addChild(stest);
         } else {
           this.graphicsData[0].lineWidth = 1;
+          this.removeChildAt(0);
         }
         this.dirty++;
         this.clearDirty++;
