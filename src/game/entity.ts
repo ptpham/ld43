@@ -1,4 +1,5 @@
-import { State } from "./main";
+
+import { State } from "./state";
 
 /* 
  * Extend me pls! 

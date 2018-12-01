@@ -1,17 +1,33 @@
+
 import * as React from 'react';
-import { Game, State } from './game/main';
+import { State } from './game/state';
+import { Game } from './game/main';
 import { CardChooser } from './components/cardchooser';
 import { C } from './game/constants';
 
 class App extends React.Component {
-  state !: State;
+  state: { game?: Game };
   app   !: PIXI.Application;
   public div!: HTMLDivElement;
 
   constructor(props: any) {
     super(props);
     //PIXI.loader.load(() => )
-    this.start();
+    this.state = {};
+  }
+
+  proxifyGame(game: Game) {
+    let self = this;
+    game.loaded.then(() => {
+      this.setState({ game });
+      game.start({
+        set(gameState: State, prop: string, value: any, receiver: any) {
+          gameState[prop] = value;
+          self.setState({ game });
+          return true;
+        }
+      });
+    });
   }
 
   start() {
@@ -19,11 +35,24 @@ class App extends React.Component {
       C.CANVAS_WIDTH,
       C.CANVAS_HEIGHT
     );
-    this.state = new State(this.app.stage);
+    let { game } = this.state;
+    this.proxifyGame(game!);
   }
 
   public componentDidMount() {
-    new Game(this.div);
+    this.setState({ game: new Game(this.div) }, () => {
+      this.start();
+    });
+  }
+
+  renderGameStateComponents() {
+    let { game } = this.state;
+    if (game == null || game.state == null) return null;
+
+    return <div>
+      <div>You are on a {game.state.caravan_location.locationType}</div>
+      <CardChooser gameState={game.state} />
+    </div>;
   }
 
   public render() {
@@ -33,10 +62,8 @@ class App extends React.Component {
           className="App"
           ref={ div => this.div = div! }
         >
-
+        { this.renderGameStateComponents() }
         </div>
-
-        <CardChooser gameState={this.state} />
       </div>
     );
   }

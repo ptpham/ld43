@@ -1,38 +1,14 @@
+
 import * as PIXI from 'pixi.js';
 import { C } from './constants';
-import * as Graph from './graph';
-import { CardType } from './data';
-import { GameMap, GameMapCircle } from './gamemap';
-
-/**
- * This will be the god object that holds all state. 
- *  
- * I hope so
- * 
- * Peter that means you
- */
-export class State {
-  active_caravan: CardType[] = [];    
-  stage         : PIXI.Container;
-  graph         : Graph.Node[];
-  caravan_location: Graph.Node;
-  caravan_location_graphix!: GameMapCircle;
-
-  constructor(stage: PIXI.Container) {
-    this.stage = stage;
-    this.graph = Graph.generate({ 
-      width: C.CANVAS_WIDTH - 100, // TODO(bowei): this should be MAP_WIDTH and MAP_HEIGHT once we get scrolling working
-      height: C.CANVAS_HEIGHT - 100,
-      spacing: 48
-    });
-    this.caravan_location = this.graph[0];
-  }
-}
+import { GameMap } from './gamemap';
+import { State } from './state';
 
 export class Game {
   stage   !: PIXI.Container;
   state   !: State;
   renderer!: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
+  loaded: Promise<Game>;
 
   constructor(div: HTMLDivElement) {
     this.setUpPixiStuff(div);
@@ -40,10 +16,15 @@ export class Game {
     C.SPRITE_ASSETS.forEach(asset => {
       PIXI.loader.add(asset, `assets/${asset}.png`);
     });
-    PIXI.loader.load(() => this.start());
+
+    this.loaded = new Promise((resolve, reject) => {
+      PIXI.loader.load(() => {
+        resolve(this);
+      });
+    });
   }
 
-  private start(): void {
+  public start(proxyHandler: any = {}): void {
     this.stage = new PIXI.Container();
 
     const sprite = new PIXI.Graphics();
@@ -66,9 +47,9 @@ export class Game {
 
     this.animate();
 
-    this.state = new State(
+    this.state = new Proxy(new State(
       this.stage,
-    );
+    ), proxyHandler);
 
     new GameMap(this.state);
   }

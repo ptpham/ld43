@@ -49,6 +49,7 @@ export function generate(options: GenerateOptions): Node[] {
     new Node(new Point(width - spacing, height / 2), "Finish")
   ];
 
+  // Place initial node positions
   outer:
   for (let i = 0; i < iters; i++) {
     let current = new Point(width*Math.random(), height*Math.random());
@@ -60,6 +61,7 @@ export function generate(options: GenerateOptions): Node[] {
     result.push(new Node(current, _.sample(validLocationTypeNames)! as LocationType));
   }
 
+  // Create nice edges between nodes
   for (let i = 0; i < result.length; i++) {
     let first = result[i];
 
@@ -81,6 +83,7 @@ export function generate(options: GenerateOptions): Node[] {
     }
   }
 
+  // Try to get nodes to target degree
   let targetDegree = 3;
   for (let first of result) {
     let { neighbors } = first;

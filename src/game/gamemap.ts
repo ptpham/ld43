@@ -1,5 +1,6 @@
+
 import { Entity, IEntity } from "./entity";
-import { State } from "./main";
+import { State } from "./state";
 import { Node } from "./graph";
 
 export class GameMap extends Entity {

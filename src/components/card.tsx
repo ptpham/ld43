@@ -1,5 +1,6 @@
+
 import { CardType } from "../game/data";
-import { State } from "../game/main";
+import { State } from "../game/state";
 import React from "react";
 
 type CardProps = {

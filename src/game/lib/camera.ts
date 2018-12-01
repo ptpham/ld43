@@ -1,6 +1,7 @@
+
 import { Rect } from "./rect";
 import { C } from "../constants";
-import { State } from "../main";
+import { State } from "../state";
 
 export class Camera {
   width: number;

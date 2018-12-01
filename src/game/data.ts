@@ -1,3 +1,4 @@
+
 const LocationTypes = {
   Start: true,
   Finish: true,
