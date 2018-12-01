@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { C } from './constants';
+import Graph from './graph';
 
 /**
  * This will be the god object that holds all state. 
@@ -10,9 +11,11 @@ import { C } from './constants';
  */
 export class State {
   stage: PIXI.Container;
+  graph: Node[];
 
   constructor(stage: PIXI.Container) {
     this.stage = stage;
+    this.graph = Graph.generate(600, 100, 10);
   }
 }
 
