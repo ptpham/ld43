@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { C } from './constants';
-import Graph from './graph';
+import * as Graph from './graph';
 
 /**
  * This will be the god object that holds all state. 

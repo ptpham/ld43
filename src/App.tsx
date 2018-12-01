@@ -85,7 +85,7 @@ class App extends React.Component {
 
   start() {
     this.app = new PIXI.Application(
-);
+    );
     this.state = new State(this.app.stage);
   }
 
