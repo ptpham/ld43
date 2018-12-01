@@ -34,6 +34,7 @@ export function generate(options: GenerateOptions): Node[] {
   }
 
   for (let first of result) {
+    outer:
     for (let second of result) {
       let toSecond = second.position.subtract(first.position);
       if (first.position.distance(second.position) > 2*spacing) continue;
@@ -43,7 +44,7 @@ export function generate(options: GenerateOptions): Node[] {
         if (toSecond.angle(toNeighbor) > minAngle) {
           first.neighbors.push(second);
           second.neighbors.push(first);
-          break;
+          break outer;
         }
       }
     }
