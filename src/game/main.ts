@@ -11,7 +11,7 @@ import * as Graph from './graph';
  */
 export class State {
   stage: PIXI.Container;
-  graph: Node[];
+  graph: Graph.Node[];
 
   constructor(stage: PIXI.Container) {
     this.stage = stage;
