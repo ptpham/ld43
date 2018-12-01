@@ -4,6 +4,7 @@ import { State } from "./state";
 import { Node } from "./graph";
 
 import { C } from "./constants";
+import { Caravan } from "./caravan";
 
 export class GameMap extends Entity {
   state: State;
@@ -33,7 +34,20 @@ export class GameMap extends Entity {
 
     graphSprite.x = 50;
     graphSprite.y = 50;
+
     state.stage.addChild(graphSprite);
+
+    // add caravan
+
+    const startNode = this.state.graph.filter(x => x.locationType === "Start")[0];
+
+    const caravan = new Caravan();
+    caravan.x = startNode.position.x;
+    caravan.y = startNode.position.y;
+
+    state.addEntity(caravan);
+
+    graphSprite.addChild(caravan);
   }
 
   update(state: State) {
@@ -45,8 +59,6 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
   public node: Node;
   public state: State;
   public selected: boolean = false;
-  // callbacks for updating this entity on game loop tick... ?
-  public onUpdate: (() => void)[] = []; //() => {};
 
   constructor(node: Node, state: State) {
     super();
@@ -61,13 +73,6 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
         node.position.x,
         node.position.y,
       ));
-
-      this.addChild(this.renderSprite(PIXI.loader.resources['caravan'].texture,
-        node.position.x + 14,
-        node.position.y + 14,
-      ));
-
-      state.caravan_location_graphix = this;
 
     } else if (node.locationType == 'Finish') {
       // mount DOOM!
@@ -91,7 +96,9 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
       this.selected = !this.selected;
 
       if (!this.selected) {
-        moveCaravanTo(this, this.state)();
+        // we just double clicked this node
+        // TODO in theory we should propagate this up a level
+        this.state.caravan_location = this.node;
       }
     }
 
@@ -125,23 +132,4 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
 
   update(state: State): void {
   }
-}
-
-export function moveCaravanTo(nodeGraphix: GameMapCircle, state: State): (() => void) {
-  // first generate the callback
-  let onUpdate = ((old_location_graphix) => () => {
-    //state.caravan_location_graphix.removeChildAt(0);
-    old_location_graphix.removeChildAt(old_location_graphix.children.length - 1);
-    const stest = new PIXI.Sprite(PIXI.loader.resources['caravan'].texture);
-    stest.x = nodeGraphix.node.position.x - 2;
-    stest.y = nodeGraphix.node.position.y - 2;
-    stest.scale = new PIXI.Point(2, 2);
-    nodeGraphix.addChild(stest);
-  })(state.caravan_location_graphix)
-
-  // now update caravan location
-  state.caravan_location = nodeGraphix.node;
-  state.caravan_location_graphix = nodeGraphix;
-  state.isLocationDone = false;
-  return onUpdate;
 }
