@@ -6,7 +6,7 @@ import { Card } from './card';
 
 type CardChooserProps = {
   gameState: State;
-  onDone: () => void;
+  onDone: (selectedCards: Set<CardType>) => void;
 };
 
 type CardChooserState = {
