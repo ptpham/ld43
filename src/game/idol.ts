@@ -11,6 +11,7 @@ export class Idol extends PIXI.Sprite implements IEntity {
     );
 
     state.addEntity(this);
+    state.stage.addChild(this);
   }
 
   update(state: State): void {
