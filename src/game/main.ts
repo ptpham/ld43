@@ -24,6 +24,18 @@ export class Game {
   constructor(div: HTMLDivElement) {
     this.setUpPixiStuff(div);
 
+
+    const graphSprite = new PIXI.Graphics();
+    for (let node of this.state.graph) {
+      for (let neighbor of node.neighbors) {
+        graphSprite.moveTo(node.position.x, node.position.y);
+        graphSprite.lineTo(neighbor.position.x, neighbor.position.y);
+      }
+    }
+
+    for (let node of this.state.graph) {
+      graphSprite.drawCircle(node.position.x, node.position.y, 16);
+    }
     const sprite = new PIXI.Graphics();
     sprite.x = 0;
     sprite.y = 0;
