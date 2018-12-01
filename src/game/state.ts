@@ -73,6 +73,7 @@ export class State {
   onDropIdol(): void {
     if (this.idolState.state === "carried") {
       this.hasIdol = false;
+
       this.idolState = {
         state: "dropped",
         node: this.caravan_location,
