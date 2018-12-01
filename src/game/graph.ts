@@ -6,6 +6,11 @@ import _ from 'lodash';
 export class Node {
   neighbors: Node[] = [];
   constructor(public position: Point, public locationType: LocationType) { }
+
+  connect(other:Node) {
+    other.neighbors.push(this);
+    this.neighbors.push(other);
+  }
 }
 
 export type GenerateOptions = {
@@ -46,8 +51,20 @@ export function generate(options: GenerateOptions): Node[] {
         }
       }
 
-      first.neighbors.push(second);
-      second.neighbors.push(first);
+      first.connect(second);
+    }
+  }
+
+  let targetDegree = 3;
+  for (let first of result) {
+    let currentCount = first.neighbors.length;
+    if (currentCount > targetDegree) continue;
+
+    let prohibit = [first, ...first.neighbors];
+    let sorted = _.sortBy(_.difference(result, prohibit), second => first.position.distance(second.position))!;
+
+    for (let i = 0; i < targetDegree - currentCount; i++) {
+      first.connect(sorted[i]);
     }
   }
 

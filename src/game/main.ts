@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 import { C } from './constants';
 import * as Graph from './graph';
 import { CardType } from './data';
+import { GameMap } from './map';
 
 /**
  * This will be the god object that holds all state. 
@@ -12,12 +13,16 @@ import { CardType } from './data';
  */
 export class State {
   active_caravan: CardType[] = [];    
-  stage: PIXI.Container;
-  graph: Graph.Node[];
+  stage         : PIXI.Container;
+  graph         : Graph.Node[];
 
   constructor(stage: PIXI.Container) {
     this.stage = stage;
-    this.graph = Graph.generate({ width: 600, height: 100, spacing: 10 });
+    this.graph = Graph.generate({ 
+      width: C.CANVAS_WIDTH - 100, // TODO(bowei): this should be MAP_WIDTH and MAP_HEIGHT once we get scrolling working
+      height: C.CANVAS_HEIGHT - 100,
+      spacing: 48
+    });
   }
 }
 
@@ -35,19 +40,19 @@ export class Game {
   }
 
   private start(): void {
-    const sprite = new PIXI.Graphics();
-    sprite.x = 0;
-    sprite.y = 0;
-
-    sprite.drawRect(0, 0, 25, 25);
-
     this.stage = new PIXI.Container();
+
+    const sprite = new PIXI.Graphics();
+    //sprite.x = 50;
+    //sprite.y = 50;
+    sprite.position.set(50,50);
+    //sprite.lineTo(550,50);
     this.stage.addChild(sprite);
 
     const text = new PIXI.Text("Roguelike Dragon God Trail New Game Plus Simulator The Card Game 2");
     this.stage.addChild(text);
     text.x = 50;
-    text.y = 50;
+    text.y = 0;
 
     this.animate();
 
@@ -55,19 +60,7 @@ export class Game {
       this.stage,
     );
 
-    const graphSprite = new PIXI.Graphics();
-    for (let node of this.state.graph) {
-      for (let neighbor of node.neighbors) {
-        graphSprite.moveTo(node.position.x, node.position.y);
-        graphSprite.lineTo(neighbor.position.x, neighbor.position.y);
-      }
-    }
-
-    for (let node of this.state.graph) {
-      graphSprite.drawCircle(node.position.x, node.position.y, 16);
-    }
-
-    this.stage.addChild(graphSprite);
+    new GameMap(this.state);
   }
 
   private setUpPixiStuff(div: HTMLDivElement): void {

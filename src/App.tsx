@@ -10,6 +10,7 @@ type CardChooserProps = {
 
 type CardChooserState = {
   cards: CardType[];
+  selectedCards: Set<CardType>;
 };
 
 export class CardChooser extends React.Component<CardChooserProps, CardChooserState> {
@@ -20,6 +21,7 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
 
     CardChooser.Instance = this;
     this.state = {
+      selectedCards: new Set(),
       cards: [
         {
           type: "Builder",
@@ -49,24 +51,60 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
     this.setState(state);
   }
 
+  private changeSelection(card: CardType, selected: boolean): void {
+    if (this.state.selectedCards.has(card) && !selected) {
+      const newSet = new Set(this.state.selectedCards);
+      newSet.delete(card);
+
+      this.setState({ selectedCards: newSet, });
+
+      return;
+    }
+
+    if (!this.state.selectedCards.has(card) && selected) {
+      const newSet = new Set(this.state.selectedCards);
+      newSet.add(card);
+
+      this.setState({ selectedCards: newSet, });
+
+      return;
+    }
+  }
+
   public render(): JSX.Element {
     return (
       <div
         onClick={ () => console.log('was clicked!') }
         style={{
           width: "600px",
-          height: "200px",
           padding: "20px",
           border: "1px solid lightgray",
         } }
       >
-        <div>Card Chooser 9000 </div>
+        <div
+          style={{
+            fontSize: "20px",
+          }}
+        >Choose your Caravan!</div>
 
-        {
-          this.state.cards.map(card => 
-            <Card card={ card } />
-          )
-        }
+        <div>
+          {
+            this.state.cards.map(card => 
+              <Card 
+                card={ card } 
+                gameState={ this.props.gameState } 
+                onChangeSelection={ (card, selected) => {
+                  this.changeSelection(card, selected);
+                }}
+              />
+            )
+          }
+        </div>
+        <div style={{ textAlign: "center" }}>
+          <a href="javascript:;">
+            Go!
+          </a>
+        </div>
       </div>
     );
   }
