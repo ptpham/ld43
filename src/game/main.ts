@@ -19,10 +19,17 @@ export class State {
 export class Game {
   renderer!: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
   stage    : PIXI.Container;
+  state    : State;
 
   constructor(div: HTMLDivElement) {
     this.setUpPixiStuff(div);
 
+    const loader = new PIXI.loaders.Loader();
+    loader.add('test', 'assets/test.png');
+    loader.load(() => this.start());
+  }
+
+  private start(): void {
     const sprite = new PIXI.Graphics();
     sprite.x = 0;
     sprite.y = 0;
@@ -38,9 +45,13 @@ export class Game {
     text.y = 50;
 
     this.animate();
+
+    this.state = new State(
+      this.stage,
+    );
   }
 
-  private async setUpPixiStuff(div: HTMLDivElement): Promise<void> {
+  private setUpPixiStuff(div: HTMLDivElement): void {
     this.renderer = PIXI.autoDetectRenderer(
       C.CANVAS_WIDTH,
       C.CANVAS_HEIGHT, {
@@ -51,14 +62,7 @@ export class Game {
       }
     );
 
-    const loader = new PIXI.loaders.Loader();
-    loader.add('test', 'assets/test.png');
-    return new Promise((res) => {
-      loader.load((loader, resources) => res(resources));
-    }).then((resources) => {
-      this.resources = resources;
-      div.appendChild(this.renderer.view);
-    });
+    div.appendChild(this.renderer.view);
   }
 
   animate(): void {
