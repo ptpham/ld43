@@ -8,7 +8,6 @@ type CardChooserProps = {
 };
 
 type CardChooserState = {
-  text: string;
   cards: CardType[];
 };
 
@@ -20,7 +19,6 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
 
     CardChooser.Instance = this;
     this.state = {
-      text: "ok",
       cards: [
         {
           type: "Builder",
@@ -62,8 +60,6 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
         } }
       >
         <div>Card Chooser 9000 </div>
-
-        { this.state.text }
 
         {
           this.state.cards.map(card => 
