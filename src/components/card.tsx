@@ -16,7 +16,12 @@ export class Card extends React.Component<CardProps, {}> {
 
   public render(): JSX.Element {
     return (
-      <div >
+      <div
+        style={{
+          display: "inline-block",
+          border: "1px solid lightgray",
+        }}
+      >
         I'm a card! { this.props.card.type }
       </div>
     );
