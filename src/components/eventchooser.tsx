@@ -41,13 +41,20 @@ export class EventChooser extends React.Component<EventChooserProps> {
     let { locationType, gameState } = this.props;
 
     let data = LocationTypeData[locationType];
-    let targetSkill = _.get(data, 'targetSkill');
-    let hasSkill = _.find(gameState.active_caravan, card => card.skill == targetSkill) != null;
+
+    if (!data) {
+      return <div>Nothing!!!!!</div>
+    }
+
+    let targetSkill = data.targetSkill;
+    let hasSkill = _.find(gameState.active_caravan, card => card.type === targetSkill) != null;
 
     return <div className="column">
       Woah you are on a {locationType}.
       {
-        (hasSkill) ? this.renderSacrificeEvent(targetSkill) : this.renderEmptyEvent()
+        targetSkill && hasSkill 
+          ? this.renderSacrificeEvent(targetSkill) 
+          : this.renderEmptyEvent()
       }
     </div>;
   }

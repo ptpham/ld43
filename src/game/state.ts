@@ -72,7 +72,7 @@ export class State {
     this.caravan_location = to;
     this.isLocationDone = false;
 
-    this.meat -= this.meat;
+    this.meat -= to.meatCost(this);
   }
 
   onDropIdol(): void {

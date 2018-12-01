@@ -1,60 +1,49 @@
-import React from 'react';
-import { State } from '../game/state';
-import { LocationType, LocationTypeData } from '../game/data';
-import _ from 'lodash';
 
-type EventChooserProps = {
-  gameState: State,
-  locationType: LocationType,
-  onDone: () => void
+export type LocationTypeDataType = {
+  targetSkill?: string
+}
+
+export type LocationType = 
+  | "Start" 
+  | "Finish" 
+  | "Forest" 
+  | "GoblinNest" 
+  | "Canyon"
+  | "Desert"
+  | "River"
+  | "Mountain"
+
+export type SkillType = 
+  | 'WoodCutter'
+  | 'Builder'
+  | 'Priest'
+
+export const LocationTypeData: { [key in LocationType]: {
+  targetSkill?: SkillType;
+}} = {
+  Start: {},
+  Finish: {},
+  Forest: { targetSkill: 'WoodCutter' },
+  GoblinNest: {},
+  Canyon: { targetSkill: 'Builder' },
+  Desert: { targetSkill: 'Priest' },
+  River: {},
+  Mountain: {}
 };
 
-export class EventChooser extends React.Component<EventChooserProps> {
-  
-  sacrifice(targetSkill: string) {
-    let { gameState } = this.props;
-    let { active_caravan } = gameState;
-    let personWithSkill = _.find(active_caravan, x => x.type == targetSkill);
-    gameState.active_caravan = gameState.active_caravan.filter(x => x != personWithSkill);
-    this.props.onDone();
-  }
+export const LocationTypeNames = Object.keys(LocationTypeData);
 
-  renderEmptyEvent() {
-    let { onDone } = this.props;
-    return <div>
-      No one in your party can do anything here.
-      <button onClick={onDone}>OK</button>
-    </div>;
-  }
-  
-  renderSacrificeEvent(targetSkill: string) {
-    let { onDone } = this.props;
-    return <div>
-      Do you want to sacrifice a {targetSkill}?
-      <button onClick={() => this.sacrifice(targetSkill)}>Yes</button>
-      <button onClick={() => onDone()}>No</button>
-    </div>;
-  }
+export type CardVocationType = 
+  | "Builder"
+  | "Storyteller"
+  | "Stupid"
+  | "Fighter"
+  | "WoodCutter"
+  | "Priest"
+;
 
-  renderOption() {
-    let { locationType, gameState } = this.props;
-
-    let data = LocationTypeData[locationType];
-    let targetSkill = _.get(data, 'targetSkill');
-    let hasSkill = _.find(gameState.active_caravan, card => card.skill == targetSkill) != null;
-
-    return <div className="column">
-      Woah you are on a {locationType}.
-      {
-        (hasSkill) ? this.renderSacrificeEvent(targetSkill) : this.renderEmptyEvent()
-      }
-    </div>;
-  }
-
-  render() {
-    return <div className="event-chooser row">
-      <img placeholder="Image for location goes here" />
-      { this.renderOption() }
-    </div>;
-  }
+export type CardType = {
+  type: CardVocationType;
+  meat: number;
+  skill: number;
 }

@@ -1,4 +1,5 @@
 
+import React from "react";
 import { C } from './constants';
 import { Line } from './lib/line';
 import { Point } from './lib/point';
