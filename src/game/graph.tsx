@@ -12,6 +12,8 @@ export class Node {
   baseMeatCost!: number;
 
   neighbors: Node[] = [];
+  upgraded: boolean = false;
+
   constructor(
     public position: Point, 
     public locationType: LocationType
@@ -34,6 +36,10 @@ export class Node {
   connect(other:Node) {
     other.neighbors.push(this);
     this.neighbors.push(other);
+  }
+
+  upgrade() {
+    this.upgraded = true;
   }
 
   public equals(other: Node): boolean {
