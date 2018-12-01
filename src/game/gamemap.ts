@@ -83,6 +83,9 @@ class GameMapCircle extends PIXI.Graphics implements IEntity {
       // can only select nodes adjacent to current caravan location
       if (this.state.caravan_location.neighbors.indexOf(this.node) > -1) {
         this.selected = !this.selected;
+        if (!this.selected) {
+          moveCaravanTo(this.node, this.state);
+        }
         // queue up the rerender
         this.onUpdate = () => {
           if (this.selected) {
