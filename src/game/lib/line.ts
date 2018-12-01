@@ -114,6 +114,44 @@ export class Line {
     return new Line({ x1, x2, y1, y2 });
   }
 
+  separateLine(other: Line): boolean | null {
+    let { start: thisStart, end: thisEnd } = this;
+    const along: Point = thisEnd.subtract(thisStart);
+    const length = along.length();
+    if (length < 1e-6) return null;
+    along.multiplyScalar(1/length);
+
+    const ortho: Point = new Point(along.y, -along.x);
+    const { start: otherStart, end: otherEnd } = other;
+    if (Line.separateDirection(along, [thisStart, thisEnd], [otherStart, otherEnd])) return true;
+    if (Line.separateDirection(ortho, [thisStart, thisEnd], [otherStart, otherEnd])) return true;
+    return false;
+  }
+
+  intersectLine(other: Line) {
+    let first = this.separateLine(other);
+    let second = other.separateLine(this);
+    if (first == null && second == null) {
+      return this.start.distance(other.start) < 1e-5;
+    }
+    return !first && !second;
+  }
+
+  intersectCircle(center: Point, radius: number) {
+    let { start, end } = this;
+    let d = end.subtract(start);
+    let length = d.length();
+    d.normalize();
+
+    let t = (center.dot(d) - start.dot(d));
+    let approach: Point;
+
+    if (t < 0) approach = start;
+    else if (t > length) approach = end;
+    else approach = new Point(start.x + t*d.x, start.y + t*d.y);
+    return approach.distance(center) < radius;
+  }
+
   // Must be horizontally/vertically oriented lines
   // Does not consider intersection, only overlap
   getOverlap(other: Line): Line | undefined {
@@ -263,4 +301,15 @@ export class Line {
       y2: obj.y2,
     });
   }
+
+  static separateDirection(direction: Point, first: Point[], second: Point[]): boolean {
+    let firstDots = first.map(point => point.dot(direction));
+    let secondDots = second.map(point => point.dot(direction));
+    let maxFirstDots = Math.max(...firstDots);
+    let minFirstDots = Math.min(...firstDots);
+    let maxSecondDots = Math.max(...secondDots);
+    let minSecondDots = Math.min(...secondDots);
+    return maxFirstDots < minSecondDots || maxSecondDots < minFirstDots;
+  }
 }
+

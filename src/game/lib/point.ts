@@ -84,6 +84,21 @@ export class Point {
     return other.subtract(this).length();
   }
 
+  multiplyScalar(scalar: number) {
+    this._x *= scalar;
+    this._y *= scalar;
+  }
+
+  normalize() {
+    let length = this.length();
+    if (length < 1e-6) {
+      this._x = 0;
+      this._y = 0;
+      return;
+    }
+    this.multiplyScalar(1/length);
+  }
+
   dot(other: Point) {
     return this._x * other.x + this._y * other.y;
   }
