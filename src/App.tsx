@@ -38,7 +38,7 @@ class App extends React.Component<{ game: Game }, AppState>  {
 
     props.game.state.addChangeListener((gameState) => {
       this.setState({ gameState })
-    })
+    });
   }
 
   componentDidMount(): void {
