@@ -27,6 +27,12 @@ export class Game {
   constructor(div: HTMLDivElement) {
     this.setUpPixiStuff(div);
 
+    const loader = new PIXI.loaders.Loader();
+    loader.add('test', 'assets/test.png');
+    loader.load(() => this.start());
+  }
+
+  private start(): void {
     const sprite = new PIXI.Graphics();
     sprite.x = 0;
     sprite.y = 0;
@@ -70,9 +76,6 @@ export class Game {
         resolution : 1
       }
     );
-
-    const loader = new PIXI.loaders.Loader();
-    loader.add('test', 'assets/test.png');
 
     div.appendChild(this.renderer.view);
   }
