@@ -4,9 +4,14 @@ import * as Graph from './graph';
 import { CardType } from './data';
 import { IEntity } from './entity';
 
-type IdolState = {
-  state: "carried";
-}
+type IdolState = 
+  | {
+      state: "carried";
+    }
+  | {
+      state   : "dropped";
+      position: Node;
+    }
 
 /**
  * This will be the god object that holds all state. 
