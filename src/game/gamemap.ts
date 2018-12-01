@@ -47,11 +47,12 @@ export class GameMap extends Entity {
 
 class GameMapCircle extends PIXI.Graphics implements IEntity {
   public m_node: Node;
-  public pendingInteraction: boolean; // flag for whether we need to rerender this guy
+  //public pendingInteraction: boolean; // flag for whether we need to rerender this guy
+  public pendingInteraction: () => void; // callback for updating this entity on game loop tick... ?
 
   constructor(node: Node) {
     super();
-    this.pendingInteraction = false;
+    this.pendingInteraction = () => {};
     this.m_node = node;
     this.lineWidth = 1;
     this.lineStyle(1, 0x000000);
@@ -60,18 +61,19 @@ class GameMapCircle extends PIXI.Graphics implements IEntity {
     this.hitArea = new PIXI.Circle(node.position.x, node.position.y, 16);
     this.on('click', (e: PIXI.interaction.InteractionEvent) => {
       console.log(this.m_node);
-      this.pendingInteraction = true;
-      this.graphicsData[0].lineWidth = 10;
-      this.dirty++;
-      this.clearDirty++;
 
-      const stest = new PIXI.Sprite(PIXI.loader.resources['test'].texture);
-      stest.x = 0;
-      stest.y = 0;
-      this.addChild(stest);
+      this.pendingInteraction = () => {
+        this.graphicsData[0].lineWidth = 10;
+        this.dirty++;
+        this.clearDirty++;
+      }
+
+      //const stest = new PIXI.Sprite(PIXI.loader.resources['test'].texture);
+      //stest.x = 0;
+      //stest.y = 0;
+      //this.addChild(stest);
 
     })
-
   }
 
   update(state: State): void {
