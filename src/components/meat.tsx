@@ -1,11 +1,12 @@
 import React from "react";
+import { State } from "../game/state";
 
 type ToolbarProps = {
 
 }
 
 type ToolbarState = {
-
+    gameState: State;
 }
 
 export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {

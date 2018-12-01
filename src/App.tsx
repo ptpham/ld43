@@ -70,20 +70,12 @@ class App extends React.Component<{ game: Game }, AppState>  {
   public render() {
     return (
       <div>
-<<<<<<< HEAD
-        <MeatToolbar />
-        <div
-          className="App"
-          ref={ div => this.div = div! }
-        >
-        { this.renderGameStateComponents() }
-=======
+        <Toolbar gameState={this.state.gameState}/>
         <div>
           Meat: { this.state.gameState && this.state.gameState && this.state.gameState.meat }
         </div>
         <div ref={ div => this.div = div! }>
           { this.renderGameStateComponents() }
->>>>>>> ce34e56f88b29ef498b949adc7c07cb751b08d67
         </div>
       </div>
     );
