@@ -50,7 +50,7 @@ export class EventChooser extends React.Component<EventChooserProps> {
     }
 
     let targetSkill = data.targetSkill;
-    let hasSkill = _.find(gameState.active_caravan, card => card.type === targetSkill) != null;
+    let hasSkill = _.find([...gameState.cardsInCaravan.keys()], card => card.type === targetSkill) != null;
 
     return <div className="column">
       Woah you are on a {locationType}.
