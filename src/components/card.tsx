@@ -25,7 +25,7 @@ export class Card extends React.Component<CardProps, CardState> {
     return (
       <div
         onClick = { () => {
-          console.log("was clicked", this.props.card, this.props.gameState);
+          //console.log("cawas clicked", this.props.card, this.props.gameState);
           //this.props.gameState.active_caravan.push(this.props.card);
         } }
         style={{
