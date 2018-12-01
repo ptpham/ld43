@@ -28,7 +28,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
     } else if (action === "Pick Up") {
       this.props.onPickUpIdol();
     } else if (action === "None") {
-
+      return;
     }
   }
 
@@ -74,6 +74,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
             onClick={ () => this.clickDropOrPickUp(idolAction) }
           >
             {
+              idolAction === "None" ? "" : idolAction
             }
           </a>
         </div>
