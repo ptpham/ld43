@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { State } from '../game/state';
-import { LocationType, LocationTypeData } from '../game/data';
+import { LocationTypeData } from '../game/data';
 import * as Graph from '../game/graph';
 import _ from 'lodash';
 
