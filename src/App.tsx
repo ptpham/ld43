@@ -1,7 +1,40 @@
 import * as React from 'react';
-import './App.css';
+import { Game } from './game/main';
 
-import { Game } from './main';
+type CardChooserProps = {
+  state: State;
+};
+
+//type CardChooserState = { };
+
+export class CardChooser extends React.Component<CardChooserProps, State> {
+  public static Instance: CardChooser;
+
+  constructor(props: CardChooserProps) {
+    super(props);
+    CardChooser.Instance = this;
+    this.state = props.state;
+  }
+
+  public update(state: State) {
+    this.setState(state);
+  }
+
+  public render(): JSX.Element {
+    return (
+      <div
+        style={{
+          width: "600px",
+          height: "200px",
+          padding: "20px",
+          border: "1px solid lightgray",
+        } }
+      >
+        Card Chooser 9000
+      </div>
+    );
+  }
+}
 
 class App extends React.Component {
   public div!: HTMLDivElement;
@@ -12,7 +45,16 @@ class App extends React.Component {
 
   public render() {
     return (
-      <div className="App" ref={ div => this.div = div! } />
+      <div>
+        <div
+          className="App"
+          ref={ div => this.div = div! }
+        >
+
+        </div>
+
+        <CardChooser />
+      </div>
     );
   }
 }
