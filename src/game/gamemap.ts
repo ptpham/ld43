@@ -21,11 +21,25 @@ export class GameMap extends Entity {
     }
 
     for (let node of this.state.graph) {
-      graphSprite.drawCircle(node.position.x, node.position.y, 16);
+      const graphCircle = new PIXI.Graphics();
+      graphCircle.lineWidth = 1;
+      graphCircle.lineStyle(1, 0x000000);
+      graphCircle.drawCircle(node.position.x, node.position.y, 16);
+      graphCircle.interactive = true;
+      graphCircle.hitArea = new PIXI.Circle(node.position.x, node.position.y, 16);
+      graphCircle.on('click', (e: PIXI.interaction.InteractionEvent) => {
+        console.log(node);
+      })
+      graphSprite.addChild(graphCircle);
     }
 
     graphSprite.x = 50;
     graphSprite.y = 50;
+    //graphSprite.interactive = true;
+    //graphSprite.hitArea = new PIXI.Rectangle(50, 50, 500, 500);
+    //graphSprite.on('click', (e: PIXI.interaction.InteractionEvent) => {
+    //  console.log(e.data.global);
+    //})
     state.stage.addChild(graphSprite);
   }
 }
