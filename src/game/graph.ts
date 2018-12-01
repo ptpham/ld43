@@ -10,8 +10,8 @@ export class Node {
 
 export function generateGraph(width: number, height: number, spacing: number, maxIters: number = 1000): Node[] {
   let result: Node[] = [
-    new Node(new Point(spacing, height / 2), LocationType.Start),
-    new Node(new Point(width - spacing, height / 2), LocationType.Finish)
+    new Node(new Point(spacing, height / 2), "Start"),
+    new Node(new Point(width - spacing, height / 2), "Finish")
   ];
 
   for (let i = 0; i < maxIters; i++) {
