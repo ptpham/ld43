@@ -49,7 +49,7 @@ export class State {
   }
 
   onDropIdol(): void {
-
+    console.log("drop");
   }
 
   onPickUpIdol(): void {

@@ -79,6 +79,7 @@ class App extends React.Component<{ game: Game }, AppState>  {
           ref={ div => this.div = div! }>
           { this.renderGameStateComponents() }
         </div>
+
         <Sidebar 
           onDropIdol={() => this.state.gameState.onDropIdol()}
           onPickUpIdol={() => this.state.gameState.onPickUpIdol()}
