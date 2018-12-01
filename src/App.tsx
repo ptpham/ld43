@@ -2,11 +2,12 @@ import * as React from 'react';
 import { Game, State } from './game/main';
 
 type CardChooserProps = {
-  text: string;
   gameState: State;
 };
 
-type CardChooserState = { };
+type CardChooserState = {
+  text: string;
+};
 
 export class CardChooser extends React.Component<CardChooserProps, CardChooserState> {
   public static Instance: CardChooser;
@@ -15,7 +16,10 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
     super(props);
 
     CardChooser.Instance = this;
-    this.state = props.gameState;
+    this.state = {
+      text: "ok",
+    };
+
   }
 
   public update(state: State) {
@@ -68,7 +72,7 @@ class App extends React.Component {
 
         </div>
 
-        <CardChooser gameState={this.state} text={ "foo" }/>
+        <CardChooser gameState={this.state} />
       </div>
     );
   }
