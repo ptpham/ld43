@@ -1,10 +1,11 @@
 import { CardType } from "../game/data";
+import React from "react";
 
-type Card {
+type CardProps = {
   card: CardType;
 }
 
-export class CardChooser extends React.Component<CardChooserProps, CardChooserState> {
+export class Card extends React.Component<CardProps, {}> {
   public static Instance: CardChooser;
 
   constructor(props: CardChooserProps) {
