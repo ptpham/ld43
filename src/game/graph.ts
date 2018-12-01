@@ -8,6 +8,9 @@ export class Node {
   constructor(public position: Point, public locationType: LocationType) { }
 }
 
+export type GenerateOptions = {
+}
+
 export function generateGraph(width: number, height: number, spacing: number, iters: number = 1000): Node[] {
   let result: Node[] = [
     new Node(new Point(spacing, height / 2), "Start"),
@@ -26,7 +29,10 @@ export function generateGraph(width: number, height: number, spacing: number, it
 
   for (let first of result) {
     for (let second of result) {
+      let toSecond = second.position.subtract(first.position);
+      
       for (let neighbor of first.neighbors) {
+        let toNeighbor = neighbor.position.subtract(first.position);
         
       }
     }

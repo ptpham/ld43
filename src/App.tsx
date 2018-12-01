@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Game, State } from './game/main';
+import { CardType } from './game/data';
+import { Card } from './components/card';
 
 type CardChooserProps = {
   gameState: State;
@@ -7,6 +9,7 @@ type CardChooserProps = {
 
 type CardChooserState = {
   text: string;
+  cards: CardType[];
 };
 
 export class CardChooser extends React.Component<CardChooserProps, CardChooserState> {
@@ -18,11 +21,32 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
     CardChooser.Instance = this;
     this.state = {
       text: "ok",
+      cards: [
+        {
+          type: "Builder",
+          meat: 3,
+          skill: 7,
+        },
+        {
+          type: "Storyteller",
+          meat: 7,
+          skill: 2,
+        },
+        {
+          type: "Fighter",
+          meat: 1,
+          skill: 1,
+        },
+        {
+          type: "Stupid",
+          meat: 1,
+          skill: 9,
+        },
+      ]
     };
-
   }
 
-  public update(state: State) {
+  public update(state: CardChooserState) {
     this.setState(state);
   }
 
@@ -37,8 +61,14 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
           border: "1px solid lightgray",
         } }
       >
-        Card Chooser 9000
+        Card Chooser 9000 <br>
         { this.state.text }
+
+        {
+          this.state.cards.map(card => 
+            <Card card={ card } />
+          )
+        }
       </div>
     );
   }

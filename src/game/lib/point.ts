@@ -88,6 +88,10 @@ export class Point {
     return this._x * other.x + this._y * other.y;
   }
 
+  angle(other: Point) {
+    return Math.acos(Math.min(Math.max(this.dot(other), -1), 1));
+  }
+
   scale(about: { x: number; y: number }, amount: { x: number; y: number }): Point {
     return new Point({
       x: (this.x - about.x) * amount.x + about.x,
