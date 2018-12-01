@@ -29,6 +29,7 @@ export class GameMap extends Entity {
       graphCircle.hitArea = new PIXI.Circle(node.position.x, node.position.y, 16);
       graphCircle.on('click', (e: PIXI.interaction.InteractionEvent) => {
         console.log(node);
+        graphCircle.lineWidth = 10;
       })
       graphSprite.addChild(graphCircle);
     }
