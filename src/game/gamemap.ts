@@ -43,4 +43,8 @@ export class GameMap extends Entity {
     //})
     state.stage.addChild(graphSprite);
   }
+
+  update(state: State) {
+    // update some circles
+  }
 }
