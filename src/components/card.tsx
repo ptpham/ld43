@@ -20,9 +20,12 @@ export class Card extends React.Component<CardProps, {}> {
         style={{
           display: "inline-block",
           border: "1px solid lightgray",
+          height: "200px",
+          width: "100px",
+          margin: "0 20px",
         }}
       >
-        I'm a card! { this.props.card.type }
+        <div>{ this.props.card.type }</div>
       </div>
     );
   }
