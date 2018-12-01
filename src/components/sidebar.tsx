@@ -26,6 +26,9 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
   }
 
   public render(): JSX.Element {
+    let canPickUpIdol = false;
+    const state = this.props.gameState;
+
     return (
       <div
         style={{
