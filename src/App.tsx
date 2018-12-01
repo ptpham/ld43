@@ -73,6 +73,7 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
 
 class App extends React.Component {
   state !: State;
+  app   !: PIXI.Application;
   public div!: HTMLDivElement;
 
   constructor(props: any) {
@@ -82,7 +83,9 @@ class App extends React.Component {
   }
 
   start() {
-    this.state = new State();
+    this.app = new PIXI.Application(
+    )
+    this.state = new State(this.app.stage);
   }
 
   public componentDidMount() {
