@@ -46,6 +46,10 @@ class App extends React.Component<{ game: Game }, AppState>  {
     this.div!.appendChild(this.props.game.view!);
   }
 
+  onSelectCards(cards: Set<CardType>): void {
+
+  }
+
   renderCurrentLocation(state: State) {
     let onDone = () => {
       state.isLocationDone = true;
