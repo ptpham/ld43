@@ -58,7 +58,7 @@ class App extends React.Component<{ game: Game }, AppState>  {
         return (
           <CardChooser 
             gameState={state} 
-            onDone={onDone}
+            onDone={ cards => onSelectCards(cards) }
           />
         );
       default:
