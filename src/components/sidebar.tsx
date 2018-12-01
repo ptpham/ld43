@@ -62,7 +62,9 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
             {
               this.props.gameState.hasIdol
                 ? "Drop"
-                : ""
+                : canPickUpIdol
+                  ? "Pick Up"
+                  : ""
             }
           </a>
         </div>
