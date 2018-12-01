@@ -21,8 +21,13 @@ export class Point {
   }
 
   constructor(props: { x: number, y: number } | number, yOrNothing?: number) {
-    this._x = props.x;
-    this._y = props.y;
+    if (typeof props === "number") {
+      this._x = props;
+      this._y = yOrNothing!;
+    } else {
+      this._x = props.x;
+      this._y = props.y;
+    }
   }
 
   toString(): string {
