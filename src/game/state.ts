@@ -36,6 +36,8 @@ export class State {
   cardsInWholeGame    : Set<CardType>;
   stage               : PIXI.Container;
   graph               : Graph.Node[];
+  river               : PIXI.Point[];
+  canyon              : PIXI.Point[];
   caravan_location    : Graph.Node;
   selectedNextLocation: GameMapCircle | undefined;
   isLocationDone      : boolean;
@@ -49,11 +51,16 @@ export class State {
 
     this.stage    = stage;
     this.entities = [];
-    this.graph    = Graph.generate({ 
-      width  : C.CANVAS_WIDTH - 100, // TODO(bowei): this should be MAP_WIDTH and MAP_HEIGHT once we get scrolling working
-      height : C.CANVAS_HEIGHT - 100,
+
+    const graphOptions = {
+      width: C.CANVAS_WIDTH - 100, // TODO(bowei): this should be MAP_WIDTH and MAP_HEIGHT once we get scrolling working
+      height: C.CANVAS_HEIGHT - 100,
       spacing: 48
-    });
+    };
+    this.graph = Graph.generate(graphOptions);
+    this.river = Graph.generateSnake(this.graph, 'River', graphOptions);
+    this.canyon = Graph.generateSnake(this.graph, 'Canyon', graphOptions);
+
     this.caravan_location = this.graph[0];
     this.isLocationDone = false;
 
