@@ -84,7 +84,10 @@ export class State {
   }
 
   onPickUpIdol(): void {
-    if (this.idolState.state === "carried") {
+    if (
+      this.idolState.state === "dropped" &&
+      this.caravan_location === this.idolState.node
+      ) {
       this.hasIdol = false;
 
       this.idolState = {
