@@ -85,7 +85,9 @@ export class State {
 
   }
 
-  onChange(e: () => void) {
+  changeListeners: (() => void)[] = [];
 
+  onChange(e: () => void) {
+    this.changeListeners.push(e);
   }
 }
