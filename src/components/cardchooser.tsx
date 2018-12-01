@@ -27,22 +27,18 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
         {
           skill: "Builder",
           meat: 3,
-          level: 7,
         },
         {
           skill: "Storyteller",
           meat: 7,
-          level: 2,
         },
         {
           skill: "Fighter",
           meat: 1,
-          level: 1,
         },
         {
           skill: "Stupid",
           meat: 1,
-          level: 9,
         },
       ]
     };
