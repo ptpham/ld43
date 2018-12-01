@@ -66,7 +66,7 @@ export class Game {
       graphSprite.drawCircle(node.position.x, node.position.y, 16);
     }
 
-    this.
+    this.stage.addChild(graphSprite)
   }
 
   private setUpPixiStuff(div: HTMLDivElement): void {
