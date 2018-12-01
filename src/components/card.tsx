@@ -6,40 +6,11 @@ type CardProps = {
 }
 
 export class Card extends React.Component<CardProps, {}> {
-  public static Instance: CardChooser;
-
-  constructor(props: CardChooserProps) {
+  constructor(props: CardProps) {
     super(props);
-
-    CardChooser.Instance = this;
-    this.state = {
-      text: "ok",
-      cards: [
-        {
-          type: "Builder",
-          meat: 3,
-          skill: 7,
-        },
-        {
-          type: "Storyteller",
-          meat: 7,
-          skill: 2,
-        },
-        {
-          type: "Fighter",
-          meat: 1,
-          skill: 1,
-        },
-        {
-          type: "Stupid",
-          meat: 1,
-          skill: 9,
-        },
-      ]
-    };
   }
 
-  public update(state: CardChooserState) {
+  public update(state: CardProps) {
     this.setState(state);
   }
 

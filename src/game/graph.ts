@@ -26,7 +26,10 @@ export function generateGraph(width: number, height: number, spacing: number, it
 
   for (let first of result) {
     for (let second of result) {
+      let toSecond = second.position.subtract(first.position);
+      
       for (let neighbor of first.neighbors) {
+        let toNeighbor = neighbor.position.subtract(first.position);
         
       }
     }
