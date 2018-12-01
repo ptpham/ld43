@@ -84,4 +84,8 @@ export class State {
   onPickUpIdol(): void {
 
   }
+
+  onChange(e: () => void) {
+
+  }
 }
