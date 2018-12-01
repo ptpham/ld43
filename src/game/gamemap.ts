@@ -22,17 +22,17 @@ export class GameMap extends Entity {
     }
 
     for (let node of this.state.graph) {
-      new GameMapCircle(node);
-      const graphCircle = new PIXI.Graphics();
-      graphCircle.lineWidth = 1;
-      graphCircle.lineStyle(1, 0x000000);
-      graphCircle.drawCircle(node.position.x, node.position.y, 16);
-      graphCircle.interactive = true;
-      graphCircle.hitArea = new PIXI.Circle(node.position.x, node.position.y, 16);
-      graphCircle.on('click', (e: PIXI.interaction.InteractionEvent) => {
-        console.log(node);
-      })
-      graphSprite.addChild(graphCircle);
+      graphSprite.addChild(new GameMapCircle(node));
+      //const graphCircle = new PIXI.Graphics();
+      //graphCircle.lineWidth = 1;
+      //graphCircle.lineStyle(1, 0x000000);
+      //graphCircle.drawCircle(node.position.x, node.position.y, 16);
+      //graphCircle.interactive = true;
+      //graphCircle.hitArea = new PIXI.Circle(node.position.x, node.position.y, 16);
+      //graphCircle.on('click', (e: PIXI.interaction.InteractionEvent) => {
+      //  console.log(node);
+      //})
+      //graphSprite.addChild(graphCircle);
     }
 
     graphSprite.x = 50;
@@ -60,6 +60,7 @@ class GameMapCircle extends PIXI.Graphics implements IEntity {
     this.hitArea = new PIXI.Circle(node.position.x, node.position.y, 16);
     this.on('click', (e: PIXI.interaction.InteractionEvent) => {
       console.log(this.m_node);
+      this.pendingInteraction = true;
     })
 
   }
@@ -69,5 +70,4 @@ class GameMapCircle extends PIXI.Graphics implements IEntity {
       this.lineWidth = 10;
     }
   }
-
 }
