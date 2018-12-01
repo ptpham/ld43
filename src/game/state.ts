@@ -9,8 +9,8 @@ type IdolState =
       state: "carried";
     }
   | {
-      state   : "dropped";
-      node: Graph.Node;
+      state : "dropped";
+      node  : Graph.Node;
     }
   ;
 
