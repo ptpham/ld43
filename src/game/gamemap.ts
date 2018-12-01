@@ -85,7 +85,6 @@ class GameMapCircle extends PIXI.Graphics implements IEntity {
         this.selected = !this.selected;
         // queue up the rerender
         this.onUpdate = () => {
-          this.selected = !this.selected;
           if (this.selected) {
             this.graphicsData[0].lineWidth = 3;
           } else {
