@@ -12,6 +12,10 @@ export class Node {
     other.neighbors.push(this);
     this.neighbors.push(other);
   }
+
+  public equals(other: Node): boolean {
+    return this.position.x === other.position.x && this.position.y === other.position.y;
+  }
 }
 
 export type GenerateOptions = {
