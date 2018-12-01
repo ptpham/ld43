@@ -63,7 +63,6 @@ export class State {
     this.idolState = {
       state: "carried",
     };
-    this.hasIdol  = true;
   }
 
   addEntity(entity: IEntity): void {
@@ -72,8 +71,6 @@ export class State {
 
   onDropIdol(): void {
     if (this.idolState.state === "carried") {
-      this.hasIdol = false;
-
       this.idolState = {
         state: "dropped",
         node: this.caravan_location,
@@ -88,8 +85,6 @@ export class State {
       this.idolState.state === "dropped" &&
       this.caravan_location.equals(this.idolState.node)
       ) {
-      this.hasIdol = false;
-
       this.idolState = {
         state: "carried",
       };
