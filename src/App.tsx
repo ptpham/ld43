@@ -71,9 +71,6 @@ class App extends React.Component<{ game: Game }, AppState>  {
     return (
       <div>
         <Toolbar gameState={this.state.gameState}/>
-        <div>
-          Meat: { this.state.gameState && this.state.gameState && this.state.gameState.meat }
-        </div>
         <div ref={ div => this.div = div! }>
           { this.renderGameStateComponents() }
         </div>
