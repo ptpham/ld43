@@ -9,16 +9,7 @@ const LocationTypes = {
   Mountain: true
 }
 
-export const enum LocationType {
-  Start,
-  Finish,
-  Forest,
-  Forest2,
-  GoblinNest,
-  Desert,
-  River,
-  Mountain
-}
+export type LocationType = keyof LocationTypes;
 
 export type CardVocationType = 
   | "Builder"
