@@ -2,11 +2,12 @@
 import React from 'react';
 import { State } from '../game/state';
 import { LocationType, LocationTypeData } from '../game/data';
+import * as Graph from '../game/graph';
 import _ from 'lodash';
 
 type EventChooserProps = {
   gameState: State,
-  locationType: LocationType,
+  node: Graph.Node,
   onDone: () => void
 };
 
@@ -38,7 +39,7 @@ export class EventChooser extends React.Component<EventChooserProps> {
   }
 
   renderOption() {
-    let { locationType, gameState } = this.props;
+    let { node: { locationType }, gameState } = this.props;
 
     let data = LocationTypeData[locationType];
 
