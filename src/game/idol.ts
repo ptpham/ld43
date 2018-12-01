@@ -5,10 +5,12 @@ import { IEntity } from "./entity";
  * State for idol is on state.idolState.
  */
 export class Idol extends PIXI.Sprite implements IEntity {
-  constructor() {
+  constructor(state: State) {
     super(
       PIXI.loader.resources['test'].texture
     );
+
+    state.addEntity(this);
   }
 
   update(state: State): void {
