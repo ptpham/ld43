@@ -8,6 +8,9 @@ export class Node {
   constructor(public position: Point, public locationType: LocationType) { }
 }
 
+export type GenerateOptions = {
+}
+
 export function generateGraph(width: number, height: number, spacing: number, iters: number = 1000): Node[] {
   let result: Node[] = [
     new Node(new Point(spacing, height / 2), "Start"),

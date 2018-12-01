@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Game, State } from './game/main';
 import { CardType } from './game/data';
+import { Card } from './components/card';
 
 type CardChooserProps = {
   gameState: State;
