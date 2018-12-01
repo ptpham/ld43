@@ -55,7 +55,12 @@ class App extends React.Component<{ game: Game }, AppState>  {
     let { locationType } = state.caravan_location;
     switch (locationType) {
       case 'Start':
-        return <CardChooser gameState={state} onDone={onDone}/>;
+        return (
+          <CardChooser 
+            gameState={state} 
+            onDone={onDone}
+          />
+        );
       default:
         return <EventChooser gameState={state} onDone={onDone}
           locationType={locationType}/>;
