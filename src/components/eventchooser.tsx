@@ -1,12 +1,12 @@
 
 import React from 'react';
 import { State } from '../game/state';
-import { LocationType } from '../game/data';
+import { LocationType, LocationTypeData } from '../game/data';
+import _ from 'lodash';
 
 type EventChooserProps = {
   gameState: State,
   locationType: LocationType,
-  targetSkill: string,
   onDone: () => void
 };
 
@@ -16,18 +16,40 @@ export class EventChooser extends React.Component<EventChooserProps> {
     this.props.onDone();
   }
 
-  renderOption() {
-    let { locationType, targetSkill, onDone } = this.props;
-    return <div className="row">
-      Woah you are on a {locationType}.
+  renderEmptyEvent() {
+    let { onDone } = this.props;
+    return <div>
+      No one in your party can do anything here.
+      <button onClick={onDone}>OK</button>
+    </div>;
+  }
+  
+  renderSacrificeEvent(targetSkill: string) {
+    let { onDone } = this.props;
+    return <div>
       Do you want to sacrifice a {targetSkill}?
       <button onClick={() => this.sacrifice()}>Yes</button>
       <button onClick={() => onDone()}>No</button>
     </div>;
   }
 
+  renderOption() {
+    let { locationType, gameState } = this.props;
+
+    let data = LocationTypeData[locationType];
+    let targetSkill = _.get(data, 'targetSkill');
+    let hasSkill = _.find(gameState.active_caravan, card => card.skill == targetSkill) != null;
+
+    return <div className="column">
+      Woah you are on a {locationType}.
+      {
+        (hasSkill) ? this.renderSacrificeEvent(targetSkill) : this.renderEmptyEvent()
+      }
+    </div>;
+  }
+
   render() {
-    return <div className="event-chooser">
+    return <div className="event-chooser row">
       <img placeholder="Image for location goes here" />
       { this.renderOption() }
     </div>;
