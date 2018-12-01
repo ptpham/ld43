@@ -5,15 +5,26 @@ import { Node } from "./graph";
 
 import { C } from "./constants";
 import { Caravan } from "./caravan";
+import { Graphics } from "pixi.js";
 
 export class GameMap extends Entity {
   state: State;
+  graphSprite: Graphics;
 
   constructor(state: State) {
     super();
 
     this.state = state;
 
+    this.graphSprite = this.makeGraph();
+
+    // add caravan
+
+    this.makeCaravan();
+
+  }
+
+  makeGraph(): PIXI.Graphics {
     const graphSprite = new PIXI.Graphics();
     graphSprite.lineWidth = 1;
     graphSprite.lineStyle(1, 0x000000)
@@ -26,28 +37,32 @@ export class GameMap extends Entity {
     }
 
     for (let node of this.state.graph) {
-      const newCircle = new GameMapCircle(node, state);
+      const newCircle = new GameMapCircle(node, this.state);
 
       graphSprite.addChild(newCircle);
-      state.addEntity(newCircle);
+      this.state.addEntity(newCircle);
     }
 
     graphSprite.x = 50;
     graphSprite.y = 50;
 
-    state.stage.addChild(graphSprite);
+    this.state.stage.addChild(graphSprite);
 
-    // add caravan
+    return graphSprite;
+  }
 
+  makeCaravan(): Caravan {
     const startNode = this.state.graph.filter(x => x.locationType === "Start")[0];
 
     const caravan = new Caravan();
     caravan.x = startNode.position.x;
     caravan.y = startNode.position.y;
 
-    state.addEntity(caravan);
+    this.state.addEntity(caravan);
 
-    graphSprite.addChild(caravan);
+    this.graphSprite.addChild(caravan);
+
+    return caravan;
   }
 
   update(state: State) {
@@ -67,8 +82,6 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
 
     // add a sprite
     if (node.locationType == 'Start') {
-      // caravan starts here
-
       this.addChild(this.renderSprite(PIXI.loader.resources['grass'].texture,
         node.position.x,
         node.position.y,
