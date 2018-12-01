@@ -9,7 +9,7 @@ const LocationTypes = {
   Mountain: true
 }
 
-export type LocationType = keyof LocationTypes;
+export type LocationType = keyof typeof LocationTypes;
 
 export type CardVocationType = 
   | "Builder"
