@@ -50,7 +50,7 @@ class GameMapCircle extends PIXI.Graphics implements IEntity {
   public state: State;
   public selected: boolean = false;
   // callback for updating this entity on game loop tick... ?
-  public pendingInteraction: () => void = () => {};
+  public onUpdate: () => void = () => {};
 
   constructor(node: Node, state: State) {
     super();
@@ -80,8 +80,11 @@ class GameMapCircle extends PIXI.Graphics implements IEntity {
     this.on('click', (e: PIXI.interaction.InteractionEvent) => {
       console.log(this.node);
 
+      // can only select nodes adjacent to current caravan location
       if (this.state.caravan_location.neighbors.indexOf(this.node) > -1) {
-        this.pendingInteraction = () => {
+        this.selected = !this.selected;
+        // queue up the rerender
+        this.onUpdate = () => {
           this.selected = !this.selected;
           if (this.selected) {
             this.graphicsData[0].lineWidth = 3;
@@ -94,14 +97,16 @@ class GameMapCircle extends PIXI.Graphics implements IEntity {
         }
       }
       // lol
-      this.pendingInteraction();
-      this.pendingInteraction = () => {};
+      this.onUpdate();
+      this.onUpdate = () => {};
     })
   }
 
   update(state: State): void {
-    if (this.pendingInteraction) {
-      this.lineWidth = 10;
-    }
+    this.onUpdate();
   }
+}
+
+export function moveCaravanTo(node: Node, state: State) {
+  // first
 }
