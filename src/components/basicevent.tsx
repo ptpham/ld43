@@ -1,7 +1,9 @@
 
 import React from 'react';
 
-class BasicEvent extends React.Component {
+
+
+export class BasicEvent extends React.Component {
   render() {
     let { title } = this.props;
     return <div>
