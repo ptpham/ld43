@@ -48,7 +48,7 @@ class App extends React.Component<{ game: Game }, AppState>  {
   }
 
   onSelectCards(cards: Set<CardType>): void {
-    this.state.gameState.cardsInParty   = cards;
+    this.state.gameState.cardsInCaravan   = cards;
     this.state.gameState.isLocationDone = true;
     this.setState({ isEventVisible: false });
   }

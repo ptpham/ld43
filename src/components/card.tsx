@@ -40,11 +40,11 @@ export class Card extends React.Component<CardProps, CardState> {
         <div>
           {
             this.state.selected
-              ? <strong>{ this.props.card.type }</strong>
-              : this.props.card.type
+              ? <strong>{ this.props.card.skill }</strong>
+              : this.props.card.skill
           }
         </div>
-        <div>Skill: { this.props.card.skill }</div>
+        <div>Skill: { this.props.card.level }</div>
         <div>Meat: { this.props.card.meat }</div>
 
         <div style={{ paddingTop: "20px" }}>

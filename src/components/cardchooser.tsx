@@ -25,24 +25,24 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
       selectedCards: new Set(),
       cards: [
         {
-          type: "Builder",
+          skill: "Builder",
           meat: 3,
-          skill: 7,
+          level: 7,
         },
         {
-          type: "Storyteller",
+          skill: "Storyteller",
           meat: 7,
-          skill: 2,
+          level: 2,
         },
         {
-          type: "Fighter",
+          skill: "Fighter",
           meat: 1,
-          skill: 1,
+          level: 1,
         },
         {
-          type: "Stupid",
+          skill: "Stupid",
           meat: 1,
-          skill: 9,
+          level: 9,
         },
       ]
     };
