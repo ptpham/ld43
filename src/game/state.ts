@@ -91,8 +91,7 @@ export class State {
       this.hasIdol = false;
 
       this.idolState = {
-        state: "dropped",
-        node: this.caravan_location,
+        state: "carried",
       };
     }
 
