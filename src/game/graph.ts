@@ -17,12 +17,9 @@ export function generateGraph(width: number, height: number, spacing: number, ma
     let x: number = Math.random();
     let y: number = Math.random();
 
-    for (let node of result) {
-      let distance = Math.sqrt((node.x - x) ** 2 + (node.y - y) ** 2);
-      if (distance < spacing) result.push({
-        position: new Point(x, y),
-
-      });
+    for (let { position } of result) {
+      let distance = Math.sqrt((position.x - x) ** 2 + (position.y - y) ** 2);
+      if (distance < spacing) result.push(new Node(new Point(x, y), LocationType.Forest));
     }
   }
 
