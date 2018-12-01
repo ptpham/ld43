@@ -55,7 +55,13 @@ class GameMapCircle extends PIXI.Graphics implements IEntity {
     this.pendingInteraction = () => {};
     this.m_node = node;
     this.lineWidth = 1;
-    this.lineStyle(1, 0x000000);
+    if (node.locationType === 'Start') {
+      this.lineStyle(1, 0x00FF00);
+    } else if (node.locationType === 'Finish') {
+      this.lineStyle(1, 0xFF0000);
+    } else {
+      this.lineStyle(1, 0x000000);
+    }
     this.drawCircle(node.position.x, node.position.y, 16);
     this.interactive = true;
     this.hitArea = new PIXI.Circle(node.position.x, node.position.y, 16);
