@@ -3,7 +3,7 @@ import { Game, State } from './game/main';
 
 type CardChooserProps = {
   text: string;
-  state: State;
+  gameState: State;
 };
 
 //type CardChooserState = { };
@@ -15,7 +15,7 @@ export class CardChooser extends React.Component<CardChooserProps, State> {
     super(props);
 
     CardChooser.Instance = this;
-    this.state = props.state;
+    this.state = props.gameState;
   }
 
   public update(state: State) {
@@ -68,7 +68,7 @@ class App extends React.Component {
 
         </div>
 
-        <CardChooser state={this.state} />
+        <CardChooser gameState={this.state} />
       </div>
     );
   }
