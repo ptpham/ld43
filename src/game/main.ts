@@ -11,6 +11,7 @@ import { CardType } from './data';
  * Peter that means you
  */
 export class State {
+act    
   stage: PIXI.Container;
   graph: Graph.Node[];
 
@@ -20,6 +21,7 @@ export class State {
   }
 }
 
+class Game {
   stage   !: PIXI.Container;
   state   !: State;
 
