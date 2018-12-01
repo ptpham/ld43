@@ -11,8 +11,8 @@ import { C } from './constants';
 export class State {
   stage: PIXI.Container;
 
-  constructor() {
-    this.graph = [];
+  constructor(stage: PIXI.Container) {
+    this.stage = stage;
   }
 }
 
