@@ -9,7 +9,7 @@ import { C } from './constants';
  * Peter that means you
  */
 export class State {
-  graph: Node[];
+  stage: PIXI.Container;
 
   constructor() {
     this.graph = [];
