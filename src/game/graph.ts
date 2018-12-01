@@ -8,13 +8,13 @@ export class Node {
   constructor(public position: Point, public locationType: LocationType) { }
 }
 
-export function generateGraph(width: number, height: number, spacing: number, maxIters: number = 1000): Node[] {
+export function generateGraph(width: number, height: number, spacing: number, iters: number = 1000): Node[] {
   let result: Node[] = [
     new Node(new Point(spacing, height / 2), "Start"),
     new Node(new Point(width - spacing, height / 2), "Finish")
   ];
 
-  for (let i = 0; i < maxIters; i++) {
+  for (let i = 0; i < iters; i++) {
     let x: number = Math.random();
     let y: number = Math.random();
 
@@ -23,7 +23,7 @@ export function generateGraph(width: number, height: number, spacing: number, ma
       if (distance < spacing) result.push(new Node(new Point(x, y), _.sample(LocationTypeNames)! as LocationType));
     }
 
-
+      
   }
 
   return result;
