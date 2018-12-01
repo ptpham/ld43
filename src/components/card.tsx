@@ -1,23 +1,33 @@
 import { CardType } from "../game/data";
+import { State } from "../game/main";
 import React from "react";
 
 type CardProps = {
   card: CardType;
+  gameState: State;
+  onChangeSelection: (card: CardType, selected: boolean) => void;
 }
 
-export class Card extends React.Component<CardProps, {}> {
+type CardState = {
+ selected: boolean;
+}
+
+export class Card extends React.Component<CardProps, CardState> {
   constructor(props: CardProps) {
     super(props);
-  }
 
-  public update(state: CardProps) {
-    this.setState(state);
+    this.state = {
+      selected: false,
+    };
   }
 
   public render(): JSX.Element {
     return (
       <div
-        onClick = { () => console.log("was clicked", this.props.card) }
+        onClick = { () => {
+          console.log("was clicked", this.props.card, this.props.gameState);
+          //this.props.gameState.active_caravan.push(this.props.card);
+        } }
         style={{
           display: "inline-block",
           border: "1px solid lightgray",
@@ -26,9 +36,28 @@ export class Card extends React.Component<CardProps, {}> {
           margin: "0 20px 10px 20px",
         }}
       >
-        <div>{ this.props.card.type }</div>
-        <div>Skill level: {this.props.card.skill}</div>
-        <div>Meat consumption: {this.props.card.meat}</div>
+        <div>
+          {
+            this.state.selected
+              ? <strong>{ this.props.card.type }</strong>
+              : this.props.card.type
+          }
+        </div>
+        <div>Skill: { this.props.card.skill }</div>
+        <div>Meat: { this.props.card.meat }</div>
+
+        <div style={{ paddingTop: "20px" }}>
+          <a 
+            onClick={() => { 
+                this.setState({ selected: !this.state.selected })
+
+                this.props.onChangeSelection(this.props.card, !this.state.selected);
+              }
+            }
+            href="javascript:;">
+            { this.state.selected ? "Unselect" : "Select" }
+          </a>
+        </div>
       </div>
     );
   }

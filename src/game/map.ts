@@ -1,0 +1,31 @@
+import { Entity } from "./entity";
+import { State } from "./main";
+
+export class GameMap extends Entity {
+  state: State;
+
+  constructor(state: State) {
+    super();
+
+    this.state = state;
+
+    const graphSprite = new PIXI.Graphics();
+    graphSprite.lineWidth = 1;
+    graphSprite.lineStyle(1, 0x000000)
+
+    for (let node of this.state.graph) {
+      for (let neighbor of node.neighbors) {
+        graphSprite.moveTo(node.position.x, node.position.y);
+        graphSprite.lineTo(neighbor.position.x, neighbor.position.y);
+      }
+    }
+
+    for (let node of this.state.graph) {
+      graphSprite.drawCircle(node.position.x, node.position.y, 16);
+    }
+
+    graphSprite.x = 50;
+    graphSprite.y = 50;
+    state.stage.addChild(graphSprite);
+  }
+}
