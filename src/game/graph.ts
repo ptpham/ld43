@@ -23,7 +23,7 @@ export function generateGraph(width: number, height: number, spacing: number, ma
       if (distance < spacing) result.push(new Node(new Point(x, y), _.sample(LocationTypeNames)));
     }
 
-    for ()
+    
   }
 
   return result;
