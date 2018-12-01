@@ -29,6 +29,7 @@ export class State {
   isLocationDone  : boolean;
   meat            : number;
   walkAnimation?  : PIXI.ticker.Ticker;
+  idolState       : IdolState;
 
   constructor(stage: PIXI.Container) {
     this.hasIdol  = true;

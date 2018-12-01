@@ -41,7 +41,11 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
           <strong>Game Status</strong>
         </div>
 
-        <div>
+        <div
+          style={{
+            paddingBottom: "20px",
+          }}
+        >
           You <strong>{ this.props.gameState.hasIdol ? "have" : "don't have" }</strong> the idol.
           {' '}
           <a 
