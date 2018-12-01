@@ -22,7 +22,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
     this.state = { };
   }
 
-  private clickDropOrPickUp(): void {
+  private clickDropOrPickUp(action: IdolAction): void {
     if (this.props.gameState.hasIdol) {
       this.props.onDropIdol();
     } else {
@@ -38,7 +38,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
       canPickUpIdol = state.idolState.node === state.caravan_location;
     }
 
-    const idolAction = 
+    const idolAction: IdolAction = 
       this.props.gameState.hasIdol
         ? "Drop"
         : canPickUpIdol
