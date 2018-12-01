@@ -22,7 +22,7 @@ export class Card extends React.Component<CardProps, {}> {
           border: "1px solid lightgray",
           height: "200px",
           width: "100px",
-          margin: "0 20px",
+          margin: "0 20px 10px 20px",
         }}
       >
         <div>{ this.props.card.type }</div>
