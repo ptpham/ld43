@@ -9,8 +9,8 @@ import { Sidebar } from './components/sidebar';
 import { CardType } from './game/data';
 
 type AppState = {
-  showMap  : boolean;
-  gameState: State;
+  isEventVisible: boolean;
+  gameState     : State;
 }
 
 type AppProps = {
@@ -23,7 +23,7 @@ class App extends React.Component<{ game: Game }, AppState>  {
   constructor(props: AppProps) {
     super(props);
     this.state = { 
-      showMap: false,
+      isEventVisible: false,
       gameState: props.game.state
     };
 
@@ -55,7 +55,7 @@ class App extends React.Component<{ game: Game }, AppState>  {
   renderCurrentLocation(state: State) {
     let onDone = () => {
       state.isLocationDone = true;
-      this.setState({ showMap: false });
+      this.setState({ isEventVisible: false });
     };
 
     let { caravan_location } = state;
@@ -74,12 +74,12 @@ class App extends React.Component<{ game: Game }, AppState>  {
   }
 
   renderGameStateComponents() {
-    let { gameState, showMap } = this.state;
+    let { gameState, isEventVisible } = this.state;
     if (!gameState || gameState.isLocationDone) return null;
 
-    return <div className={`modal ${showMap ? 'show-map' : ''}`}>
-      { !showMap ? <button onClick={() => this.setState({ showMap: true })}>Hide Event</button> : null }
-      { showMap ? <button className="glowing" onClick={() => this.setState({ showMap: false })}>Show Event</button> : null }
+    return <div className={`modal ${isEventVisible ? 'show-map' : ''}`}>
+      { !isEventVisible ? <button onClick={() => this.setState({ isEventVisible: true })}>Hide Event</button> : null }
+      { isEventVisible ? <button className="glowing" onClick={() => this.setState({ isEventVisible: false })}>Show Event</button> : null }
       <div className="content"> { this.renderCurrentLocation(gameState) } </div>
     </div>;
   }
