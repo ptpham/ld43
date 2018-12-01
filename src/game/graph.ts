@@ -16,7 +16,7 @@ export type GenerateOptions = {
   height: number
 }
 
-export function generateGraph(options: GenerateOptions): Node[] {
+export function generate(options: GenerateOptions): Node[] {
   let { width, height, spacing, iters = 1000, minAngle = Math.PI / 4 } = options;
   let result: Node[] = [
     new Node(new Point(spacing, height / 2), "Start"),
