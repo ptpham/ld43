@@ -20,7 +20,7 @@ export class Point {
     return x instanceof Point;
   }
 
-  constructor(props: { x: number, y: number } = { x: 0, y: 0}) {
+  constructor(props: { x: number, y: number } | number, yOrNothing?: number) {
     this._x = props.x;
     this._y = props.y;
   }
