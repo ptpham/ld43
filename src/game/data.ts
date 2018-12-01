@@ -22,8 +22,28 @@ export type CardVocationType =
 export type CardType = {
   type: CardVocationType;
   meat: number;
+  skill: number;
 }
 
 export const CardTypes: CardType[] = [
-
+  {
+    type: "Builder",
+    meat: 3,
+    skill: 7,
+  },
+  {
+    type: "Storyteller",
+    meat: 7,
+    skill: 2,
+  },
+  {
+    type: "Fighter",
+    meat: 1,
+    skill: 1,
+  },
+  {
+    type: "Stupid",
+    meat: 1,
+    skill: 9,
+  },
 ]

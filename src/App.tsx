@@ -2,18 +2,24 @@ import * as React from 'react';
 import { Game, State } from './game/main';
 
 type CardChooserProps = {
-  state: State;
+  gameState: State;
 };
 
-//type CardChooserState = { };
+type CardChooserState = {
+  text: string;
+};
 
-export class CardChooser extends React.Component<CardChooserProps, State> {
+export class CardChooser extends React.Component<CardChooserProps, CardChooserState> {
   public static Instance: CardChooser;
 
   constructor(props: CardChooserProps) {
     super(props);
+
     CardChooser.Instance = this;
-    this.state = props.state;
+    this.state = {
+      text: "ok",
+    };
+
   }
 
   public update(state: State) {
@@ -23,7 +29,7 @@ export class CardChooser extends React.Component<CardChooserProps, State> {
   public render(): JSX.Element {
     return (
       <div
-        onclick={ () => console.log('was clicked!') }
+        onClick={ () => console.log('was clicked!') }
         style={{
           width: "600px",
           height: "200px",
@@ -32,6 +38,7 @@ export class CardChooser extends React.Component<CardChooserProps, State> {
         } }
       >
         Card Chooser 9000
+        { this.state.text }
       </div>
     );
   }
@@ -65,7 +72,7 @@ class App extends React.Component {
 
         </div>
 
-        <CardChooser state={this.state} />
+        <CardChooser gameState={this.state} />
       </div>
     );
   }
