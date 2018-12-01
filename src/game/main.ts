@@ -29,9 +29,10 @@ export class Game {
   constructor(div: HTMLDivElement) {
     this.setUpPixiStuff(div);
 
-    const loader = new PIXI.loaders.Loader();
-    loader.add('test', 'assets/test.png');
-    loader.load(() => this.start());
+    C.SPRITE_ASSETS.forEach(asset => {
+      PIXI.loader.add(asset, `assets/${asset}.png`);
+    });
+    PIXI.loader.load(() => this.start());
   }
 
   private start(): void {
@@ -48,6 +49,10 @@ export class Game {
     this.stage.addChild(text);
     text.x = 50;
     text.y = 50;
+
+    const stest = new PIXI.Sprite(PIXI.loader.resources['test'].texture);
+    stest.x = 10;
+    stest.y = 10;
 
     this.animate();
 
