@@ -31,17 +31,16 @@ export class State {
    * 
    * They will be automatically updated and stuff
    */
-  entities        : IEntity[];
-  active_caravan  : CardType[] = [];    
-  hasIdol         : boolean;
-  stage           : PIXI.Container;
-  graph           : Graph.Node[];
-  caravan_location: Graph.Node;
+  entities            : IEntity[];
+  active_caravan      : CardType[] = [];    
+  stage               : PIXI.Container;
+  graph               : Graph.Node[];
+  caravan_location    : Graph.Node;
   selectedNextLocation: GameMapCircle | undefined;
-  isLocationDone  : boolean;
-  meat            : number;
-  walkAnimation?  : PIXI.ticker.Ticker;
-  idolState       : IdolState;
+  isLocationDone      : boolean;
+  meat                : number;
+  walkAnimation?      : PIXI.ticker.Ticker;
+  idolState           : IdolState;
 
   constructor(stage: PIXI.Container) {
     this.stage    = stage;
@@ -69,6 +68,13 @@ export class State {
     this.entities.push(entity);
   }
 
+  moveCaravan(to: Graph.Node): void {
+    this.caravan_location = to;
+    this.isLocationDone = false;
+
+    this.meat -= this.meat;
+  }
+
   onDropIdol(): void {
     if (this.idolState.state === "carried") {
       this.idolState = {
@@ -91,6 +97,10 @@ export class State {
     }
 
     this.onChange();
+  }
+
+  public hasIdol(): boolean {
+    return this.idolState.state === "carried";
   }
 
 

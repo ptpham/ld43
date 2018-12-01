@@ -148,7 +148,7 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
         node.position.x,
         node.position.y,
       ));
-    }else {
+    } else {
       this.addChild(makeSprite(PIXI.loader.resources['test'].texture,
         node.position.x,
         node.position.y,
@@ -156,7 +156,7 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
     }
 
     this.interactive = true;
-    this.hitArea = new PIXI.Circle(node.position.x, node.position.y, 16);
+    this.hitArea = new PIXI.Circle(node.position.x, node.position.y, C.NODE_RADIUS);
 
     this.on('click', () => this.onClick());
 
@@ -164,13 +164,18 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
   }
 
   onClick(): void {
-    // can only select nodes adjacent to current caravan location
-    if (this.state.caravan_location.neighbors.indexOf(this.node) > -1) {
+    //if (this.state.caravan_location.neighbors.indexOf(this.node) > -1) {
+    if (true) {
       if (this.selected) {
         this.selected = false;
         // we just double clicked this node
-        this.state.caravan_location = this.node;
-        this.state.isLocationDone = false;
+        // can only select nodes adjacent to current caravan location to move caravan to
+
+        if (this.state.caravan_location.neighbors.indexOf(this.node) > -1) {
+          this.state.moveCaravan(this.node);
+        }
+
+        this.state.selectedNextLocation = undefined;
       } else {
         // unselect the other guy
         let lastLocation = this.state.selectedNextLocation;
@@ -204,9 +209,11 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
     if (this.selected) {
       this.x = -4;
       this.y = -4;
+      //this.scale = new PIXI.Point(1.25, 1.25);
     } else {
       this.x = 0;
       this.y = 0;
+      //this.scale = new PIXI.Point(1.0, 1.0);
     }
     //console.log(this)
     //for (let child of this.children) {

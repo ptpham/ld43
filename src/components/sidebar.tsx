@@ -1,5 +1,6 @@
 import React from "react";
 import { State } from "../game/state";
+import {LocationTypeData} from "../game/data";
 
 type SidebarProps = {
   gameState   : State;
@@ -40,18 +41,22 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
       canPickUpIdol = state.idolState.node.equals(state.caravan_location);
     }
 
+    const hasIdol = this.props.gameState.hasIdol();
     const idolAction: IdolAction = 
-      this.props.gameState.hasIdol
+      hasIdol
         ? "Drop"
         : canPickUpIdol
           ? "Pick Up"
           : "None";
+
+    const location = this.props.gameState.selectedNextLocation;
 
     return (
       <div
         style={{
           display: "inline-block",
           verticalAlign: "top",
+          padding: "10px",
         }}
       >
         <div 
@@ -67,7 +72,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
             paddingBottom: "20px",
           }}
         >
-          You <strong>{ this.props.gameState.hasIdol ? "have" : "don't have" }</strong> the idol.
+          You <strong>{ this.props.gameState.hasIdol() ? "have" : "don't have" }</strong> the idol.
           {' '}
           <a 
             href="javascript:;"
@@ -78,9 +83,34 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
             }
           </a>
         </div>
-        <div>
-          { "Currently selected location: " + (this.props.gameState.selectedNextLocation ? this.props.gameState.selectedNextLocation.node.locationType : "None. ")}
-        </div>
+        {
+          location &&
+            <>
+              <div
+                style = {{
+                  paddingBottom: "20px",
+                }}
+              >
+                <strong>Currently selected location:</strong>
+              </div>
+
+              <div
+                style = {{
+                  paddingBottom: "20px",
+                }}
+              >
+                <div>
+                  Type: { location.node.locationType }
+                </div>
+                <div>
+                  Meat Cost: { location.node.meatCostExplanationString(this.props.gameState) }
+                </div>
+                <div>
+                  { "Sacrifice Cost: " + (LocationTypeData[location.node.locationType] || { targetSkill: 'None'}).targetSkill }
+                </div>
+              </div>
+            </>
+        }
       </div>
     );
   }

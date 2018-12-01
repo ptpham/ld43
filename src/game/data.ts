@@ -1,8 +1,29 @@
 
-export const LocationTypeData = {
+export type LocationTypeDataType = {
+  targetSkill?: string
+}
+
+export type LocationType = 
+  | "Start" 
+  | "Finish" 
+  | "Forest" 
+  | "GoblinNest" 
+  | "Canyon"
+  | "Desert"
+  | "River"
+  | "Mountain"
+
+export type SkillType = 
+  | 'Woodcutter'
+  | 'Builder'
+  | 'Priest'
+
+export const LocationTypeData: { [key in LocationType]: {
+  targetSkill?: SkillType;
+}} = {
   Start: {},
   Finish: {},
-  Forest: { targetSkill: 'Forester' },
+  Forest: { targetSkill: 'Woodcutter' },
   GoblinNest: {},
   Canyon: { targetSkill: 'Builder' },
   Desert: { targetSkill: 'Priest' },
@@ -10,7 +31,6 @@ export const LocationTypeData = {
   Mountain: {}
 };
 
-export type LocationType = keyof typeof LocationTypeData;
 export const LocationTypeNames = Object.keys(LocationTypeData);
 
 export type CardVocationType = 
@@ -18,7 +38,7 @@ export type CardVocationType =
   | "Storyteller"
   | "Stupid"
   | "Fighter"
-  | "Forester"
+  | "Woodcutter"
   | "Priest"
 ;
 

@@ -6,7 +6,10 @@ export class C {
   public static MAP_WIDTH = 1000;
   public static MAP_HEIGHT = 1000;
 
+  public static NODE_RADIUS = 16;
   public static SPRITE_SCALE = 2;
+
+  public static IDOL_MEAT_COST = 1;
 
   public static SPRITE_ASSETS = [
     'test',

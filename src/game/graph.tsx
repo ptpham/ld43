@@ -1,12 +1,34 @@
 
+import { C } from './constants';
 import { Line } from './lib/line';
 import { Point } from './lib/point';
 import { LocationType, LocationTypeNames } from './data';
 import _ from 'lodash';
+import { State } from './state';
 
 export class Node {
+  // not counting disadvantages due to idol etc
+  baseMeatCost!: number;
+
   neighbors: Node[] = [];
-  constructor(public position: Point, public locationType: LocationType) { }
+  constructor(
+    public position: Point, 
+    public locationType: LocationType
+  ) { }
+
+  meatCost(state: State): number {
+    return this.baseMeatCost! + (state.hasIdol() ? 1 : 0);
+  }
+
+  meatCostExplanationString(state: State): JSX.Element {
+    let string = `${ this.baseMeatCost } (location)`
+
+    if (state.hasIdol()) {
+      string += ` + ${ C.IDOL_MEAT_COST } (idol burden)`;
+    }
+
+    return <>{ string }</>;
+  }
 
   connect(other:Node) {
     other.neighbors.push(this);
@@ -63,7 +85,13 @@ export function generate(options: GenerateOptions): Node[] {
     for (let { position } of result) {
       if (current.distance(position) < spacing) continue outer;
     }
-    let validLocationTypeNames: string[] = LocationTypeNames.filter(x => x !== 'Start' && x !== 'Finish');
+    let validLocationTypeNames: string[] = LocationTypeNames
+      .filter(x => 
+        x !== 'Start' &&
+        x !== 'Finish' &&
+        x !== 'River' &&
+        x !== 'Canyon'
+      );
     result.push(new Node(current, _.sample(validLocationTypeNames)! as LocationType));
   }
 
@@ -104,6 +132,24 @@ export function generate(options: GenerateOptions): Node[] {
     }
   }
 
+  for (const node of result) {
+    node.baseMeatCost = _.random(1, 4, false);
+  }
+
+  generateSnake(result, 'River', options);
+  generateSnake(result, 'Canyon', options);
+
   return result;
+}
+
+function generateSnake(nodes: Node[], type: LocationType, options: GenerateOptions) {
+  const { width, height } = options;
+  const line = new Line({ x1: width * Math.random(), x2: width * Math.random(), y1: 0, y2: height });
+
+  nodes.forEach((node: Node) => {
+    if (line.intersectCircle(node.position, C.NODE_RADIUS * 2)) {
+      node.locationType = type;
+    }
+  });
 }
 
