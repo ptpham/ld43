@@ -7,6 +7,14 @@ import { C } from "./constants";
 import { Caravan } from "./caravan";
 import { Graphics } from "pixi.js";
 
+function makeSprite(texture: PIXI.Texture, x: number, y: number): PIXI.Sprite {
+  const sprite = new PIXI.Sprite(texture);
+  sprite.x = x - sprite.width * C.SPRITE_SCALE / 2;
+  sprite.y = y - sprite.height * C.SPRITE_SCALE / 2;
+  sprite.scale = new PIXI.Point(C.SPRITE_SCALE, C.SPRITE_SCALE);
+  return sprite;
+}
+
 export class GameMap extends Entity {
   state: State;
   graphSprite: Graphics;
@@ -86,14 +94,14 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
 
     // add a sprite
     if (node.locationType == 'Start') {
-      this.addChild(this.renderSprite(PIXI.loader.resources['grass'].texture,
+      this.addChild(makeSprite(PIXI.loader.resources['grass'].texture,
         node.position.x,
         node.position.y,
       ));
 
     } else if (node.locationType == 'Finish') {
       // mount DOOM!
-      this.addChild(this.renderSprite(PIXI.loader.resources['volcano'].texture,
+      this.addChild(makeSprite(PIXI.loader.resources['volcano'].texture,
         node.position.x,
         node.position.y,
       ));
@@ -115,6 +123,7 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
       if (!this.selected) {
         // we just double clicked this node
         this.state.caravan_location = this.node;
+        this.state.isLocationDone = false;
       }
 
       this.render();
@@ -136,14 +145,6 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
     }
 
     this.drawCircle(this.node.position.x, this.node.position.y, 16);
-  }
-
-  private renderSprite(texture: PIXI.Texture, x: number, y: number): PIXI.Sprite {
-    const sprite = new PIXI.Sprite(texture);
-    sprite.x = x - sprite.width * C.FG_SPRITE_SCALE / 2;
-    sprite.y = y - sprite.height * C.FG_SPRITE_SCALE / 2;
-    sprite.scale = new PIXI.Point(C.FG_SPRITE_SCALE, C.FG_SPRITE_SCALE);
-    return sprite;
   }
 
   update(state: State): void {

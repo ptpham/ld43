@@ -6,8 +6,7 @@ export class C {
   public static MAP_WIDTH = 1000;
   public static MAP_HEIGHT = 1000;
 
-  public static BG_SPRITE_SCALE = 4;
-  public static FG_SPRITE_SCALE = 2;
+  public static SPRITE_SCALE = 2;
 
   public static SPRITE_ASSETS = [
     'test',

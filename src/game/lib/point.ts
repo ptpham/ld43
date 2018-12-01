@@ -76,6 +76,10 @@ export class Point {
     });
   }
 
+  lerp(other: Point, t: number) {
+    return new Point((1 - t)*this.x + t*other.x, (1-t)*this.y + t*other.y);
+  }
+
   length(): number {
     return Math.sqrt(this.x ** 2 + this.y ** 2);
   }

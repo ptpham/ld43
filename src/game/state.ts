@@ -27,6 +27,7 @@ export class State {
   caravan_location         : Graph.Node;
   isLocationDone           : boolean;
   meat                     : number;
+  walkAnimation?           : PIXI.ticker.Ticker;
 
   constructor(stage: PIXI.Container) {
     this.stage = stage;
