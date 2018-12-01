@@ -202,8 +202,8 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
 
     this.drawCircle(this.node.position.x, this.node.position.y, 16);
     if (this.selected) {
-      this.x = -10;
-      this.y = -10;
+      this.x = -4;
+      this.y = -4;
     } else {
       this.x = 0;
       this.y = 0;
