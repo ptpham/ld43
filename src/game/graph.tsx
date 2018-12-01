@@ -149,7 +149,7 @@ export function generate(options: GenerateOptions): Node[] {
   return result;
 }
 
-function generateSnake(nodes: Node[], type: LocationType, options: GenerateOptions) {
+export function generateSnake(nodes: Node[], type: LocationType, options: GenerateOptions) {
   const { width, height } = options;
   const line = new Line({ x1: width * Math.random(), x2: width * Math.random(), y1: 0, y2: height });
 
