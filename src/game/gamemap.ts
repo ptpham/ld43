@@ -169,6 +169,7 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
       } else {
         // unselect the other guy
         this.state.selectedNextLocation && (this.state.selectedNextLocation.selected = false);
+        this.state.selectedNextLocation = this;
         this.selected = true;
       }
 
