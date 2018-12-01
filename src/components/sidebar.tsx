@@ -85,6 +85,16 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
         </div>
 
         {
+          [...this.props.gameState.cardsInParty.keys()].map(card => {
+            return (
+              <div>
+                { card.type }
+              </div>
+            );
+          })
+        }
+
+        {
           location &&
             <>
               <div
