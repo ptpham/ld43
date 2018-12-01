@@ -20,10 +20,10 @@ export function generateGraph(width: number, height: number, spacing: number, ma
 
     for (let { position } of result) {
       let distance = Math.sqrt((position.x - x) ** 2 + (position.y - y) ** 2);
-      if (distance < spacing) result.push(new Node(new Point(x, y), _.sample(LocationTypeNames)));
+      if (distance < spacing) result.push(new Node(new Point(x, y), _.sample(LocationTypeNames)! as LocationType));
     }
 
-    
+
   }
 
   return result;
