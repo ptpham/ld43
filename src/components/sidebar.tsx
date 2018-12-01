@@ -33,6 +33,13 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
       canPickUpIdol = state.idolState.node === state.caravan_location;
     }
 
+    const idolAction = 
+      this.props.gameState.hasIdol
+        ? "Drop"
+        : canPickUpIdol
+          ? "Pick Up"
+          : "None";
+
     return (
       <div
         style={{
@@ -60,11 +67,6 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
             onClick={() => this.clickDropOrPickUp()}
           >
             {
-              this.props.gameState.hasIdol
-                ? "Drop"
-                : canPickUpIdol
-                  ? "Pick Up"
-                  : ""
             }
           </a>
         </div>
