@@ -117,6 +117,7 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
         // we just double clicked this node
         // TODO in theory we should propagate this up a level
         this.state.caravan_location = this.node;
+        this.state.isLocationDone = false;
       }
     }
 
