@@ -2,9 +2,12 @@ import * as React from 'react';
 import { State } from './game/state';
 import { Game } from './game/main';
 import { CardChooser } from './components/cardchooser';
+import { EventChooser } from './components/eventchooser';
+import { LocationTypeData } from './game/data';
 import './App.css';
 import { Toolbar } from './components/meat';
 import { Sidebar } from './components/sidebar';
+import _ from 'lodash';
 
 type AppState = {
   showMap  : boolean;
@@ -45,14 +48,21 @@ class App extends React.Component<{ game: Game }, AppState>  {
       this.setState({ showMap: false });
     };
 
-
-    switch (state.caravan_location.locationType) {
+    let { locationType } = state.caravan_location;
+    switch (locationType) {
       case 'Start':
         return <CardChooser gameState={state} onDone={onDone}/>;
+      default:
+        let data = LocationTypeData[locationType];
+        let targetSkill = _.get(data, 'targetSkill');
+        if (targetSkill) {
+          return <EventChooser gameState={state} onDone={onDone}
+            locationType={locationType} targetSkill={targetSkill}/>;
+        }
     }
 
     return <div className="column" onClick={onDone}>
-      Woah you're on a {state.caravan_location.locationType} now.
+      Woah you're on a {state.caravan_location.locationType} now. There's nothing to do here.
       <button onClick={onDone}>OK</button>
     </div>;
   }

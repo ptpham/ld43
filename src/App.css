@@ -3,6 +3,10 @@
   padding: 0;
 }
 
+.row {
+  display: flex;
+}
+
 .modal {
   position: fixed;
   top: 0px;
