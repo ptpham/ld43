@@ -26,6 +26,8 @@ export class Card extends React.Component<CardProps, {}> {
         }}
       >
         <div>{ this.props.card.type }</div>
+        <div>Skill level: {this.props.card.skill}</div>
+        <div>Meat consumption: {this.props.card.meat}</div>
       </div>
     );
   }
