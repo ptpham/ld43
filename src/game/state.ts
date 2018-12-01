@@ -45,6 +45,9 @@ export class State {
   idolState           : IdolState;
 
   constructor(stage: PIXI.Container) {
+    this.cardsInParty = new Set();
+    this.cardsInWholeGame = new Set();
+
     this.stage    = stage;
     this.entities = [];
     this.graph    = Graph.generate({ 

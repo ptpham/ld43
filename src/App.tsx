@@ -6,6 +6,7 @@ import { EventChooser } from './components/eventchooser';
 import './App.css';
 import { Toolbar } from './components/meat';
 import { Sidebar } from './components/sidebar';
+import { CardType } from './game/data';
 
 type AppState = {
   showMap  : boolean;
@@ -47,7 +48,7 @@ class App extends React.Component<{ game: Game }, AppState>  {
   }
 
   onSelectCards(cards: Set<CardType>): void {
-
+    this.state.gameState.cardsInParty = cards;
   }
 
   renderCurrentLocation(state: State) {
@@ -62,7 +63,7 @@ class App extends React.Component<{ game: Game }, AppState>  {
         return (
           <CardChooser 
             gameState={state} 
-            onDone={ cards => onSelectCards(cards) }
+            onDone={ cards => this.onSelectCards(cards) }
           />
         );
       default:
