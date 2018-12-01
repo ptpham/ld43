@@ -48,7 +48,8 @@ class App extends React.Component<{ game: Game }, AppState>  {
   }
 
   onSelectCards(cards: Set<CardType>): void {
-    this.state.gameState.cardsInParty = cards;
+    this.state.gameState.cardsInParty   = cards;
+    this.state.gameState.isLocationDone = true;
   }
 
   renderCurrentLocation(state: State) {
