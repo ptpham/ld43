@@ -25,9 +25,9 @@ export function generateGraph(width: number, height: number, spacing: number, it
   }
 
   for (let first of result) {
-      for (let second of result) {
+    for (let second of result) {
 
-      }
+    }
   }
 
   return result;
