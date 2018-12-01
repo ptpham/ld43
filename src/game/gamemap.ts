@@ -74,8 +74,8 @@ class GameMapCircle extends PIXI.Graphics implements IEntity {
           this.graphicsData[0].lineWidth = 3;
           // add a sprite
           const stest = new PIXI.Sprite(PIXI.loader.resources['test'].texture);
-          stest.x = 0;
-          stest.y = 0;
+          stest.x = node.position.x + 2;
+          stest.y = node.position.y + 2;
           stest.scale = new PIXI.Point(2, 2);
           this.addChild(stest);
         } else {
