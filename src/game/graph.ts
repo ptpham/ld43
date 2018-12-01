@@ -14,7 +14,10 @@ export class Node {
   }
 
   public equals(other: Node): boolean {
-    return this.position.x === other.position.x && this.position.y === other.position.y;
+    return (
+      this.position.x === other.position.x && 
+      this.position.y === other.position.y
+    );
   }
 }
 

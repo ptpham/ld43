@@ -96,7 +96,6 @@ export class State {
       };
     }
 
-
     this.onChange();
   }
 
