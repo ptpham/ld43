@@ -47,4 +47,12 @@ export class State {
   addEntity(entity: IEntity): void {
     this.entities.push(entity);
   }
+
+  onDropIdol(): void {
+
+  }
+
+  onPickUpIdol(): void {
+
+  }
 }
