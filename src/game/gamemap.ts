@@ -22,7 +22,7 @@ export class GameMap extends Entity {
     }
 
     for (let node of this.state.graph) {
-      graphSprite.addChild(new GameMapCircle(node));
+      graphSprite.addChild(new GameMapCircle(node, state));
       //const graphCircle = new PIXI.Graphics();
       //graphCircle.lineWidth = 1;
       //graphCircle.lineStyle(1, 0x000000);
@@ -46,39 +46,67 @@ export class GameMap extends Entity {
 }
 
 class GameMapCircle extends PIXI.Graphics implements IEntity {
-  public m_node: Node;
-  //public pendingInteraction: boolean; // flag for whether we need to rerender this guy
-  public pendingInteraction: () => void; // callback for updating this entity on game loop tick... ?
+  public node: Node;
+  public state: State;
+  public selected: boolean = false;
+  // callback for updating this entity on game loop tick... ?
+  public onUpdate: () => void = () => {};
 
-  constructor(node: Node) {
+  constructor(node: Node, state: State) {
     super();
-    this.pendingInteraction = () => {};
-    this.m_node = node;
+    this.node = node;
+    this.state = state;
+
+    // add a sprite
+    if (node.locationType == 'Start') {
+      const stest = new PIXI.Sprite(PIXI.loader.resources['caravan'].texture);
+      stest.x = node.position.x - 16;
+      stest.y = node.position.y - 16;
+      stest.scale = new PIXI.Point(2, 2);
+      this.addChild(stest);
+    }
+
     this.lineWidth = 1;
-    this.lineStyle(1, 0x000000);
+    if (node.locationType === 'Start') {
+      this.lineStyle(1, 0x00FF00);
+    } else if (node.locationType === 'Finish') {
+      this.lineStyle(1, 0xFF0000);
+    } else {
+      this.lineStyle(1, 0x000000);
+    }
     this.drawCircle(node.position.x, node.position.y, 16);
     this.interactive = true;
     this.hitArea = new PIXI.Circle(node.position.x, node.position.y, 16);
     this.on('click', (e: PIXI.interaction.InteractionEvent) => {
-      console.log(this.m_node);
+      console.log(this.node);
 
-      this.pendingInteraction = () => {
-        if (this.graphicsData[0].lineWidth == 1) {
-          this.graphicsData[0].lineWidth = 3;
-        } else {
-          this.graphicsData[0].lineWidth = 1;
+      // can only select nodes adjacent to current caravan location
+      if (this.state.caravan_location.neighbors.indexOf(this.node) > -1) {
+        this.selected = !this.selected;
+        // queue up the rerender
+        this.onUpdate = () => {
+          this.selected = !this.selected;
+          if (this.selected) {
+            this.graphicsData[0].lineWidth = 3;
+          } else {
+            this.graphicsData[0].lineWidth = 1;
+            //this.removeChildAt(0);
+          }
+          this.dirty++;
+          this.clearDirty++;
         }
-        this.dirty++;
-        this.clearDirty++;
       }
-      this.pendingInteraction(); // lol
-      this.pendingInteraction = () => {};
+      // lol
+      this.onUpdate();
+      this.onUpdate = () => {};
     })
   }
 
   update(state: State): void {
-    if (this.pendingInteraction) {
-      this.lineWidth = 10;
-    }
+    this.onUpdate();
   }
+}
+
+export function moveCaravanTo(node: Node, state: State) {
+  // first
 }

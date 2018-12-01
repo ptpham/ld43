@@ -56,7 +56,8 @@ export function generate(options: GenerateOptions): Node[] {
     for (let { position } of result) {
       if (current.distance(position) < spacing) continue outer;
     }
-    result.push(new Node(current, _.sample(LocationTypeNames)! as LocationType));
+    let validLocationTypeNames: string[] = LocationTypeNames.filter(x => x !== 'Start' && x !== 'Finish');
+    result.push(new Node(current, _.sample(validLocationTypeNames)! as LocationType));
   }
 
   for (let i = 0; i < result.length; i++) {

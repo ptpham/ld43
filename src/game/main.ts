@@ -15,6 +15,7 @@ export class State {
   active_caravan: CardType[] = [];    
   stage         : PIXI.Container;
   graph         : Graph.Node[];
+  caravan_location: Graph.Node;
 
   constructor(stage: PIXI.Container) {
     this.stage = stage;
@@ -23,6 +24,7 @@ export class State {
       height: C.CANVAS_HEIGHT - 100,
       spacing: 48
     });
+    this.caravan_location = this.graph[0];
   }
 }
 
@@ -58,6 +60,7 @@ export class Game {
     const stest = new PIXI.Sprite(PIXI.loader.resources['test'].texture);
     stest.x = 10;
     stest.y = 10;
+    stest.scale = new PIXI.Point(4, 4);
     this.stage.addChild(stest);
 
     this.animate();
