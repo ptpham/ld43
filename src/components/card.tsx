@@ -16,17 +16,8 @@ export class Card extends React.Component<CardProps, {}> {
 
   public render(): JSX.Element {
     return (
-      <div
-        onClick={ () => console.log('was clicked!') }
-        style={{
-          width: "600px",
-          height: "200px",
-          padding: "20px",
-          border: "1px solid lightgray",
-        } }
-      >
-        Card Chooser 9000
-        { this.state.text }
+      <div >
+        I'm a card! { this.props.card.type }
       </div>
     );
   }
