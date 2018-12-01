@@ -37,7 +37,7 @@ export class GameMap extends Entity {
     }
 
     for (let node of this.state.graph) {
-      const newCircle = new GameMapCircle(node, this.state);
+      const newCircle = new GameMapCircle({ node, state: this.state });
 
       graphSprite.addChild(newCircle);
       this.state.addEntity(newCircle);
@@ -75,8 +75,13 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
   public state: State;
   public selected: boolean = false;
 
-  constructor(node: Node, state: State) {
+  constructor(props: { 
+    node: Node;
+    state: State;
+  }) {
     super();
+    const { node, state } = props;
+
     this.node = node;
     this.state = state;
 
@@ -98,12 +103,12 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
     this.interactive = true;
     this.hitArea = new PIXI.Circle(node.position.x, node.position.y, 16);
 
-    this.on('click', (e: PIXI.interaction.InteractionEvent) => this.onClick(e));
+    this.on('click', () => this.onClick());
 
     this.render();
   }
 
-  onClick(e: PIXI.interaction.InteractionEvent): void {
+  onClick(): void {
     // can only select nodes adjacent to current caravan location
     if (this.state.caravan_location.neighbors.indexOf(this.node) > -1) {
       this.selected = !this.selected;
