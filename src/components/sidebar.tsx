@@ -55,6 +55,9 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
             }
           </a>
         </div>
+        <div>
+          bowei was here
+        </div>
       </div>
     );
   }
