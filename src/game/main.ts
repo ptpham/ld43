@@ -8,45 +8,30 @@ export class Game {
   stage   !: PIXI.Container;
   state   !: State;
   renderer!: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
-  loaded: Promise<Game>;
+  view    !: HTMLCanvasElement;
 
-  constructor(div: HTMLDivElement) {
-    this.setUpPixiStuff(div);
+  constructor() {
+    this.setUpPixiStuff();
 
-    C.SPRITE_ASSETS.forEach(asset => {
-      PIXI.loader.add(asset, `assets/${asset}.png`);
-    });
-
-    this.loaded = new Promise((resolve, reject) => {
-      PIXI.loader.load(() => {
-        resolve(this);
-      });
-    });
+    this.stage = new PIXI.Container();
+    this.state = new State(this.stage);
   }
 
   public start(proxyHandler: any = {}): void {
-    this.stage = new PIXI.Container();
+    this.state = new Proxy(this.state, proxyHandler);
 
-    const sprite = new PIXI.Graphics();
-    sprite.position.set(50,50);
-    this.stage.addChild(sprite);
+    this.gameLoop();
+
+    new GameMap(this.state);
 
     const stest = new PIXI.Sprite(PIXI.loader.resources['test'].texture);
     stest.x = 10;
     stest.y = 10;
     stest.scale = new PIXI.Point(4, 4);
-    this.stage.addChild(stest);
-
-    this.state = new Proxy(new State(
-      this.stage,
-    ), proxyHandler);
-
-    new GameMap(this.state);
-
-    this.gameLoop();
+    this.state.stage.addChild(stest);
   }
 
-  private setUpPixiStuff(div: HTMLDivElement): void {
+  private setUpPixiStuff(): void {
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
     this.renderer = PIXI.autoDetectRenderer(
       C.CANVAS_WIDTH,
@@ -58,7 +43,7 @@ export class Game {
       }
     );
 
-    div.appendChild(this.renderer.view);
+    this.view = this.renderer.view;
   }
 
   gameLoop(): void {
