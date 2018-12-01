@@ -138,6 +138,11 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
         node.position.x,
         node.position.y,
       ));
+    } else {
+      this.addChild(makeSprite(PIXI.loader.resources['test'].texture,
+        node.position.x,
+        node.position.y,
+      ));
     }
 
     this.interactive = true;
