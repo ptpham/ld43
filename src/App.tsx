@@ -7,6 +7,7 @@ type CardChooserProps = {
 
 type CardChooserState = {
   text: string;
+  cards: CardType[];
 };
 
 export class CardChooser extends React.Component<CardChooserProps, CardChooserState> {
@@ -22,7 +23,7 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
 
   }
 
-  public update(state: State) {
+  public update(state: CardChooserState) {
     this.setState(state);
   }
 
