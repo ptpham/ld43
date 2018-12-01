@@ -14,6 +14,8 @@ export class State {
   graph: Graph.Node[];
 
   constructor(stage: PIXI.Container) {
+
+  constructor(stage: PIXI.Container) {
     this.stage = stage;
     this.graph = Graph.generate({ width: 600, height: 100, spacing: 10 });
   }
