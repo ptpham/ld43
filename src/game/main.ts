@@ -19,6 +19,7 @@ export class State {
 export class Game {
   renderer!: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
   stage    : PIXI.Container;
+  state    : State;
 
   constructor(div: HTMLDivElement) {
     this.setUpPixiStuff(div);
@@ -38,6 +39,10 @@ export class Game {
     text.y = 50;
 
     this.animate();
+
+    this.state = new State(
+      this.stage,
+    );
   }
 
   private setUpPixiStuff(div: HTMLDivElement): void {
