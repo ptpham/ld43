@@ -29,6 +29,7 @@ export class GameMap extends Entity {
     this.graphSprite = this.makeGraph();
 
     this.makeCaravan();
+    this.makeIdol();
   }
 
   makeBG(): void {
