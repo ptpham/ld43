@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Game, State } from './game/main';
 
 type CardChooserProps = {
+  text: string;
   state: State;
 };
 
@@ -12,6 +13,7 @@ export class CardChooser extends React.Component<CardChooserProps, State> {
 
   constructor(props: CardChooserProps) {
     super(props);
+
     CardChooser.Instance = this;
     this.state = props.state;
   }
