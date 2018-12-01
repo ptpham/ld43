@@ -2,3 +2,31 @@
   margin: 0;
   padding: 0;
 }
+
+.modal {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal > * {
+  background: white;
+  padding: 20px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  padding: 10px 20px;
+}
+
+

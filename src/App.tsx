@@ -4,6 +4,7 @@ import { State } from './game/state';
 import { Game } from './game/main';
 import { CardChooser } from './components/cardchooser';
 import { C } from './game/constants';
+import './App.css';
 
 class App extends React.Component {
   state: { game?: Game };
@@ -16,7 +17,7 @@ class App extends React.Component {
     this.state = {};
   }
 
-  proxifyGame(game: Game) {
+  startGame(game: Game) {
     let self = this;
     game.loaded.then(() => {
       this.setState({ game });
@@ -36,7 +37,7 @@ class App extends React.Component {
       C.CANVAS_HEIGHT
     );
     let { game } = this.state;
-    this.proxifyGame(game!);
+    this.startGame(game!);
   }
 
   public componentDidMount() {
@@ -45,13 +46,26 @@ class App extends React.Component {
     });
   }
 
+  renderCurrentLocation(state: State) {
+    let onDone = () => state.isLocationDone = true;
+
+    switch (state.caravan_location.locationType) {
+      case 'Start':
+        return <CardChooser gameState={state} onDone={onDone}/>;
+    }
+
+    return <div className="column" onClick={onDone}>
+      Woah you're on a {state.caravan_location.locationType} now.
+      <button onClick={onDone}>OK</button>
+    </div>;
+  }
+
   renderGameStateComponents() {
     let { game } = this.state;
-    if (game == null || game.state == null) return null;
+    if (game == null || game.state == null || game.state.isLocationDone) return null;
 
-    return <div>
-      <div>You are on a {game.state.caravan_location.locationType}</div>
-      <CardChooser gameState={game.state} />
+    return <div className="modal">
+      { this.renderCurrentLocation(game.state) }
     </div>;
   }
 

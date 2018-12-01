@@ -142,5 +142,6 @@ export function moveCaravanTo(nodeGraphix: GameMapCircle, state: State): (() => 
   // now update caravan location
   state.caravan_location = nodeGraphix.node;
   state.caravan_location_graphix = nodeGraphix;
+  state.isLocationDone = false;
   return onUpdate;
 }

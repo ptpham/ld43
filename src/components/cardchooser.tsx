@@ -6,6 +6,7 @@ import { Card } from './card';
 
 type CardChooserProps = {
   gameState: State;
+  onDone: () => void;
 };
 
 type CardChooserState = {
@@ -103,7 +104,7 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
         <div 
           onClick = { () => console.log('lets embark!') }
           style={{ textAlign: "center" }}>
-          <a href="javascript:;">
+          <a href="javascript:;" onClick={() => this.props.onDone()}>
             Go!
           </a>
         </div>

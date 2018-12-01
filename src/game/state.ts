@@ -14,12 +14,14 @@ import { GameMapCircle } from './gamemap';
  * Grant I will push you into the volcano.
  *
  */
+
 export class State {
   active_caravan: CardType[] = [];    
   stage         : PIXI.Container;
   graph         : Graph.Node[];
   caravan_location: Graph.Node;
   caravan_location_graphix!: GameMapCircle;
+  isLocationDone: boolean;
 
   constructor(stage: PIXI.Container) {
     this.stage = stage;
@@ -29,6 +31,7 @@ export class State {
       spacing: 48
     });
     this.caravan_location = this.graph[0];
+    this.isLocationDone = false;
   }
 }
 
