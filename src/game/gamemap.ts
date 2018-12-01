@@ -29,18 +29,12 @@ export class GameMap extends Entity {
       graphCircle.hitArea = new PIXI.Circle(node.position.x, node.position.y, 16);
       graphCircle.on('click', (e: PIXI.interaction.InteractionEvent) => {
         console.log(node);
-        graphCircle.lineWidth = 10;
       })
       graphSprite.addChild(graphCircle);
     }
 
     graphSprite.x = 50;
     graphSprite.y = 50;
-    //graphSprite.interactive = true;
-    //graphSprite.hitArea = new PIXI.Rectangle(50, 50, 500, 500);
-    //graphSprite.on('click', (e: PIXI.interaction.InteractionEvent) => {
-    //  console.log(e.data.global);
-    //})
     state.stage.addChild(graphSprite);
   }
 
