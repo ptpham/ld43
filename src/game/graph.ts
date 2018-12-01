@@ -41,12 +41,13 @@ export function generate(options: GenerateOptions): Node[] {
       
       for (let neighbor of first.neighbors) {
         let toNeighbor = neighbor.position.subtract(first.position);
-        if (toSecond.angle(toNeighbor) > minAngle) {
-          first.neighbors.push(second);
-          second.neighbors.push(first);
+        if (toSecond.angle(toNeighbor) < minAngle) {
           break outer;
         }
       }
+
+      first.neighbors.push(second);
+      second.neighbors.push(first);
     }
   }
 
