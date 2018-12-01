@@ -4,9 +4,9 @@ import * as Animations from './animations';
 import { Point } from './lib/point';
 
 /**
- * If you want to update the node of the caravan, use state.caravan_location
+ * State for idol is on state.idolState.
  */
-export class Caravan extends PIXI.Sprite implements IEntity {
+export class Idol extends PIXI.Sprite implements IEntity {
   constructor() {
     super(
       PIXI.loader.resources['caravan'].texture
