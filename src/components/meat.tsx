@@ -1,15 +1,15 @@
 import React from "react";
 
-type MeatToolbarProps = {
+type ToolbarProps = {
 
 }
 
-type MeatToolbarState = {
+type ToolbarState = {
 
 }
 
-export class MeatToolbar extends React.Component<MeatToolbarProps, MeatToolbarState> {
-  constructor(props: MeatToolbarProps) {
+export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
+  constructor(props: ToolbarProps) {
     super(props);
 
     this.state = {
