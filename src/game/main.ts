@@ -11,7 +11,7 @@ import { CardType } from './data';
  * Peter that means you
  */
 export class State {
-act    
+  active_caravan: CardType[];    
   stage: PIXI.Container;
   graph: Graph.Node[];
 
