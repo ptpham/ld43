@@ -33,7 +33,7 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
         }}
       >
         <div>
-            BOWEI WAS HERE
+            THIS IS A TOOLBAR
         </div>
         <div>
           Meat: { this.props.gameState && this.props.gameState && this.props.gameState.meat }
