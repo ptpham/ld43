@@ -23,14 +23,14 @@ export function generate(options: GenerateOptions): Node[] {
     new Node(new Point(width - spacing, height / 2), "Finish")
   ];
 
+  outer:
   for (let i = 0; i < iters; i++) {
     let current = new Point(width*Math.random(), height*Math.random());
 
     for (let { position } of result) {
-      if (current.distance(position) < spacing) {
-        result.push(new Node(current, _.sample(LocationTypeNames)! as LocationType));
-      }
+      if (current.distance(position) < spacing) continue outer;
     }
+    result.push(new Node(current, _.sample(LocationTypeNames)! as LocationType));
   }
 
   for (let first of result) {
