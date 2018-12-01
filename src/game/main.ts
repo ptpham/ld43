@@ -51,6 +51,9 @@ export class Game {
       }
     );
 
+    const loader = new PIXI.loaders.Loader();
+    loader.add('test', 'assets/test.png');
+
     div.appendChild(this.renderer.view);
   }
 
