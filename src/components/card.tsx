@@ -17,6 +17,7 @@ export class Card extends React.Component<CardProps, {}> {
   public render(): JSX.Element {
     return (
       <div
+        onClick = { () => console.log("was clicked", this.props.card) }
         style={{
           display: "inline-block",
           border: "1px solid lightgray",
