@@ -12,7 +12,11 @@ type EventChooserProps = {
 
 export class EventChooser extends React.Component<EventChooserProps> {
   
-  sacrifice() {
+  sacrifice(targetSkill: string) {
+    let { gameState } = this.props;
+    let { active_caravan } = gameState;
+    let personWithSkill = _.find(active_caravan, x => x.type == targetSkill);
+    gameState.active_caravan = gameState.active_caravan.filter(x => x != personWithSkill);
     this.props.onDone();
   }
 
@@ -28,7 +32,7 @@ export class EventChooser extends React.Component<EventChooserProps> {
     let { onDone } = this.props;
     return <div>
       Do you want to sacrifice a {targetSkill}?
-      <button onClick={() => this.sacrifice()}>Yes</button>
+      <button onClick={() => this.sacrifice(targetSkill)}>Yes</button>
       <button onClick={() => onDone()}>No</button>
     </div>;
   }
