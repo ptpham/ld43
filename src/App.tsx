@@ -52,8 +52,8 @@ class App extends React.Component<{ game: Game }, AppState>  {
       this.setState({ showMap: false });
     };
 
-    let { locationType } = state.caravan_location;
-    switch (locationType) {
+    let { caravan_location } = state;
+    switch (caravan_location.locationType) {
       case 'Start':
         return (
           <CardChooser 
@@ -63,7 +63,7 @@ class App extends React.Component<{ game: Game }, AppState>  {
         );
       default:
         return <EventChooser gameState={state} onDone={onDone}
-          locationType={locationType}/>;
+          node={caravan_location}/>;
     }
   }
 
