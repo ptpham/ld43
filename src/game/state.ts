@@ -1,9 +1,9 @@
-
 import * as PIXI from 'pixi.js';
 import { C } from './constants';
 import * as Graph from './graph';
 import { CardType } from './data';
 import { GameMapCircle } from './gamemap';
+import { IEntity } from './entity';
 
 /**
  * This will be the god object that holds all state. 
@@ -16,14 +16,21 @@ import { GameMapCircle } from './gamemap';
  */
 
 export class State {
-  active_caravan: CardType[] = [];    
-  stage         : PIXI.Container;
-  graph         : Graph.Node[];
-  caravan_location: Graph.Node;
+  /**
+   * Keeps track of all entities in the game. 
+   * 
+   * They will be automatically updated and stuff
+   */
+  entities                 : IEntity[];
+  active_caravan           : CardType[] = [];    
+  stage                    : PIXI.Container;
+  graph                    : Graph.Node[];
+  caravan_location         : Graph.Node;
   caravan_location_graphix!: GameMapCircle;
-  isLocationDone: boolean;
+  isLocationDone           : boolean;
 
   constructor(stage: PIXI.Container) {
+    this.entities = [];
     this.stage = stage;
     this.graph = Graph.generate({ 
       width: C.CANVAS_WIDTH - 100, // TODO(bowei): this should be MAP_WIDTH and MAP_HEIGHT once we get scrolling working
@@ -33,6 +40,8 @@ export class State {
     this.caravan_location = this.graph[0];
     this.isLocationDone = false;
   }
+
+  addEntity(entity: IEntity): void {
+    this.entities.push(entity);
+  }
 }
-
-

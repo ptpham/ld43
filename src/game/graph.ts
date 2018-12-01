@@ -36,7 +36,6 @@ export function candidateEdgeHasIntersection(nodes: Node[], first: Node, second:
     }
   }
 
-
   return false;
 }
 

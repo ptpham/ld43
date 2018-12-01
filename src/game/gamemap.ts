@@ -23,17 +23,10 @@ export class GameMap extends Entity {
     }
 
     for (let node of this.state.graph) {
-      graphSprite.addChild(new GameMapCircle(node, state));
-      //const graphCircle = new PIXI.Graphics();
-      //graphCircle.lineWidth = 1;
-      //graphCircle.lineStyle(1, 0x000000);
-      //graphCircle.drawCircle(node.position.x, node.position.y, 16);
-      //graphCircle.interactive = true;
-      //graphCircle.hitArea = new PIXI.Circle(node.position.x, node.position.y, 16);
-      //graphCircle.on('click', (e: PIXI.interaction.InteractionEvent) => {
-      //  console.log(node);
-      //})
-      //graphSprite.addChild(graphCircle);
+      const newCircle = new GameMapCircle(node, state);
+
+      graphSprite.addChild(newCircle);
+      state.addEntity(newCircle);
     }
 
     graphSprite.x = 50;
@@ -84,46 +77,45 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
       this.addChild(stest);
     }
 
-    this.lineWidth = 1;
-    if (node.locationType === 'Start') {
-      this.lineStyle(1, 0x00FF00);
-    } else if (node.locationType === 'Finish') {
-      this.lineStyle(1, 0xFF0000);
-      this.lineWidth = 0;
-    } else {
-      this.lineStyle(1, 0x000000);
-    }
-    this.drawCircle(node.position.x, node.position.y, 16);
     this.interactive = true;
     this.hitArea = new PIXI.Circle(node.position.x, node.position.y, 16);
-    this.on('click', (e: PIXI.interaction.InteractionEvent) => {
-      console.log(this.node);
 
-      // can only select nodes adjacent to current caravan location
-      if (this.state.caravan_location.neighbors.indexOf(this.node) > -1) {
-        this.selected = !this.selected;
-        if (!this.selected) {
-          this.onUpdate.push(moveCaravanTo(this, this.state));
-        }
-        // queue up the rerender
-        this.onUpdate.push(() => {
-          if (this.selected) {
-            this.graphicsData[0].lineWidth += 2;
-          } else {
-            this.graphicsData[0].lineWidth -= 2;
-          }
-          this.dirty++;
-          this.clearDirty++;
-        })
+    this.on('click', (e: PIXI.interaction.InteractionEvent) => this.onClick(e));
+
+    this.render();
+  }
+
+  onClick(e: PIXI.interaction.InteractionEvent): void {
+    // can only select nodes adjacent to current caravan location
+    if (this.state.caravan_location.neighbors.indexOf(this.node) > -1) {
+      this.selected = !this.selected;
+
+      if (!this.selected) {
+        moveCaravanTo(this, this.state)();
       }
-      // lol
-      this.onUpdate.map(fn => fn());
-      this.onUpdate = [];
-    })
+    }
+
+    this.render();
+  }
+
+  render(): void {
+    this.clear();
+
+    this.lineWidth = this.selected ? 3 : 1;
+
+    if (this.node.locationType === 'Start') {
+      this.lineStyle(this.lineWidth, 0x00FF00);
+    } else if (this.node.locationType === 'Finish') {
+      this.lineStyle(this.lineWidth, 0xFF0000);
+      this.lineWidth = 0;
+    } else {
+      this.lineStyle(this.lineWidth, 0x000000);
+    }
+
+    this.drawCircle(this.node.position.x, this.node.position.y, 16);
   }
 
   update(state: State): void {
-    this.onUpdate.map(fn => fn());
   }
 }
 
