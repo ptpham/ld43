@@ -32,8 +32,7 @@ export class State {
    * They will be automatically updated and stuff
    */
   entities            : IEntity[];
-  active_caravan      : CardType[] = [];    
-  cardsInParty        : Set<CardType>;
+  cardsInCaravan      : Set<CardType>;
   cardsInWholeGame    : Set<CardType>;
   stage               : PIXI.Container;
   graph               : Graph.Node[];
@@ -45,7 +44,7 @@ export class State {
   idolState           : IdolState;
 
   constructor(stage: PIXI.Container) {
-    this.cardsInParty = new Set();
+    this.cardsInCaravan = new Set();
     this.cardsInWholeGame = new Set();
 
     this.stage    = stage;
