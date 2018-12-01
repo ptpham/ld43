@@ -23,7 +23,7 @@ export class CardChooser extends React.Component<CardChooserProps, State> {
   public render(): JSX.Element {
     return (
       <div
-        onclick={ () => console.log('was clicked!') }
+        onClick={ () => console.log('was clicked!') }
         style={{
           width: "600px",
           height: "200px",
