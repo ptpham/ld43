@@ -46,14 +46,16 @@ export class GameMap extends Entity {
 }
 
 class GameMapCircle extends PIXI.Graphics implements IEntity {
-  public m_node: Node;
+  public node: Node;
+  public state: State;
   public selected: boolean = false;
   // callback for updating this entity on game loop tick... ?
   public pendingInteraction: () => void = () => {};
 
-  constructor(node: Node) {
+  constructor(node: Node, state: State) {
     super();
-    this.m_node = node;
+    this.node = node;
+    this.state = state;
 
     // add a sprite
     if (node.locationType == 'Start') {
@@ -76,7 +78,7 @@ class GameMapCircle extends PIXI.Graphics implements IEntity {
     this.interactive = true;
     this.hitArea = new PIXI.Circle(node.position.x, node.position.y, 16);
     this.on('click', (e: PIXI.interaction.InteractionEvent) => {
-      console.log(this.m_node);
+      console.log(this.node);
 
       this.pendingInteraction = () => {
         this.selected = !this.selected;
