@@ -202,9 +202,9 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
 
     this.drawCircle(this.node.position.x, this.node.position.y, 16);
     for (let child of this.children) {
-      child.y += 2;
-      child.x -= 2;
+      console.log(child)
     }
+    console.log(this)
   }
 
   update(state: State): void {
