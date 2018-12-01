@@ -160,8 +160,17 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
 
     this.on('click', () => this.onClick());
     this.on('mouseover', () => this.mouseOver());
+    this.on('mouseout', () => this.mouseOut());
 
     this.render();
+  }
+
+  mouseOver(): void {
+
+  }
+
+  mouseOut(): void {
+
   }
 
   onClick(): void {
