@@ -62,6 +62,8 @@ class GameMapCircle extends PIXI.Graphics implements IEntity {
       console.log(this.m_node);
       this.pendingInteraction = true;
       this.lineWidth = 10;
+      this.dirty++;
+      this.clearDirty++;
 
       const stest = new PIXI.Sprite(PIXI.loader.resources['test'].texture);
       stest.x = 0;
