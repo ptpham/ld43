@@ -80,18 +80,21 @@ class GameMapCircle extends PIXI.Graphics implements IEntity {
     this.on('click', (e: PIXI.interaction.InteractionEvent) => {
       console.log(this.node);
 
-      this.pendingInteraction = () => {
-        this.selected = !this.selected;
-        if (this.selected) {
-          this.graphicsData[0].lineWidth = 3;
-        } else {
-          this.graphicsData[0].lineWidth = 1;
-          //this.removeChildAt(0);
+      if (this.state.caravan_location.neighbors.indexOf(this.node) > -1) {
+        this.pendingInteraction = () => {
+          this.selected = !this.selected;
+          if (this.selected) {
+            this.graphicsData[0].lineWidth = 3;
+          } else {
+            this.graphicsData[0].lineWidth = 1;
+            //this.removeChildAt(0);
+          }
+          this.dirty++;
+          this.clearDirty++;
         }
-        this.dirty++;
-        this.clearDirty++;
       }
-      this.pendingInteraction(); // lol
+      // lol
+      this.pendingInteraction();
       this.pendingInteraction = () => {};
     })
   }
