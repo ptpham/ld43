@@ -60,8 +60,8 @@ class GameMapCircle extends PIXI.Graphics implements IEntity {
     // add a sprite
     if (node.locationType == 'Start') {
       const stest = new PIXI.Sprite(PIXI.loader.resources['caravan'].texture);
-      stest.x = node.position.x + 2;
-      stest.y = node.position.y + 2;
+      stest.x = node.position.x - 16;
+      stest.y = node.position.y - 16;
       stest.scale = new PIXI.Point(2, 2);
       this.addChild(stest);
     }
