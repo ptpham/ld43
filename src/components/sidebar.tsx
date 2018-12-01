@@ -10,6 +10,11 @@ type SidebarProps = {
 type SidebarState = {
 }
 
+type IdolAction = 
+  | "Drop"
+  | "Pick Up"
+  | "None"
+
 export class Sidebar extends React.Component<SidebarProps, SidebarState> {
   constructor(props: SidebarProps) {
     super(props);
