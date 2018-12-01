@@ -73,7 +73,7 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
   public render(): JSX.Element {
     return (
       <div
-        onClick={ () => console.log('was clicked!') }
+        //onClick={ () => console.log('was clicked!') }
         style={{
           width: "600px",
           padding: "20px",
@@ -99,7 +99,9 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
             )
           }
         </div>
-        <div style={{ textAlign: "center" }}>
+        <div 
+          onClick = { () => console.log('lets embark!') }
+          style={{ textAlign: "center" }}>
           <a href="javascript:;">
             Go!
           </a>
