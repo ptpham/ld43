@@ -7,14 +7,14 @@ import { C } from './game/constants';
 import './App.css';
 
 class App extends React.Component {
-  state: { game?: Game };
+  state: { game?: Game, showMap: boolean };
   app   !: PIXI.Application;
   public div!: HTMLDivElement;
 
   constructor(props: any) {
     super(props);
     //PIXI.loader.load(() => )
-    this.state = {};
+    this.state = { showMap: false };
   }
 
   startGame(game: Game) {
@@ -47,7 +47,11 @@ class App extends React.Component {
   }
 
   renderCurrentLocation(state: State) {
-    let onDone = () => state.isLocationDone = true;
+    let onDone = () => {
+      state.isLocationDone = true;
+      this.setState({ showMap: false });
+    };
+
 
     switch (state.caravan_location.locationType) {
       case 'Start':
@@ -61,11 +65,13 @@ class App extends React.Component {
   }
 
   renderGameStateComponents() {
-    let { game } = this.state;
+    let { game, showMap } = this.state;
     if (game == null || game.state == null || game.state.isLocationDone) return null;
 
-    return <div className="modal">
-      { this.renderCurrentLocation(game.state) }
+    return <div className={`modal ${showMap ? 'show-map' : ''}`}>
+      { !showMap ? <button onClick={() => this.setState({ showMap: true })}>Show Map</button> : null }
+      { showMap ? <button className="glowing" onClick={() => this.setState({ showMap: false })}>Show Event</button> : null }
+      <div className="content"> { this.renderCurrentLocation(game.state) } </div>
     </div>;
   }
 
