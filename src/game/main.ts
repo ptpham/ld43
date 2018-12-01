@@ -11,7 +11,7 @@ import { CardType } from './data';
  * Peter that means you
  */
 export class State {
-  active_caravan: CardType[];    
+  active_caravan: CardType[] = [];    
   stage: PIXI.Container;
   graph: Graph.Node[];
 
@@ -21,7 +21,7 @@ export class State {
   }
 }
 
-class Game {
+export class Game {
   stage   !: PIXI.Container;
   state   !: State;
 
@@ -65,6 +65,8 @@ class Game {
     for (let node of this.state.graph) {
       graphSprite.drawCircle(node.position.x, node.position.y, 16);
     }
+
+    this.
   }
 
   private setUpPixiStuff(div: HTMLDivElement): void {
