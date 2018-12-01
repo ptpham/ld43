@@ -161,12 +161,15 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
   onClick(): void {
     // can only select nodes adjacent to current caravan location
     if (this.state.caravan_location.neighbors.indexOf(this.node) > -1) {
-      this.selected = !this.selected;
-
-      if (!this.selected) {
+      if (this.selected) {
+        this.selected = false;
         // we just double clicked this node
         this.state.caravan_location = this.node;
         this.state.isLocationDone = false;
+      } else {
+        // unselect the other guy
+        this.state.selectedNextLocation && (this.state.selectedNextLocation.selected = false);
+        this.selected = true;
       }
 
       this.render();
