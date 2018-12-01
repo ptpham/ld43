@@ -36,7 +36,7 @@ export function generateGraph(options: GenerateOptions): Node[] {
   for (let first of result) {
     for (let second of result) {
       let toSecond = second.position.subtract(first.position);
-      if (first.distance(second) < 2*spacing) continue;
+      if (first.distance(second) > 2*spacing) continue;
       
       for (let neighbor of first.neighbors) {
         let toNeighbor = neighbor.position.subtract(first.position);
