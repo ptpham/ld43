@@ -16,8 +16,8 @@ export class EventChooser extends React.Component<EventChooserProps> {
   sacrifice(targetSkill: string) {
     const { gameState, node } = this.props;
     const { cardsInCaravan } = gameState;
+    const personWithSkill = _.find([...cardsInCaravan.keys()], x => x.skill === targetSkill);
 
-    let personWithSkill = _.find([...cardsInCaravan.keys()], x => x.skill === targetSkill);
     gameState.cardsInCaravan.delete(personWithSkill!);
     node.upgraded = true;
     this.props.onDone();
