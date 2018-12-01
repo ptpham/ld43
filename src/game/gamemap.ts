@@ -6,6 +6,7 @@ import { Node } from "./graph";
 import { C } from "./constants";
 import { Caravan } from "./caravan";
 import { Graphics } from "pixi.js";
+import { random } from "lodash";
 
 function makeSprite(texture: PIXI.Texture, x: number, y: number): PIXI.Sprite {
   const sprite = new PIXI.Sprite(texture);
@@ -30,6 +31,42 @@ export class GameMap extends Entity {
 
     this.makeCaravan();
 
+  }
+
+  makeBG(): PIXI.Container {
+    const container = new PIXI.Container();
+    const grasslandTextures: PIXI.Texture[] = [
+      PIXI.loader.resources['grassland-0'].texture,
+      PIXI.loader.resources['grassland-1'].texture,
+      PIXI.loader.resources['grassland-2'].texture,
+      PIXI.loader.resources['grassland-3'].texture,
+      PIXI.loader.resources['grassland-4'].texture,
+      PIXI.loader.resources['grassland-5'].texture,
+      PIXI.loader.resources['grassland-6'].texture,
+      PIXI.loader.resources['grassland-7'].texture,
+      PIXI.loader.resources['grassland-8'].texture,
+    ];
+
+    // Assuming tiles are square
+    const tileSize = grasslandTextures[0].width * C.SPRITE_SCALE;
+    let posX = 0;
+    let posY = 0;
+    let iter = 0;
+    const maxIter = 10000;
+    while (posY < C.CANVAS_HEIGHT) {
+      while (posX < C.CANVAS_WIDTH) {
+        const index = random(0, grasslandTextures.length);
+        container.addChild(makeSprite(grasslandTextures[index], posX, posY));
+        posX += tileSize;
+        posY += tileSize;
+        iter++;
+        if (iter >= maxIter) {
+          return container;
+        }
+      }
+    }
+
+    return container;
   }
 
   makeGraph(): PIXI.Graphics {
