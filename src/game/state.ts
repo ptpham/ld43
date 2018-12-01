@@ -10,7 +10,7 @@ type IdolState =
     }
   | {
       state   : "dropped";
-      position: Graph.Node;
+      node: Graph.Node;
     }
   ;
 

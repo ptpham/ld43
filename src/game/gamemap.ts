@@ -100,7 +100,9 @@ export class GameMap extends Entity {
   }
 
   makeIdol(): Idol {
-    const idol = new Idol();
+    const idol = new Idol(this.state);
+
+    return idol;
   }
 
   update(state: State) {
