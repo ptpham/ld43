@@ -47,12 +47,12 @@ export class GameMap extends Entity {
 
 class GameMapCircle extends PIXI.Graphics implements IEntity {
   public m_node: Node;
-  //public pendingInteraction: boolean; // flag for whether we need to rerender this guy
-  public pendingInteraction: () => void; // callback for updating this entity on game loop tick... ?
+  public selected: boolean = false;
+  // callback for updating this entity on game loop tick... ?
+  public pendingInteraction: () => void = () => {};
 
   constructor(node: Node) {
     super();
-    this.pendingInteraction = () => {};
     this.m_node = node;
     this.lineWidth = 1;
     if (node.locationType === 'Start') {
@@ -69,8 +69,15 @@ class GameMapCircle extends PIXI.Graphics implements IEntity {
       console.log(this.m_node);
 
       this.pendingInteraction = () => {
-        if (this.graphicsData[0].lineWidth == 1) {
+        this.selected = !this.selected;
+        if (this.selected) {
           this.graphicsData[0].lineWidth = 3;
+          // add a sprite
+          const stest = new PIXI.Sprite(PIXI.loader.resources['test'].texture);
+          stest.x = 10;
+          stest.y = 10;
+          stest.scale = new PIXI.Point(4, 4);
+          this.addChild(stest);
         } else {
           this.graphicsData[0].lineWidth = 1;
         }
