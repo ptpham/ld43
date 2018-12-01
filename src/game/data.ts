@@ -1,5 +1,3 @@
-
-
 const LocationTypes = {
   Start: true,
   Finish: true,
@@ -8,9 +6,8 @@ const LocationTypes = {
   GoblinNest: true,
   Desert: true,
   River: true,
-  Mountai: truen
+  Mountain: true
 }
-
 
 export const enum LocationType {
   Start,
