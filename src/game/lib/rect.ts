@@ -1,4 +1,4 @@
-import { Line } from './line';
+import { Line } from '../line';
 import { Point, IPoint } from "./point";
 
 export class Rect {

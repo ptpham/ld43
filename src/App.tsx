@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Game } from './game/main';
+import { Game, State } from './game/main';
 
 type CardChooserProps = {
   state: State;

@@ -1,5 +1,5 @@
 import { Rect } from "./rect";
-import { C } from "./constants";
+import { C } from "../constants";
 
 export class Camera {
   width: number;
