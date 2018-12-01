@@ -17,7 +17,7 @@ export type GenerateOptions = {
 }
 
 export function generate(options: GenerateOptions): Node[] {
-  let { width, height, spacing, iters = 100, minAngle = Math.PI / 4 } = options;
+  let { width, height, spacing, iters = 1000, minAngle = Math.PI / 4 } = options;
   let result: Node[] = [
     new Node(new Point(spacing, height / 2), "Start"),
     new Node(new Point(width - spacing, height / 2), "Finish")
