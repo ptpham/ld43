@@ -5,6 +5,7 @@ import { Game } from './game/main';
 import { CardChooser } from './components/cardchooser';
 import { C } from './game/constants';
 import './App.css';
+import { MeatToolbar } from './components/meat';
 
 class App extends React.Component {
   state: { game?: Game, showMap: boolean };
@@ -78,6 +79,7 @@ class App extends React.Component {
   public render() {
     return (
       <div>
+        <MeatToolbar />
         <div
           className="App"
           ref={ div => this.div = div! }
