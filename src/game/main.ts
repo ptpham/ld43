@@ -21,8 +21,8 @@ export class State {
 
 export class Game {
   renderer!: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
-  stage    : PIXI.Container;
-  state    : State;
+  stage   !: PIXI.Container;
+  state   !: State;
 
   constructor(div: HTMLDivElement) {
     this.setUpPixiStuff(div);
