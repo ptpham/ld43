@@ -22,7 +22,6 @@ export type CardVocationType =
 export type CardType = {
   type: CardVocationType;
   meat: number;
-
 }
 
 export const CardTypes: CardType[] = [
