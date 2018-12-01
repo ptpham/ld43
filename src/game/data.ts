@@ -3,8 +3,8 @@ const LocationTypes = {
   Start: true,
   Finish: true,
   Forest: true,
-  Forest2: true,
   GoblinNest: true,
+  Canyon: true,
   Desert: true,
   River: true,
   Mountain: true

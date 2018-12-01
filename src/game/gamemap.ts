@@ -24,48 +24,36 @@ export class GameMap extends Entity {
     super();
 
     this.state = state;
+    this.makeBG();
 
     this.graphSprite = this.makeGraph();
-
-    // add caravan
 
     this.makeCaravan();
   }
 
-  makeBG(): PIXI.Container {
+  makeBG(): void {
     const container = new PIXI.Container();
     const grasslandTextures: PIXI.Texture[] = [
-      PIXI.loader.resources['grassland-0'].texture,
-      PIXI.loader.resources['grassland-1'].texture,
-      PIXI.loader.resources['grassland-2'].texture,
-      PIXI.loader.resources['grassland-3'].texture,
-      PIXI.loader.resources['grassland-4'].texture,
-      PIXI.loader.resources['grassland-5'].texture,
-      PIXI.loader.resources['grassland-6'].texture,
-      PIXI.loader.resources['grassland-7'].texture,
-      PIXI.loader.resources['grassland-8'].texture,
+      PIXI.loader.resources['grassland_0'].texture,
+      PIXI.loader.resources['grassland_1'].texture,
+      PIXI.loader.resources['grassland_2'].texture,
+      PIXI.loader.resources['grassland_3'].texture,
+      PIXI.loader.resources['grassland_4'].texture,
+      PIXI.loader.resources['grassland_5'].texture,
+      PIXI.loader.resources['grassland_6'].texture,
+      PIXI.loader.resources['grassland_7'].texture,
+      PIXI.loader.resources['grassland_8'].texture,
     ];
 
     // Assuming tiles are square
     const tileSize = grasslandTextures[0].width * C.SPRITE_SCALE;
-    let posX = 0;
-    let posY = 0;
-    let iter = 0;
-    const maxIter = 10000;
-    while (posY < C.CANVAS_HEIGHT) {
-      while (posX < C.CANVAS_WIDTH) {
-        const index = random(0, grasslandTextures.length);
-        container.addChild(makeSprite(grasslandTextures[index], posX, posY));
-        posX += tileSize;
-        posY += tileSize;
-        iter++;
-        if (iter >= maxIter) {
-          return container;
-        }
+    for (let y = 0; y < C.CANVAS_HEIGHT; y += tileSize) {
+      for (let x = 0; x < C.CANVAS_WIDTH; x += tileSize) {
+        const index = random(0, grasslandTextures.length - 1);
+        container.addChild(makeSprite(grasslandTextures[index], x, y));
       }
     }
-
-    return container;
+    this.state.stage.addChild(container);
   }
 
   makeGraph(): PIXI.Graphics {

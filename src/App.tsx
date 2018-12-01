@@ -4,6 +4,7 @@ import { Game } from './game/main';
 import { CardChooser } from './components/cardchooser';
 import './App.css';
 import { Toolbar } from './components/meat';
+import { Sidebar } from './components/sidebar';
 
 type AppState = {
   showMap  : boolean;
@@ -71,9 +72,18 @@ class App extends React.Component<{ game: Game }, AppState>  {
     return (
       <div>
         <Toolbar gameState={this.state.gameState}/>
-        <div ref={ div => this.div = div! }>
+        <div 
+          style={{
+            display: "inline-block",
+          }}
+          ref={ div => this.div = div! }>
           { this.renderGameStateComponents() }
         </div>
+        <Sidebar 
+          onDropIdol={() => {}}
+          onPickUpIdol={() => {}}
+          gameState={this.state.gameState}
+        />
       </div>
     );
   }

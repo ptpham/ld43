@@ -32,11 +32,51 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
           //margin: "0 20px 10px 20px",
         }}
       >
-        <div>
+        <div
+          style = {{
+            display: "inline-block",
+            textAlign: "center",
+            paddingLeft: "20px",
+            paddingRight: "20px",
+          }}
+        >
             THIS IS A TOOLBAR
         </div>
-        <div>
+        <div
+          style = {{
+            display: "inline-block",
+            textAlign: "center",
+            paddingTop: "5px",
+            paddingBottom: "5px",
+            paddingLeft: "20px",
+            paddingRight: "20px",
+          }}
+        >
           Meat: { this.props.gameState && this.props.gameState && this.props.gameState.meat }
+        </div>
+        <div
+          style = {{
+            display: "inline-block",
+            textAlign: "center",
+            paddingTop: "5px",
+            paddingBottom: "5px",
+            paddingLeft: "20px",
+            paddingRight: "20px",
+          }}
+        >
+          Turn count: { "a bajillion" }
+        </div>
+        <div
+          style = {{
+            display: "inline-block",
+            textAlign: "center",
+            paddingTop: "5px",
+            paddingBottom: "5px",
+            paddingLeft: "20px",
+            paddingRight: "20px",
+          }}
+        >
+          Crew count: { "not enough to survive " }
         </div>
       </div>
     );
