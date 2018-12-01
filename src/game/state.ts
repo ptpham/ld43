@@ -12,6 +12,8 @@ type IdolState =
       state   : "dropped";
       position: Node;
     }
+  ;
+
 
 /**
  * This will be the god object that holds all state. 
@@ -41,6 +43,9 @@ export class State {
   idolState       : IdolState;
 
   constructor(stage: PIXI.Container) {
+    this.idolState = {
+      state: "carried",
+    };
     this.hasIdol  = true;
     this.stage    = stage;
     this.meat     = 50;
