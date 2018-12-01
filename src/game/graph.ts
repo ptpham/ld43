@@ -43,6 +43,7 @@ export function generate(options: GenerateOptions): Node[] {
         if (toSecond.angle(toNeighbor) > minAngle) {
           first.neighbors.push(second);
           second.neighbors.push(first);
+          break;
         }
       }
     }
