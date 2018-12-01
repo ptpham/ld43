@@ -26,11 +26,13 @@ export class State {
   graph                    : Graph.Node[];
   caravan_location         : Graph.Node;
   isLocationDone           : boolean;
+  meat                     : number;
   walkAnimation?           : PIXI.ticker.Ticker;
 
   constructor(stage: PIXI.Container) {
-    this.entities = [];
     this.stage = stage;
+    this.meat = 50;
+    this.entities = [];
     this.graph = Graph.generate({ 
       width  : C.CANVAS_WIDTH - 100, // TODO(bowei): this should be MAP_WIDTH and MAP_HEIGHT once we get scrolling working
       height : C.CANVAS_HEIGHT - 100,
