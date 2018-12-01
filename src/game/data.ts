@@ -45,5 +45,4 @@ export type CardVocationType =
 export type CardType = {
   skill: CardVocationType;
   meat: number;
-  level: number;
 }
