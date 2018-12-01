@@ -23,10 +23,12 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
   }
 
   private clickDropOrPickUp(action: IdolAction): void {
-    if (this.props.gameState.hasIdol) {
+    if (action === "Drop") {
       this.props.onDropIdol();
-    } else {
+    } else if (action === "Pick Up") {
       this.props.onPickUpIdol();
+    } else if (action === "None") {
+
     }
   }
 
