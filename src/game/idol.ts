@@ -14,5 +14,6 @@ export class Idol extends PIXI.Sprite implements IEntity {
   }
 
   update(state: State): void {
+    const idolState = state.idolState;
   }
 }
