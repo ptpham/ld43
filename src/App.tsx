@@ -85,6 +85,8 @@ class App extends React.Component {
 
   start() {
     this.app = new PIXI.Application(
+      C.CANVAS_WIDTH,
+      C.CANVAS_HEIGHT
     );
     this.state = new State(this.app.stage);
   }
