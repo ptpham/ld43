@@ -1,5 +1,6 @@
 import { Entity, IEntity } from "./entity";
 import { State } from "./main";
+import { Node } from "./graph";
 
 export class GameMap extends Entity {
   state: State;
@@ -21,6 +22,7 @@ export class GameMap extends Entity {
     }
 
     for (let node of this.state.graph) {
+      new GameMapCircle(node);
       const graphCircle = new PIXI.Graphics();
       graphCircle.lineWidth = 1;
       graphCircle.lineStyle(1, 0x000000);
@@ -43,6 +45,29 @@ export class GameMap extends Entity {
   }
 }
 
-class GameMapCircle extends IEntity {
+class GameMapCircle extends PIXI.Graphics implements IEntity {
+  public m_node: Node;
+  public pendingInteraction: boolean; // flag for whether we need to rerender this guy
+
+  constructor(node: Node) {
+    super();
+    this.pendingInteraction = false;
+    this.m_node = node;
+    this.lineWidth = 1;
+    this.lineStyle(1, 0x000000);
+    this.drawCircle(node.position.x, node.position.y, 16);
+    this.interactive = true;
+    this.hitArea = new PIXI.Circle(node.position.x, node.position.y, 16);
+    this.on('click', (e: PIXI.interaction.InteractionEvent) => {
+      console.log(this.m_node);
+    })
+
+  }
+
+  update(state: State): void {
+    if (this.pendingInteraction) {
+      this.lineWidth = 10;
+    }
+  }
 
 }
