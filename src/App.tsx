@@ -61,7 +61,7 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
           border: "1px solid lightgray",
         } }
       >
-        Card Chooser 9000 <br>
+        Card Chooser 9000 <br />
         { this.state.text }
 
         {
