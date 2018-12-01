@@ -8,9 +8,11 @@ export type LocationType =
   | "Finish" 
   | "Forest" 
   | "GoblinNest" 
+  | "River"
+  | "Swamp"
+  | "BarbarianVillage"
   | "Canyon"
   | "Desert"
-  | "River"
   | "Mountain"
 
 export type SkillType = 
@@ -25,10 +27,12 @@ export const LocationTypeData: { [key in LocationType]: {
   Finish: {},
   Forest: { targetSkill: 'WoodCutter' },
   GoblinNest: {},
+  River: {},
   Canyon: { targetSkill: 'Builder' },
   Desert: { targetSkill: 'Priest' },
-  River: {},
-  Mountain: {}
+  Mountain: {},
+  Swamp: {},
+  BarbarianVillage: {}
 };
 
 export const LocationTypeNames = Object.keys(LocationTypeData);
