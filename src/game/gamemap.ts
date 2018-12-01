@@ -143,7 +143,12 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
         node.position.x,
         node.position.y,
       ));
-    } else {
+    } else if (node.locationType == 'GoblinNest') {
+      this.addChild(makeSprite(PIXI.loader.resources['goblin'].texture,
+        node.position.x,
+        node.position.y,
+      ));
+    }else {
       this.addChild(makeSprite(PIXI.loader.resources['test'].texture,
         node.position.x,
         node.position.y,
@@ -196,6 +201,17 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
     }
 
     this.drawCircle(this.node.position.x, this.node.position.y, 16);
+    if (this.selected) {
+      this.x = -4;
+      this.y = -4;
+    } else {
+      this.x = 0;
+      this.y = 0;
+    }
+    //console.log(this)
+    //for (let child of this.children) {
+    //  console.log(child)
+    //}
   }
 
   update(state: State): void {

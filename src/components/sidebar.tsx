@@ -10,6 +10,11 @@ type SidebarProps = {
 type SidebarState = {
 }
 
+type IdolAction = 
+  | "Drop"
+  | "Pick Up"
+  | "None"
+
 export class Sidebar extends React.Component<SidebarProps, SidebarState> {
   constructor(props: SidebarProps) {
     super(props);
@@ -17,15 +22,31 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
     this.state = { };
   }
 
-  private clickDropOrPickUp(): void {
-    if (this.props.gameState.hasIdol) {
+  private clickDropOrPickUp(action: IdolAction): void {
+    if (action === "Drop") {
       this.props.onDropIdol();
-    } else {
+    } else if (action === "Pick Up") {
       this.props.onPickUpIdol();
+    } else if (action === "None") {
+      return;
     }
   }
 
   public render(): JSX.Element {
+    let canPickUpIdol = false;
+    const state = this.props.gameState;
+
+    if (state.idolState.state === "dropped") {
+      canPickUpIdol = state.idolState.node.equals(state.caravan_location);
+    }
+
+    const idolAction: IdolAction = 
+      this.props.gameState.hasIdol
+        ? "Drop"
+        : canPickUpIdol
+          ? "Pick Up"
+          : "None";
+
     return (
       <div
         style={{
@@ -50,17 +71,15 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
           {' '}
           <a 
             href="javascript:;"
-            onClick={() => this.clickDropOrPickUp()}
+            onClick={ () => this.clickDropOrPickUp(idolAction) }
           >
             {
-              this.props.gameState.hasIdol
-                ? "Drop"
-                : ""
+              idolAction === "None" ? "" : idolAction
             }
           </a>
         </div>
         <div>
-          bowei was here
+          { "Currently selected location: " + (this.props.gameState.selectedNextLocation ? this.props.gameState.selectedNextLocation.node.locationType : "None. ")}
         </div>
       </div>
     );
