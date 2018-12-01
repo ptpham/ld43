@@ -83,6 +83,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
             }
           </a>
         </div>
+
         {
           location &&
             <>
