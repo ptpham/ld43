@@ -143,20 +143,21 @@ export function generate(options: GenerateOptions): Node[] {
     node.baseMeatCost = _.random(1, 4, false);
   }
 
-  generateSnake(result, 'River', options);
-  generateSnake(result, 'Canyon', options);
-
   return result;
 }
 
-export function generateSnake(nodes: Node[], type: LocationType, options: GenerateOptions) {
+export function generateSnake(nodes: Node[], type: LocationType, options: GenerateOptions): PIXI.Point[] {
   const { width, height } = options;
   const line = new Line({ x1: width * Math.random(), x2: width * Math.random(), y1: 0, y2: height });
 
+  const snake = [new PIXI.Point(line.x1, line.y1)];
   nodes.forEach((node: Node) => {
-    if (line.intersectCircle(node.position, C.NODE_RADIUS * 2)) {
+    if (line.intersectCircle(node.position, C.NODE_RADIUS * 1.5)) {
       node.locationType = type;
+      snake.push(new PIXI.Point(node.position.x, node.position.y));
     }
   });
+  snake.push(new PIXI.Point(line.x2, line.y2));
+  return snake;
 }
 
