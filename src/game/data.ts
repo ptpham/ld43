@@ -7,9 +7,10 @@ const LocationTypes = {
   Desert: true,
   River: true,
   Mountain: true
-}
+};
 
 export type LocationType = keyof typeof LocationTypes;
+export const LocationTypeNames = Object.keys(LocationTypes);
 
 export type CardVocationType = 
   | "Builder"
