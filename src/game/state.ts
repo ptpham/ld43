@@ -14,7 +14,6 @@ type IdolState =
     }
   ;
 
-
 /**
  * This will be the god object that holds all state. 
  *  
