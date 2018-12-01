@@ -30,10 +30,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
     const state = this.props.gameState;
 
     if (state.idolState.state === "dropped") {
-      if (state.idolState.node === state.caravan_location) {
-        canPickUpIdol;
-
-      }
+      canPickUpIdol = state.idolState.node === state.caravan_location;
     }
 
     return (
