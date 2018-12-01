@@ -54,6 +54,16 @@ class GameMapCircle extends PIXI.Graphics implements IEntity {
   constructor(node: Node) {
     super();
     this.m_node = node;
+
+    // add a sprite
+    if (node.locationType == 'Start') {
+      const stest = new PIXI.Sprite(PIXI.loader.resources['caravan'].texture);
+      stest.x = node.position.x + 2;
+      stest.y = node.position.y + 2;
+      stest.scale = new PIXI.Point(2, 2);
+      this.addChild(stest);
+    }
+
     this.lineWidth = 1;
     if (node.locationType === 'Start') {
       this.lineStyle(1, 0x00FF00);
@@ -72,15 +82,9 @@ class GameMapCircle extends PIXI.Graphics implements IEntity {
         this.selected = !this.selected;
         if (this.selected) {
           this.graphicsData[0].lineWidth = 3;
-          // add a sprite
-          const stest = new PIXI.Sprite(PIXI.loader.resources['caravan'].texture);
-          stest.x = node.position.x + 2;
-          stest.y = node.position.y + 2;
-          stest.scale = new PIXI.Point(2, 2);
-          this.addChild(stest);
         } else {
           this.graphicsData[0].lineWidth = 1;
-          this.removeChildAt(0);
+          //this.removeChildAt(0);
         }
         this.dirty++;
         this.clearDirty++;
