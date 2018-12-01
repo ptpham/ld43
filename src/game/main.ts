@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { C } from './constants';
 import * as Graph from './graph';
+import { CardType } from './data';
 
 /**
  * This will be the god object that holds all state. 
@@ -14,15 +15,11 @@ export class State {
   graph: Graph.Node[];
 
   constructor(stage: PIXI.Container) {
-
-  constructor(stage: PIXI.Container) {
     this.stage = stage;
     this.graph = Graph.generate({ width: 600, height: 100, spacing: 10 });
   }
 }
 
-export class Game {
-  renderer!: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
   stage   !: PIXI.Container;
   state   !: State;
 
