@@ -36,6 +36,7 @@ export class State {
   stage           : PIXI.Container;
   graph           : Graph.Node[];
   caravan_location: Graph.Node;
+  selectedNextLocation: Graph.Node | undefined;
   isLocationDone  : boolean;
   meat            : number;
   walkAnimation?  : PIXI.ticker.Ticker;
