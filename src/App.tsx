@@ -32,6 +32,7 @@ export class CardChooser extends React.Component<CardChooserProps, State> {
         } }
       >
         Card Chooser 9000
+        { this.state.text }
       </div>
     );
   }
