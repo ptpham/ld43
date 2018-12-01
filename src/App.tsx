@@ -37,7 +37,18 @@ export class CardChooser extends React.Component<CardChooserProps, State> {
 }
 
 class App extends React.Component {
+  state !: State;
   public div!: HTMLDivElement;
+
+  constructor(props: any) {
+    super(props);
+    //PIXI.loader.load(() => )
+    this.start();
+  }
+
+  start() {
+    this.state = new State();
+  }
 
   public componentDidMount() {
     new Game(this.div);
