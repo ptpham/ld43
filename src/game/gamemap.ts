@@ -63,7 +63,11 @@ class GameMapCircle extends PIXI.Graphics implements IEntity {
       console.log(this.m_node);
 
       this.pendingInteraction = () => {
-        this.graphicsData[0].lineWidth = 10;
+        if (this.graphicsData[0].lineWidth == 1) {
+          this.graphicsData[0].lineWidth = 2;
+        } else {
+          this.graphicsData[0].lineWidth = 1;
+        }
         this.dirty++;
         this.clearDirty++;
       }
