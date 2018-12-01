@@ -16,8 +16,18 @@ export class Card extends React.Component<CardProps, {}> {
 
   public render(): JSX.Element {
     return (
-      <div >
-        I'm a card! { this.props.card.type }
+      <div
+        style={{
+          display: "inline-block",
+          border: "1px solid lightgray",
+          height: "200px",
+          width: "100px",
+          margin: "0 20px 10px 20px",
+        }}
+      >
+        <div>{ this.props.card.type }</div>
+        <div>Skill level: {this.props.card.skill}</div>
+        <div>Meat consumption: {this.props.card.meat}</div>
       </div>
     );
   }

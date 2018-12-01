@@ -1,4 +1,4 @@
-import { Point } from './lib/point';
+import { Point } from './point';
 
 export class Line {
   private _x1: number;
