@@ -8,6 +8,8 @@ export class C {
 
   public static SPRITE_ASSETS = [
     'test',
-    'caravan'
+    'caravan',
+    'volcano',
+    'grass'
   ];
 }

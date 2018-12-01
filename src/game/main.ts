@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 import { C } from './constants';
 import * as Graph from './graph';
 import { CardType } from './data';
-import { GameMap } from './gamemap';
+import { GameMap, GameMapCircle } from './gamemap';
 
 /**
  * This will be the god object that holds all state. 
@@ -16,6 +16,7 @@ export class State {
   stage         : PIXI.Container;
   graph         : Graph.Node[];
   caravan_location: Graph.Node;
+  caravan_location_graphix!: GameMapCircle;
 
   constructor(stage: PIXI.Container) {
     this.stage = stage;
