@@ -1,4 +1,4 @@
-import { Entity } from "./entity";
+import { Entity, IEntity } from "./entity";
 import { State } from "./main";
 
 export class GameMap extends Entity {
@@ -41,4 +41,8 @@ export class GameMap extends Entity {
   update(state: State) {
     // update some circles
   }
+}
+
+class GameMapCircle extends IEntity {
+
 }
