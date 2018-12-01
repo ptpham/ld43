@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Game, State } from './game/main';
 import { CardType } from './game/data';
 import { Card } from './components/card';
+import { C } from './game/constants';
 
 type CardChooserProps = {
   gameState: State;
@@ -73,6 +74,7 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
 
 class App extends React.Component {
   state !: State;
+  app   !: PIXI.Application;
   public div!: HTMLDivElement;
 
   constructor(props: any) {
@@ -82,7 +84,11 @@ class App extends React.Component {
   }
 
   start() {
-    this.state = new State();
+    this.app = new PIXI.Application(
+      C.CANVAS_WIDTH,
+      C.CANVAS_HEIGHT
+    );
+    this.state = new State(this.app.stage);
   }
 
   public componentDidMount() {

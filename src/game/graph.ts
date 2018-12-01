@@ -16,7 +16,7 @@ export type GenerateOptions = {
   height: number
 }
 
-export function generateGraph(options: GenerateOptions): Node[] {
+export function generate(options: GenerateOptions): Node[] {
   let { width, height, spacing, iters = 1000, minAngle = Math.PI / 4 } = options;
   let result: Node[] = [
     new Node(new Point(spacing, height / 2), "Start"),
@@ -36,7 +36,7 @@ export function generateGraph(options: GenerateOptions): Node[] {
   for (let first of result) {
     for (let second of result) {
       let toSecond = second.position.subtract(first.position);
-      if (first.distance(second) > 2*spacing) continue;
+      if (first.position.distance(second.position) > 2*spacing) continue;
       
       for (let neighbor of first.neighbors) {
         let toNeighbor = neighbor.position.subtract(first.position);

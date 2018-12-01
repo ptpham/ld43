@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { C } from './constants';
+import * as Graph from './graph';
 
 /**
  * This will be the god object that holds all state. 
@@ -10,9 +11,11 @@ import { C } from './constants';
  */
 export class State {
   stage: PIXI.Container;
+  graph: Node[];
 
   constructor(stage: PIXI.Container) {
     this.stage = stage;
+    this.graph = Graph.generate({ width: 600, height: 100, spacing: 10 });
   }
 }
 
@@ -49,6 +52,18 @@ export class Game {
     this.state = new State(
       this.stage,
     );
+
+    const graphSprite = new PIXI.Graphics();
+    for (let node of this.state.graph) {
+      for (let neighbor of node.neighbors) {
+        graphSprite.moveTo(node.position.x, node.position.y);
+        graphSprite.lineTo(neighbor.position.x, neighbor.position.y);
+      }
+    }
+
+    for (let node of this.state.graph) {
+      graphSprite.drawCircle(node.position.x, node.position.y, 16);
+    }
   }
 
   private setUpPixiStuff(div: HTMLDivElement): void {
