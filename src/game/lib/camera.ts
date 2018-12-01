@@ -67,4 +67,9 @@ export class Camera {
       h: C.MAP_HEIGHT,
     });
   }
+
+  update(state: State) {
+    state.stage.x = this.desiredStageX;
+    state.stage.y = this.desiredStageY;
+  }
 }
