@@ -9,9 +9,15 @@ export class Node {
 }
 
 export type GenerateOptions = {
+  iters?: number,
+  minAngle?: number,
+  spacing: number,
+  width: number,
+  height: number
 }
 
-export function generateGraph(width: number, height: number, spacing: number, iters: number = 1000): Node[] {
+export function generateGraph(options: GenerateOptions): Node[] {
+  let { width: number, height: number, spacing: number, iters: number = 1000 } = options;
   let result: Node[] = [
     new Node(new Point(spacing, height / 2), "Start"),
     new Node(new Point(width - spacing, height / 2), "Finish")
