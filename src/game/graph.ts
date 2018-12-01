@@ -1,5 +1,5 @@
 
-import { Point } from 'pixi.js';
+import { Point } from './lib/point';
 import { LocationType, LocationTypeNames } from './data';
 import _ from 'lodash';
 
@@ -22,8 +22,12 @@ export function generateGraph(width: number, height: number, spacing: number, it
       let distance = Math.sqrt((position.x - x) ** 2 + (position.y - y) ** 2);
       if (distance < spacing) result.push(new Node(new Point(x, y), _.sample(LocationTypeNames)! as LocationType));
     }
+  }
 
-      
+  for (let first of result) {
+      for (let second of result) {
+
+      }
   }
 
   return result;

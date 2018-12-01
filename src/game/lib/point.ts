@@ -71,6 +71,10 @@ export class Point {
     });
   }
 
+  distance(): number {
+    return Math.sqrt(this.x ** 2 + this.y ** 2);
+  }
+
   scale(about: { x: number; y: number }, amount: { x: number; y: number }): Point {
     return new Point({
       x: (this.x - about.x) * amount.x + about.x,
