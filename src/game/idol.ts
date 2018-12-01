@@ -9,7 +9,7 @@ import { Point } from './lib/point';
 export class Idol extends PIXI.Sprite implements IEntity {
   constructor() {
     super(
-      PIXI.loader.resources['caravan'].texture
+      PIXI.loader.resources['test'].texture
     );
   }
 
