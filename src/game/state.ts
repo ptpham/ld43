@@ -34,7 +34,7 @@ export class State {
   entities            : IEntity[];
   active_caravan      : CardType[] = [];    
   cardsInParty        : Set<CardType>;
-  totalCards          : Set<CardType>;
+  cardsInWholeGame    : Set<CardType>;
   stage               : PIXI.Container;
   graph               : Graph.Node[];
   caravan_location    : Graph.Node;
