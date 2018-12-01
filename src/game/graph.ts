@@ -15,18 +15,20 @@ export function generateGraph(width: number, height: number, spacing: number, it
   ];
 
   for (let i = 0; i < iters; i++) {
-    let x: number = Math.random();
-    let y: number = Math.random();
+    let current = new Point(width*Math.random(), height*Math.random());
 
     for (let { position } of result) {
-      let distance = Math.sqrt((position.x - x) ** 2 + (position.y - y) ** 2);
-      if (distance < spacing) result.push(new Node(new Point(x, y), _.sample(LocationTypeNames)! as LocationType));
+      if (current.distance(position) < spacing) {
+        result.push(new Node(current, _.sample(LocationTypeNames)! as LocationType));
+      }
     }
   }
 
   for (let first of result) {
     for (let second of result) {
-
+      for (let neighbor of first.neighbors) {
+        
+      }
     }
   }
 
