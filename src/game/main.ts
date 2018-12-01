@@ -40,7 +40,7 @@ export class Game {
     this.animate();
   }
 
-  private setUpPixiStuff(div: HTMLDivElement): void {
+  private async setUpPixiStuff(div: HTMLDivElement): Promise<void> {
     this.renderer = PIXI.autoDetectRenderer(
       C.CANVAS_WIDTH,
       C.CANVAS_HEIGHT, {
@@ -53,8 +53,12 @@ export class Game {
 
     const loader = new PIXI.loaders.Loader();
     loader.add('test', 'assets/test.png');
-
-    div.appendChild(this.renderer.view);
+    return new Promise((res) => {
+      loader.load((loader, resources) => res(resources));
+    }).then((resources) => {
+      this.resources = resources;
+      div.appendChild(this.renderer.view);
+    });
   }
 
   animate(): void {
