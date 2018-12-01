@@ -35,6 +35,9 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
         <div>
             BOWEI WAS HERE
         </div>
+        <div>
+          Meat: { this.gameState && this.gameState && this.gameState.meat }
+        </div>
       </div>
     );
   }
