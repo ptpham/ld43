@@ -1,6 +1,7 @@
 
 import { Point } from 'pixi.js';
-import { LocationType } from './data';
+import { LocationType, LocationTypeNames } from './data';
+import _ from 'lodash';
 
 export class Node {
   neighbors: Node[] = [];
@@ -19,8 +20,10 @@ export function generateGraph(width: number, height: number, spacing: number, ma
 
     for (let { position } of result) {
       let distance = Math.sqrt((position.x - x) ** 2 + (position.y - y) ** 2);
-      if (distance < spacing) result.push(new Node(new Point(x, y), LocationType.Forest));
+      if (distance < spacing) result.push(new Node(new Point(x, y), _.sample(LocationTypeNames)));
     }
+
+    for ()
   }
 
   return result;

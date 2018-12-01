@@ -53,7 +53,7 @@ class App extends React.Component {
 
         </div>
 
-        <CardChooser />
+        <CardChooser state={this.state} />
       </div>
     );
   }
