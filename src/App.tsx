@@ -80,8 +80,8 @@ class App extends React.Component<{ game: Game }, AppState>  {
           { this.renderGameStateComponents() }
         </div>
         <Sidebar 
-          onDropIdol={() => {}}
-          onPickUpIdol={() => {}}
+          onDropIdol={() => this.state.gameState.onDropIdol()}
+          onPickUpIdol={() => this.state.gameState.onPickUpIdol()}
           gameState={this.state.gameState}
         />
       </div>
