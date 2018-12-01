@@ -43,12 +43,7 @@ export class State {
   idolState       : IdolState;
 
   constructor(stage: PIXI.Container) {
-    this.idolState = {
-      state: "carried",
-    };
-    this.hasIdol  = true;
     this.stage    = stage;
-    this.meat     = 50;
     this.entities = [];
     this.graph    = Graph.generate({ 
       width  : C.CANVAS_WIDTH - 100, // TODO(bowei): this should be MAP_WIDTH and MAP_HEIGHT once we get scrolling working
@@ -57,6 +52,17 @@ export class State {
     });
     this.caravan_location = this.graph[0];
     this.isLocationDone = false;
+
+    // Resource stuff
+
+    this.meat     = 50;
+
+    // Idol stuff 
+
+    this.idolState = {
+      state: "carried",
+    };
+    this.hasIdol  = true;
   }
 
   addEntity(entity: IEntity): void {
