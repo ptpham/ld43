@@ -33,6 +33,12 @@ class App extends React.Component<{ game: Game }, AppState>  {
         return true;
       }
     });
+
+    // stupid stuff to ensure we always propagate changes to react.
+
+    props.game.state.addChangeListener((gameState) => {
+      this.setState({ gameState })
+    })
   }
 
   componentDidMount(): void {

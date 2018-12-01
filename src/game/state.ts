@@ -79,15 +79,27 @@ export class State {
         node: this.caravan_location,
       };
     }
+
+    this.onChange();
   }
 
   onPickUpIdol(): void {
 
+    this.onChange();
   }
 
-  changeListeners: (() => void)[] = [];
 
-  onChange(e: () => void) {
+  // stupid stuff to ensure we always propagate changes to react.
+
+  changeListeners: ((state: State) => void)[] = [];
+
+  addChangeListener(e: (state: State) => void) {
     this.changeListeners.push(e);
+  }
+
+  onChange(): void {
+    for (const listener of this.changeListeners) {
+      listener(this);
+    }
   }
 }

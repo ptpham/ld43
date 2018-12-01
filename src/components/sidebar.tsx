@@ -60,7 +60,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
           </a>
         </div>
         <div>
-          bowei was here
+          { "Currently selected location: " + (this.props.gameState.selectedNextLocation ? this.props.gameState.selectedNextLocation.node.locationType : "None. ")}
         </div>
       </div>
     );

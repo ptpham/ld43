@@ -14,6 +14,7 @@ export class C {
     'caravan',
     'volcano',
     'forest',
+    'goblin',
     'grass',
     'grassland_0',
     'grassland_1',
