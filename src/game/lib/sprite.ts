@@ -1,4 +1,4 @@
-import { C } from "../constants";
+import { C, SeedRandom } from "../constants";
 
 export function makeSprite(texture: PIXI.Texture): PIXI.Sprite {
   const sprite = new PIXI.Sprite(texture);
@@ -7,4 +7,9 @@ export function makeSprite(texture: PIXI.Texture): PIXI.Sprite {
   sprite.scale = new PIXI.Point(C.SPRITE_SCALE, C.SPRITE_SCALE);
 
   return sprite;
+}
+
+export function getRandomTexture(textures: PIXI.Texture[]) {
+  const index = Math.floor(SeedRandom() * textures.length);
+  return textures[index];
 }

@@ -5,15 +5,7 @@ import { Node } from "./graph";
 
 import { C } from "./constants";
 import { Particles } from "./particles";
-
-function makeSprite(texture: PIXI.Texture): PIXI.Sprite {
-  const sprite = new PIXI.Sprite(texture);
-  sprite.x = - sprite.width * C.SPRITE_SCALE / 2;
-  sprite.y = - sprite.height * C.SPRITE_SCALE / 2;
-  sprite.scale = new PIXI.Point(C.SPRITE_SCALE, C.SPRITE_SCALE);
-
-  return sprite;
-}
+import { makeSprite } from "./lib/sprite";
 
 export class Location extends PIXI.Graphics implements IEntity {
   public node: Node;

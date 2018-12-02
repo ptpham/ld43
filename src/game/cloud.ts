@@ -2,11 +2,7 @@ import { State } from "./state";
 import { IEntity } from "./entity";
 import { C } from "./constants";
 import { SeedRandom } from './constants';
-
-function getRandomTexture(textures: PIXI.Texture[]) {
-  const index = Math.floor(SeedRandom() * textures.length);
-  return textures[index];
-}
+import { getRandomTexture } from './lib/sprite';
 
 export class Cloud extends PIXI.Sprite implements IEntity {
   speed: number;
