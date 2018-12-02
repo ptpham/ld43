@@ -150,18 +150,13 @@ export class State {
     let to_ret: { text: string, remaining: number } = { text: "", remaining: 0};
     if (t <= 10) {
       to_ret = { text: "Minimal", remaining: 10 - t };
-      //return "Minimal";
     } else if (t <= 20) {
-      //return "Low";
       to_ret = { text: "Low", remaining: 20 - t };
     } else if (t <= 30) {
-      //return "Medium";
       to_ret = { text: "Medium", remaining: 30 - t };
     } else if (t <= 40) {
-      //return "High";
       to_ret = { text: "High", remaining: 40 - t };
     } else {
-      //return "Catastrophic";
       to_ret = { text: "Catastrophic", remaining: t % 2 };
     }
     if (this.idolState.state === 'carried') {

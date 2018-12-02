@@ -59,33 +59,35 @@ const ForestWithHouse: EventType = {
   ]
 };
 
-export const AllEvents: EventType[] = [
-  {
-    location   : "Forest",
-    description: "You come to a misty forest. You hear the echo of eerie laughter in the distance. Passing through will be arduous, but is possible.",
-    difficulty : 1,
-    options    : [
-      CutDownForestOption,
-      {
-        skillRequired: { type: "specific-skill", skill: "Builder" },
-        description: "Build a house.",
-        outcome: { type: "lose-meat", amount: 20, },
-        updateEventTo: ForestWithHouse,
-      },
+const ForestElfEvent: EventType = {
+  location: "Forest",
+  description: "You come to a misty forest. You hear the echo of eerie laughter in the distance. Passing through will be arduous, but is possible.",
+  difficulty: 1,
+  options: [
+    CutDownForestOption,
+    {
+      skillRequired: { type: "specific-skill", skill: "Builder" },
+      description: "Build a house.",
+      outcome: { type: "lose-meat", amount: 20, },
+      updateEventTo: ForestWithHouse,
+    },
 
-      {
-        skillRequired: { type: "specific-skill", skill: "Priest" },
-        description: "Commune with the forest elves.",
-        outcome: { 
-          type: "gain-meat", 
-          amount: 20,
-        },
+    {
+      skillRequired: { type: "specific-skill", skill: "Priest" },
+      description: "Commune with the forest elves.",
+      outcome: {
+        type: "gain-meat",
+        amount: 20,
       },
-      {
-        skillRequired: { type: "no-skill" },
-        description: "Pass on.",
-        outcome: { type: "lose-meat", amount: 10, },
-      },
-    ]
-  }
+    },
+    {
+      skillRequired: { type: "no-skill" },
+      description: "Pass on.",
+      outcome: { type: "lose-meat", amount: 10, },
+    },
+  ]
+}
+
+export const AllEvents: EventType[] = [
+  
 ]
