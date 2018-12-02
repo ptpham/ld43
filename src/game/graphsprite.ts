@@ -15,6 +15,7 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
 
   build() {
     const graphSprite = new PIXI.Graphics();
+
     graphSprite.lineWidth = 1;
     graphSprite.lineStyle(1, 0x000000)
 
