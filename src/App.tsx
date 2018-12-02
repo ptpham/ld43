@@ -6,6 +6,8 @@ import './App.css';
 import { Toolbar } from './components/meat';
 import { Sidebar } from './components/sidebar';
 import { CardType } from './game/data';
+import { ActionChooser } from './components/actionchooser';
+import { AllEvents } from './game/events';
 
 type AppState = {
   isEventVisible: boolean;
@@ -107,35 +109,10 @@ class App extends React.Component<{ game: Game }, AppState>  {
           gameState={this.state.gameState}
         />
 
-        <div
-          style={{
-            position: "fixed",
-            top: "150px",
-            left: "150px",
-            width: "400px",
-            height: "200px",
-            backgroundColor: "white",
-            padding: "20px",
-          }}
-        >
-          <div style={{ padding: "0 0 20px 0"}}>
-            <strong>You arrive at the Mountain.</strong> Outside, an old man solicits you for help.
-          </div>
-
-          <div style={{ padding: "0 0 10px 0" }}>
-            <strong>Storyteller:</strong> Tell him a story.
-          </div>
-
-          <div style={{ padding: "0 0 10px 0" }}>
-            <strong>Fighter:</strong> Try... to punch him?
-          </div>
-
-          <div style={{ padding: "0 0 10px 0" }}>
-            <strong>Stupid:</strong> Eat him.
-          </div>
-
-        </div>
-
+        <ActionChooser 
+          event={ AllEvents[0] }
+          gameState={ this.state.gameState }
+        />
       </div>
     );
   }

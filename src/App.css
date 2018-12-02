@@ -61,3 +61,10 @@ button.glowing {
   100% { box-shadow: 0px 0px 2px 2px gold; }
 }
 
+.event-button:hover {
+  color: gray;
+}
+
+.event-button {
+  color: black;
+}

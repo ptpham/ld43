@@ -1,6 +1,7 @@
 import { State } from "./state";
 import { IEntity } from "./entity";
 import { GameMapCircle } from "./gamemap";
+import { C } from "./constants";
 
 export class GraphSprite extends PIXI.Sprite implements IEntity {
   state: State;
@@ -29,10 +30,12 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
 
     // clear the old nodes
     this.graphSprite.clear();
+    this.graphSprite.removeChildren();
 
     this.graphSprite.lineWidth = 1;
     this.graphSprite.lineStyle(1, 0x000000)
 
+    console.log(this.state.visitedNodes);
     for (let node of visibleNodes) {
       for (let neighbor of node.neighbors) {
         if (!visibleNodes.has(neighbor)) { continue; }
@@ -49,17 +52,26 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
       this.state.addEntity(newCircle);
       if (!visitedNodes.has(node)) {
         // add a question mark to unvisited ones
-        const qmarkSprite = new PIXI.Sprite(PIXI.loader.resources['question_mark'].texture);
-        qmarkSprite.x = 0;
-        qmarkSprite.y = 0;
-        newCircle.addChild(qmarkSprite);
+        const qMarkSprite = new PIXI.Sprite(PIXI.loader.resources['question_mark'].texture);
+        qMarkSprite.scale = new PIXI.Point(C.SPRITE_SCALE * 0.75, C.SPRITE_SCALE * 0.75);
+        qMarkSprite.x = node.position.x - qMarkSprite.width / 2;
+        qMarkSprite.y = node.position.y - qMarkSprite.height / 2;
+        this.graphSprite.addChild(qMarkSprite);
       }
     }
 
     this.graphSprite.x = 0;
     this.graphSprite.y = 0;
 
-    this.state.stage.addChild(this.graphSprite);
+    if (this.state.stage.children.indexOf(this.graphSprite) === -1) {
+      this.state.stage.addChild(this.graphSprite);
+      //this.graphSprite.clear();
+      //this.graphSprite.removeChildren();
+      //for (let child of this.graphSprite.children) {
+      //  let child_ : any = child;
+      //  child_.clear && typeof child_.clear === 'function' && child_.clear();
+      //}
+    }
 
     return this.graphSprite;
   }

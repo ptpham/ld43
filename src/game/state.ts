@@ -4,6 +4,7 @@ import * as Graph from './graph';
 import { CardType } from './data';
 import { IEntity } from './entity';
 import { GameMapCircle, GameMap } from './gamemap';
+import { EventOption } from './events';
 
 type IdolState = 
   | {
@@ -138,7 +139,7 @@ export class State {
     if (
       this.idolState.state === "dropped" &&
       this.caravanLocation.equals(this.idolState.node)
-      ) {
+    ) {
       this.idolState = {
         state: "carried",
       };
@@ -151,6 +152,27 @@ export class State {
     return this.idolState.state === "carried";
   }
 
+  public handleChooseEventOption(option: EventOption): void {
+    switch (option.outcome.type) {
+      case "gain-meat": {
+        this.meat += option.outcome.amount;
+        break;
+      }
+
+      case "lose-meat": {
+        this.meat -= option.outcome.amount;
+        break;
+      }
+
+      default: {
+        const x: never = option.outcome;
+
+        throw new Error("expected x to be never! " + x);
+      }
+    }
+
+    this.onChange();
+  }
 
   // stupid stuff to ensure we always propagate changes to react.
 

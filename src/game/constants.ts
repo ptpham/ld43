@@ -41,6 +41,7 @@ export class C {
     'river',
     'blight_particle',
     'purple_particle',
+    'question_mark',
   ];
 }
 
