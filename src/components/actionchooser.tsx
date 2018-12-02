@@ -11,10 +11,8 @@ const EventButton = (props: {
 }): JSX.Element => {
   if (props.disabled) {
     return (
-      <a 
-        href="javascript:;"
+      <div 
         className={ "event-button" }
-        onClick={() => props.onClick && props.onClick() }
         style={{
           textDecoration: "none",
           display: "block",
@@ -24,10 +22,8 @@ const EventButton = (props: {
           color: props.disabled ? "gray" : "inherit",
         }}
       >
-        <div>
-          { props.children }
-        </div>
-      </a>
+        { props.children }
+      </div>
     );
   }
 
