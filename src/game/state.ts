@@ -140,7 +140,7 @@ export class State {
     this.time.from_start++;
     if (this.idolState.state === 'carried') {
       // if it was newly picked up : remove the imminently blighted spots
-      // this.blightManager.unrenderImminent
+      this.blightManager.unRenderImminent();
     } else {
       // if it was newly dropped : figure out the imminently blighted spots
       // this.blightManager.renderImminent(this, this.idolState.node, this.time.for_idol)
