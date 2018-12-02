@@ -4,6 +4,7 @@ import * as Graph from './graph';
 import { CardType } from './data';
 import { IEntity } from './entity';
 import { GameMapCircle, GameMap } from './gamemap';
+import { EventOption } from './events';
 
 type IdolState = 
   | {
@@ -149,6 +150,10 @@ export class State {
 
   public hasIdol(): boolean {
     return this.idolState.state === "carried";
+  }
+
+  public handleChooseEventOption(option: EventOption): void {
+
   }
 
 
