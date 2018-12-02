@@ -6,6 +6,7 @@ import { EventType, EventOption } from '../game/events';
 
 const EventButton = (props: { 
   onClick : () => void;
+  disabled?: boolean;
   children: React.ReactNode;
 }): JSX.Element => {
   return (
@@ -109,6 +110,7 @@ export class ActionChooser extends React.Component<EventChooserProps> {
         <EventButton disabled>
           { requirement }
         </EventButton>
+      );
     }
 
     return (
