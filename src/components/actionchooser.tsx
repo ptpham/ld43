@@ -89,6 +89,10 @@ export class ActionChooser extends React.Component<EventChooserProps> {
     this.props.gameState.handleChooseEventOption(option);
   }
 
+  renderButton(option: EventOption): React.ReactNode {
+
+  }
+
   render() {
     return (
       <div
