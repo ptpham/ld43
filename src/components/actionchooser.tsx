@@ -58,7 +58,11 @@ type EventChooserState = {
 
 export class ActionChooser extends React.Component<EventChooserProps, EventChooserState> {
   constructor(props: EventChooserProps) {
+    super(props);
 
+    this.state = {
+
+    };
   }
 
   renderRequirement(opt: EventOption): {
