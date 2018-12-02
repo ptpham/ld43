@@ -43,6 +43,8 @@ export class ActionChooser extends React.Component<EventChooserProps> {
       return null;
     } else {
       const x: never = opt.skillRequired;
+
+      throw new Error("should be never! " + x);
     }
   }
 
@@ -68,7 +70,7 @@ export class ActionChooser extends React.Component<EventChooserProps> {
               onClick={ () => {}}
             >
               <strong>
-                { this.renderRequirement() }
+                { this.renderRequirement(option) }
               </strong>
               { option.description }
             </EventButton>
