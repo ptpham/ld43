@@ -22,7 +22,7 @@ export class BlightManager {
     }
     neighborsByDegree.push(deg2);
 
-    let random = SeedRandomGenerator(node.x + 12345 * node.y);
+    let random = SeedRandomGenerator(idol_position.position.x + 12345 * idol_position.position.y);
 
     for (let degree = 0; degree < 2 /* lol */; degree++ ){
       let neighbors: Node[] = neighborsByDegree[degree];
