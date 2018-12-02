@@ -27,6 +27,7 @@ export class C {
     'caravan',
     'cloud_0',
     'cloud_1',
+    'desert',
     'volcano',
     'forest',
     'goblin',
