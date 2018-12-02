@@ -121,7 +121,7 @@ export class GameMap extends PIXI.Sprite implements IEntity {
       new Cloud(),
     ];
     clouds.forEach(cloud => {
-      this.graphSprite.addChild(cloud);
+      this.addChild(cloud);
       this.state.addEntity(cloud);
     });
     return clouds;
@@ -166,7 +166,10 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
       sprite = makeSprite(PIXI.loader.resources['goblin'].texture);
     } else if (node.locationType == 'Mountain') {
       sprite = makeSprite(PIXI.loader.resources['mountain'].texture);
+    } else if (node.locationType == 'BarbarianVillage') {
+      sprite = makeSprite(PIXI.loader.resources['barbarian'].texture);
     }
+
 
     if (sprite) {
       this.addChild(sprite);
