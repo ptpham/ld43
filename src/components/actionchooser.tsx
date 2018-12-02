@@ -31,7 +31,7 @@ type EventChooserProps = {
   gameState: State,
 };
 
-export class EventChooser extends React.Component<EventChooserProps> {
+export class ActionChooser extends React.Component<EventChooserProps> {
   render() {
     return (
       <div

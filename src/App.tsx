@@ -6,7 +6,7 @@ import './App.css';
 import { Toolbar } from './components/meat';
 import { Sidebar } from './components/sidebar';
 import { CardType } from './game/data';
-import { EventChooser } from './components/actionchooser';
+import { ActionChooser } from './components/actionchooser';
 
 type AppState = {
   isEventVisible: boolean;
@@ -108,7 +108,7 @@ class App extends React.Component<{ game: Game }, AppState>  {
           gameState={this.state.gameState}
         />
 
-        <EventChooser 
+        <ActionChooser 
           gameState={ this.state.gameState }
         />
       </div>
