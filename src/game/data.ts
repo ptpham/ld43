@@ -24,6 +24,7 @@ export type SkillType =
   | "Dancer"
   | "Fisherman" // Good with boats and water
   | "Historian"
+  | "Cartographer"
   | "Merchant"
   | "Sage" // Knows many things but can't do much.
   | "Swordswoman"
