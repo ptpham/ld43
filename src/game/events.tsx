@@ -9,6 +9,7 @@ export type EventOutcome =
   | { type: "lose-member-strong"; skill: SkillType; hidden: boolean }
   | { type: "lose-member-weak"; skill: SkillType; hidden: boolean }
   | { type: "gain-item"; item: EventItem }
+  | { type: "turn-back"; }
 
 export type Requirement =
   | { 
@@ -28,6 +29,8 @@ export enum EventDifficulty {
   FreeMeat         = 1,
   NormalDifficutly = 2,
   HardDifficulty   = 3,
+
+  // This is a placeholder difficulty, please do not make events at this difficulty
   MaxDifficulty    = 4,
 
   // let's not use this one (unless they do something stupid)
@@ -38,7 +41,7 @@ export type EventOption = {
   skillRequired : Requirement;
   description   : string;
   followUpText  : string;
-  outcome      ?: EventOutcome | EventOutcome[];
+  outcome       : EventOutcome[];
   updateEventTo?: EventType;
   chucksIdol   ?: boolean;
 }
@@ -56,7 +59,7 @@ const PassOn = ({ price = 0 }): EventOption => ({
   skillRequired: { type: "no-skill" },
   description  : "Pass on.",
   followUpText : "",
-  ...(price === 0 ? undefined : { outcome: { type: "lose-meat", amount: price, hidden: false } }),
+  outcome: price === 0 ? [] : [{ type: "lose-meat", amount: price, hidden: false }],
 });
 
 const GameFinish: EventType = {
@@ -73,6 +76,7 @@ const GameFinish: EventType = {
       description: "Drop the idol into the maws of the volcano from whence it came.",
       followUpText: "",
       chucksIdol: true,
+      outcome: [],
     }
   ]
 };
@@ -133,7 +137,7 @@ const ForestElfEvent: EventType = {
       skillRequired: { type: "specific-skill", skill: "Architect", withoutRequirement: "Everything" },
       description: "Build a house.",
       followUpText : "You cut down some trees and build a log cabin.",
-      outcome: { type: "lose-meat", amount: 20, hidden: false, },
+      outcome: [{ type: "lose-meat", amount: 20, hidden: false, }],
       updateEventTo: ForestWithHouse,
     },
     {
@@ -160,28 +164,24 @@ const ForestElfEventBlighted: EventType = {
     {
       skillRequired: { type: "specific-skill", skill: "Woodsman", withoutRequirement: "Everything" },
       description: "Cut the forest down, one log at a time.",
-      outcome: {
-        type  : "lose-meat",
-        amount: 50,
-        hidden: false,
-      },
+      outcome: [{ type  : "lose-meat", amount: 50, hidden: false, }],
       followUpText: "Your lumberjack gets to work, but even after a significant amount of work, the forest seems as expansive as it always was.",
     },
     {
       skillRequired: { type: "specific-skill", skill: "Architect", withoutRequirement: "Everything" },
       description: "Build a house.",
       followUpText : "You cut down some trees and build a log cabin. However, after leaving one day, you never seem to be able to find it again...",
-      outcome: { type: "lose-meat", amount: 20, hidden: false, },
+      outcome: [{ type: "lose-meat", amount: 20, hidden: false, }],
     },
     {
       skillRequired: { type: "specific-skill", skill: "Priest", withoutRequirement: "Invisible" },
       description: "Appease the angry forest elves.",
       followUpText : "The forest elves shriek at you for bringing misfortune to their forest! After some discussion, though, you convince them that your priest might be able to help them lift the curse and restore their way of life. Your priest will need to stay behind and attend to the spirits of the forest.",
-      outcome: {
+      outcome: [{
         type: "lose-member-strong",
         skill: "Priest",
         hidden: false,
-      },
+      }],
       updateEventTo: ForestElfEvent
     },
     PassOn({ price: 40 }),
@@ -228,7 +228,7 @@ const BarbarianVillageWornDown: EventType = {
       followUpText : 
       `Thok thanks you for your kindness and lets you pass. The barbarians
       give you some meat as you leave.`,
-      outcome      : { type: "gain-meat", amount: 10, hidden: true },
+      outcome      : [{ type: "gain-meat", amount: 10, hidden: true }],
       updateEventTo: BarbarianVillageRepaired,
     },
     {
@@ -238,7 +238,7 @@ const BarbarianVillageWornDown: EventType = {
         `You completely fail to assassinate Thok. He is much too fast for
         you. He laughs at how slow you are, and picks your meat-filled
         pockets while he's at at it.`,
-      outcome      : { type: "lose-meat", amount: 10, hidden: true },
+      outcome      : [{ type: "lose-meat", amount: 10, hidden: true }],
       updateEventTo: BarbarianVillageFailedAssassinationAttempt,
     },
     PassOn({ price: 20 }),
@@ -262,7 +262,7 @@ const BlightedBarbarianVillageWornDown: EventType = {
       followUpText : 
       `You gesture to the giant barbarian your intentions to repair the buildings. He punches you in the head.
       Looks like he didn't understand very much.`,
-      outcome      : { type: "lose-meat", amount: 10, hidden: true },
+      outcome      : [{ type: "lose-meat", amount: 10, hidden: true }],
       //updateEventTo: BarbarianVillageRepaired,
     },
     {
@@ -272,7 +272,7 @@ const BlightedBarbarianVillageWornDown: EventType = {
         //`Strong and tough as they are, it seems no one left is nearly as observant as old Thok the gatekeeper. You lie low for a period, tracking their movements and figuring out what allies you can find to oppose the masked gang. Eventually, you set up a trap and assassinate the masked gang with their help. The village is thrown into chaos and bloodshed as a result and by double-crossing your allies, you are able to help the "Democratic Republican Barbarians" eventually win out. In order to ensure they stay in power, your assassin stays behind as "military counselor".`,
         //`Strong and tough as they are, it seems no one left is nearly as observant as old Thok the gatekeeper. Your assassin slays an entire generation of barbarians. Hardly anyone is left after `,
         `Strong and tough as they are, it seems no one left is nearly as observant as old Thok the gatekeeper. Leaving your assassin behind, he slowly and strategically takes out all members of the ruling faction.`,
-      outcome      : { type: "lose-meat", amount: 10, hidden: false }, // lose assassin
+      outcome      : [{ type: "lose-meat", amount: 10, hidden: false }], // TODO: lose assassin
       updateEventTo: {
         location: "BarbarianVillage",
         description: 
@@ -307,7 +307,7 @@ const GoblinNest: EventType = {
       followUpText:
         `What were you thinking? The goblins notice your shoddy attempts at
         architecture immediately! You barely escape with your lives!`,
-      outcome: { type: "lose-meat", amount: 10, hidden: true },
+      outcome: [{ type: "lose-meat", amount: 10, hidden: true }],
 
       updateEventTo: {
         location: "GoblinNest",
@@ -325,7 +325,7 @@ const GoblinNest: EventType = {
               `You continue to try to build the tower. You make a little more
                 progress, and then the goblins (again) notice and run you off. You
                 barely escape with your lives. Again. When will you ever learn?`,
-            outcome: { type: "lose-meat", amount: 10, hidden: true },
+            outcome: [{ type: "lose-meat", amount: 10, hidden: true }],
             updateEventTo: {
               location: "GoblinNest",
               stopsProgress: true,
@@ -341,7 +341,7 @@ const GoblinNest: EventType = {
                     `Amazingly, your tower provides enough defense - or the goblins are stupid enough -
                      that you can shoot arrows down to the goblins without any risk of counterattack! The goblins
                      all flee the nest, and you take the opportunity to pick up some left-over goblin meat.`,
-                  outcome: { type: "gain-meat", amount: 50, hidden: true },
+                  outcome: [{ type: "gain-meat", amount: 50, hidden: true }],
                   updateEventTo: {
                     location: "GoblinNest",
                     stopsProgress: false,
@@ -367,7 +367,7 @@ const GoblinNest: EventType = {
         `Your assassin waits until nightfall, then sneaks through the camp and
         assassinates the leader of the goblins! She also finds a large treasure
         chest of meat in the leader's tent.`,
-      outcome: { type: "gain-meat", amount: 100, hidden: true },
+      outcome: [{ type: "gain-meat", amount: 100, hidden: true }],
       updateEventTo: {
         location: "GoblinNest",
         stopsProgress: false,
@@ -385,7 +385,6 @@ const GoblinNest: EventType = {
     PassOn({ price: 20 }),
   ],
 };
-
 
 const ForestFiller: EventType = {
   location     : "Forest",
@@ -494,4 +493,4 @@ export const AllEvents: EventType[] = [
   // Mountain
 
   MountainFiller,
-]
+];
