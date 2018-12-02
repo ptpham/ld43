@@ -169,26 +169,23 @@ export class State {
   }
 
   public handleChooseEventOption(option: EventOption): void {
-    if (!option.outcome) {
+    if (option.outcome) {
+      switch (option.outcome.type) {
+        case "gain-meat": {
+          this.meat += option.outcome.amount;
+          break;
+        }
 
-      return;
-    }
+        case "lose-meat": {
+          this.meat -= option.outcome.amount;
+          break;
+        }
 
-    switch (option.outcome.type) {
-      case "gain-meat": {
-        this.meat += option.outcome.amount;
-        break;
-      }
+        default: {
+          const x: never = option.outcome;
 
-      case "lose-meat": {
-        this.meat -= option.outcome.amount;
-        break;
-      }
-
-      default: {
-        const x: never = option.outcome;
-
-        throw new Error("expected x to be never! " + x);
+          throw new Error("expected x to be never! " + x);
+        }
       }
     }
 
