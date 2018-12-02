@@ -36,6 +36,7 @@ export class GameMap extends Entity {
   }
 
   makeBG(): void {
+    //return;
     const container = new PIXI.Container();
     const grasslandTextures: PIXI.Texture[] = [
       PIXI.loader.resources['grassland_0'].texture,

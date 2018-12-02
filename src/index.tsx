@@ -6,13 +6,14 @@ import * as serviceWorker from './serviceWorker';
 import { Game } from './game/main';
 import { C } from './game/constants';
 
-const game = new Game();
+//const game = new Game();
 
 C.SPRITE_ASSETS.forEach(asset => {
   PIXI.loader.add(asset, `assets/${ asset }.png`);
 });
 
 PIXI.loader.load(() => {
+  const game = new Game();
   ReactDOM.render(
     <App 
       game={ game }

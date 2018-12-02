@@ -10,30 +10,19 @@ export class Game {
   state   !: State;
   renderer!: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
   view    !: HTMLCanvasElement;
+  emitter !: Emitter;
+  elapsed  : number = Date.now(); // need to keep track of wall clock time for pixi.particles.emitter
 
   constructor() {
     this.setUpPixiStuff();
 
     this.stage = new PIXI.Container();
     this.state = new State(this.stage);
-  }
 
-  public start(proxyHandler: any = {}): void {
-    this.state = new Proxy(this.state, proxyHandler);
-
-    this.gameLoop();
-
-    new GameMap(this.state);
-
-    const stest = new PIXI.Sprite(PIXI.loader.resources['test'].texture);
-    stest.x = 10;
-    stest.y = 10;
-    stest.scale = new PIXI.Point(4, 4);
-    this.state.stage.addChild(stest);
-
-    let emitter: Emitter = new Emitter(
+    this.emitter = new Emitter(
       this.state.stage, 
       [PIXI.loader.resources['blight_particle'].texture], 
+      //[],
       {
         alpha: {
           list: [
@@ -117,7 +106,22 @@ export class Game {
         }
       }
     );
-    emitter;
+  }
+
+  public start(proxyHandler: any = {}): void {
+    this.state = new Proxy(this.state, proxyHandler);
+
+    this.emitter.emit = true;
+    this.gameLoop();
+
+    new GameMap(this.state);
+
+    const stest = new PIXI.Sprite(PIXI.loader.resources['test'].texture);
+    stest.x = 10;
+    stest.y = 10;
+    stest.scale = new PIXI.Point(4, 4);
+    this.state.stage.addChild(stest);
+
   }
 
   private setUpPixiStuff(): void {
@@ -135,13 +139,18 @@ export class Game {
     this.view = this.renderer.view;
   }
 
+
   gameLoop(): void {
     requestAnimationFrame(() => this.gameLoop());
 
-    this.renderer.render(this.stage);
+    //this.renderer.render(this.stage);
+    let now = Date.now();
+    this.emitter.update((now - this.elapsed) * 0.001);
+    this.elapsed = now;
 
     for (const entity of this.state.entities) {
       entity.update(this.state);
     }
+    this.renderer.render(this.stage);
   }
 }
