@@ -6,6 +6,7 @@ export type EventOutcome =
 
 export type SkillRequirement =
   { type: "specific-skill"; skill: SkillType }
+  { type: "no-skill"      ; }
 
 export type EventOption = {
   skillRequired: SkillType;
