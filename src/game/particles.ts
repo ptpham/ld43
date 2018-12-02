@@ -5,6 +5,7 @@ import { State } from "./state";
 
 export class Particles extends Emitter {
   public elapsed: number = Date.now();
+  public asset_name!: string;
   constructor(parent: PIXI.Container, x: number, y: number, corruptness: number, asset_name: string = 'purple_particle') {
     super(
       parent,
@@ -40,6 +41,7 @@ export class Particles extends Emitter {
         emit: true
       }
     )
+    this.asset_name = asset_name;
     this.emit = true;
   }
 
@@ -51,9 +53,12 @@ export class Particles extends Emitter {
   }
 
   update_(state: State): void {
-      let now: number = Date.now();
-      this.update((now - this.elapsed) * 0.001);
-      this.elapsed = now;
-      return;
+    if (this.asset_name === 'purple_particle') {
+      console.log("PURTICLE UPDATE")
+    }
+    
+    let now: number = Date.now();
+    this.update((now - this.elapsed) * 0.001);
+    this.elapsed = now;
   }
 }
