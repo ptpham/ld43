@@ -2,6 +2,7 @@ import { State } from "./state";
 import { IEntity } from "./entity";
 import { Location } from "./location";
 import { C, Debug } from "./constants";
+import { Line } from "./lib/line";
 
 export class GraphSprite extends PIXI.Sprite implements IEntity {
   state: State;
@@ -44,10 +45,31 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
       for (let neighbor of node.neighbors) {
         if (!visibleNodes.has(neighbor)) { continue; }
 
+        // Trim off the ends so we have road breaks for rivers and canyons
+        const line = new Line({one: node.position, two: neighbor.position});
+        line.trimEnds(18);
+
         const road = new PIXI.mesh.Rope(
           PIXI.loader.resources['road'].texture,
-          [node.position, neighbor.position]
+          [
+            new PIXI.Point(line.start.x, line.start.y),
+            new PIXI.Point(line.end.x, line.end.y),
+          ]
         );
+
+        if (
+          node.locationType === neighbor.locationType &&
+          node.locationType === 'River') {
+          // If we're joining two rivers, tint the road blue
+          road.tint = 0x69d2e7;
+        }
+
+        if (
+          node.locationType === neighbor.locationType &&
+          node.locationType === 'Canyon') {
+          // If we're joining two canyons, tint the road red
+          road.tint = 0xc44d58;
+        }
         this.graphSprite.addChild(road);
       }
     }
