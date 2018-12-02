@@ -24,6 +24,7 @@ export class BlightManager implements IEntity {
         })
       }
     }
+    this.imminent = [];
   }
 
   public renderImminent(state: State, idol_position: Node, idol_time: number): void {
