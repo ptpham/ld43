@@ -243,7 +243,7 @@ export class State {
               true
             );
 
-            return;
+            break;
           }
 
           case "lose-member-strong": {
