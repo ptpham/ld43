@@ -62,8 +62,6 @@ export class State {
       spacing: 48
     };
 
-    this.activeEvent = AllEvents[0];
-
     this.graph = Graph.generate(graphOptions);
 
     this.cardsInCaravan     = new Set();
