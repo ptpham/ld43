@@ -21,14 +21,14 @@ export class Game {
 
     this.emitter = new Emitter(
       this.state.stage, 
-      [PIXI.loader.resources['blight_particle'].texture], 
+      [PIXI.loader.resources['purple_particle'].texture], 
       {
         // alpha decays from 1 to 0
         alpha: { list: [ { value: 1, time: 0 }, { value: 0, time: 1 } ], isStepped: false },
         // scale is always 2
-        scale: { list: [ { value: 2, time: 0 }, { value: 2, time: 1 } ], isStepped: false, minimumScaleMultiplier: 1 },
+        scale: { list: [ { value: 8, time: 0 }, { value: 8, time: 1 } ], isStepped: false, minimumScaleMultiplier: 1 },
         // can we disable color please?
-        color: { list: [ { value: "fb1010", time: 0 }, { value: "f5b830", time: 1 } ], isStepped: false },
+        color: { list: [ { value: {r: 0xFF, g: 0xFF, b: 0xFF, a: 0}, time: 0 }, { value: {r: 0xFF, g: 0xFF, b: 0xFF, a: 0}, time: 1 } ], isStepped: false },
         // speed always 25, but with 1x-2x random multiplier
         speed: { list: [ { value: 25, time: 0 }, { value: 25, time: 1 } ], isStepped: false, minimumSpeedMultiplier: 2 },
         // always fire particles up
@@ -48,7 +48,7 @@ export class Game {
         addAtBack: false,
         // radius 100
         spawnType: "circle",
-        spawnCircle: { x: 30, y: 30, r: 16 }
+        spawnCircle: { x: 30, y: 30, r: 160 }
       }
     );
   }

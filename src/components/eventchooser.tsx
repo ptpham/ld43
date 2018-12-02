@@ -12,7 +12,6 @@ type EventChooserProps = {
 };
 
 export class EventChooser extends React.Component<EventChooserProps> {
-  
   sacrifice(targetSkill: string) {
     const { gameState, node } = this.props;
     const { cardsInCaravan } = gameState;
@@ -53,7 +52,7 @@ export class EventChooser extends React.Component<EventChooserProps> {
     let hasSkill = _.find([...gameState.cardsInCaravan.keys()], card => card.skill === targetSkill) != null;
 
     return <div className="column">
-      Woah you are on a {locationType}.
+      You are on a {locationType}.
       {
         targetSkill && hasSkill 
           ? this.renderSacrificeEvent(targetSkill) 
