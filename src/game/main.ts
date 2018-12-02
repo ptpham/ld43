@@ -59,7 +59,10 @@ export class Game {
     this.emitter.emit = true;
     this.gameLoop();
 
-    this.state.stage.addChild(new GameMap(this.state));
+    const gameMap = new GameMap(this.state);
+
+    this.state.stage.addChild(gameMap);
+    this.state.gameMap = gameMap;
 
     const stest = new PIXI.Sprite(PIXI.loader.resources['test'].texture);
     stest.x = 10;

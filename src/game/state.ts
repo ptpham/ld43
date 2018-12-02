@@ -3,7 +3,7 @@ import { C } from './constants';
 import * as Graph from './graph';
 import { CardType } from './data';
 import { IEntity } from './entity';
-import { GameMapCircle } from './gamemap';
+import { GameMapCircle, GameMap } from './gamemap';
 
 type IdolState = 
   | {
@@ -36,7 +36,7 @@ export class State {
   cardsInWholeGame    : Set<CardType>;
   stage               : PIXI.Container;
   graph               : Graph.Node[];
-  visibleNodes        : Set<Graph.Node>;
+  visitedNodes        : Set<Graph.Node>;
   river               : PIXI.Point[];
   canyon              : PIXI.Point[];
   caravanLocation     : Graph.Node;
@@ -47,21 +47,23 @@ export class State {
   meat                : number;
   walkAnimation?      : PIXI.ticker.Ticker;
   idolState           : IdolState;
+  gameMap            !: GameMap;
 
   constructor(stage: PIXI.Container) {
+    const graphOptions = {
+      width: C.CANVAS_WIDTH - 100, // TODO(bowei): this should be MAP_WIDTH and MAP_HEIGHT once we get scrolling working
+      height: C.CANVAS_HEIGHT - 100,
+      spacing: 48
+    };
+
+    this.graph = Graph.generate(graphOptions);
+
     this.cardsInCaravan     = new Set();
     this.cardsInWholeGame   = new Set();
     this.mousedOverLocation = undefined;
 
     this.stage    = stage;
     this.entities = [];
-
-    const graphOptions = {
-      width: C.CANVAS_WIDTH - 100, // TODO(bowei): this should be MAP_WIDTH and MAP_HEIGHT once we get scrolling working
-      height: C.CANVAS_HEIGHT - 100,
-      spacing: 48
-    };
-    this.graph = Graph.generate(graphOptions);
 
     this.river = Graph.generateRiver(this.graph, graphOptions);
     this.canyon = Graph.generateCanyon(this.graph, graphOptions, this.river);
@@ -72,10 +74,10 @@ export class State {
 
     // Fog of war stuff
 
-    this.visibleNodes = new Set();
+    this.visitedNodes = new Set();
 
-    this.visibleNodes.add(this.caravanLocation);
-    this.visibleNodes.add(this.volcanoLocation);
+    this.visitedNodes.add(this.caravanLocation);
+    this.visitedNodes.add(this.volcanoLocation);
 
     // Resource stuff
 
@@ -97,6 +99,9 @@ export class State {
     this.isLocationDone = false;
 
     this.meat -= to.meatCost(this);
+
+    this.visitedNodes.add(to);
+    this.gameMap.graphSprite.render();
   }
 
   onDropIdol(): void {

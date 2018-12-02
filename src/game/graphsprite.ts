@@ -4,41 +4,56 @@ import { GameMapCircle } from "./gamemap";
 
 export class GraphSprite extends PIXI.Sprite implements IEntity {
   state: State;
+  graphSprite: PIXI.Graphics;
 
   constructor(state: State) {
     super();
 
     this.state = state;
+    this.graphSprite = new PIXI.Graphics();
 
     this.render();
   }
 
   render() {
-    const graphSprite = new PIXI.Graphics();
+    const visitedNodes = this.state.visitedNodes;
+    const visibleNodes = new Set();
 
-    graphSprite.lineWidth = 1;
-    graphSprite.lineStyle(1, 0x000000)
+    for (const node of visitedNodes) {
+      visibleNodes.add(node);
 
-    for (let node of this.state.graph) {
-      for (let neighbor of node.neighbors) {
-        graphSprite.moveTo(node.position.x, node.position.y);
-        graphSprite.lineTo(neighbor.position.x, neighbor.position.y);
+      for (const neighbor of node.neighbors) {
+        visibleNodes.add(neighbor);
       }
     }
 
-    for (let node of this.state.graph) {
+    this.graphSprite.clear();
+
+    this.graphSprite.lineWidth = 1;
+    this.graphSprite.lineStyle(1, 0x000000)
+
+    for (let node of visibleNodes) {
+      for (let neighbor of node.neighbors) {
+        if (!visibleNodes.has(neighbor)) { continue; }
+
+        this.graphSprite.moveTo(node.position.x, node.position.y);
+        this.graphSprite.lineTo(neighbor.position.x, neighbor.position.y);
+      }
+    }
+
+    for (let node of visibleNodes) {
       const newCircle = new GameMapCircle({ node, state: this.state });
 
-      graphSprite.addChild(newCircle);
+      this.graphSprite.addChild(newCircle);
       this.state.addEntity(newCircle);
     }
 
-    graphSprite.x = 0;
-    graphSprite.y = 0;
+    this.graphSprite.x = 0;
+    this.graphSprite.y = 0;
 
-    this.state.stage.addChild(graphSprite);
+    this.state.stage.addChild(this.graphSprite);
 
-    return graphSprite;
+    return this.graphSprite;
   }
 
   update(state: State): void {
