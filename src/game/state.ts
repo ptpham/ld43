@@ -144,6 +144,7 @@ export class State {
       // before incrementing, check if we hit a blight point
       if (this.getIdolBlightDanger().remaining === 1) {
         console.log("blight happens... maybe");
+        // TODO(bowei): DO THIS
       }
       this.time.for_idol++;
       // after incrementing, mark down the places to be blighted next
@@ -153,13 +154,13 @@ export class State {
   public getIdolBlightDanger(): { text: string, remaining: number} {
     let t = this.time.for_idol;
     let to_ret: { text: string, remaining: number } = { text: "", remaining: 0};
-    if (t <= 10) {
+    if (t < 10) {
       to_ret = { text: "Minimal", remaining: 10 - t };
-    } else if (t <= 20) {
+    } else if (t < 20) {
       to_ret = { text: "Low", remaining: 20 - t };
-    } else if (t <= 30) {
+    } else if (t < 30) {
       to_ret = { text: "Medium", remaining: 30 - t };
-    } else if (t <= 40) {
+    } else if (t < 40) {
       to_ret = { text: "High", remaining: 40 - t };
     } else {
       to_ret = { text: "Catastrophic", remaining: t % 2 + 1 };
