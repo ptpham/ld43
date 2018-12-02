@@ -5,10 +5,10 @@ import { State } from "./state";
 
 export class Particles extends Emitter {
   public elapsed: number = Date.now();
-  constructor(parent: PIXI.Graphics, x: number, y: number, corruptness: number) {
+  constructor(parent: PIXI.Graphics, x: number, y: number, asset_name: string = 'purple_particle', corruptness: number) {
     super(
       parent,
-      [PIXI.loader.resources['purple_particle'].texture], 
+      [PIXI.loader.resources[asset_name].texture], 
       {
         // alpha decays from 1 to 0
         alpha: { list: [ { value: 1, time: 0 }, { value: 0, time: 1 } ], isStepped: false },
