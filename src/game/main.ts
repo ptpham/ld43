@@ -66,6 +66,12 @@ export class Game {
     stest.y = 10;
     stest.scale = new PIXI.Point(4, 4);
     this.state.stage.addChild(stest);
+
+    const pTest = new PIXI.Sprite(PIXI.loader.resources['purple_particle'].texture);
+    pTest.x = 100;
+    pTest.y = 100;
+    pTest.scale = new PIXI.Point(16, 16);
+    this.state.stage.addChild(pTest);
   }
 
   private setUpPixiStuff(): void {
