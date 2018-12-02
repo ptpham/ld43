@@ -7,7 +7,7 @@ import { GameMapCircle, GameMap } from './gamemap';
 import { EventOption, EventType } from './events';
 import { BlightManager } from './blightmanager';
 
-type IdolState = 
+export type IdolState = 
   | {
       state: "carried";
     }
