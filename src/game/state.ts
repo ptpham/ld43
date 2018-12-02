@@ -111,6 +111,8 @@ export class State {
       state: "carried",
     };
 
+    // cards
+
     if (Debug.AUTO_CHOOSE_CARAVAN) {
       this.cardsInCaravan = new Set([
         {
@@ -129,6 +131,27 @@ export class State {
 
       this.isLocationDone = true;
     }
+
+    this.cardsInWholeGame = new Set(
+      [
+        {
+          skill: "Woodsman",
+          meat: 3,
+        },
+        {
+          skill: "Priest",
+          meat: 7,
+        },
+        {
+          skill: "Assassin",
+          meat: 1,
+        },
+        {
+          skill: "Architect",
+          meat: 1,
+        },
+      ] as CardType[]
+    );
 
   }
   
