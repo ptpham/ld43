@@ -61,7 +61,7 @@ export class State {
     this.river = Graph.generateSnake(this.graph, 'River', graphOptions);
     this.canyon = Graph.generateSnake(this.graph, 'Canyon', graphOptions);
 
-    this.caravan_location = this.graph[0];
+    this.caravan_location = this.graph.find(node => node.locationType === 'Start')!;
     this.isLocationDone = false;
 
     // Resource stuff
