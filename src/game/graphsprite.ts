@@ -9,6 +9,8 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
     super();
 
     this.state = state;
+
+    this.build();
   }
 
   build() {
