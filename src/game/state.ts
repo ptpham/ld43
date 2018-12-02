@@ -47,8 +47,9 @@ export class State {
   idolState           : IdolState;
 
   constructor(stage: PIXI.Container) {
-    this.cardsInCaravan = new Set();
-    this.cardsInWholeGame = new Set();
+    this.cardsInCaravan     = new Set();
+    this.cardsInWholeGame   = new Set();
+    this.mousedOverLocation = undefined;
 
     this.stage    = stage;
     this.entities = [];
