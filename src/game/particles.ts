@@ -43,6 +43,13 @@ export class Particles extends Emitter {
     this.emit = true;
   }
 
+  disable(garbage_collect_cb: () => void): void {
+    // carefully!
+    this.emit = false;
+    // garbage collect myself after around 1 second ish
+    setTimeout(garbage_collect_cb, 2000)
+  }
+
   update_(state: State): void {
       let now: number = Date.now();
       this.update((now - this.elapsed) * 0.001);
