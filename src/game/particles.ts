@@ -1,9 +1,9 @@
 import { C } from "./constants";
+import { IEntity } from './entity';
 import { Emitter } from 'pixi-particles';
 C;
 
-
-export class Particles extends Emitter {
+export class Particles extends Emitter implements IEntity {
   constructor(parent: PIXI.Graphics) {
     super(
       parent,
