@@ -146,10 +146,10 @@ export class State {
     this.time.from_start++;
     if (this.idolState.state === 'carried') {
       // if it was newly picked up : remove the imminently blighted spots
-      this.blightManager.unRenderImminent();
+      //this.blightManager.unRenderImminent();
     } else {
       // if it was newly dropped : figure out the imminently blighted spots
-      this.blightManager.renderImminent(this, this.idolState.node, this.time.for_idol)
+      //this.blightManager.renderImminent(this, this.idolState.node, this.time.for_idol)
       // before incrementing, check if we hit a blight application
       if (this.getIdolBlightDanger().remaining === 1) {
         //console.log("blight happens... maybe");
@@ -172,6 +172,7 @@ export class State {
         state: "dropped",
         node: this.caravanLocation,
       };
+      this.blightManager.renderImminent(this, this.idolState.node, this.time.for_idol)
     }
 
     this.triggerChange();
@@ -185,6 +186,7 @@ export class State {
       this.idolState = {
         state: "carried",
       };
+      this.blightManager.unRenderImminent();
     }
 
     this.triggerChange();
