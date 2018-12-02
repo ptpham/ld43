@@ -103,7 +103,7 @@ export class State {
 
     // Resource stuff
 
-    this.meat     = 50;
+    this.meat     = C.STARTING_MEAT;
 
     // Idol stuff 
 
