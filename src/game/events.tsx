@@ -74,7 +74,7 @@ const ForestElfEvent: EventType = {
       updateEventTo: ForestWithHouse,
     },
     {
-      skillRequired: { type: "specific-skill", skill: "Priest", withoutSkill: "Everything" },
+      skillRequired: { type: "specific-skill", skill: "Priest", withoutSkill: "Unlabeled" },
       description: "Commune with the forest elves.",
       outcome: {
         type: "gain-meat",
