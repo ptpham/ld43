@@ -45,6 +45,7 @@ export type EventType = {
   description  : string;
   difficulty   : EventDifficulty;
   options      : EventOption[];
+  whenBlighted?: EventType;
 }
 
 const PassOn = ({ price = 0 }): EventOption => ({
