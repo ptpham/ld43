@@ -9,6 +9,8 @@ import { random } from "lodash";
 import { Idol } from "./idol";
 import { GraphSprite } from "./graphsprite";
 import { Cloud } from "./cloud";
+import { Particles } from "./particles";
+Particles;
 
 function makeSprite(texture: PIXI.Texture): PIXI.Sprite {
   const sprite = new PIXI.Sprite(texture);
