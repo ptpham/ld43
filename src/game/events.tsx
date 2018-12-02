@@ -31,7 +31,7 @@ const PassOn = ({ price = 0 }): EventOption => ({
   skillRequired: { type: "no-skill" },
   description  : "Pass on.",
   followUpText : "",
-  ...(price === 0 ? undefined : { outcome: { type: "lose-meat", amount: 10 } }),
+  ...(price === 0 ? undefined : { outcome: { type: "lose-meat", amount: price, hidden: false } }),
 });
 
 const ForestThatIsCutDown: EventType = {
