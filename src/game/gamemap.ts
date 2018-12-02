@@ -31,15 +31,18 @@ export class GameMap extends PIXI.Sprite implements IEntity {
     this.state = state;
     this.makeBG();
 
-    this.graphSprite = this.makeGraph();
-    this.addChild(this.graphSprite);
-
     this.makeRiver();
     this.makeCanyon();
+
+    this.graphSprite = this.makeGraph();
+    this.addChild(this.graphSprite.graphSprite);
 
     this.makeCaravan();
     this.makeIdol();
     this.makeClouds();
+
+    this.x = 50;
+    this.y = 50;
   }
 
   makeBG(): void {
