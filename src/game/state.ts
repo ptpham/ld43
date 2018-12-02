@@ -4,7 +4,7 @@ import * as Graph from './graph';
 import { CardType } from './data';
 import { IEntity } from './entity';
 import { GameMapCircle, GameMap } from './gamemap';
-import { EventOption, EventType } from './events';
+import { EventOption, EventType, EventItem } from './events';
 import { BlightManager } from './blightmanager';
 
 export type IdolState = 
@@ -38,6 +38,7 @@ export class State {
    * They will be automatically updated and stuff
    */
   entities            : IEntity[];
+  items               : Set<EventItem>;
   cardsInCaravan      : Set<CardType>;
   cardsInWholeGame    : Set<CardType>;
   stage               : PIXI.Container;
@@ -63,9 +64,10 @@ export class State {
     const graphOptions = {
       width: C.CANVAS_WIDTH - 100, // TODO(bowei): this should be MAP_WIDTH and MAP_HEIGHT once we get scrolling working
       height: C.CANVAS_HEIGHT - 100,
-      spacing: 48
+      spacing: 80
     };
 
+    this.items = new Set();
     this.graph = Graph.generate(graphOptions);
 
     this.cardsInCaravan     = new Set();
@@ -198,21 +200,35 @@ export class State {
 
   public handleChooseEventOption(option: EventOption): void {
     if (option.outcome) {
-      switch (option.outcome.type) {
-        case "gain-meat": {
-          this.meat += option.outcome.amount;
-          break;
-        }
+      const outcomes = 
+        Array.isArray(option.outcome)
+          ? option.outcome
+          : [option.outcome]
+          ;
 
-        case "lose-meat": {
-          this.meat -= option.outcome.amount;
-          break;
-        }
+      for (const outcome of outcomes) {
+        switch (outcome.type) {
+          case "gain-meat": {
+            this.meat += outcome.amount;
+            break;
+          }
 
-        default: {
-          const x: never = option.outcome;
+          case "lose-meat": {
+            this.meat -= outcome.amount;
+            break;
+          }
 
-          throw new Error("expected x to be never! " + x);
+          case "gain-item": {
+            this.items.add(outcome.item);
+
+            break;
+          }
+
+          default: {
+            const x: never = outcome;
+
+            throw new Error("expected x to be never! " + x);
+          }
         }
       }
     }

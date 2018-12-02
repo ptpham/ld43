@@ -1,7 +1,7 @@
 import { State } from "./state";
 import { IEntity } from "./entity";
 import { GameMapCircle } from "./gamemap";
-import { C } from "./constants";
+import { C, Debug } from "./constants";
 
 export class GraphSprite extends PIXI.Sprite implements IEntity {
   state: State;
@@ -18,7 +18,7 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
 
   render() {
     const visitedNodes = this.state.visitedNodes;
-    const visibleNodes = new Set();
+    let visibleNodes = new Set();
 
     for (const node of visitedNodes) {
       visibleNodes.add(node);
@@ -26,6 +26,10 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
       for (const neighbor of node.neighbors) {
         visibleNodes.add(neighbor);
       }
+    }
+
+    if (Debug.FOG_OF_WAR_OFF) {
+      visibleNodes = new Set(this.state.graph);
     }
 
     // clear the old nodes

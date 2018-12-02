@@ -1,22 +1,31 @@
 import { LocationType, SkillType } from "./data";
 
+export type EventItem =
+  | "Tailisman"
+
 export type EventOutcome = 
   | { type: "gain-meat"; amount: number; hidden: boolean }
   | { type: "lose-meat"; amount: number; hidden: boolean }
+  | { type: "gain-item"; item: EventItem }
 
-export type SkillRequirement =
+export type Requirement =
   | { 
       type: "specific-skill"; 
       skill: SkillType; 
-      withoutSkill: "Invisible" | "Unlabeled" | "Everything" 
+      withoutRequirement: "Invisible" | "Unlabeled" | "Everything" 
+    }
+  | { 
+      type: "specific-item"; 
+      skill: EventItem; 
+      withoutRequirement: "Invisible" | "Unlabeled" | "Everything" 
     }
   | { type: "no-skill"      ; }
 
 export type EventOption = {
-  skillRequired : SkillRequirement;
+  skillRequired : Requirement;
   description   : string;
   followUpText  : string;
-  outcome      ?: EventOutcome;
+  outcome      ?: EventOutcome | EventOutcome[];
   updateEventTo?: EventType;
 }
 
@@ -44,7 +53,7 @@ const ForestThatIsCutDown: EventType = {
 };
 
 const CutDownForestOption: EventOption = {
-  skillRequired: { type: "specific-skill", skill: "Woodsman", withoutSkill: "Everything" },
+  skillRequired: { type: "specific-skill", skill: "Woodsman", withoutRequirement: "Everything" },
   description: "Cut the forest down, one log at a time.",
   outcome: {
     type  : "lose-meat",
@@ -70,27 +79,27 @@ const ForestWithHouse: EventType = {
 const ForestElfEvent: EventType = {
   location: "Forest",
   description: 
-    `You come to a misty forest. You hear the echo of eerie laughter in the
-    distance. Passing through will be arduous, but is possible.`,
+    `You come to a misty forest. You hear the echo of soft, sad voices in the
+    distance, but every time you come closer, they go further away. Passing
+    through will be arduous, but is possible.`,
   difficulty: 1,
   options: [
     CutDownForestOption,
     {
-      skillRequired: { type: "specific-skill", skill: "Architect", withoutSkill: "Everything" },
+      skillRequired: { type: "specific-skill", skill: "Architect", withoutRequirement: "Everything" },
       description: "Build a house.",
       followUpText : "You cut down some trees and build a log cabin.",
       outcome: { type: "lose-meat", amount: 20, hidden: false, },
       updateEventTo: ForestWithHouse,
     },
     {
-      skillRequired: { type: "specific-skill", skill: "Priest", withoutSkill: "Unlabeled" },
+      skillRequired: { type: "specific-skill", skill: "Priest", withoutRequirement: "Unlabeled" },
       description: "Commune with the forest elves.",
-      followUpText : "The forest elves pay you with lots of meat!",
-      outcome: {
-        type: "gain-meat",
-        amount: 20,
-        hidden: true,
-      },
+      followUpText : "The elves are amazed that you know the secret elvish language. Along with meat, they give you a silver talisman.",
+      outcome: [
+        { type: "gain-meat", amount: 20, hidden: true, },
+        { type: "gain-item", item: "Tailisman" }
+      ],
     },
     PassOn({ price: 10 }),
   ]
@@ -104,7 +113,7 @@ const BlightedForestElfEvent: EventType = {
   difficulty: 1,
   options: [
     {
-      skillRequired: { type: "specific-skill", skill: "Woodsman", withoutSkill: "Everything" },
+      skillRequired: { type: "specific-skill", skill: "Woodsman", withoutRequirement: "Everything" },
       description: "Cut the forest down, one log at a time.",
       outcome: {
         type  : "lose-meat",
@@ -114,13 +123,13 @@ const BlightedForestElfEvent: EventType = {
       followUpText: "Your lumberjack gets to work, but even after a significant amount of work, the forest seems as expansive as it always was.",
     },
     {
-      skillRequired: { type: "specific-skill", skill: "Architect", withoutSkill: "Everything" },
+      skillRequired: { type: "specific-skill", skill: "Architect", withoutRequirement: "Everything" },
       description: "Build a house.",
       followUpText : "You cut down some trees and build a log cabin. However, after leaving one day, you never seem to be able to find it again...",
       outcome: { type: "lose-meat", amount: 20, hidden: false, },
     },
     {
-      skillRequired: { type: "specific-skill", skill: "Priest", withoutSkill: "Invisible" },
+      skillRequired: { type: "specific-skill", skill: "Priest", withoutRequirement: "Invisible" },
       description: "Appease the angry forest elves.",
       followUpText : "The forest elves shriek at you for bringing misfortune to their forest! After some discussion, though, you convince them that your priest might be able to help them lift the curse and restore their way of life. Your priest will need to stay behind and attend to the spirits of the forest.",
       outcome: {
@@ -165,7 +174,7 @@ const BarbarianVillageWornDown: EventType = {
   difficulty: 1,
   options: [
     {
-      skillRequired: { type: "specific-skill", skill: "Architect", withoutSkill: "Unlabeled" },
+      skillRequired: { type: "specific-skill", skill: "Architect", withoutRequirement: "Unlabeled" },
       description  : "Repair some of the barbarian's buildings.",
       followUpText : 
       `Thok thanks you for your kindness and lets you pass. The barbarians
@@ -174,7 +183,7 @@ const BarbarianVillageWornDown: EventType = {
       updateEventTo: BarbarianVillageRepaired,
     },
     {
-      skillRequired: { type: "specific-skill", skill: "Assassin", withoutSkill: "Unlabeled" },
+      skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Unlabeled" },
       description  : "Assassinate thok.",
       followUpText : 
         `You completely fail to assassinate Thok. He is much too fast for
@@ -187,6 +196,97 @@ const BarbarianVillageWornDown: EventType = {
   ]
 }
 
+const GoblinNest: EventType = {
+  location: "GoblinNest",
+  description: `
+    You approach the outskirts of a nest of goblins. You believe
+    the goblins are almost certainly warlike. You can overhear
+    them talking about how much they hate humans - a favorite goblin
+    conversational topic, along with how much they smell.
+    `,
+  difficulty: 1,
+  options: [
+    {
+      skillRequired: { type: "specific-skill", skill: "Architect", withoutRequirement: "Unlabeled" },
+      description: "Build a watch tower to attack the goblins from.",
+      followUpText:
+        `What were you thinking? The goblins notice you immediately! You barely escape
+        with your lives!`,
+      outcome: { type: "lose-meat", amount: 10, hidden: true },
+
+      updateEventTo: {
+        location: "GoblinNest",
+        description: `
+          You approach the outskirts of a nest of goblins. There is the beginnings
+          of a tower being built here.
+          `,
+        difficulty: 1,
+        options: [
+          {
+            skillRequired: { type: "specific-skill", skill: "Architect", withoutRequirement: "Unlabeled" },
+            description: "Continue to build the tower",
+            followUpText:
+              `You continue to try to build the tower. You make a little more
+                progress, and then the goblins (again) notice and run you off. You
+                barely escape with your lives. Again. When will you ever learn?`,
+            outcome: { type: "lose-meat", amount: 10, hidden: true },
+            updateEventTo: {
+              location: "GoblinNest",
+              description: `
+                You approach the outskirts of a nest of goblins. There is a serviceable tower built here.
+                `,
+              difficulty: 1,
+              options: [
+                {
+                  skillRequired: { type: "no-skill" },
+                  description: "Shoot at the goblins from the tower.",
+                  followUpText:
+                    `Amazingly, your tower provides enough defense - or the goblins are stupid enough -
+                     that you can shoot arrows down to the goblins without any risk of counterattack! The goblins
+                     all flee the nest, and you take the opportunity to pick up some left-over goblin meat.`,
+                  outcome: { type: "gain-meat", amount: 50, hidden: true },
+                  updateEventTo: {
+                    location: "GoblinNest",
+                    description: `
+                      You see the outskirts of an abandoned goblin nest.
+                    `,
+                    difficulty: 1,
+                    options: [
+                      PassOn({ price: 0 }),
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+        ]
+      }
+    },
+    {
+      skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Unlabeled" },
+      description: "Assassinate the goblin leader.",
+      followUpText:
+        `Your assassin waits until nightfall, then sneaks through the camp and
+        assassinates the leader of the goblins! She also finds a large treasure
+        chest of meat in the leader's tent.`,
+      outcome: { type: "gain-meat", amount: 100, hidden: true },
+      updateEventTo: {
+        location: "GoblinNest",
+        description: `
+          You approach the goblin nest. The goblins are swarming around
+          aimlessly, confused, bemoaning the loss of their leader. It seems like
+          slipping through should be easy.
+        `,
+        difficulty: 1,
+        options: [
+          PassOn({ price: 0 }),
+        ]
+      }
+    },
+    PassOn({ price: 20 }),
+  ],
+};
+
 const BlightedBarbarianVillageWornDown: EventType = {
   location: "BarbarianVillage",
   description: `
@@ -198,7 +298,7 @@ const BlightedBarbarianVillageWornDown: EventType = {
   difficulty: 1,
   options: [
     {
-      skillRequired: { type: "specific-skill", skill: "Architect", withoutSkill: "Unlabeled" },
+      skillRequired: { type: "specific-skill", skill: "Architect", withoutRequirement: "Unlabeled" },
       description  : "Repair some of the barbarian's buildings.",
       followUpText : 
       `You gesture to the giant barbarian your intentions to repair the buildings. He punches you in the head.
@@ -207,7 +307,7 @@ const BlightedBarbarianVillageWornDown: EventType = {
       //updateEventTo: BarbarianVillageRepaired,
     },
     {
-      skillRequired: { type: "specific-skill", skill: "Assassin", withoutSkill: "Unlabeled" },
+      skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Unlabeled" },
       description  : "Assassinate the masked barbarian. Assassinate his friends hiding around the corner. Assassinate them all",
       followUpText : 
         `Strong and tough as they are, it seems no one left is nearly as observant as old Thok the gatekeeper.
@@ -227,11 +327,10 @@ const BlightedBarbarianVillageWornDown: EventType = {
   ]
 }
 
-
-
 export const AllEvents: EventType[] = [
   ForestElfEvent,
   BlightedForestElfEvent,
   BarbarianVillageWornDown,
+  GoblinNest,
   BlightedBarbarianVillageWornDown,
 ]
