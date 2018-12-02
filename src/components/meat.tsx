@@ -36,16 +36,6 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
           style = {{
             display: "inline-block",
             textAlign: "center",
-            paddingLeft: "20px",
-            paddingRight: "20px",
-          }}
-        >
-            THIS IS A TOOLBAR
-        </div>
-        <div
-          style = {{
-            display: "inline-block",
-            textAlign: "center",
             paddingTop: "5px",
             paddingBottom: "5px",
             paddingLeft: "20px",
