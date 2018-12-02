@@ -163,6 +163,10 @@ export class State {
         this.meat -= option.outcome.amount;
         break;
       }
+
+      default: {
+        return;
+      }
     }
   }
 
