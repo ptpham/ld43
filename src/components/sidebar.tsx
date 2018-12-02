@@ -1,11 +1,13 @@
 import React from "react";
 import { State } from "../game/state";
-import {LocationTypeData} from "../game/data";
+import { LocationTypeData } from "../game/data";
+import { EventChooser } from "./eventchooser";
 
 type SidebarProps = {
   gameState   : State;
   onDropIdol  : () => void;
   onPickUpIdol: () => void;
+  onDoEvent   : () => void;
 }
 
 type SidebarState = {
@@ -133,6 +135,15 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
                 </div>
               </div>
             </>
+        }
+
+        {
+          this.props.gameState.caravan_location.locationType !== 'Start' &&
+            <EventChooser 
+              gameState={this.props.gameState} 
+              node={this.props.gameState.caravan_location}
+              onDone={ () => this.props.onDoEvent() }
+            />
         }
       </div>
     );

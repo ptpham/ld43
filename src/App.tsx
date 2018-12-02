@@ -2,7 +2,6 @@ import * as React from 'react';
 import { State } from './game/state';
 import { Game } from './game/main';
 import { CardChooser } from './components/cardchooser';
-import { EventChooser } from './components/eventchooser';
 import './App.css';
 import { Toolbar } from './components/meat';
 import { Sidebar } from './components/sidebar';
@@ -54,12 +53,8 @@ class App extends React.Component<{ game: Game }, AppState>  {
   }
 
   renderCurrentLocation(state: State) {
-    let onDone = () => {
-      state.isLocationDone = true;
-      this.setState({ isEventVisible: false });
-    };
+    const { caravan_location } = state;
 
-    let { caravan_location } = state;
     switch (caravan_location.locationType) {
       case 'Start':
         return (
@@ -69,21 +64,28 @@ class App extends React.Component<{ game: Game }, AppState>  {
           />
         );
       default:
-        return <EventChooser gameState={state} onDone={onDone}
-          node={caravan_location}/>;
+        return null;
     }
   }
 
-  renderGameStateComponents() {
+  renderCardChooser() {
     let { gameState, isEventVisible } = this.state;
-    if (!gameState || gameState.isLocationDone) return null;
+    if (gameState.isLocationDone) return null;
+    if (gameState.caravan_location.locationType === "Start") {
+      return <div className={`modal ${isEventVisible ? 'show-map' : ''}`}>
+        { !isEventVisible ? <button onClick={() => this.setState({ isEventVisible: true })}>Hide Event</button> : null }
+        { isEventVisible ? <button className="glowing" onClick={() => this.setState({ isEventVisible: false })}>Show Event</button> : null }
+        <div className="content"> { this.renderCurrentLocation(gameState) } </div>
+      </div>;
+    }
 
-    return <div className={`modal ${isEventVisible ? 'show-map' : ''}`}>
-      { !isEventVisible ? <button onClick={() => this.setState({ isEventVisible: true })}>Hide Event</button> : null }
-      { isEventVisible ? <button className="glowing" onClick={() => this.setState({ isEventVisible: false })}>Show Event</button> : null }
-      <div className="content"> { this.renderCurrentLocation(gameState) } </div>
-    </div>;
+    return null;
   }
+
+  onDoEvent() {
+    this.state.gameState.isLocationDone = true;
+    this.setState({ isEventVisible: false });
+  };
 
   public render() {
     return (
@@ -94,12 +96,13 @@ class App extends React.Component<{ game: Game }, AppState>  {
             display: "inline-block",
           }}
           ref={ div => this.div = div! }>
-          { this.renderGameStateComponents() }
+          { this.renderCardChooser() }
         </div>
 
         <Sidebar 
-          onDropIdol={() => this.state.gameState.onDropIdol()}
-          onPickUpIdol={() => this.state.gameState.onPickUpIdol()}
+          onDropIdol={ () => this.state.gameState.onDropIdol() }
+          onPickUpIdol={ () => this.state.gameState.onPickUpIdol() }
+          onDoEvent={ () => this.onDoEvent() }
           gameState={this.state.gameState}
         />
       </div>
