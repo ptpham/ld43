@@ -190,13 +190,16 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
           <div>
             { option.followUpText }
           </div>
-          <a 
-            href="javascript:;"
-            onClick={ () => this.handleOption(option) }
+          <div
             style={{ textAlign: "center" }}
           >
-            Okay
-          </a>
+            <a 
+              href="javascript:;"
+              onClick={ () => this.handleOption(option) }
+            >
+              Okay
+            </a>
+          </div>
         </div>
       );
     } else {
