@@ -38,4 +38,8 @@ export class Particles extends Emitter implements IEntity {
       }
     )
   }
+
+  update(state: State): void {
+      return;
+  }
 }
