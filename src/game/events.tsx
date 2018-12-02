@@ -12,6 +12,7 @@ export type EventOption = {
   skillRequired: SkillRequirement;
   description  : string;
   outcome      : EventOutcome;
+  updateEventTo: EventType;
 }
 
 export type EventType = {
