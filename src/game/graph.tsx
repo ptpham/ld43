@@ -1,6 +1,6 @@
 
 import React from "react";
-import { C, SeedRandom } from './constants';
+import { C, SeedRandom, Sample } from './constants';
 import { Line } from './lib/line';
 import { Point } from './lib/point';
 import { LocationType, LocationTypeNames } from './data';
@@ -99,7 +99,7 @@ export function generate(options: GenerateOptions): Node[] {
         x !== 'River' &&
         x !== 'Canyon'
       );
-    result.push(new Node(current, _.sample(validLocationTypeNames)! as LocationType));
+    result.push(new Node(current, Sample(validLocationTypeNames) as LocationType));
   }
 
   // Create nice edges between nodes
@@ -160,8 +160,4 @@ export function generateSnake(nodes: Node[], type: LocationType, options: Genera
   snake.push(new PIXI.Point(line.x2, line.y2));
   return snake;
 }
-
-
-
-
 
