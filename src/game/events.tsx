@@ -223,7 +223,7 @@ const BarbarianVillageFailedAssassinationAttempt: EventType = {
 
 const BarbarianVillageWornDown: EventType = {
   location: "BarbarianVillage",
-  stopsProgress: true,
+  stopsProgress: false,
   description: `
     After days of journeying, your party encounters a ramshackle 
     village of barbarians, with some buildings falling apart. 

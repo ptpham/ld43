@@ -73,7 +73,11 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
     }
 
     for (let node of visibleNodes) {
-      const newCircle = new Location({ node, state: this.state });
+      const newCircle = new Location({ 
+        node, 
+        state: this.state,
+        visited: visitedNodes.has(node),
+      });
 
       this.graphSprite.addChild(newCircle);
       this.state.addEntity(newCircle);
