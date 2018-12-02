@@ -298,7 +298,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
                       margin: "10px 0 0 0"
                     }}
                   >
-                    You lose some member (TODO(BOWEI): FIX THIS)
+                    You have permanently left behind your { outcome.skill }.
                   </div>
                 )
               }
