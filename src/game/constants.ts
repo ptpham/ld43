@@ -19,6 +19,7 @@ export class C {
   public static SPRITE_ASSETS = [
     'test',
     'idol',
+    'canyon',
     'caravan',
     'volcano',
     'forest',
@@ -34,7 +35,8 @@ export class C {
     'grassland_7',
     'grassland_8',
     'river',
-    'blight_particle'
+    'blight_particle',
+    'purple_particle',
   ];
 }
 
