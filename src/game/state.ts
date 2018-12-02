@@ -337,8 +337,10 @@ export class State {
   winGame() {
     this.hasWon = true;
     this.onDropIdol();
-    this.gameMap.graphSprite.render();
+    this.visitedNodes = new Set(this.graph);
     this.blightManager.unRenderImminent();
+
+    this.gameMap.graphSprite.render();
   }
 
   // stupid stuff to ensure we always propagate changes to react.
