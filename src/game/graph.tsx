@@ -143,7 +143,7 @@ export function generate(options: GenerateOptions): Node[] {
     node.baseMeatCost = _.random(1, 4, false);
   }
 
-  return result;
+  return _.sortBy(result, (node) => { return node.position.y; });
 }
 
 export function generateSnake(nodes: Node[], type: LocationType, options: GenerateOptions): PIXI.Point[] {
