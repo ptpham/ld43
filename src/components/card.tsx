@@ -18,7 +18,8 @@ const imageMap = new Map([
   ['Woodsman', '/assets/woodcutter.png'],
   ['Architect', '/assets/builder.png'],
   ['Assassin', '/assets/assassin.png'],
-  ['Cartographer', '/assets/cartographer.png']
+  ['Cartographer', '/assets/cartographer.png'],
+  ['Bard', '/assets/bard.png']
 ]);
 
 export class Card extends React.Component<CardProps, CardState> {
