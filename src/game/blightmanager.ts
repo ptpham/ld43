@@ -27,7 +27,6 @@ export class BlightManager implements IEntity {
   }
 
   public renderImminent(state: State, idol_position: Node, idol_time: number): void {
-    let imminentBlight: Node[] = [];
     // l2 distance? or graph distance?
     let neighborsByDegree: Node[][] = [ ];
     neighborsByDegree.push([idol_position]);
@@ -47,13 +46,13 @@ export class BlightManager implements IEntity {
           continue;
         }
         if (random() < 0.4) {
-          imminentBlight.push(node);
+          this.imminent.push(node);
         }
       }
     }
 
     // rerender
-    for (let node of imminentBlight) {
+    for (let node of this.imminent) {
       node;
       this.imminentParticles.push(new Particles(state.gameMap.graphSprite, node.position.x, node.position.y, 6));
     }
