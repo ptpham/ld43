@@ -118,4 +118,5 @@ const BarbarianVillage: EventType = {
 
 export const AllEvents: EventType[] = [
   ForestElfEvent,
+  BarbarianVillage,
 ]
