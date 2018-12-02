@@ -11,7 +11,6 @@ type CardChooserProps = {
 };
 
 type CardChooserState = {
-  cards: CardType[];
   selectedCards: Set<CardType>;
 };
 
@@ -24,24 +23,6 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
     CardChooser.Instance = this;
     this.state = {
       selectedCards: new Set(),
-      cards: [
-        {
-          skill: "Woodsman",
-          meat: 3,
-        },
-        {
-          skill: "Priest",
-          meat: 7,
-        },
-        {
-          skill: "Assassin",
-          meat: 1,
-        },
-        {
-          skill: "Architect",
-          meat: 1,
-        },
-      ]
     };
   }
 
@@ -74,7 +55,7 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
       <div
         //onClick={ () => console.log('was clicked!') }
         style={{
-          width: "600px",
+          width: "750px",
           padding: "20px",
           border: "1px solid lightgray",
         } }
@@ -88,7 +69,8 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
 
         <div>
           {
-            this.state.cards.map(card => 
+            //this.state.cards.map(card => 
+            [...this.props.gameState.cardsInWholeGame].map(card => 
               <Card 
                 card={ card } 
                 gameState={ this.props.gameState } 
@@ -100,7 +82,7 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
           }
         </div>
         <div 
-          onClick = { () => console.log('lets embark!') }
+          onClick = { () => {/*console.log('lets embark!')*/} }
           style={{ textAlign: "center" }}>
           { 
             (() => { 

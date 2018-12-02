@@ -111,6 +111,8 @@ export class State {
       state: "carried",
     };
 
+    // cards
+
     if (Debug.AUTO_CHOOSE_CARAVAN) {
       this.cardsInCaravan = new Set([
         {
@@ -130,6 +132,20 @@ export class State {
       this.isLocationDone = true;
     }
 
+    this.cardsInWholeGame = new Set(
+      [
+        { skill: "Woodsman"       , meat: 1, },
+        { skill: "Priest"         , meat: 1, },
+        { skill: "Assassin"       , meat: 1, },
+        { skill: "Architect"      , meat: 1, },
+        { skill: "Cartographer"   , meat: 1, },
+        { skill: "Sage"           , meat: 1, },
+        { skill: "Merchant"       , meat: 1, },
+        { skill: "Bard"           , meat: 1, },
+        { skill: "Fool"           , meat: 1, },
+      ] as CardType[]
+    );
+
   }
   
   getGameMode(): GameMode {
@@ -145,6 +161,9 @@ export class State {
   }
 
   moveCaravan(to: Graph.Node, retreat = false): void {
+    // mark current node's event as seen, so we dont have to see it again
+    // if it's something trivial.
+
     if (!retreat) {
       this.lastCaravanLocation = this.caravanLocation;
     }
@@ -157,8 +176,12 @@ export class State {
     this.visitedNodes.add(to);
     this.gameMap.graphSprite.render();
 
-    this.activeEvent = to.event;
+    if (!to.eventSeen) {
+      this.activeEvent = to.event;
+    }
+
     this.time.from_start++;
+
     if (this.idolState.state === 'carried' || this.idolState.state === 'gone') {
       // if it was newly picked up : remove the imminently blighted spots
       //this.blightManager.unRenderImminent();
@@ -279,6 +302,19 @@ export class State {
           }
         }
       }
+    }
+
+    // We mark the event as done if it's just a "pass on" event
+    // with no additional options (which it should be if there's
+    // only one option with no outcomes), and it didn't update itself.
+
+    if (
+      this.caravanLocation.event &&
+      this.caravanLocation.event.options.length === 1 &&
+      this.caravanLocation.event.options[0].outcome.length === 0 &&
+      !option.updateEventTo
+    ) {
+      this.caravanLocation.eventSeen = true;
     }
 
     if (option.updateEventTo) {

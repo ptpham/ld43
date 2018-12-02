@@ -122,6 +122,16 @@ const ForestWithHouse: EventType = {
   ]
 };
 
+const ForestElvesHappy: EventType = {
+  location     : "Forest",
+  description  : "You don't see any elves, but you have the sense that they are making the forest easier to pass through.",
+  difficulty   : EventDifficulty.NothingHappens,
+  stopsProgress: false,
+  options: [
+    PassOn({ price: 0 }),
+  ]
+};
+
 const ForestElfEvent: EventType = {
   location     : "Forest",
   stopsProgress: true,
@@ -142,7 +152,8 @@ const ForestElfEvent: EventType = {
     {
       skillRequired: { type: "specific-skill", skill: "Priest", withoutRequirement: "Unlabeled" },
       description: "Commune with the forest elves.",
-      followUpText : "The elves are amazed that you know the secret elvish language. Along with meat, they give you a silver talisman.",
+      followUpText : "The elves are amazed that you know the secret elvish language. Along with meat, they give you a rare silver talisman, telling you to treasure it.",
+      updateEventTo: ForestElvesHappy,
       outcome: [
         { type: "gain-meat", amount: 20, hidden: true, },
         { type: "gain-item", item: "Tailisman" }
