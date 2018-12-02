@@ -3,6 +3,7 @@ import { State } from './state';
 import { Node } from './graph';
 import { SeedRandomGenerator } from './constants';
 import { Particles } from './particles';
+import { IEntity } from './entity';
 
 export class BlightManager {
   public particles: Particles[] = [];

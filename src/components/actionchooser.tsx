@@ -113,11 +113,15 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
           </span>
         );
       } else if (opt.outcome.type === "lose-meat") {
-        return (
-          <span style={{ color: "red" }}>
-            -{ opt.outcome.amount } meat
-          </span>
-        );
+        if (opt.outcome.hidden) {
+          return null;
+        } else {
+          return (
+            <span style={{ color: "red" }}>
+              -{ opt.outcome.amount } meat
+            </span>
+          );
+        }
       } else {
         const x: never = opt.outcome;
 
