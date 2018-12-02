@@ -221,7 +221,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
     if (this.state.mode.type === "choice") {
       const options = this.props.event.options;
 
-      const canMovePastForFree = options.every(x => {
+      const everyOptionCostsMoney = options.every(x => {
         return x.outcome.some(outcome => 
           outcome.type === "lose-meat" ||
           (outcome.type === "gain-meat" && outcome.hidden)
@@ -248,7 +248,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
           }
 
           {
-            !canMovePastForFree &&
+            everyOptionCostsMoney &&
               this.renderButton(turnBackOption)
           }
         </>
