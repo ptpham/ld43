@@ -13,9 +13,12 @@ import { makeSprite } from "./lib/sprite";
 export class GameMap extends PIXI.Sprite implements IEntity {
   state: State;
   graphSprite: GraphSprite;
+  filter: PIXI.filters.ColorMatrixFilter;
 
   constructor(state: State) {
     super();
+
+    this.filter = new PIXI.filters.ColorMatrixFilter();
 
     this.state = state;
     this.makeBG();
