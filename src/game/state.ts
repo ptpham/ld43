@@ -103,7 +103,7 @@ export class State {
           skill: "Assassin",
           meat: 1,
         },
-      ]);
+      ] as CardType[]);
     }
   }
 
