@@ -191,7 +191,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
             { option.followUpText }
           </div>
           <div
-            style={{ textAlign: "center" }}
+            style={{ textAlign: "center", paddingTop: "20px" }}
           >
             <a 
               href="javascript:;"
