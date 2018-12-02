@@ -21,7 +21,7 @@ export class Game {
 
     this.emitter = new Emitter(
       this.state.stage, 
-      [PIXI.loader.resources['purple_particle'].texture], 
+      [PIXI.loader.resources['blight_particle'].texture], 
       {
         // alpha decays from 1 to 0
         alpha: { list: [ { value: 1, time: 0 }, { value: 0, time: 1 } ], isStepped: false },
