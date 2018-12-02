@@ -88,6 +88,32 @@ const ForestElfEvent: EventType = {
     },
     PassOn({ price: 10 }),
   ]
+};
+
+const BarbarianVillage: EventType = {
+  location: "BarbarianVillage",
+  description: "You come to a misty forest. You hear the echo of eerie laughter in the distance. Passing through will be arduous, but is possible.",
+  difficulty: 1,
+  options: [
+    CutDownForestOption,
+    {
+      skillRequired: { type: "specific-skill", skill: "Builder", withoutSkill: "Everything" },
+      description: "Build a house.",
+      followUpText : "You cut down some trees and build a log cabin.",
+      outcome: { type: "lose-meat", amount: 20, },
+      updateEventTo: ForestWithHouse,
+    },
+    {
+      skillRequired: { type: "specific-skill", skill: "Priest", withoutSkill: "Unlabeled" },
+      description: "Commune with the forest elves.",
+      followUpText : "The forest elves pay you with lots of meat!",
+      outcome: {
+        type: "gain-meat",
+        amount: 20,
+      },
+    },
+    PassOn({ price: 10 }),
+  ]
 }
 
 export const AllEvents: EventType[] = [
