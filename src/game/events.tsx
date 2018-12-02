@@ -15,6 +15,7 @@ export type SkillRequirement =
 export type EventOption = {
   skillRequired : SkillRequirement;
   description   : string;
+  followUpText ?: string;
   outcome      ?: EventOutcome;
   updateEventTo?: EventType;
 }
