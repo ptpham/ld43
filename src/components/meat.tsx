@@ -64,7 +64,7 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
             paddingRight: "20px",
           }}
         >
-          Turn count: { "a bajillion" }
+          Weeks elapsed: { "a bajillion" }
         </div>
         <div
           style = {{
