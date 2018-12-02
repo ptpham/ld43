@@ -152,6 +152,17 @@ export class Line {
     return approach.distance(center) < radius;
   }
 
+  trimEnds(amount: number): void {
+    const { start, end } = this;
+    const d = end.subtract(start);
+    const length = d.length();
+    const trimRatio = amount / length;
+    this._x1 = this.x1 + d.x * trimRatio;
+    this._x2 = this.x2 - d.x * trimRatio;
+    this._y1 = this.y1 + d.y * trimRatio;
+    this._y2 = this.y2 - d.y * trimRatio;
+  }
+
   // Must be horizontally/vertically oriented lines
   // Does not consider intersection, only overlap
   getOverlap(other: Line): Line | undefined {
