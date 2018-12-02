@@ -3,6 +3,7 @@ import * as PIXI from 'pixi.js';
 import { C } from './constants';
 import { GameMap } from './gamemap';
 import { State } from './state';
+import { Emitter } from 'pixi-particles';
 
 export class Game {
   stage   !: PIXI.Container;
@@ -29,6 +30,11 @@ export class Game {
     stest.y = 10;
     stest.scale = new PIXI.Point(4, 4);
     this.state.stage.addChild(stest);
+
+    let emitter: Emitter = new Emitter(
+      this.state.stage, undefined, undefined
+    );
+    emitter;
   }
 
   private setUpPixiStuff(): void {

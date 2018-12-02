@@ -29,5 +29,6 @@ export class C {
     'grassland_7',
     'grassland_8',
     'river',
+    'blight_particle'
   ];
 }
