@@ -51,15 +51,15 @@ export class ActionChooser extends React.Component<EventChooserProps> {
   renderCost(opt: EventOption): React.ReactNode {
     if (opt.outcome.type === "gain-meat") {
       return (
-        <div style={{ color: "green" }}>
-          + { opt.outcome.amount } meat
-        </div>
+        <span style={{ color: "green" }}>
+          +{ opt.outcome.amount } meat
+        </span>
       );
     } else if (opt.outcome.type === "lose-meat") {
       return (
-        <div style={{ color: "red" }}>
-          - { opt.outcome.amount } meat
-        </div>
+        <span style={{ color: "red" }}>
+          -{ opt.outcome.amount } meat
+        </span>
       );
     } else {
       const x: never = opt.outcome;
