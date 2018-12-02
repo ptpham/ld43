@@ -113,7 +113,7 @@ const BarbarianVillageWornDown: EventType = {
     },
     {
       skillRequired: { type: "specific-skill", skill: "Assassin", withoutSkill: "Unlabeled" },
-      description  : "Repair some of the barbarian's buildings.",
+      description  : "Assassinate thok.",
       followUpText : "Thok thanks you for your kindness and lets you pass. The barbarians give you some meat as you leave.",
       outcome      : { type: "gain-meat", amount: 10, },
       updateEventTo: BarbarianVillageRepaired,
