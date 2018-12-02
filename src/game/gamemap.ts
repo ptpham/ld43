@@ -196,7 +196,7 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
     if (this.particles) {
       this.particles.emit = false;
     }
-    this.particles = undefined;
+    //this.particles = undefined;
 
     this.render();
   }
