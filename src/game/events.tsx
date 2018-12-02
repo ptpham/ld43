@@ -105,14 +105,14 @@ const BarbarianVillageWornDown: EventType = {
   difficulty: 1,
   options: [
     {
-      skillRequired: { type: "specific-skill", skill: "Builder", withoutSkill: "Everything" },
+      skillRequired: { type: "specific-skill", skill: "Builder", withoutSkill: "Unlabeled" },
       description  : "Repair some of the barbarian's buildings.",
       followUpText : "Thok thanks you for your kindness and lets you pass. The barbarians give you some meat as you leave.",
       outcome      : { type: "gain-meat", amount: 10, },
       updateEventTo: BarbarianVillageRepaired,
     },
     {
-      skillRequired: { type: "specific-skill", skill: "Assassin", withoutSkill: "Everything" },
+      skillRequired: { type: "specific-skill", skill: "Assassin", withoutSkill: "Unlabeled" },
       description  : "Repair some of the barbarian's buildings.",
       followUpText : "Thok thanks you for your kindness and lets you pass. The barbarians give you some meat as you leave.",
       outcome      : { type: "gain-meat", amount: 10, },
