@@ -17,7 +17,7 @@ type IdolState =
   ;
 
 export type GameMode = 
-  | "Normal"
+  | "Moving On Map"
   | "Looking At Event"
 
 /**
