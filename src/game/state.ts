@@ -145,19 +145,23 @@ export class State {
     }
   }
 
-  public getIdolBlightDanger(): string {
+  public getIdolBlightDanger(): { text: string, remaining: number} {
     let t = this.time.for_idol;
     if (t <= 10) {
-      //return { text: "Minimal", remaining: 10 - this.time_for_idol };
-      return "Minimal";
+      return { text: "Minimal", remaining: 10 - t };
+      //return "Minimal";
     } else if (t <= 20) {
-      return "Low";
+      //return "Low";
+      return { text: "Low", remaining: 20 - t };
     } else if (t <= 30) {
-      return "Medium";
+      //return "Medium";
+      return { text: "Medium", remaining: 30 - t };
     } else if (t <= 40) {
-      return "High";
+      //return "High";
+      return { text: "High", remaining: 40 - t };
     } else {
-      return "Catastrophic";
+      //return "Catastrophic";
+      return { text: "Catastrophic", remaining: t % 2 };
     }
   }
 

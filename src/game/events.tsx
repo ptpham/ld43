@@ -22,6 +22,11 @@ export type EventType = {
   options    : EventOption[];
 }
 
+const FreePassOn: EventOption = {
+  skillRequired: { type: "no-skill" },
+  description: "Pass on.",
+};
+
 const ForestThatIsCutDown: EventType = {
   location   : "Forest",
   description: "This forest has been cut down.",
