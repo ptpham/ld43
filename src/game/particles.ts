@@ -5,7 +5,7 @@ import { State } from "./state";
 
 export class Particles extends Emitter {
   public elapsed: number = Date.now();
-  constructor(parent: PIXI.Graphics, x: number, y: number) {
+  constructor(parent: PIXI.Graphics, x: number, y: number, corruptness: number) {
     super(
       parent,
       [PIXI.loader.resources['purple_particle'].texture], 
@@ -25,7 +25,7 @@ export class Particles extends Emitter {
         // lifetime -- tunable, around .5 ish works fine
         lifetime: { min: 0.4, max: 0.6 },
         // seconds per particle
-        frequency: 0.01667,
+        frequency: (1.0 / corruptness),
         spawnChance: 1,
         particlesPerWave: 1,
         // emit forever

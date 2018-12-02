@@ -6,7 +6,7 @@ import { Point } from './lib/point';
 import { LocationType, LocationTypeNames } from './data';
 import _ from 'lodash';
 import { State } from './state';
-import { EventType } from "./events";
+import { EventType, AllEvents } from "./events";
 
 export class Node {
   // not counting disadvantages due to idol etc
@@ -129,6 +129,11 @@ export function generate(options: GenerateOptions): Node[] {
   }
   
   // Add events to nodes
+
+  for (const node of result) {
+    const releventEvent = AllEvents.filter(event => event.location === node.locationType);
+    node.locationType
+  }
 
   return _.sortBy(result, (node) => { return node.position.y; });
 }
