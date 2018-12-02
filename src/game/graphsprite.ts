@@ -37,4 +37,8 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
 
     return graphSprite;
   }
+
+  update(state: State): void {
+    
+  }
 }
