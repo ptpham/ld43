@@ -35,9 +35,12 @@ export class Particles extends Emitter {
         addAtBack: false,
         // radius 100
         spawnType: "circle",
-        spawnCircle: { x: 30, y: 30, r: 16 }
+        spawnCircle: { x: 30, y: 30, r: 16 },
+        // auto start emitting
+        emit: true
       }
     )
+    this.emit = true;
   }
 
   update_(state: State): void {
