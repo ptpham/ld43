@@ -33,8 +33,9 @@ export class C {
   ];
 }
 
-Math.random = (function() {
-	var seed = 0x2F6E2B1;
+export const SeedRandom = (function() {
+  var seed = 0x2F6E2B1;
+
 	return function() {
 		// Robert Jenkins’ 32 bit integer hash function
 		seed = ((seed + 0x7ED55D16) + (seed << 12))  & 0xFFFFFFFF;
