@@ -168,7 +168,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
   }
 
   renderDialogContent(): React.ReactNode {
-    if (this.state.mode === "choice") {
+    if (this.state.mode.type === "choice") {
       return (
         <>
           <div style={{ padding: "0 0 20px 0" }}>
@@ -181,7 +181,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
             )
           }
         </>
-      )
+      );
     }
   }
 
@@ -197,6 +197,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
           padding: "20px",
         }}
       >
+        { this.renderDialogContent() }
       </div>
     )
   }
