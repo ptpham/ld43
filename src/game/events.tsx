@@ -28,7 +28,7 @@ export const AllEvents: EventType[] = [
     difficulty : 1,
     options    : [
       {
-        skillRequired: { type: "specific-skill": "WoodCutter" },
+        skillRequired: { type: "specific-skill", skill: "WoodCutter" },
         description: "Cut the forest down, one log at a time",
         outcome: { 
           type: "lose-meat", 
