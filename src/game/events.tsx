@@ -80,6 +80,7 @@ const ForestElfEvent: EventType = {
     {
       skillRequired: { type: "specific-skill", skill: "Priest", withoutSkill: "Unlabeled" },
       description: "Commune with the forest elves.",
+      followUpText : "The forest elves pay you with lots of meat!",
       outcome: {
         type: "gain-meat",
         amount: 20,
