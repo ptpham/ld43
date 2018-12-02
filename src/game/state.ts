@@ -134,22 +134,14 @@ export class State {
 
     this.cardsInWholeGame = new Set(
       [
-        {
-          skill: "Woodsman",
-          meat: 3,
-        },
-        {
-          skill: "Priest",
-          meat: 7,
-        },
-        {
-          skill: "Assassin",
-          meat: 1,
-        },
-        {
-          skill: "Architect",
-          meat: 1,
-        },
+        { skill: "Woodsman"       , meat: 1, },
+        { skill: "Priest"         , meat: 1, },
+        { skill: "Assassin"       , meat: 1, },
+        { skill: "Architect"      , meat: 1, },
+        { skill: "Cartographer"   , meat: 1, },
+        { skill: "Sage"           , meat: 1, },
+        { skill: "Merchant"       , meat: 1, },
+        { skill: "Bard"           , meat: 1, },
       ] as CardType[]
     );
 
