@@ -208,8 +208,8 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
             option.outcome && option.outcome.type === "gain-meat" &&
               <div
                 style={{
-                  backgroundColor: "green",
-                  color: "white"
+                  backgroundColor: "lightgreen",
+                  padding: "5px",
                 }}
               >
                 You gain { option.outcome.amount } meat!
