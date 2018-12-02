@@ -156,7 +156,6 @@ export class State {
 
   }
 
-
   // stupid stuff to ensure we always propagate changes to react.
 
   changeListeners: ((state: State) => void)[] = [];
