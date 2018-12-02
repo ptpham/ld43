@@ -20,7 +20,7 @@ export type EventType = {
 export const AllEvents: EventType[] = [
   {
     location   : "Forest",
-    description: "You come to an eerie, misty forest.",
+    description: "You come to a misty forest. You hear the echo of eerie laughter in the distance.",
     difficulty : 1,
     options    : [
       {
@@ -34,7 +34,7 @@ export const AllEvents: EventType[] = [
 
       {
         skillRequired: "Builder",
-        description: "",
+        description: "Build a house.",
         outcome: { 
           type: "lose-meat", 
           amount: 10,
