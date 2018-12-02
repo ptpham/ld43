@@ -169,6 +169,11 @@ export class State {
   }
 
   public handleChooseEventOption(option: EventOption): void {
+    if (!option.outcome) {
+
+      return;
+    }
+
     switch (option.outcome.type) {
       case "gain-meat": {
         this.meat += option.outcome.amount;
