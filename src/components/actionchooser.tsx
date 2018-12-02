@@ -48,6 +48,16 @@ export class ActionChooser extends React.Component<EventChooserProps> {
     }
   }
 
+  renderCost(opt: EventOption): React.ReactNode {
+    if (opt.outcome.type === "gain-meat") {
+      return (
+        <div style={{ color: "green" }}>
+
+        </div>
+      )
+    }
+  }
+
   render() {
     return (
       <div
