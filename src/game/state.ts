@@ -187,6 +187,7 @@ export class State {
       }
     }
 
+    this.activeEvent = undefined;
     this.triggerChange();
   }
 
