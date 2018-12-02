@@ -412,6 +412,16 @@ const DesertFiller: EventType = {
   ]
 };
 
+const MountainFiller: EventType = {
+  location     : "Mountain",
+  description  : "The mountain looms threateningly over the party, but after a few days of exploring, you find a pass that allows you to get through with little difficulty.",
+  difficulty   : EventDifficulty.NothingHappens,
+  stopsProgress: false,
+  options: [
+    PassOn({ price: 0 }),
+  ]
+};
+
 export const AllEvents: EventType[] = [
   // Forest
 
@@ -441,4 +451,8 @@ export const AllEvents: EventType[] = [
   // Desert
 
   DesertFiller,
+
+  // Mountain
+
+  MountainFiller,
 ]
