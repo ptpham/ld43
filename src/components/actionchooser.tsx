@@ -182,6 +182,8 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
           }
         </>
       );
+    } else if (this.state.mode.type === "follow-up") {
+
     }
   }
 
