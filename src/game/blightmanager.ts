@@ -1,6 +1,7 @@
 
 import { State } from './state';
 import { Node } from './graph';
+import { SeedRandomGenerator } from './constants';
 
 export class BlightManager {
   public applyBlightAndRenderImminent(state: State, node: Node, idol_time: number): void {
@@ -21,7 +22,7 @@ export class BlightManager {
     }
     neighborsByDegree.push(deg2);
 
-    //let random = 
+    let random = SeedRandomGenerator(node.x + 12345 * node.y);
 
     for (let degree = 0; degree < 2 /* lol */; degree++ ){
       let neighbors: Node[] = neighborsByDegree[degree];
@@ -29,7 +30,7 @@ export class BlightManager {
         if (state.blightedNodes.has(node)) {
           continue;
         }
-        if (Math.random() < 0.4) {
+        if (random() < 0.4) {
           imminentBlight.push(node);
         }
       }
