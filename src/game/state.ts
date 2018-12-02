@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { C } from './constants';
+import { C, Debug } from './constants';
 import * as Graph from './graph';
 import { CardType } from './data';
 import { IEntity } from './entity';
@@ -88,6 +88,23 @@ export class State {
     this.idolState = {
       state: "carried",
     };
+
+    if (Debug.AUTO_CHOOSE_CARAVAN) {
+      this.cardsInCaravan = new Set([
+        {
+          skill: "WoodCutter",
+          meat: 3,
+        },
+        {
+          skill: "Priest",
+          meat: 7,
+        },
+        {
+          skill: "Assassin",
+          meat: 1,
+        },
+      ]);
+    }
   }
 
   addEntity(entity: IEntity): void {
