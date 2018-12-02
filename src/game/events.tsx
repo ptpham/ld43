@@ -26,9 +26,10 @@ export enum EventDifficulty {
   FreeMeat         = 1,
   NormalDifficutly = 2,
   HardDifficulty   = 3,
+  MaxDifficulty    = 4,
 
   // let's not use this one (unless they do something stupid)
-  LoseMeat         = 4,
+  LoseMeat         = 5,
 }
 
 export type EventOption = {
