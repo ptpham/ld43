@@ -1,6 +1,7 @@
 import { C } from "./constants";
 import { IEntity } from './entity';
 import { Emitter } from 'pixi-particles';
+import { State } from "./state";
 C;
 
 export class Particles extends Emitter implements IEntity {
