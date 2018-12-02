@@ -37,7 +37,7 @@ export class ActionChooser extends React.Component<EventChooserProps> {
   renderRequirement(opt: EventOption): React.ReactNode {
     if (opt.skillRequired.type === "specific-skill") {
       return (
-        <strong>{ opt.skillRequired.skill }</strong>
+        <strong>{ opt.skillRequired.skill } :</strong>
       );
     } else if (opt.skillRequired.type === "no-skill") {
       return null;
@@ -99,7 +99,7 @@ export class ActionChooser extends React.Component<EventChooserProps> {
             >
               <strong>
                 { this.renderRequirement(option) }
-              </strong>:{' '}
+              </strong>{' '}
               { option.description }{' '}
               { this.renderCost(option) }
             </EventButton>
