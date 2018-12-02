@@ -30,6 +30,7 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
 
     // clear the old nodes
     this.graphSprite.clear();
+    this.graphSprite.removeChildren();
 
     this.graphSprite.lineWidth = 1;
     this.graphSprite.lineStyle(1, 0x000000)
@@ -64,8 +65,8 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
 
     if (this.state.stage.children.indexOf(this.graphSprite) === -1) {
       this.state.stage.addChild(this.graphSprite);
-      this.graphSprite.clear();
-      this.graphSprite.removeChildren();
+      //this.graphSprite.clear();
+      //this.graphSprite.removeChildren();
       //for (let child of this.graphSprite.children) {
       //  let child_ : any = child;
       //  child_.clear && typeof child_.clear === 'function' && child_.clear();
