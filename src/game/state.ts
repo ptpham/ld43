@@ -44,6 +44,7 @@ export class State {
   activeEvent         : EventType | undefined;
   graph               : Graph.Node[];
   visitedNodes        : Set<Graph.Node>;
+  blightedNodes       : Set<Graph.Node> = new Set();
   river               : PIXI.Point[];
   canyon              : PIXI.Point[];
   caravanLocation     : Graph.Node;
