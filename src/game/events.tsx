@@ -69,7 +69,7 @@ const GameFinish: EventType = {
     Your party is exhausted from the trek but the mood is upbeat
     since you've finally reached your goal.`,
   difficulty: EventDifficulty.NothingHappens,
-  stopsProgress: true,
+  stopsProgress: false,
   options: [
     {
       skillRequired: {type: "no-skill"},
