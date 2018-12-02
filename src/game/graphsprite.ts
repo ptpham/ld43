@@ -46,6 +46,7 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
       const newCircle = new GameMapCircle({ node, state: this.state });
 
       this.graphSprite.addChild(newCircle);
+      this.state.addEntity(newCircle);
       if (!visitedNodes.has(node)) {
         // add a question mark to unvisited ones
         const qmarkSprite = new PIXI.Sprite(PIXI.loader.resources['question_mark'].texture);
@@ -53,7 +54,6 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
         qmarkSprite.y = 0;
         newCircle.addChild(qmarkSprite);
       }
-      this.state.addEntity(newCircle);
     }
 
     this.graphSprite.x = 0;
