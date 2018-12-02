@@ -73,6 +73,7 @@ const ForestElfEvent: EventType = {
     {
       skillRequired: { type: "specific-skill", skill: "Builder", withoutSkill: "Everything" },
       description: "Build a house.",
+      followUpText : "You cut down some trees and build a log cabin.",
       outcome: { type: "lose-meat", amount: 20, },
       updateEventTo: ForestWithHouse,
     },
