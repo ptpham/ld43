@@ -118,7 +118,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
             <>
               <div
                 style = {{
-                  paddingBottom: "20px",
+                  paddingTop: "20px",
                 }}
               >
                 <strong>Currently { mousedOverLoc ? "hovered" : "selected" } location:</strong>
@@ -131,9 +131,6 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
               >
                 <div>
                   Type: { location.node.locationType }
-                </div>
-                <div>
-                  Meat Cost: { location.node.meatCostExplanationString(this.props.gameState) }
                 </div>
               </div>
             </>
