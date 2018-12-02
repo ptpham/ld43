@@ -104,6 +104,8 @@ export class State {
           meat: 1,
         },
       ] as CardType[]);
+
+      this.isLocationDone = true;
     }
   }
 
