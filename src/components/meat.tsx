@@ -88,7 +88,7 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
             paddingRight: "20px",
           }}
         >
-          Idol danger: { this.props.gameState.getIdolBlightDanger() }
+          Idol danger: { this.props.gameState.getIdolBlightDanger().text }, T - { this.props.gameState.getIdolBlightDanger().remaining } weeks
         </div>
       </div>
     );
