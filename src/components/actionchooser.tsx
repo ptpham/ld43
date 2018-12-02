@@ -133,6 +133,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
   }
 
   renderCost(opt: EventOption): React.ReactNode {
+    let to_ret : React.ReactNode[] = [];
     if (opt.outcome) {
       const outcomes = Array.isArray(opt.outcome) ? opt.outcome : [opt.outcome];
       const meatOutcome = outcomes.filter(x => x.type === "gain-meat" || x.type === "lose-meat")[0];
@@ -142,7 +143,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
           if (meatOutcome.hidden) {
             return null;
           } else {
-            return (
+            to_ret.push(
               <span style={{ color: "#00cc00" }}>
                 +{ meatOutcome.amount } meat
               </span>
@@ -152,7 +153,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
           if (meatOutcome.hidden) {
             return null;
           } else {
-            return (
+            to_ret.push(
               <span style={{ color: "red" }}>
                 -{ meatOutcome.amount } meat
               </span>
@@ -166,15 +167,15 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
       const sacrificeOutcome = outcomes.filter(x => x.type === 'lose-member-weak' || x.type === 'lose-member-strong')[0];
       if (sacrificeOutcome) {
         if (sacrificeOutcome.type === 'lose-member-weak') {
-          return (
+          to_ret.push(
             <span style={{ color: "red "}}>
-              Lose { sacrificeOutcome.skill } temporarily.
+              lose { sacrificeOutcome.skill } temporarily
             </span>
           )
         } else if (sacrificeOutcome.type === 'lose-member-strong') {
-          return (
+          to_ret.push(
             <span style={{ color: "red "}}>
-              Lose { sacrificeOutcome.skill } permanently.
+              lose { sacrificeOutcome.skill } permanently.
             </span>
           )
         } else {
@@ -183,7 +184,15 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
       }
     }
 
-    return null;
+     return (
+      <span>
+        { to_ret.map((x, i) => { return i ===0 ? x : (
+          <span>
+            {', '} {x}
+          </span>
+        ) }) }
+      </span>
+    )
   }
 
   handleOption(option: EventOption): void {
