@@ -111,10 +111,13 @@ class App extends React.Component<{ game: Game }, AppState>  {
           gameState={this.state.gameState}
         />
 
-        <ActionChooser 
-          event={ this.state.gameState.activeEvent }
-          gameState={ this.state.gameState }
-        />
+        {
+          gameMode === "Looking At Event" &&
+            <ActionChooser 
+              event={ this.state.gameState.activeEvent! }
+              gameState={ this.state.gameState }
+            />
+        }
       </div>
     );
   }
