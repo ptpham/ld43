@@ -5,7 +5,7 @@ import { SeedRandomGenerator } from './constants';
 import { Particles } from './particles';
 import { IEntity } from './entity';
 
-export class BlightManager {
+export class BlightManager implements IEntity {
   public particles: Particles[] = [];
   
   public applyBlightAndRenderImminent(state: State, node: Node, idol_time: number): void {

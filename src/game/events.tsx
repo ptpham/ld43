@@ -1,7 +1,7 @@
 import { LocationType, SkillType } from "./data";
 
 export type EventOutcome = 
-  | { type: "gain-meat"; amount: number; }
+  | { type: "gain-meat"; amount: number; hidden: boolean }
   | { type: "lose-meat"; amount: number; hidden: boolean }
 
 export type SkillRequirement =
