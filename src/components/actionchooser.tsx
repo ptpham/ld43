@@ -104,7 +104,11 @@ export class ActionChooser extends React.Component<EventChooserProps> {
   }
 
   renderButton(option: EventOption): React.ReactNode {
-    const { node, renderNothingElse } = this.renderRequirement(option):
+    const { node, renderNothingElse } = this.renderRequirement(option);
+
+    if (renderNothingElse) {
+      return node;
+    }
 
     return (
       <>
