@@ -26,7 +26,7 @@ export class Game {
         // alpha decays from 1 to 0
         alpha: { list: [ { value: 1, time: 0 }, { value: 0, time: 1 } ], isStepped: false },
         // scale is always 2
-        scale: { list: [ { value: 8, time: 0 }, { value: 8, time: 1 } ], isStepped: false, minimumScaleMultiplier: 1 },
+        scale: { list: [ { value: 2, time: 0 }, { value: 2, time: 1 } ], isStepped: false, minimumScaleMultiplier: 1 },
         // can we disable color please?
         color: { list: [ { value: {r: 0xFF, g: 0xFF, b: 0xFF, a: 1}, time: 0 }, { value: {r: 0xFF, g: 0xFF, b: 0xFF, a: 1}, time: 1 } ], isStepped: false },
         // speed always 25, but with 1x-2x random multiplier
@@ -67,11 +67,11 @@ export class Game {
     stest.scale = new PIXI.Point(4, 4);
     this.state.stage.addChild(stest);
 
-    const pTest = new PIXI.Sprite(PIXI.loader.resources['purple_particle'].texture);
-    pTest.x = 100;
-    pTest.y = 100;
-    pTest.scale = new PIXI.Point(16, 16);
-    this.state.stage.addChild(pTest);
+    //const pTest = new PIXI.Sprite(PIXI.loader.resources['purple_particle'].texture);
+    //pTest.x = 100;
+    //pTest.y = 100;
+    //pTest.scale = new PIXI.Point(16, 16);
+    //this.state.stage.addChild(pTest);
   }
 
   private setUpPixiStuff(): void {
