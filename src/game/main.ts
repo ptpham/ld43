@@ -38,7 +38,7 @@ export class Game {
         // lifetime -- tunable, around .5 ish works fine
         lifetime: { min: 0.4, max: 0.6 },
         // seconds per particle
-        frequency: 0.01667,
+        frequency: 0.1667,
         spawnChance: 1,
         particlesPerWave: 1,
         // emit forever
