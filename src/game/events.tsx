@@ -46,8 +46,8 @@ export const AllEvents: EventType[] = [
       },
 
       {
-        skillRequired: { type: "specific-skill", skill: "Builder" },
-        description: "Build a house.",
+        skillRequired: { type: "specific-skill", skill: "Priest" },
+        description: "Commune with the forest elves.",
         outcome: { 
           type: "lose-meat", 
           amount: 20,
