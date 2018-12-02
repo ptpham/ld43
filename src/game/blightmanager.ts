@@ -20,9 +20,13 @@ export class BlightManager {
     }
     neighborsByDegree.push(deg2);
 
-    for (let degree = 0; degree < 3; degree++ ){
+    for (let degree = 0; degree < 2 /* lol */; degree++ ){
       let neighbors: Node[] = neighborsByDegree[degree];
-      neighbors;
+      for (let node of neighbors) {
+        if (state.blightedNodes.has(node)) {
+          continue;
+        }
+      }
     }
   }
 }

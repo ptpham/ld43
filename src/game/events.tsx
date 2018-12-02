@@ -90,6 +90,22 @@ const ForestElfEvent: EventType = {
   ]
 };
 
+const BarbarianVillageRepaired: EventType = {
+  location: "BarbarianVillage",
+  description: "After days of journeying, your party encounters a ramshackle village of barbarians, with some buildings falling apart. Thok, the gatekeeper to the village, looks you up and down and says, 'Grunt.'",
+  difficulty: 1,
+  options: [
+    {
+      skillRequired: { type: "specific-skill", skill: "Builder", withoutSkill: "Everything" },
+      description  : "Repair some of the barbarian's buildings.",
+      followUpText : "Thok thanks you for your kindness and lets you pass. The barbarians give you some meat as you leave.",
+      outcome      : { type: "gain-meat", amount: 10, },
+      updateEventTo: ForestWithHouse,
+    },
+    PassOn({ price: 20 }),
+  ]
+};
+
 const BarbarianVillageWornDown: EventType = {
   location: "BarbarianVillage",
   description: "After days of journeying, your party encounters a ramshackle village of barbarians, with some buildings falling apart. Thok, the gatekeeper to the village, looks you up and down and says, 'Grunt.'",
