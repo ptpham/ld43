@@ -432,7 +432,7 @@ export const AllEvents: EventType[] = [
 
   ForestElfEvent,
   //ForestElfEventBlighted,
-  ForestFiller,
+  //ForestFiller,
 
   // GoblinNest
 
