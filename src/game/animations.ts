@@ -26,7 +26,7 @@ export function makeCrowdWalkAnimation(sprites: PIXI.Sprite[],
 
   let offsets: number[] = [];
   for (let i = 0; i < sprites.length; i++) {
-    offsets.push(2*Math.PI*Math.random());
+    offsets.push(2 * Math.PI * Math.random());
   }
 
   return makeBoundedTicker(totalDuration, (delta, t) => {
