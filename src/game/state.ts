@@ -136,6 +136,8 @@ export class State {
 
     this.visitedNodes.add(to);
     this.gameMap.graphSprite.render();
+
+    this.activeEvent = AllEvents[0];
   }
 
   onDropIdol(): void {
