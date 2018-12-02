@@ -157,7 +157,7 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
     }
 
     this.interactive = true;
-    this.hitArea = new PIXI.Circle(node.position.x, node.position.y, C.NODE_RADIUS);
+    this.hitArea = new PIXI.Circle(0, 0, C.NODE_RADIUS);
 
     this.on('click', () => this.onClick());
     this.on('mouseover', () => this.mouseOver());
