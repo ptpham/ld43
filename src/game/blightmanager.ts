@@ -18,7 +18,7 @@ export class BlightManager implements IEntity {
       let particle = this.particles[i];
       if (particle) {
         particle.disable(() => {
-          this.particles[i] = undefined;
+          //this.particles[i] = undefined;
         })
       }
     }
