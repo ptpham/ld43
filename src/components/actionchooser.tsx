@@ -34,6 +34,10 @@ type EventChooserProps = {
 };
 
 export class ActionChooser extends React.Component<EventChooserProps> {
+  renderRequirement(): void {
+
+  }
+
   render() {
     return (
       <div
@@ -55,6 +59,9 @@ export class ActionChooser extends React.Component<EventChooserProps> {
             <EventButton
               onClick={ () => {}}
             >
+              <strong>
+                { this.renderRequirement() }
+              </strong>
               { option.description }
             </EventButton>
           )
