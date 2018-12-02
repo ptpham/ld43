@@ -3,6 +3,7 @@ import { State } from '../game/state';
 import { CardType } from '../game/data';
 import * as React from 'react';
 import { Card } from './card';
+import { C } from "../game/constants";
 
 type CardChooserProps = {
   gameState: State;
