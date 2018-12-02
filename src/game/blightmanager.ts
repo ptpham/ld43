@@ -11,8 +11,12 @@ export class BlightManager implements IEntity {
   public imminent: Node[] = [];
   public blightParticles: (Particles | undefined)[] = [];
   
-  public applyBlightAndRenderImminent(state: State, node: Node, idol_time: number): void {
-
+  public applyBlightAndRenderImminent(state: State, idol_position: Node, idol_time: number): void {
+    for (let node of this.imminent) {
+      state.blightedNodes.add(node);
+      this.blightParticles.push(new Particles(state.gameMap.graphSprite, node.position.x, node.position.y, 60));
+    }
+    this.unRenderImminent();
   }
 
   public unRenderImminent(): void {
@@ -54,7 +58,6 @@ export class BlightManager implements IEntity {
 
     // rerender
     for (let node of this.imminent) {
-      node;
       this.imminentParticles.push(new Particles(state.gameMap.graphSprite, node.position.x, node.position.y, 6));
     }
   }
