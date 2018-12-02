@@ -90,7 +90,7 @@ const ForestElfEvent: EventType = {
   ]
 };
 
-const BarbarianVillage: EventType = {
+const BarbarianVillageWornDown: EventType = {
   location: "BarbarianVillage",
   description: "After days of journeying, your party encounters a worn down village of barbarians. Thok, the gatekeeper to the village, looks you up and down and says, 'Grunt.'",
   difficulty: 1,
@@ -108,5 +108,5 @@ const BarbarianVillage: EventType = {
 
 export const AllEvents: EventType[] = [
   ForestElfEvent,
-  BarbarianVillage,
+  BarbarianVillageWornDown,
 ]
