@@ -170,7 +170,9 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
           { requirement }
         </strong>{' '}
         <span
-
+          style={{
+            color: option.outcome && option.outcome.type === "gain-meat" ? "green" : "inherit",
+          }}
         >
           { option.description }{' '}
           { this.renderCost(option) }

@@ -46,6 +46,26 @@ export class BlightManager implements IEntity {
     }
   }
 
+  public getIdolBlightDanger(time_for_idol: number): { text: string, remaining: number} {
+    let t = time.for_idol;
+    let to_ret: { text: string, remaining: number } = { text: "", remaining: 0};
+    if (t < 10) {
+      to_ret = { text: "Minimal", remaining: 10 - t };
+    } else if (t < 20) {
+      to_ret = { text: "Low", remaining: 20 - t };
+    } else if (t < 30) {
+      to_ret = { text: "Medium", remaining: 30 - t };
+    } else if (t < 40) {
+      to_ret = { text: "High", remaining: 40 - t };
+    } else {
+      to_ret = { text: "Catastrophic", remaining: t % 2 + 1 };
+    }
+    if (this.idolState.state === 'carried') {
+      to_ret.remaining = -1; // never
+    }
+    return to_ret;
+  }
+
   public update(state: State): void {
     for ( let particle of this.particles ) {
       particle.update_(state);
