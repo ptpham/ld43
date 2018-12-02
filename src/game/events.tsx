@@ -427,6 +427,7 @@ const MountainFiller: EventType = {
   ]
 };
 
+ForestFiller;
 export const AllEvents: EventType[] = [
   // Forest
 
