@@ -8,6 +8,7 @@ import { Caravan } from "./caravan";
 import { Graphics } from "pixi.js";
 import { random } from "lodash";
 import { Idol } from "./idol";
+import { Cloud } from "./cloud";
 
 function makeSprite(texture: PIXI.Texture): PIXI.Sprite {
   const sprite = new PIXI.Sprite(texture);
@@ -34,6 +35,7 @@ export class GameMap extends Entity {
 
     this.makeCaravan();
     this.makeIdol();
+    this.makeClouds();
   }
 
   makeBG(): void {
@@ -126,6 +128,24 @@ export class GameMap extends Entity {
     return idol;
   }
 
+  makeClouds(): Cloud[] {
+    const clouds = [
+      new Cloud(),
+      new Cloud(),
+      new Cloud(),
+      new Cloud(),
+      new Cloud(),
+      new Cloud(),
+      new Cloud(),
+      new Cloud(),
+    ];
+    clouds.forEach(cloud => {
+      this.graphSprite.addChild(cloud);
+      this.state.addEntity(cloud);
+    });
+    return clouds;
+  }
+
   update(state: State) {
     // update some circles
   }
@@ -160,8 +180,6 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
       sprite = makeSprite(PIXI.loader.resources['forest'].texture);
     } else if (node.locationType == 'GoblinNest') {
       sprite = makeSprite(PIXI.loader.resources['goblin'].texture);
-    } else if (node.locationType == 'Canyon') {
-      sprite = makeSprite(PIXI.loader.resources['test'].texture);
     }
 
     if (sprite) {
