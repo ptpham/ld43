@@ -141,6 +141,8 @@ export class State {
     this.activeEvent = to.event;
     this.time.from_start++;
     if (this.idolState.state === 'dropped') {
+      // before incrementing, check if we hit a blight point
+      if 
       this.time.for_idol++;
     }
   }
@@ -157,7 +159,7 @@ export class State {
     } else if (t <= 40) {
       to_ret = { text: "High", remaining: 40 - t };
     } else {
-      to_ret = { text: "Catastrophic", remaining: t % 2 };
+      to_ret = { text: "Catastrophic", remaining: t % 2 + 1 };
     }
     if (this.idolState.state === 'carried') {
       to_ret.remaining = -1; // never
