@@ -132,8 +132,13 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
     }
   }
 
-  renderCost(opt: EventOption): React.ReactNode {
-    let to_ret : React.ReactNode[] = [];
+  renderCost(opt: EventOption): {
+    node    : React.ReactNode; 
+    cantBuy?: boolean;
+  } {
+    let to_ret: React.ReactNode[] = [];
+    let cantBuy: boolean | undefined = undefined;
+    cantBuy;
     if (opt.outcome) {
       const outcomes = Array.isArray(opt.outcome) ? opt.outcome : [opt.outcome];
       const meatOutcome = outcomes.filter(x => x.type === "gain-meat" || x.type === "lose-meat")[0];
@@ -141,23 +146,33 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
       if (meatOutcome) {
         if (meatOutcome.type === "gain-meat") {
           if (meatOutcome.hidden) {
-            return null;
+            return { node: null };
           } else {
-            to_ret.push(
-              <span style={{ color: "#00cc00" }}>
-                +{ meatOutcome.amount } meat
-              </span>
-            );
+            to_ret.push({
+              node: (
+                <span style={{ color: "#00cc00" }}>
+                  +{ meatOutcome.amount } meat
+                </span>
+              ),
+            });
           }
         } else if (meatOutcome.type === "lose-meat") {
           if (meatOutcome.hidden) {
-            return null;
+            return { node: null };
           } else {
-            to_ret.push(
+            to_ret.push((
               <span style={{ color: "red" }}>
                 -{ meatOutcome.amount } meat
               </span>
-            );
+            ))
+            return {
+              node: (
+                <span style={{ color: "red" }}>
+                  -{ meatOutcome.amount } meat
+                </span>
+              ),
+              cantBuy: this.props.gameState.meat < meatOutcome.amount,
+            };
           }
         } else {
           throw new Error("should be impossible! " + meatOutcome);
@@ -167,24 +182,26 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
       const sacrificeOutcome = outcomes.filter(x => x.type === 'lose-member-weak' || x.type === 'lose-member-strong')[0];
       if (sacrificeOutcome) {
         if (sacrificeOutcome.type === 'lose-member-weak') {
-          to_ret.push(
-            <span style={{ color: "red "}}>
-              lose { sacrificeOutcome.skill } temporarily
-            </span>
-          )
+          return ({
+            node: 
+              <span style={{ color: "red "}}>
+                Lose { sacrificeOutcome.skill } temporarily.
+              </span>
+          });
         } else if (sacrificeOutcome.type === 'lose-member-strong') {
-          to_ret.push(
-            <span style={{ color: "red "}}>
-              lose { sacrificeOutcome.skill } permanently.
-            </span>
-          )
+          return ({
+            node: 
+              <span style={{ color: "red "}}>
+                Lose { sacrificeOutcome.skill } permanently.
+              </span>
+          });
         } else {
           throw new Error("should be impossible! " + sacrificeOutcome);
         }
       }
     }
 
-     return (
+     return {node: (
       <span>
         { to_ret.map((x, i) => { return i ===0 ? x : (
           <span>
@@ -192,7 +209,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
           </span>
         ) }) }
       </span>
-    )
+    )}
   }
 
   handleOption(option: EventOption): void {
@@ -212,11 +229,27 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
 
   renderButton(option: EventOption): React.ReactNode {
     const { node: requirement, renderNothingElse } = this.renderRequirement(option);
+    const { node: costNode, cantBuy } = this.renderCost(option);
 
     if (renderNothingElse) {
       return (
         <EventButton disabled>
           { requirement }
+        </EventButton>
+      );
+    }
+
+    if (cantBuy) {
+      return (
+        <EventButton disabled>
+          <div>
+            { requirement }{' '}
+            { option.description }{' '}
+            { costNode }
+          </div>
+          <div>
+            Too expensive!
+          </div>
         </EventButton>
       );
     }
@@ -239,7 +272,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
           }}
         >
           { option.description }{' '}
-          { this.renderCost(option) }
+          { costNode }
         </span>
       </EventButton>
     );
@@ -249,7 +282,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
     if (this.state.mode.type === "choice") {
       const options = this.props.event.options;
 
-      const canMovePastForFree = options.every(x => {
+      const everyOptionCostsMoney = options.every(x => {
         return x.outcome.some(outcome => 
           outcome.type === "lose-meat" ||
           (outcome.type === "gain-meat" && outcome.hidden)
@@ -276,7 +309,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
           }
 
           {
-            !canMovePastForFree &&
+            everyOptionCostsMoney &&
               this.renderButton(turnBackOption)
           }
         </>

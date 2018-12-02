@@ -103,7 +103,7 @@ export class State {
 
     // Resource stuff
 
-    this.meat     = 50;
+    this.meat     = C.STARTING_MEAT;
 
     // Idol stuff 
 
@@ -243,7 +243,7 @@ export class State {
               true
             );
 
-            return;
+            break;
           }
 
           case "lose-member-strong": {
@@ -283,6 +283,13 @@ export class State {
 
     if (option.updateEventTo) {
       this.caravanLocation.event = option.updateEventTo;
+    }
+
+    if (this.caravanLocation.event && this.caravanLocation.event.stopsProgress) {
+      this.moveCaravan(
+        this.lastCaravanLocation,
+        /* retreat */ true
+      );
     }
 
     if (option.chucksIdol) {
