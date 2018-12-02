@@ -48,7 +48,7 @@ export class ActionChooser extends React.Component<EventChooserProps> {
         );
       } else {
         if (opt.skillRequired.withoutSkill === "Invisible") {
-          return null;
+          return { node: null };
         } else if (opt.skillRequired.withoutSkill === "Unlabeled") {
           return (
             { 
@@ -58,7 +58,7 @@ export class ActionChooser extends React.Component<EventChooserProps> {
           )
         } else if (opt.skillRequired.withoutSkill === "Everything") {
           return (
-            <strong>{ opt.skillRequired.skill } :</strong>
+            { node: <strong>{ opt.skillRequired.skill } :</strong> }
           );
         } else {
           const x: never = opt.skillRequired.withoutSkill;
@@ -67,7 +67,7 @@ export class ActionChooser extends React.Component<EventChooserProps> {
         }
       }
     } else if (opt.skillRequired.type === "no-skill") {
-      return null;
+      return { node: null };
     } else {
       const x: never = opt.skillRequired;
 
