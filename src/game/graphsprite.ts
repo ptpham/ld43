@@ -44,8 +44,11 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
       for (let neighbor of node.neighbors) {
         if (!visibleNodes.has(neighbor)) { continue; }
 
-        this.graphSprite.moveTo(node.position.x, node.position.y);
-        this.graphSprite.lineTo(neighbor.position.x, neighbor.position.y);
+        const road = new PIXI.mesh.Rope(
+          PIXI.loader.resources['road'].texture,
+          [node.position, neighbor.position]
+        );
+        this.graphSprite.addChild(road);
       }
     }
 

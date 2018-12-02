@@ -43,6 +43,7 @@ export class C {
     'grassland_8',
     'mountain',
     'river',
+    'road',
     'swamp',
     'red_particle',
     'purple_particle',

@@ -24,7 +24,6 @@ export class GameMap extends PIXI.Sprite implements IEntity {
     this.makeCanyon();
 
     this.graphSprite = this.makeGraph();
-    this.addChild(this.graphSprite.graphSprite);
 
     this.makeCaravan();
     this.makeIdol();
@@ -66,7 +65,9 @@ export class GameMap extends PIXI.Sprite implements IEntity {
   }
 
   makeGraph(): GraphSprite {
-    return new GraphSprite(this.state);
+    const graphsprite = new GraphSprite(this.state);
+    this.addChild(graphsprite.graphSprite);
+    return graphsprite;
   }
 
   makeRiver(): PIXI.mesh.Rope {
