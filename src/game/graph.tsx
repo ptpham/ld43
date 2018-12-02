@@ -131,7 +131,8 @@ export function generate(options: GenerateOptions): Node[] {
   // Add events to nodes
 
   for (const node of result) {
-    const releventEvent = AllEvents.filter(event => event.location === node.locationType);
+    const releventEvent = Sample(AllEvents.filter(event => event.location === node.locationType));
+
     node.locationType
   }
 
