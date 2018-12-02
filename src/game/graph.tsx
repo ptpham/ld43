@@ -152,7 +152,7 @@ export function generateSnake(nodes: Node[], type: LocationType, options: Genera
 
   const snake = [new PIXI.Point(line.x1, line.y1)];
   nodes.forEach((node: Node) => {
-    if (line.intersectCircle(node.position, C.NODE_RADIUS * 1.5)) {
+    if (line.intersectCircle(node.position, C.NODE_RADIUS * 1.25)) {
       node.locationType = type;
       snake.push(new PIXI.Point(node.position.x, node.position.y));
     }
