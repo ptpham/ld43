@@ -83,7 +83,12 @@ export class BlightManager implements IEntity {
   }
 
   public update(state: State): void {
-    for ( let particle of this.imminentParticles ) {
+    for (let particle of this.imminentParticles) {
+      if (particle) {
+        particle.update_(state);
+      }
+    }
+    for (let particle of this.blightParticles) {
       if (particle) {
         particle.update_(state);
       }
