@@ -78,19 +78,47 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
           { node: <strong>{ opt.skillRequired.skill } :</strong> }
         );
       } else {
-        if (opt.skillRequired.withoutSkill === "Invisible") {
+        if (opt.skillRequired.withoutRequirement === "Invisible") {
           return { node: null };
-        } else if (opt.skillRequired.withoutSkill === "Unlabeled") {
+        } else if (opt.skillRequired.withoutRequirement === "Unlabeled") {
           return { 
             node: <strong>?????????????</strong>,
             renderNothingElse: true 
           };
-        } else if (opt.skillRequired.withoutSkill === "Everything") {
+        } else if (opt.skillRequired.withoutRequirement === "Everything") {
           return (
             { node: <strong>{ opt.skillRequired.skill } :</strong> }
           );
         } else {
-          const x: never = opt.skillRequired.withoutSkill;
+          const x: never = opt.skillRequired.withoutRequirement;
+
+          throw new Error("x should be never" + x);
+        }
+      }
+    } else if (opt.skillRequired.type === "specific-item") {
+      const item         = opt.skillRequired.skill;
+      const doWeHaveItem = this.props.gameState.items.has(item);
+
+      // literally just copy and paste the above code
+
+      if (doWeHaveItem) {
+        return (
+          { node: <strong>Use { item } :</strong> }
+        );
+      } else {
+        if (opt.skillRequired.withoutRequirement === "Invisible") {
+          return { node: null };
+        } else if (opt.skillRequired.withoutRequirement === "Unlabeled") {
+          return { 
+            node: <strong>?????????????</strong>,
+            renderNothingElse: true 
+          };
+        } else if (opt.skillRequired.withoutRequirement === "Everything") {
+          return (
+            { node: <strong>{ item } :</strong> }
+          );
+        } else {
+          const x: never = opt.skillRequired.withoutRequirement;
 
           throw new Error("x should be never" + x);
         }
@@ -106,30 +134,33 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
 
   renderCost(opt: EventOption): React.ReactNode {
     if (opt.outcome) {
-      if (opt.outcome.type === "gain-meat") {
-        if (opt.outcome.hidden) {
-          return null;
-        } else {
-          return (
-            <span style={{ color: "#00cc00" }}>
-              +{ opt.outcome.amount } meat
-            </span>
-          );
-        }
-      } else if (opt.outcome.type === "lose-meat") {
-        if (opt.outcome.hidden) {
-          return null;
-        } else {
-          return (
-            <span style={{ color: "red" }}>
-              -{ opt.outcome.amount } meat
-            </span>
-          );
-        }
-      } else {
-        const x: never = opt.outcome;
+      const outcomes = Array.isArray(opt.outcome) ? opt.outcome : [opt.outcome];
+      const meatOutcome = outcomes.filter(x => x.type === "gain-meat" || x.type === "lose-meat")[0];
 
-        throw new Error("should be never! " + x);
+      if (meatOutcome) {
+        if (meatOutcome.type === "gain-meat") {
+          if (meatOutcome.hidden) {
+            return null;
+          } else {
+            return (
+              <span style={{ color: "#00cc00" }}>
+                +{ meatOutcome.amount } meat
+              </span>
+            );
+          }
+        } else if (meatOutcome.type === "lose-meat") {
+          if (meatOutcome.hidden) {
+            return null;
+          } else {
+            return (
+              <span style={{ color: "red" }}>
+                -{ meatOutcome.amount } meat
+              </span>
+            );
+          }
+        } else {
+          throw new Error("should be impossible! " + meatOutcome);
+        }
       }
     }
 
@@ -162,6 +193,8 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
       );
     }
 
+    debugger;
+
     return (
       <EventButton
         onClick={ () => this.handleOption(option) }
@@ -171,7 +204,12 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
         </strong>{' '}
         <span
           style={{
-            color: option.outcome && option.outcome.type === "gain-meat" ? "green" : "inherit",
+            color: 
+              option.skillRequired.type === "specific-skill" 
+                ? "green" 
+                : option.skillRequired.type === "specific-item" 
+                  ? "blue" 
+                  : undefined,
           }}
         >
           { option.description }{' '}
@@ -198,6 +236,11 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
       );
     } else if (this.state.mode.type === "follow-up") {
       const option = this.state.mode.option;
+      const outcomes = option.outcome 
+        ? Array.isArray(option.outcome)
+          ? option.outcome
+          : [option.outcome]
+        : [];
 
       return (
         <div style={{ padding: "0 0 20px 0" }}>
@@ -205,28 +248,52 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
             { option.followUpText }
           </div>
           {
-            option.outcome && option.outcome.type === "gain-meat" &&
-              <div
-                style={{
-                  backgroundColor: "lightgreen",
-                  padding: "5px",
-                  margin: "10px 0 0 0"
-                }}
-              >
-                You gain { option.outcome.amount } meat!
-              </div>
-          }
-          {
-            option.outcome && option.outcome.type === "lose-meat" &&
-              <div
-                style={{
-                  backgroundColor: "pink",
-                  padding: "5px",
-                  margin: "10px 0 0 0"
-                }}
-              >
-                You lose { option.outcome.amount } meat!
-              </div>
+            outcomes.map(outcome => {
+              if (outcome.type === "gain-meat") {
+                return (
+                  <div
+                    style={{
+                      backgroundColor: "lightgreen",
+                      padding: "5px",
+                      margin: "10px 0 0 0"
+                    }}
+                  >
+                    You gain { outcome.amount } meat!
+                  </div>
+                )
+              }
+
+              if (outcome.type === "lose-meat") {
+                return (
+                  <div
+                    style={{
+                      backgroundColor: "pink",
+                      padding: "5px",
+                      margin: "10px 0 0 0"
+                    }}
+                  >
+                    You lose { outcome.amount } meat!
+                  </div>
+                )
+              }
+
+              if (outcome.type === "gain-item") {
+                return (
+                  <div
+                    style={{
+                      backgroundColor: "lightblue",
+                      padding: "5px",
+                      margin: "10px 0 0 0"
+                    }}
+                  >
+                    You gain a { outcome.item }!
+                  </div>
+                )
+              }
+
+              const x: never = outcome;
+              throw new Error("x should be never " + x);
+            })
           }
           <div
             style={{ textAlign: "center", paddingTop: "20px" }}

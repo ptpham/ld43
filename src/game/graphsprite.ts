@@ -1,6 +1,6 @@
 import { State } from "./state";
 import { IEntity } from "./entity";
-import { GameMapCircle } from "./gamemap";
+import { Location } from "./location";
 import { C, Debug } from "./constants";
 
 export class GraphSprite extends PIXI.Sprite implements IEntity {
@@ -50,7 +50,7 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
     }
 
     for (let node of visibleNodes) {
-      const newCircle = new GameMapCircle({ node, state: this.state });
+      const newCircle = new Location({ node, state: this.state });
 
       this.graphSprite.addChild(newCircle);
       this.state.addEntity(newCircle);
@@ -66,16 +66,6 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
 
     this.graphSprite.x = 0;
     this.graphSprite.y = 0;
-
-    if (this.state.stage.children.indexOf(this.graphSprite) === -1) {
-      this.state.stage.addChild(this.graphSprite);
-      //this.graphSprite.clear();
-      //this.graphSprite.removeChildren();
-      //for (let child of this.graphSprite.children) {
-      //  let child_ : any = child;
-      //  child_.clear && typeof child_.clear === 'function' && child_.clear();
-      //}
-    }
 
     return this.graphSprite;
   }
