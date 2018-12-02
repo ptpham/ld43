@@ -95,14 +95,7 @@ const BarbarianVillageRepaired: EventType = {
   description: "You find a barbarian village in state of good repair.",
   difficulty: 1,
   options: [
-    {
-      skillRequired: { type: "specific-skill", skill: "Builder", withoutSkill: "Everything" },
-      description  : "Repair some of the barbarian's buildings.",
-      followUpText : "Thok thanks you for your kindness and lets you pass. The barbarians give you some meat as you leave.",
-      outcome      : { type: "gain-meat", amount: 10, },
-      updateEventTo: ForestWithHouse,
-    },
-    PassOn({ price: 20 }),
+    PassOn({ price: 0 }),
   ]
 };
 
