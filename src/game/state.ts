@@ -54,6 +54,10 @@ export class State {
   walkAnimation?      : PIXI.ticker.Ticker;
   idolState           : IdolState;
   gameMap            !: GameMap;
+  time                : {
+    from_start: number,
+    for_idol: number
+  } = { from_start: 0, for_idol: 0 };
 
   constructor(stage: PIXI.Container) {
     const graphOptions = {
