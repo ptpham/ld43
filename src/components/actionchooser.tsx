@@ -44,14 +44,17 @@ export class ActionChooser extends React.Component<EventChooserProps> {
 
       if (doWeHaveSkill) {
         return (
-          <strong>{ opt.skillRequired.skill } :</strong>
+          { node: <strong>{ opt.skillRequired.skill } :</strong> }
         );
       } else {
         if (opt.skillRequired.withoutSkill === "Invisible") {
           return null;
         } else if (opt.skillRequired.withoutSkill === "Unlabeled") {
           return (
-            <strong>?????????????</strong>
+            { 
+              node: <strong>?????????????</strong>,
+              renderNothingElse: true 
+            }
           )
         } else if (opt.skillRequired.withoutSkill === "Everything") {
           return (
