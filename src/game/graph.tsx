@@ -14,11 +14,14 @@ export class Node {
   neighbors    : Node[] = [];
   upgraded     : boolean = false;
   event        : EventType | undefined;
+  eventSeen    : boolean;
 
   constructor(
     public position: Point, 
     public locationType: LocationType,
-  ) { }
+  ) { 
+    this.eventSeen = false;
+  }
 
   meatCost(state: State): number {
     return this.baseMeatCost! + (state.hasIdol() ? 1 : 0);
