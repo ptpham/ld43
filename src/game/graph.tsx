@@ -1,6 +1,6 @@
 
 import React from "react";
-import { C } from './constants';
+import { C, SeedRandom } from './constants';
 import { Line } from './lib/line';
 import { Point } from './lib/point';
 import { LocationType, LocationTypeNames } from './data';
@@ -87,7 +87,7 @@ export function generate(options: GenerateOptions): Node[] {
   // Place initial node positions
   outer:
   for (let i = 0; i < iters; i++) {
-    let current = new Point(width*Math.random(), height*Math.random());
+    let current = new Point(width*SeedRandom(), height*SeedRandom());
 
     for (let { position } of result) {
       if (current.distance(position) < spacing) continue outer;
@@ -148,7 +148,7 @@ export function generate(options: GenerateOptions): Node[] {
 
 export function generateSnake(nodes: Node[], type: LocationType, options: GenerateOptions): PIXI.Point[] {
   const { width, height } = options;
-  const line = new Line({ x1: width * Math.random(), x2: width * Math.random(), y1: 0, y2: height });
+  const line = new Line({ x1: width * SeedRandom(), x2: width * SeedRandom(), y1: 0, y2: height });
 
   const snake = [new PIXI.Point(line.x1, line.y1)];
   nodes.forEach((node: Node) => {
@@ -160,6 +160,7 @@ export function generateSnake(nodes: Node[], type: LocationType, options: Genera
   snake.push(new PIXI.Point(line.x2, line.y2));
   return snake;
 }
+
 
 
 
