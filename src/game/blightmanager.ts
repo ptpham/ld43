@@ -7,18 +7,19 @@ import { IEntity } from './entity';
 
 export class BlightManager implements IEntity {
   // reserve undefined so we can garbage collect unused particles properly without race conditions
-  public particles: (Particles | undefined)[] = [];
+  public imminentParticles: (Particles | undefined)[] = [];
+  public blightParticles: (Particles | undefined)[] = [];
   
   public applyBlightAndRenderImminent(state: State, node: Node, idol_time: number): void {
 
   }
 
   public unRenderImminent(): void {
-    for (let i = 0; i < this.particles.length; i++) {
-      let particle = this.particles[i];
+    for (let i = 0; i < this.imminentParticles.length; i++) {
+      let particle = this.imminentParticles[i];
       if (particle) {
         particle.disable(() => {
-          this.particles[i] = undefined;
+          this.imminentParticles[i] = undefined;
         })
       }
     }
@@ -53,7 +54,7 @@ export class BlightManager implements IEntity {
     // rerender
     for (let node of imminentBlight) {
       node;
-      this.particles.push(new Particles(state.gameMap.graphSprite, node.position.x, node.position.y, 6));
+      this.imminentParticles.push(new Particles(state.gameMap.graphSprite, node.position.x, node.position.y, 6));
     }
   }
 
@@ -78,7 +79,7 @@ export class BlightManager implements IEntity {
   }
 
   public update(state: State): void {
-    for ( let particle of this.particles ) {
+    for ( let particle of this.imminentParticles ) {
       if (particle) {
         particle.update_(state);
       }
