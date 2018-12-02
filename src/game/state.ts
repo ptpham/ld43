@@ -85,7 +85,7 @@ export class State {
     this.river = Graph.generateRiver(this.graph, graphOptions);
     this.canyon = Graph.generateCanyon(this.graph, graphOptions, this.river);
 
-    this.graph = Graph.addLocationBasedData(this.graph);
+    this.graph = Graph.addLocationBasedData(this.graph, C.CANVAS_WIDTH);
 
     this.caravanLocation = this.graph.find(node => node.locationType === 'Start')!;
     this.volcanoLocation = this.graph.find(node => node.locationType === 'Finish')!;

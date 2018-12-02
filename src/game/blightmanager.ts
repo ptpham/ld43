@@ -15,7 +15,7 @@ export class BlightManager implements IEntity {
   public applyBlightAndRenderImminent(state: State, idol_position: Node, idol_time: number): void {
     for (let node of this.imminent) {
       state.blightedNodes.add(node);
-      this.blightParticles.push(new Particles(state.gameMap.graphSprite, node.position.x, node.position.y, 60));
+      this.blightParticles.push(new Particles(state.gameMap.graphSprite.graphSprite, node.position.x, node.position.y, 60));
     }
     this.unRenderImminent();
     this.renderImminent(state, idol_position, idol_time);
@@ -63,7 +63,7 @@ export class BlightManager implements IEntity {
         if (state.blightedNodes.has(node)) {
           continue;
         }
-        if (random() < 0.8) {
+        if (random() < 0.4) {
           this.imminent.push(node);
         }
       }
@@ -71,9 +71,8 @@ export class BlightManager implements IEntity {
 
     // rerender
     for (let node of this.imminent) {
-      this.imminentParticles.push(new Particles(state.gameMap.graphSprite, node.position.x, node.position.y, 6));
+      this.imminentParticles.push(new Particles(state.gameMap.graphSprite.graphSprite, node.position.x, node.position.y, 6));
     }
-    console.log('rerendering ', this.imminentParticles);
   }
 
   public getIdolBlightDanger(time_for_idol: number, idolState: IdolState): { text: string, remaining: number} {
@@ -97,7 +96,6 @@ export class BlightManager implements IEntity {
   }
 
   public update(state: State): void {
-    //console.log('BLIGHT MANAGER UPDATE')
     for (let particle of this.imminentParticles) {
       if (particle) {
         particle.update_(state);

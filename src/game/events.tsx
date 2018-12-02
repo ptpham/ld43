@@ -26,9 +26,10 @@ export enum EventDifficulty {
   FreeMeat         = 1,
   NormalDifficutly = 2,
   HardDifficulty   = 3,
+  MaxDifficulty    = 4,
 
   // let's not use this one (unless they do something stupid)
-  LoseMeat         = 4,
+  LoseMeat         = 5,
 }
 
 export type EventOption = {
@@ -46,6 +47,7 @@ export type EventType = {
   description  : string;
   difficulty   : EventDifficulty;
   options      : EventOption[];
+  whenBlighted?: EventType;
 }
 
 const PassOn = ({ price = 0 }): EventOption => ({
@@ -135,7 +137,7 @@ const ForestElfEvent: EventType = {
       ],
     },
     PassOn({ price: 10 }),
-  ]
+  ],
 };
 
 const ForestElfEventBlighted: EventType = {
@@ -176,6 +178,7 @@ const ForestElfEventBlighted: EventType = {
     PassOn({ price: 40 }),
   ]
 };
+ForestElfEvent.whenBlighted = ForestElfEventBlighted;
 
 
 const BarbarianVillageRepaired: EventType = {
@@ -232,6 +235,49 @@ const BarbarianVillageWornDown: EventType = {
     PassOn({ price: 20 }),
   ]
 }
+
+const BlightedBarbarianVillageWornDown: EventType = {
+  location: "BarbarianVillage",
+  description: `
+    After days of journeying, your party encounters a ramshackle 
+    village of barbarians, with many buildings falling apart.
+    There looks to be fresh blood on the walls of some.
+    As you approach, a gigantic barbarian wearing a bone mask jumps out at you and demands, 
+    'Grafff muuuuukinasa!'`,
+  difficulty: EventDifficulty.NormalDifficutly,
+  stopsProgress: true,
+  options: [
+    {
+      skillRequired: { type: "specific-skill", skill: "Architect", withoutRequirement: "Unlabeled" },
+      description  : "Repair some of the barbarian's buildings.",
+      followUpText : 
+      `You gesture to the giant barbarian your intentions to repair the buildings. He punches you in the head.
+      Looks like he didn't understand very much.`,
+      outcome      : { type: "lose-meat", amount: 10, hidden: true },
+      //updateEventTo: BarbarianVillageRepaired,
+    },
+    {
+      skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Unlabeled" },
+      description  : "Assassinate the masked barbarian. Assassinate his friends hiding around the corner. Assassinate them all",
+      followUpText : 
+        `Strong and tough as they are, it seems no one left is nearly as observant as old Thok the gatekeeper.
+        You lie low for a period, tracking their movements and figuring out what allies you can find to oppose the masked gang. Eventually, you set up a trap and assassinate the masked gang with their help. The village is thrown into chaos and bloodshed as a result and by double-crossing your allies, you are able to help the "Democratic Republican Barbarians" eventually win out. In order to ensure they stay in power, your assassin stays behind as "military counselor".`,
+      outcome      : { type: "lose-meat", amount: 10, hidden: false }, // lose assassin
+      updateEventTo: {
+        location: "BarbarianVillage",
+        description: `
+          Your assassin is helping the Democratic Republican Barbarians rule with an iron fist. You avoid the peasant riots and are able to pass through with their help.`,
+        difficulty: EventDifficulty.NormalDifficutly,
+        stopsProgress: false,
+        options: [
+          PassOn({ price: 0 }),
+        ]
+      },
+    },
+    PassOn({ price: 40 }),
+  ]
+};
+BarbarianVillageWornDown.whenBlighted = BlightedBarbarianVillageWornDown;
 
 const GoblinNest: EventType = {
   location: "GoblinNest",
@@ -329,47 +375,6 @@ const GoblinNest: EventType = {
   ],
 };
 
-const BlightedBarbarianVillageWornDown: EventType = {
-  location: "BarbarianVillage",
-  description: `
-    After days of journeying, your party encounters a ramshackle 
-    village of barbarians, with many buildings falling apart.
-    There looks to be fresh blood on the walls of some.
-    As you approach, a gigantic barbarian wearing a bone mask jumps out at you and demands, 
-    'Grafff muuuuukinasa!'`,
-  difficulty: EventDifficulty.NormalDifficutly,
-  stopsProgress: true,
-  options: [
-    {
-      skillRequired: { type: "specific-skill", skill: "Architect", withoutRequirement: "Unlabeled" },
-      description  : "Repair some of the barbarian's buildings.",
-      followUpText : 
-      `You gesture to the giant barbarian your intentions to repair the buildings. He punches you in the head.
-      Looks like he didn't understand very much.`,
-      outcome      : { type: "lose-meat", amount: 10, hidden: true },
-      //updateEventTo: BarbarianVillageRepaired,
-    },
-    {
-      skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Unlabeled" },
-      description  : "Assassinate the masked barbarian. Assassinate his friends hiding around the corner. Assassinate them all",
-      followUpText : 
-        `Strong and tough as they are, it seems no one left is nearly as observant as old Thok the gatekeeper.
-        You lie low for a period, tracking their movements and figuring out what allies you can find to oppose the masked gang. Eventually, you set up a trap and assassinate the masked gang with their help. The village is thrown into chaos and bloodshed as a result and by double-crossing your allies, you are able to help the "Democratic Republican Barbarians" eventually win out. In order to ensure they stay in power, your assassin stays behind as "military counselor".`,
-      outcome      : { type: "lose-meat", amount: 10, hidden: false }, // lose assassin
-      updateEventTo: {
-        location: "BarbarianVillage",
-        description: `
-          Your assassin is helping the Democratic Republican Barbarians rule with an iron fist. You avoid the peasant riots and are able to pass through with their help.`,
-        difficulty: EventDifficulty.NormalDifficutly,
-        stopsProgress: false,
-        options: [
-          PassOn({ price: 0 }),
-        ]
-      },
-    },
-    PassOn({ price: 40 }),
-  ]
-};
 
 const ForestFiller: EventType = {
   location     : "Forest",
