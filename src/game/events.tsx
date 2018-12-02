@@ -446,6 +446,7 @@ const MountainFiller: EventType = {
   ]
 };
 
+ForestFiller;
 export const AllEvents: EventType[] = [
   // Finish
   GameFinish,
@@ -453,8 +454,8 @@ export const AllEvents: EventType[] = [
   // Forest
 
   ForestElfEvent,
-  ForestElfEventBlighted,
-  ForestFiller,
+  //ForestElfEventBlighted,
+  //ForestFiller,
 
   // GoblinNest
 
@@ -465,7 +466,7 @@ export const AllEvents: EventType[] = [
 
   BarbarianVillageWornDown,
   BarbarianVillageFiller,
-  BlightedBarbarianVillageWornDown,
+  //BlightedBarbarianVillageWornDown,
 
   // River
 

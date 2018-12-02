@@ -4,6 +4,7 @@ import { Node } from './graph';
 import { SeedRandomGenerator } from './constants';
 import { Particles } from './particles';
 import { IEntity } from './entity';
+import { EventType } from './events';
 //import * from 'crypto';
 
 export class BlightManager implements IEntity {
@@ -15,6 +16,12 @@ export class BlightManager implements IEntity {
   public applyBlightAndRenderImminent(state: State, idol_position: Node, idol_time: number): void {
     for (let node of this.imminent) {
       state.blightedNodes.add(node);
+      if (node.event) {
+        let event: EventType = node.event;
+        if (event.whenBlighted) {
+          node.event = event.whenBlighted;
+        }
+      }
       this.blightParticles.push(new Particles(state.gameMap.graphSprite.graphSprite, node.position.x, node.position.y, 60));
     }
     this.unRenderImminent();
