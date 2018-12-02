@@ -44,7 +44,7 @@ const ForestThatIsCutDown: EventType = {
 };
 
 const CutDownForestOption: EventOption = {
-  skillRequired: { type: "specific-skill", skill: "WoodCutter", withoutSkill: "Everything" },
+  skillRequired: { type: "specific-skill", skill: "Woodsman", withoutSkill: "Everything" },
   description: "Cut the forest down, one log at a time.",
   outcome: {
     type  : "lose-meat",
@@ -95,6 +95,46 @@ const ForestElfEvent: EventType = {
     PassOn({ price: 10 }),
   ]
 };
+
+const BlightedForestElfEvent: EventType = {
+  location: "Forest",
+  description: 
+    `You come to a dark, misty forest. You hear the shrill echo of eerie laughter in the
+    distance, and you feel uneasy. Passing through will not be easy.`,
+  difficulty: 1,
+  options: [
+    {
+      skillRequired: { type: "specific-skill", skill: "WoodCutter", withoutSkill: "Everything" },
+      description: "Cut the forest down, one log at a time.",
+      outcome: {
+        type  : "lose-meat",
+        amount: 10,
+        hidden: false,
+      },
+      //updateEventTo: ForestThatIsCutDown,
+      followUpText: "Your lumberjack gets to work, and after some time, the entire forest is leveled.",
+    },
+    {
+      skillRequired: { type: "specific-skill", skill: "Builder", withoutSkill: "Everything" },
+      description: "Build a house.",
+      followUpText : "You cut down some trees and build a log cabin.",
+      outcome: { type: "lose-meat", amount: 20, hidden: false, },
+      updateEventTo: ForestWithHouse,
+    },
+    {
+      skillRequired: { type: "specific-skill", skill: "Priest", withoutSkill: "Unlabeled" },
+      description: "Commune with the forest elves.",
+      followUpText : "The forest elves pay you with lots of meat!",
+      outcome: {
+        type: "gain-meat",
+        amount: 20,
+        hidden: true,
+      },
+    },
+    PassOn({ price: 10 }),
+  ]
+};
+
 
 const BarbarianVillageRepaired: EventType = {
   location: "BarbarianVillage",
@@ -148,7 +188,9 @@ const BarbarianVillageWornDown: EventType = {
   ]
 }
 
+
 export const AllEvents: EventType[] = [
   ForestElfEvent,
+  BlightedForestElfEvent,
   BarbarianVillageWornDown,
 ]

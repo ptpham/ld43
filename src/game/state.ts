@@ -103,7 +103,7 @@ export class State {
     if (Debug.AUTO_CHOOSE_CARAVAN) {
       this.cardsInCaravan = new Set([
         {
-          skill: "WoodCutter",
+          skill: "Woodsman",
           meat: 3,
         },
         {
