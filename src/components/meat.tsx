@@ -64,7 +64,7 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
             paddingRight: "20px",
           }}
         >
-          Weeks elapsed: { "a bajillion" }
+          Weeks elapsed: { this.props.gameState.time.from_start }
         </div>
         <div
           style = {{
