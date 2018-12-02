@@ -91,6 +91,7 @@ class App extends React.Component<{ game: Game }, AppState>  {
 
   public render() {
     const gameMode = this.state.gameState.getGameMode();
+    console.log(gameMode);
 
     return (
       <div>
