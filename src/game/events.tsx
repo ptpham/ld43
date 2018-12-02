@@ -46,7 +46,7 @@ const CutDownForestOption: EventOption = {
   skillRequired: { type: "specific-skill", skill: "WoodCutter", withoutSkill: "Everything" },
   description: "Cut the forest down, one log at a time.",
   outcome: {
-    type: "lose-meat",
+    type  : "lose-meat",
     amount: 10,
   },
   updateEventTo: ForestThatIsCutDown,
