@@ -27,6 +27,8 @@ export enum EventDifficulty {
   FreeMeat         = 1,
   NormalDifficutly = 2,
   HardDifficulty   = 3,
+
+  // This is a placeholder difficulty, please do not make events at this difficulty
   MaxDifficulty    = 4,
 
   // let's not use this one (unless they do something stupid)
