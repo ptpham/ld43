@@ -185,7 +185,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
     } else if (this.state.mode.type === "follow-up") {
       return (
         <div style={{ padding: "0 0 20px 0" }}>
-          { this.props.event.description }
+          { this.state.mode.option.followUpText }
         </div>
       );
     } else {
