@@ -104,7 +104,7 @@ const BlightedForestElfEvent: EventType = {
   difficulty: 1,
   options: [
     {
-      skillRequired: { type: "specific-skill", skill: "WoodCutter", withoutSkill: "Everything" },
+      skillRequired: { type: "specific-skill", skill: "Woodsman", withoutSkill: "Everything" },
       description: "Cut the forest down, one log at a time.",
       outcome: {
         type  : "lose-meat",
