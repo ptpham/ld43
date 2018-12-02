@@ -22,7 +22,7 @@ export type EventType = {
   options    : EventOption[];
 }
 
-const CutDownForest: EventType = {
+const ForestThatIsCutDown: EventType = {
   location   : "Forest",
   description: "This forest has been cut down.",
   difficulty : 1,
@@ -47,7 +47,7 @@ export const AllEvents: EventType[] = [
           type: "lose-meat", 
           amount: 10,
         },
-        updateEventTo: CutDownForest,
+        updateEventTo: ForestThatIsCutDown,
       },
 
       {
