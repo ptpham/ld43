@@ -6,7 +6,7 @@ import { Point } from './lib/point';
 import { LocationType, LocationTypeNames } from './data';
 import _ from 'lodash';
 import { State } from './state';
-import { EventType, AllEvents } from "./events";
+import { EventType, AllEvents, EventDifficulty } from "./events";
 
 export class Node {
   // not counting disadvantages due to idol etc
@@ -218,12 +218,24 @@ export function generateCanyon(nodes: Node[], options: GenerateOptions, split: P
   return snake;
 }
 
-export function addLocationBasedData(nodes: Node[]): Node[] {
+export function addLocationBasedData(nodes: Node[], width: number): Node[] {
+
   // Add events to nodes
+  let maxDifficulty = EventDifficulty.MaxDifficulty;
   return nodes.map(node => {
-    const relevantEvent = Sample(AllEvents.filter(event => event.location === node.locationType));
-    if (relevantEvent) {
-      node.event = relevantEvent;
+    let desiredDifficulty = _.clamp(Math.floor(maxDifficulty*node.position.x/width + Math.random() - 0.5), 0, maxDifficulty - 1);
+    let locationEvents = AllEvents.filter(event => event.location === node.locationType);
+    let locationEventsByDifficulty = _.groupBy(locationEvents, 'difficulty');
+
+    for (let i = 0; i < maxDifficulty; i++) {
+      let lower = locationEventsByDifficulty[desiredDifficulty + i];
+      let upper = locationEventsByDifficulty[desiredDifficulty - i];
+      let candidates = _.union(lower, upper);
+      const relevantEvent = Sample(candidates);
+      if (relevantEvent) {
+        node.event = relevantEvent;
+        break;
+      }
     }
     return node;
   });
