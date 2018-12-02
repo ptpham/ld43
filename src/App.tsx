@@ -127,7 +127,7 @@ class App extends React.Component<{ game: Game }, AppState>  {
           </div>
 
           <div>
-            <strong>Storyteller:</strong> Tell him a story.
+            <strong>Fighter:</strong> Try... to punch him?
           </div>
 
           <div>
