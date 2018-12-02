@@ -118,14 +118,6 @@ class App extends React.Component<{ game: Game }, AppState>  {
             padding: "20px",
           }}
         >
-          <div style={{ padding: "0 0 20px 0"}}>
-            <strong>You arrive at the Mountain.</strong> Outside, an old man solicits you for help.
-          </div>
-
-          <div style={{ padding: "0 0 10px 0" }}>
-            <strong>Storyteller:</strong> Tell him a story.
-          </div>
-
           <div style={{ padding: "0 0 10px 0" }}>
             <strong>Fighter:</strong> Try... to punch him?
           </div>
