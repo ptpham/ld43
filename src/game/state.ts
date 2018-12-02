@@ -142,6 +142,7 @@ export class State {
         { skill: "Sage"           , meat: 1, },
         { skill: "Merchant"       , meat: 1, },
         { skill: "Bard"           , meat: 1, },
+        { skill: "Fool"           , meat: 1, },
       ] as CardType[]
     );
 

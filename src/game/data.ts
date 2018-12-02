@@ -24,6 +24,7 @@ export type SkillType =
   | "Woodsman" // Woodcutting, but also general forestry.
   | "Sage" // Knows many things but can't do much.
   | "Merchant"
+  | "Fool"
 ;
 
 export const LocationTypeData: { [key in LocationType]: {
