@@ -68,6 +68,10 @@ export class ActionChooser extends React.Component<EventChooserProps> {
     }
   }
 
+  handleOption(option: EventOption): void {
+
+  }
+
   render() {
     return (
       <div
@@ -87,7 +91,7 @@ export class ActionChooser extends React.Component<EventChooserProps> {
         {
           this.props.event.options.map(option => 
             <EventButton
-              onClick={() => {}}
+              onClick={ () => this.handleOption(option) }
             >
               <strong>
                 { this.renderRequirement(option) }

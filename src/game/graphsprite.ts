@@ -65,10 +65,11 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
     if (this.state.stage.children.indexOf(this.graphSprite) === -1) {
       this.state.stage.addChild(this.graphSprite);
       this.graphSprite.clear();
-      for (let child of this.graphSprite.children) {
-        let child_ : any = child;
-        child_.clear && typeof child_.clear === 'function' && child_.clear();
-      }
+      this.graphSprite.removeChildren();
+      //for (let child of this.graphSprite.children) {
+      //  let child_ : any = child;
+      //  child_.clear && typeof child_.clear === 'function' && child_.clear();
+      //}
     }
 
     return this.graphSprite;
