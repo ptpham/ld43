@@ -48,7 +48,7 @@ export class Game {
         addAtBack: false,
         // radius 100
         spawnType: "circle",
-        spawnCircle: { x: 30, y: 30, r: 16 }
+        spawnCircle: { x: 30, y: 30, r: 160 }
       }
     );
   }
