@@ -296,6 +296,7 @@ export class State {
       this.idolState = {
         state: "gone",
       };
+      this.gameMap.graphSprite.render();
       this.blightManager.unRenderImminent();
     }
 

@@ -21,16 +21,14 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
     const visitedNodes = this.state.visitedNodes;
     let visibleNodes = new Set();
 
-    for (const node of visitedNodes) {
-      visibleNodes.add(node);
-
-      for (const neighbor of node.neighbors) {
-        visibleNodes.add(neighbor);
-      }
-    }
-
-    if (Debug.FOG_OF_WAR_OFF) {
+    if (Debug.FOG_OF_WAR_OFF || this.state.idolState.state === 'gone') {
       visibleNodes = new Set(this.state.graph);
+    } else {
+      this.state.graph.forEach(node => {
+        if (node.isVisible(visitedNodes)) {
+          visibleNodes.add(node);
+        }
+      });
     }
 
     // clear the old nodes
