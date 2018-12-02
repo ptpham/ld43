@@ -131,9 +131,11 @@ export function generate(options: GenerateOptions): Node[] {
   // Add events to nodes
 
   for (const node of result) {
-    const releventEvent = Sample(AllEvents.filter(event => event.location === node.locationType));
+    const relevantEvent = Sample(AllEvents.filter(event => event.location === node.locationType));
 
-    node.locationType
+    if (relevantEvent) {
+      node.event = relevantEvent;
+    }
   }
 
   return _.sortBy(result, (node) => { return node.position.y; });
