@@ -3,7 +3,8 @@ import { C, Debug } from './constants';
 import * as Graph from './graph';
 import { CardType } from './data';
 import { IEntity } from './entity';
-import { GameMapCircle, GameMap } from './gamemap';
+import { Location } from './location';
+import { GameMap } from './gamemap';
 import { EventOption, EventType, EventItem } from './events';
 import { BlightManager } from './blightmanager';
 
@@ -50,8 +51,8 @@ export class State {
   canyon              : PIXI.Point[];
   caravanLocation     : Graph.Node;
   volcanoLocation     : Graph.Node;
-  selectedNextLocation: GameMapCircle | undefined;
-  mousedOverLocation  : GameMapCircle | undefined;
+  selectedNextLocation: Location | undefined;
+  mousedOverLocation  : Location | undefined;
   isLocationDone      : boolean;
   meat                : number;
   walkAnimation?      : PIXI.ticker.Ticker;
