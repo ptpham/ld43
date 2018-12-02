@@ -189,6 +189,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
             { this.state.mode.option.followUpText }
           </div>
           <div 
+            onClick={ () => this.handleOption(this.state.mode.option ) }
             style={{ textAlign: "center" }}>
             Okay
           </div>
