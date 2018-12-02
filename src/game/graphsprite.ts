@@ -3,6 +3,7 @@ import { IEntity } from "./entity";
 import { Location } from "./location";
 import { C, Debug } from "./constants";
 import { Line } from "./lib/line";
+import * as Graph from '../game/graph';
 
 export class GraphSprite extends PIXI.Sprite implements IEntity {
   state: State;
@@ -19,7 +20,7 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
 
   render() {
     const visitedNodes = this.state.visitedNodes;
-    let visibleNodes = new Set();
+    let visibleNodes = new Set<Graph.Node>();
 
     for (const node of visitedNodes) {
       visibleNodes.add(node);
@@ -86,6 +87,26 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
         qMarkSprite.x = node.position.x - qMarkSprite.width / 2;
         qMarkSprite.y = node.position.y - qMarkSprite.height / 2;
         this.graphSprite.addChild(qMarkSprite);
+      }
+
+      if (
+        node.event &&
+        !node.eventSeen &&
+        node.event.options && (
+          node.event.options.length > 1 || (
+            node.event.options.length === 1 && 
+            node.event.options[0].outcome.length !== 0
+          )
+        ) &&
+        visitedNodes.has(node)
+      ) {
+        // add informational blue square
+
+        const blueSquare = new PIXI.Sprite(PIXI.loader.resources['todo'].texture);
+        blueSquare.scale = new PIXI.Point(C.SPRITE_SCALE * 0.75, C.SPRITE_SCALE * 0.75);
+        blueSquare.x = node.position.x - blueSquare.width / 2;
+        blueSquare.y = node.position.y - blueSquare.height / 2;
+        this.graphSprite.addChild(blueSquare);
       }
     }
 
