@@ -1,5 +1,6 @@
 
 import * as PIXI from 'pixi.js';
+import { SeedRandom } from './constants';
 let { ticker: { Ticker } } = PIXI;
 
 export function makeBoundedTicker(maxTime: number, cbTick: (delta:number, t: number) => void, cbEnd?: () => void) {
@@ -26,7 +27,7 @@ export function makeCrowdWalkAnimation(sprites: PIXI.Sprite[],
 
   let offsets: number[] = [];
   for (let i = 0; i < sprites.length; i++) {
-    offsets.push(2*Math.PI*Math.random());
+    offsets.push(2 * Math.PI * SeedRandom());
   }
 
   return makeBoundedTicker(totalDuration, (delta, t) => {
