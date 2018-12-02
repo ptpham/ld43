@@ -92,7 +92,7 @@ const ForestElfEvent: EventType = {
 
 const BarbarianVillageRepaired: EventType = {
   location: "BarbarianVillage",
-  description: "After days of journeying, your party encounters a ramshackle village of barbarians, with some buildings falling apart. Thok, the gatekeeper to the village, looks you up and down and says, 'Grunt.'",
+  description: "You find a barbarian village in state of good repair.",
   difficulty: 1,
   options: [
     {

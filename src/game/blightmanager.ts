@@ -26,6 +26,7 @@ export class BlightManager {
         if (state.blightedNodes.has(node)) {
           continue;
         }
+
       }
     }
   }
