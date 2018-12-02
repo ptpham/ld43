@@ -16,7 +16,7 @@ export type LocationType =
   | "Mountain"
 
 export type SkillType = 
-  | 'WoodCutter'
+  | 'Woodsman'
   | 'Builder'
   | 'Priest'
   | 'Assassin'
