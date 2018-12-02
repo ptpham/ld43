@@ -26,7 +26,7 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
       selectedCards: new Set(),
       cards: [
         {
-          skill: "WoodCutter",
+          skill: "Woodsman",
           meat: 3,
         },
         {
@@ -38,7 +38,7 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
           meat: 1,
         },
         {
-          skill: "Builder",
+          skill: "Architect",
           meat: 1,
         },
       ]

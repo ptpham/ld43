@@ -121,7 +121,7 @@ export class GameMap extends PIXI.Sprite implements IEntity {
       new Cloud(),
     ];
     clouds.forEach(cloud => {
-      this.graphSprite.addChild(cloud);
+      this.addChild(cloud);
       this.state.addEntity(cloud);
     });
     return clouds;
@@ -164,7 +164,16 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
       sprite = makeSprite(PIXI.loader.resources['forest'].texture);
     } else if (node.locationType == 'GoblinNest') {
       sprite = makeSprite(PIXI.loader.resources['goblin'].texture);
+    } else if (node.locationType == 'Mountain') {
+      sprite = makeSprite(PIXI.loader.resources['mountain'].texture);
+    } else if (node.locationType == 'BarbarianVillage') {
+      sprite = makeSprite(PIXI.loader.resources['barbarian'].texture);
+    } else if (node.locationType == 'Desert') {
+      sprite = makeSprite(PIXI.loader.resources['desert'].texture);
+    } else if (node.locationType == 'Swamp') {
+      sprite = makeSprite(PIXI.loader.resources['swamp'].texture);
     }
+
 
     if (sprite) {
       this.addChild(sprite);
@@ -232,26 +241,30 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
   render(): void {
     this.clear();
 
-    this.lineWidth = this.selected ? 3 : 1;
+    // this.lineWidth = this.selected ? 3 : 1;
 
-    if (this.node.locationType === 'Start') {
-      this.lineStyle(this.lineWidth, 0x00FF00);
-    } else if (this.node.locationType === 'Finish') {
-      this.lineStyle(this.lineWidth, 0xFF0000);
-      this.lineWidth = 0;
-    } else {
-      this.lineStyle(this.lineWidth, 0x000000);
-    }
+    // if (this.node.locationType === 'Start') {
+    //   this.lineStyle(this.lineWidth, 0x00FF00);
+    // } else if (this.node.locationType === 'Finish') {
+    //   this.lineStyle(this.lineWidth, 0xFF0000);
+    //   this.lineWidth = 0;
+    // } else {
+    //   this.lineStyle(this.lineWidth, 0x000000);
+    // }
+
+    // if (this.selected) {
+    //   this.x = -4;
+    //   this.y = -4;
+    // } else {
+    //   this.x = 0;
+    //   this.y = 0;
+    // }
 
     if (this.selected) {
-      this.x = -4;
-      this.y = -4;
-    } else {
-      this.x = 0;
-      this.y = 0;
-    }
-
-    if (this.mousedOver) {
+      for (const child of this.children) {
+        (child as any).tint = 0xffff00;
+      }
+    } else if (this.mousedOver) {
       for (const child of this.children) {
         (child as any).tint = 0xdddddd;
       }
@@ -261,7 +274,7 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
       }
     }
 
-    this.drawCircle(this.node.position.x, this.node.position.y, 16);
+    //this.drawCircle(this.node.position.x, this.node.position.y, 16);
   }
 
   update(state: State): void {

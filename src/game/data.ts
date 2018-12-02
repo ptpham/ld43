@@ -16,20 +16,32 @@ export type LocationType =
   | "Mountain"
 
 export type SkillType = 
-  | 'WoodCutter'
-  | 'Builder'
-  | 'Priest'
-  | 'Assassin'
+  | "Stupid" // the most important one.
+  | "Architect"
+  | "Assassin"
+  | "Bard" // aka Storyteller.
+  | "Child"
+  | "Dancer"
+  | "Fisherman" // Good with boats and water
+  | "Historian"
+  | "Cartographer"
+  | "Merchant"
+  | "Sage" // Knows many things but can't do much.
+  | "Swordswoman"
+  | "Priest"
+  | "Wizard"
+  | "Woodsman" // Woodcutting, but also general forestry.
+;
 
 export const LocationTypeData: { [key in LocationType]: {
   targetSkill?: SkillType;
 }} = {
   Start: {},
   Finish: {},
-  Forest: { targetSkill: 'WoodCutter' },
+  Forest: { targetSkill: 'Woodsman' },
   GoblinNest: {},
   River: {},
-  Canyon: { targetSkill: 'Builder' },
+  Canyon: { targetSkill: 'Architect' },
   Desert: { targetSkill: 'Priest' },
   Mountain: {},
   Swamp: {},
@@ -38,17 +50,7 @@ export const LocationTypeData: { [key in LocationType]: {
 
 export const LocationTypeNames = Object.keys(LocationTypeData);
 
-export type CardVocationType = 
-  | "Builder"
-  | "Storyteller"
-  | "Stupid"
-  | "Fighter"
-  | "WoodCutter"
-  | "Priest"
-  | "Assassin"
-;
-
 export type CardType = {
-  skill: CardVocationType;
+  skill: SkillType;
   meat: number;
 }

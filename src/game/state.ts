@@ -103,7 +103,7 @@ export class State {
     if (Debug.AUTO_CHOOSE_CARAVAN) {
       this.cardsInCaravan = new Set([
         {
-          skill: "WoodCutter",
+          skill: "Woodsman",
           meat: 3,
         },
         {
@@ -146,10 +146,10 @@ export class State {
     this.time.from_start++;
     if (this.idolState.state === 'carried') {
       // if it was newly picked up : remove the imminently blighted spots
-      this.blightManager.unRenderImminent();
+      //this.blightManager.unRenderImminent();
     } else {
       // if it was newly dropped : figure out the imminently blighted spots
-      this.blightManager.renderImminent(this, this.idolState.node, this.time.for_idol)
+      //this.blightManager.renderImminent(this, this.idolState.node, this.time.for_idol)
       // before incrementing, check if we hit a blight application
       if (this.getIdolBlightDanger().remaining === 1) {
         //console.log("blight happens... maybe");
@@ -164,23 +164,6 @@ export class State {
 
   public getIdolBlightDanger(): { text: string, remaining: number} {
     return this.blightManager.getIdolBlightDanger(this.time.for_idol, this.idolState);
-    //let t = this.time.for_idol;
-    //let to_ret: { text: string, remaining: number } = { text: "", remaining: 0};
-    //if (t < 10) {
-    //  to_ret = { text: "Minimal", remaining: 10 - t };
-    //} else if (t < 20) {
-    //  to_ret = { text: "Low", remaining: 20 - t };
-    //} else if (t < 30) {
-    //  to_ret = { text: "Medium", remaining: 30 - t };
-    //} else if (t < 40) {
-    //  to_ret = { text: "High", remaining: 40 - t };
-    //} else {
-    //  to_ret = { text: "Catastrophic", remaining: t % 2 + 1 };
-    //}
-    //if (this.idolState.state === 'carried') {
-    //  to_ret.remaining = -1; // never
-    //}
-    //return to_ret;
   }
 
   onDropIdol(): void {
@@ -189,6 +172,7 @@ export class State {
         state: "dropped",
         node: this.caravanLocation,
       };
+      this.blightManager.renderImminent(this, this.idolState.node, this.time.for_idol)
     }
 
     this.triggerChange();
@@ -202,6 +186,7 @@ export class State {
       this.idolState = {
         state: "carried",
       };
+      this.blightManager.unRenderImminent();
     }
 
     this.triggerChange();

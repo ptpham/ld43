@@ -4,18 +4,47 @@ import { Node } from './graph';
 import { SeedRandomGenerator } from './constants';
 import { Particles } from './particles';
 import { IEntity } from './entity';
+//import * from 'crypto';
 
 export class BlightManager implements IEntity {
-  public particles: Particles[] = [];
+  // reserve undefined so we can garbage collect unused particles properly without race conditions
+  public imminentParticles: (Particles | undefined)[] = [];
+  public imminent: Node[] = [];
+  public blightParticles: (Particles | undefined)[] = [];
   
-  public applyBlightAndRenderImminent(state: State, node: Node, idol_time: number): void {
-
+  public applyBlightAndRenderImminent(state: State, idol_position: Node, idol_time: number): void {
+    for (let node of this.imminent) {
+      state.blightedNodes.add(node);
+      this.blightParticles.push(new Particles(state.gameMap.graphSprite, node.position.x, node.position.y, 60));
+    }
+    this.unRenderImminent();
+    this.renderImminent(state, idol_position, idol_time);
   }
+
   public unRenderImminent(): void {
-
+    for (let i = 0; i < this.imminentParticles.length; i++) {
+      let particle = this.imminentParticles[i];
+      if (particle) {
+        particle.disable(() => {
+          this.imminentParticles[i] = undefined;
+        })
+      }
+    }
+    this.imminent = [];
   }
+
+  private computeSeed(state: State, idol_position: Node): number {
+    // computes a deterministic seed based on the already blighted nodes and the current node
+    let seed = 0;
+    for (let node of state.blightedNodes) {
+      seed += node.position.x + 12345 * node.position.y;
+    }
+    seed += idol_position.position.x + 12345 * idol_position.position.y;
+    //seed += hash(state.getIdolBlightDanger().text);
+    return seed;
+  }
+
   public renderImminent(state: State, idol_position: Node, idol_time: number): void {
-    let imminentBlight: Node[] = [];
     // l2 distance? or graph distance?
     let neighborsByDegree: Node[][] = [ ];
     neighborsByDegree.push([idol_position]);
@@ -26,7 +55,7 @@ export class BlightManager implements IEntity {
     }
     neighborsByDegree.push(deg2);
 
-    let random = SeedRandomGenerator(idol_position.position.x + 12345 * idol_position.position.y);
+    let random = SeedRandomGenerator(this.computeSeed(state, idol_position));
 
     for (let degree = 0; degree < 2 /* lol */; degree++ ){
       let neighbors: Node[] = neighborsByDegree[degree];
@@ -34,28 +63,27 @@ export class BlightManager implements IEntity {
         if (state.blightedNodes.has(node)) {
           continue;
         }
-        if (random() < 0.4) {
-          imminentBlight.push(node);
+        if (random() < 0.6) {
+          this.imminent.push(node);
         }
       }
     }
 
     // rerender
-    for (let node of imminentBlight) {
-      node;
-      this.particles.push(new Particles(state.gameMap.graphSprite, node.position.x, node.position.y, 6));
+    for (let node of this.imminent) {
+      this.imminentParticles.push(new Particles(state.gameMap.graphSprite, node.position.x, node.position.y, 6));
     }
   }
 
   public getIdolBlightDanger(time_for_idol: number, idolState: IdolState): { text: string, remaining: number} {
     let t = time_for_idol;
     let to_ret: { text: string, remaining: number } = { text: "", remaining: 0};
-    if (t < 10) {
-      to_ret = { text: "Minimal", remaining: 10 - t };
-    } else if (t < 20) {
-      to_ret = { text: "Low", remaining: 20 - t };
-    } else if (t < 30) {
-      to_ret = { text: "Medium", remaining: 30 - t };
+    if (t < 2) {
+      to_ret = { text: "Minimal", remaining: 2 - t };
+    } else if (t < 4) {
+      to_ret = { text: "Low", remaining: 4 - t };
+    } else if (t < 6) {
+      to_ret = { text: "Medium", remaining: 6 - t };
     } else if (t < 40) {
       to_ret = { text: "High", remaining: 40 - t };
     } else {
@@ -68,8 +96,15 @@ export class BlightManager implements IEntity {
   }
 
   public update(state: State): void {
-    for ( let particle of this.particles ) {
-      particle.update_(state);
+    for (let particle of this.imminentParticles) {
+      if (particle) {
+        particle.update_(state);
+      }
+    }
+    for (let particle of this.blightParticles) {
+      if (particle) {
+        particle.update_(state);
+      }
     }
   }
 }
