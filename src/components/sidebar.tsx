@@ -1,6 +1,5 @@
 import React from "react";
 import { State } from "../game/state";
-import { LocationTypeData } from "../game/data";
 
 type SidebarProps = {
   gameState   : State;
@@ -135,9 +134,6 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
                 </div>
                 <div>
                   Meat Cost: { location.node.meatCostExplanationString(this.props.gameState) }
-                </div>
-                <div>
-                  { "Sacrifice Cost: " + (LocationTypeData[location.node.locationType] || { targetSkill: 'None'}).targetSkill }
                 </div>
               </div>
             </>
