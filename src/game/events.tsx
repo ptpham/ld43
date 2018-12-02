@@ -431,7 +431,7 @@ export const AllEvents: EventType[] = [
   // Forest
 
   ForestElfEvent,
-  ForestElfEventBlighted,
+  //ForestElfEventBlighted,
   ForestFiller,
 
   // GoblinNest
@@ -443,7 +443,7 @@ export const AllEvents: EventType[] = [
 
   BarbarianVillageWornDown,
   BarbarianVillageFiller,
-  BlightedBarbarianVillageWornDown,
+  //BlightedBarbarianVillageWornDown,
 
   // River
 
