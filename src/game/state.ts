@@ -168,6 +168,9 @@ export class State {
   }
 
   moveCaravan(to: Graph.Node, retreat = false): void {
+    // mark current node's event as seen, so we dont have to see it again
+    // if it's something trivial.
+
     if (!retreat) {
       this.lastCaravanLocation = this.caravanLocation;
     }
@@ -180,8 +183,12 @@ export class State {
     this.visitedNodes.add(to);
     this.gameMap.graphSprite.render();
 
-    this.activeEvent = to.event;
+    if (!to.eventSeen) {
+      this.activeEvent = to.event;
+    }
+
     this.time.from_start++;
+
     if (this.idolState.state === 'carried' || this.idolState.state === 'gone') {
       // if it was newly picked up : remove the imminently blighted spots
       //this.blightManager.unRenderImminent();
@@ -302,6 +309,19 @@ export class State {
           }
         }
       }
+    }
+
+    // We mark the event as done if it's just a "pass on" event
+    // with no additional options (which it should be if there's
+    // only one option with no outcomes), and it didn't update itself.
+
+    if (
+      this.caravanLocation.event &&
+      this.caravanLocation.event.options.length === 1 &&
+      this.caravanLocation.event.options[0].outcome.length === 0 &&
+      !option.updateEventTo
+    ) {
+      this.caravanLocation.eventSeen = true;
     }
 
     if (option.updateEventTo) {

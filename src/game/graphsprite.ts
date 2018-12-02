@@ -78,6 +78,7 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
 
       this.graphSprite.addChild(newCircle);
       this.state.addEntity(newCircle);
+
       if (!visitedNodes.has(node)) {
         // add a question mark to unvisited ones
         const qMarkSprite = new PIXI.Sprite(PIXI.loader.resources['question_mark'].texture);
