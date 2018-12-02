@@ -57,7 +57,9 @@ const CutDownForestOption: EventOption = {
 
 const ForestWithHouse: EventType = {
   location   : "Forest",
-  description: "This forest has a large, conspicuous house in the middle of it. With the house, it seems like some of the mystery of this forest has left.",
+  description: 
+    `This forest has a large, conspicuous house in the middle of it. With the
+    house, it seems like some of the mystery of this forest has left.`,
   difficulty : 1,
   options: [
     CutDownForestOption,
@@ -67,7 +69,9 @@ const ForestWithHouse: EventType = {
 
 const ForestElfEvent: EventType = {
   location: "Forest",
-  description: "You come to a misty forest. You hear the echo of eerie laughter in the distance. Passing through will be arduous, but is possible.",
+  description: 
+    `You come to a misty forest. You hear the echo of eerie laughter in the
+    distance. Passing through will be arduous, but is possible.`,
   difficulty: 1,
   options: [
     CutDownForestOption,
