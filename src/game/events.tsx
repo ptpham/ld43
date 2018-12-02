@@ -119,7 +119,7 @@ const ForestElfEvent: EventType = {
   ]
 };
 
-const BlightedForestElfEvent: EventType = {
+const ForestElfEventBlighted: EventType = {
   location: "Forest",
   description: 
     `You come to a dark, misty forest. You hear the shrill echo of eerie laughter in the
@@ -350,12 +350,109 @@ const BlightedBarbarianVillageWornDown: EventType = {
     },
     PassOn({ price: 40 }),
   ]
-}
+};
+
+const ForestFiller: EventType = {
+  location     : "Forest",
+  description  : "Your party makes it through the forest with little difficulty. Everyone remarks on how unremarkable the forest was.",
+  difficulty   : EventDifficulty.NothingHappens,
+  stopsProgress: false,
+  options: [
+    PassOn({ price: 0 }),
+  ]
+};
+
+const GoblinNestFiller: EventType = {
+  location     : "GoblinNest",
+  description  : "Your party comes to the goblin nest, only to find it abandoned long ago. The mystery nags at you, but you move on.",
+  difficulty   : EventDifficulty.NothingHappens,
+  stopsProgress: false,
+  options: [
+    PassOn({ price: 0 }),
+  ]
+};
+
+const BarbarianVillageFiller: EventType = {
+  location     : "BarbarianVillage",
+  description  : "Your party comes to the barbarian village - but apparently it's filled with very sleepy barbarians who are more interested in napping than coming out to greet you.",
+  difficulty   : EventDifficulty.NothingHappens,
+  stopsProgress: false,
+  options: [
+    PassOn({ price: 0 }),
+  ]
+};
+
+const RiverFiller: EventType = {
+  location     : "River",
+  description  : "The party arrives at a river. Some logs and stones left behind by previous travellers makes it easy to ford.",
+  difficulty   : EventDifficulty.NothingHappens,
+  stopsProgress: false,
+  options: [
+    PassOn({ price: 0 }),
+  ]
+};
+
+const SwampFiller: EventType = {
+  location     : "Swamp",
+  description  : "After another day's journey, the party arrives at a swamp. The going is slow, but you make it out mostly unscathed.",
+  difficulty   : EventDifficulty.NothingHappens,
+  stopsProgress: false,
+  options: [
+    PassOn({ price: 0 }),
+  ]
+};
+
+const DesertFiller: EventType = {
+  location     : "Desert",
+  description  : "The caravan makes its way over a desert. The air is hot and the sand is harsh, but you make it through.",
+  difficulty   : EventDifficulty.NothingHappens,
+  stopsProgress: false,
+  options: [
+    PassOn({ price: 0 }),
+  ]
+};
+
+const MountainFiller: EventType = {
+  location     : "Mountain",
+  description  : "The mountain looms threateningly over the party, but after a few days of exploring, you find a pass that allows you to get through with little difficulty.",
+  difficulty   : EventDifficulty.NothingHappens,
+  stopsProgress: false,
+  options: [
+    PassOn({ price: 0 }),
+  ]
+};
 
 export const AllEvents: EventType[] = [
+  // Forest
+
   ForestElfEvent,
-  BlightedForestElfEvent,
-  BarbarianVillageWornDown,
+  ForestElfEventBlighted,
+  ForestFiller,
+
+  // GoblinNest
+
   GoblinNest,
+  GoblinNestFiller,
+
+  // BarbarianVillage
+
+  BarbarianVillageWornDown,
+  BarbarianVillageFiller,
   BlightedBarbarianVillageWornDown,
+
+  // River
+
+  RiverFiller,
+
+  // Swamp
+
+  SwampFiller,
+
+  // Desert
+
+  DesertFiller,
+
+  // Mountain
+
+  MountainFiller,
 ]
