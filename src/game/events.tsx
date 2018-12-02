@@ -5,8 +5,8 @@ export type EventOutcome =
   | { type: "lose-meat"; amount: number; additionalInfo?: string }
 
 export type SkillRequirement =
-  { type: "specific-skill"; skill: SkillType }
-  { type: "no-skill"      ; }
+  | { type: "specific-skill"; skill: SkillType }
+  | { type: "no-skill"      ; }
 
 export type EventOption = {
   skillRequired: SkillRequirement;
