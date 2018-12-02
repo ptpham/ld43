@@ -34,18 +34,6 @@ const ForestThatIsCutDown: EventType = {
   ]
 };
 
-const ForestWithHouse: EventType = {
-  location   : "Forest",
-  description: "This forest has a large, conspicuous house in the middle of it. With the house, it seems like some of the mystery of this forest has left.",
-  difficulty : 1,
-  options: [
-    {
-      skillRequired: { type: "no-skill" },
-      description: "Pass on.",
-    },
-  ]
-};
-
 const CutDownForestOption: EventOption = {
   skillRequired: { type: "specific-skill", skill: "WoodCutter" },
   description: "Cut the forest down, one log at a time.",
@@ -54,6 +42,19 @@ const CutDownForestOption: EventOption = {
     amount: 10,
   },
   updateEventTo: ForestThatIsCutDown,
+};
+
+const ForestWithHouse: EventType = {
+  location   : "Forest",
+  description: "This forest has a large, conspicuous house in the middle of it. With the house, it seems like some of the mystery of this forest has left.",
+  difficulty : 1,
+  options: [
+    CutDownForestOption,
+    {
+      skillRequired: { type: "no-skill" },
+      description: "Pass on.",
+    },
+  ]
 };
 
 export const AllEvents: EventType[] = [
