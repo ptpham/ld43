@@ -185,7 +185,13 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
     } else if (this.state.mode.type === "follow-up") {
       return (
         <div style={{ padding: "0 0 20px 0" }}>
-          { this.state.mode.option.followUpText }
+          <div>
+            { this.state.mode.option.followUpText }
+          </div>
+          <div 
+            style={{ textAlign: "center" }}>
+            Okay
+          </div>
         </div>
       );
     } else {
