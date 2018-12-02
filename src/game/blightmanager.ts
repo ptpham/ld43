@@ -37,5 +37,7 @@ export class BlightManager {
     }
 
     // rerender
+    for (let node of imminentBlight) {
+    }
   }
 }
