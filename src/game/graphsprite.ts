@@ -32,8 +32,8 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
       this.state.addEntity(newCircle);
     }
 
-    graphSprite.x = 50;
-    graphSprite.y = 50;
+    graphSprite.x = 0;
+    graphSprite.y = 0;
 
     this.state.stage.addChild(graphSprite);
 
