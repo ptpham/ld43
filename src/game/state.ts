@@ -147,22 +147,27 @@ export class State {
 
   public getIdolBlightDanger(): { text: string, remaining: number} {
     let t = this.time.for_idol;
+    let to_ret: { text: string, remaining: number } = { text: "", remaining: 0};
     if (t <= 10) {
-      return { text: "Minimal", remaining: 10 - t };
+      to_ret = { text: "Minimal", remaining: 10 - t };
       //return "Minimal";
     } else if (t <= 20) {
       //return "Low";
-      return { text: "Low", remaining: 20 - t };
+      to_ret = { text: "Low", remaining: 20 - t };
     } else if (t <= 30) {
       //return "Medium";
-      return { text: "Medium", remaining: 30 - t };
+      to_ret = { text: "Medium", remaining: 30 - t };
     } else if (t <= 40) {
       //return "High";
-      return { text: "High", remaining: 40 - t };
+      to_ret = { text: "High", remaining: 40 - t };
     } else {
       //return "Catastrophic";
-      return { text: "Catastrophic", remaining: t % 2 };
+      to_ret = { text: "Catastrophic", remaining: t % 2 };
     }
+    if (this.idolState.state === 'carried') {
+      to_ret.remaining = -1; // never
+    }
+    return to_ret;
   }
 
   onDropIdol(): void {
