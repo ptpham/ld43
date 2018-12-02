@@ -69,6 +69,8 @@ export class ActionChooser extends React.Component<EventChooserProps> {
   }
 
   handleOption(option: EventOption): void {
+    debugger;
+
     this.props.gameState.handleChooseEventOption(option);
   }
 
