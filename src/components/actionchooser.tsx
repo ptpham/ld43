@@ -183,13 +183,15 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
         </>
       );
     } else if (this.state.mode.type === "follow-up") {
+      const option = this.state.mode.option.followUpText;
+
       return (
         <div style={{ padding: "0 0 20px 0" }}>
           <div>
-            { this.state.mode.option.followUpText }
+            { option }
           </div>
           <div 
-            onClick={ () => this.handleOption(this.state.mode.option ) }
+            onClick={ () => this.handleOption(option) }
             style={{ textAlign: "center" }}>
             Okay
           </div>
