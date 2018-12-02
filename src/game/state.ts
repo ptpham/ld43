@@ -139,7 +139,7 @@ export class State {
     if (
       this.idolState.state === "dropped" &&
       this.caravanLocation.equals(this.idolState.node)
-      ) {
+    ) {
       this.idolState = {
         state: "carried",
       };
