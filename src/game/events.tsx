@@ -29,11 +29,7 @@ const CutDownForest = {
   option: [
     {
       skillRequired: { type: "no-skill" },
-      description: "Cut the forest down, one log at a time.",
-      outcome: { 
-        type: "lose-meat", 
-        amount: 10,
-      },
+      description: "Pass on.",
     },
 
   ]
