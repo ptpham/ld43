@@ -16,6 +16,10 @@ type IdolState =
     }
   ;
 
+export type GameState = 
+  | "Normal"
+  | "Looking At Event"
+
 /**
  * This will be the god object that holds all state. 
  *  
