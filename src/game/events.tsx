@@ -92,7 +92,7 @@ const ForestElfEvent: EventType = {
 
 const BarbarianVillage: EventType = {
   location: "BarbarianVillage",
-  description: "You come to a misty forest. You hear the echo of eerie laughter in the distance. Passing through will be arduous, but is possible.",
+  description: "After days of journeying, your party encounters a village of barbarians. Thok, the gatekeeper to the village, looks you up and down and says 'Grunt.'",
   difficulty: 1,
   options: [
     CutDownForestOption,
