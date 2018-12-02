@@ -16,6 +16,7 @@ type CardState = {
 const imageMap = new Map([
   ['Priest', '/assets/priest.png'],
   ['WoodCutter', '/assets/woodcutter.png']
+  ['Builder', '/assets/builder.png']
 ]);
 
 export class Card extends React.Component<CardProps, CardState> {
