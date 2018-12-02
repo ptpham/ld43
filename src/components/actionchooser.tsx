@@ -190,7 +190,6 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
       );
     } else {
       const x: never = this.state.mode;
-
       return x;
     }
   }
