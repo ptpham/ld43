@@ -174,17 +174,19 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
       const sacrificeOutcome = outcomes.filter(x => x.type === 'lose-member-weak' || x.type === 'lose-member-strong')[0];
       if (sacrificeOutcome) {
         if (sacrificeOutcome.type === 'lose-member-weak') {
-          return (
-            <span style={{ color: "red "}}>
-              Lose { sacrificeOutcome.skill } temporarily.
-            </span>
-          )
+          return ({
+            node: 
+              <span style={{ color: "red "}}>
+                Lose { sacrificeOutcome.skill } temporarily.
+              </span>
+          });
         } else if (sacrificeOutcome.type === 'lose-member-strong') {
-          return (
-            <span style={{ color: "red "}}>
-              Lose { sacrificeOutcome.skill } permanently.
-            </span>
-          )
+          return ({
+            node: 
+              <span style={{ color: "red "}}>
+                Lose { sacrificeOutcome.skill } permanently.
+              </span>
+          });
         } else {
           throw new Error("should be impossible! " + sacrificeOutcome);
         }
