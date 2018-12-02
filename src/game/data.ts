@@ -19,6 +19,7 @@ export type SkillType =
   | 'WoodCutter'
   | 'Builder'
   | 'Priest'
+  | 'Assassin'
 
 export const LocationTypeData: { [key in LocationType]: {
   targetSkill?: SkillType;
@@ -44,6 +45,7 @@ export type CardVocationType =
   | "Fighter"
   | "WoodCutter"
   | "Priest"
+  | "Assassin"
 ;
 
 export type CardType = {
