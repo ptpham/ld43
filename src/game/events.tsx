@@ -103,7 +103,9 @@ const BarbarianVillageRepaired: EventType = {
 
 const BarbarianVillageFailedAssassinationAttempt: EventType = {
   location: "BarbarianVillage",
-  description: "The barbarians all point and laugh at you. Then they charge you money to pass on.",
+  description: `
+    The barbarians all point and laugh at you. Then they 
+    charge you money to pass on.`,
   difficulty: 1,
   options: [
     PassOn({ price: 10 }),

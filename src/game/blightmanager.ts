@@ -1,5 +1,5 @@
 
-import { State } from './state';
+import { State, IdolState } from './state';
 import { Node } from './graph';
 import { SeedRandomGenerator } from './constants';
 import { Particles } from './particles';
@@ -47,7 +47,7 @@ export class BlightManager implements IEntity {
     }
   }
 
-  public getIdolBlightDanger(time_for_idol: number): { text: string, remaining: number} {
+  public getIdolBlightDanger(time_for_idol: number, idolState: IdolState): { text: string, remaining: number} {
     let t = time_for_idol;
     let to_ret: { text: string, remaining: number } = { text: "", remaining: 0};
     if (t < 10) {
@@ -61,9 +61,9 @@ export class BlightManager implements IEntity {
     } else {
       to_ret = { text: "Catastrophic", remaining: t % 2 + 1 };
     }
-    //if (this.idolState.state === 'carried') {
-    //  to_ret.remaining = -1; // never
-    //}
+    if (this.idolState.state === 'carried') {
+      to_ret.remaining = -1; // never
+    }
     return to_ret;
   }
 
