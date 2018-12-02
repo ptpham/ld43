@@ -53,7 +53,7 @@ type EventChooserProps = {
 };
 
 type EventChooserState = {
-  mode: "choice" | "follow-up";
+  mode: { type: "choice" } | { type: "follow-up"; option: EventOption };
 }
 
 export class ActionChooser extends React.Component<EventChooserProps, EventChooserState> {
