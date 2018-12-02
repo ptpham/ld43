@@ -60,8 +60,8 @@ export class State {
       spacing: 48
     };
     this.graph = Graph.generate(graphOptions);
-    this.river = Graph.generateSnake(this.graph, 'River', graphOptions);
-    this.canyon = Graph.generateSnake(this.graph, 'Canyon', graphOptions);
+    this.river = Graph.generateRiver(this.graph, graphOptions);
+    this.canyon = Graph.generateCanyon(this.graph, graphOptions, this.river);
 
     this.caravan_location = this.graph.find(node => node.locationType === 'Start')!;
     this.isLocationDone = false;
