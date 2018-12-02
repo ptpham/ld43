@@ -16,21 +16,15 @@ export type LocationType =
   | "Mountain"
 
 export type SkillType = 
-  | "Stupid" // the most important one.
   | "Architect"
   | "Assassin"
   | "Bard" // aka Storyteller.
-  | "Child"
-  | "Dancer"
-  | "Fisherman" // Good with boats and water
-  | "Historian"
   | "Cartographer"
+  | "Priest"
+  | "Woodsman" // Woodcutting, but also general forestry.
+  // We do not have assets for those below this line.
   | "Merchant"
   | "Sage" // Knows many things but can't do much.
-  | "Swordswoman"
-  | "Priest"
-  | "Wizard"
-  | "Woodsman" // Woodcutting, but also general forestry.
 ;
 
 export const LocationTypeData: { [key in LocationType]: {
