@@ -9,6 +9,28 @@ const EventButton = (props: {
   disabled?: boolean;
   children : React.ReactNode;
 }): JSX.Element => {
+  if (props.disabled) {
+    return (
+      <a 
+        href="javascript:;"
+        className={ props.disabled ? "" : "event-button" }
+        onClick={() => props.onClick && props.onClick() }
+        style={{
+          textDecoration: "none",
+          display: "block",
+          border: "1px solid lightgray",
+          padding: "10px 5px",
+          margin: "0 0 20px 0",
+          color: props.disabled ? "gray" : "inherit",
+        }}
+      >
+        <div>
+          { props.children }
+        </div>
+      </a>
+    );
+  }
+
   return (
     <a 
       href="javascript:;"
