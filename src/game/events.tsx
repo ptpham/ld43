@@ -109,7 +109,7 @@ const BarbarianVillageWornDown: EventType = {
       description  : "Repair some of the barbarian's buildings.",
       followUpText : "Thok thanks you for your kindness and lets you pass. The barbarians give you some meat as you leave.",
       outcome      : { type: "gain-meat", amount: 10, },
-      updateEventTo: ForestWithHouse,
+      updateEventTo: BarbarianVillageRepaired,
     },
     PassOn({ price: 20 }),
   ]
