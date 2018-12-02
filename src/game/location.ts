@@ -42,7 +42,11 @@ export class Location extends PIXI.Graphics implements IEntity {
     } else if (node.locationType == 'Finish') {
       // mount DOOM!
       sprite = makeSprite(PIXI.loader.resources['volcano'].texture);
-      this.particles = new Particles(this, node.position.x, node.position.y - 24, 60, 'red_particle');
+      sprite.x *= 2;
+      sprite.y *= 2;
+      sprite.scale.x *= 2;
+      sprite.scale.y *= 2;
+      this.particles = new Particles(this, node.position.x, node.position.y - 32, 60, 'red_particle');
     } else if (node.locationType == 'Forest') {
       sprite = makeSprite(PIXI.loader.resources['forest'].texture);
     } else if (node.locationType == 'GoblinNest') {
