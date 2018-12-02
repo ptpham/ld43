@@ -170,6 +170,8 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
       sprite = makeSprite(PIXI.loader.resources['barbarian'].texture);
     } else if (node.locationType == 'Desert') {
       sprite = makeSprite(PIXI.loader.resources['desert'].texture);
+    } else if (node.locationType == 'Swamp') {
+      sprite = makeSprite(PIXI.loader.resources['swamp'].texture);
     }
 
 
