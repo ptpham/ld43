@@ -5,6 +5,7 @@ import { CardType } from './data';
 import { IEntity } from './entity';
 import { GameMapCircle, GameMap } from './gamemap';
 import { EventOption, EventType } from './events';
+import { BlightManager } from './blightmanager';
 
 type IdolState = 
   | {
@@ -55,6 +56,7 @@ export class State {
   idolState           : IdolState;
   gameMap            !: GameMap;
   time                : { from_start: number, for_idol: number } = { from_start: 0, for_idol: 0 };
+  blightManager       : BlightManager = new BlightManager();
 
   constructor(stage: PIXI.Container) {
     const graphOptions = {
