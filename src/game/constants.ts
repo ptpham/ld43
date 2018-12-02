@@ -21,6 +21,7 @@ export class C {
     'idol',
     'canyon',
     'caravan',
+    'cloud',
     'volcano',
     'forest',
     'goblin',
