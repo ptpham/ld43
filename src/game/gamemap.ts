@@ -236,9 +236,9 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
     //  console.log(child)
     //}
 
+
     if (this.mousedOver) {
-      this.scale.x = 1.2;
-      this.scale.y = 1.2;
+      this.tint = 0x333333;
     } else {
       this.scale.x = 1;
       this.scale.y = 1;
