@@ -10,7 +10,6 @@ import { State } from './state';
 export class Node {
   // not counting disadvantages due to idol etc
   baseMeatCost!: number;
-
   neighbors: Node[] = [];
   upgraded: boolean = false;
 
