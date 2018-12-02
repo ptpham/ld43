@@ -90,11 +90,18 @@ const ForestThatIsCutDown: EventType = {
 const CutDownForestOption: EventOption = {
   skillRequired: { type: "specific-skill", skill: "Woodsman", withoutRequirement: "Everything" },
   description: "Cut the forest down, one log at a time.",
-  outcome: {
-    type  : "lose-meat",
-    amount: 10,
-    hidden: false,
-  },
+  outcome: [
+    {
+      type  : "lose-meat",
+      amount: 10,
+      hidden: false,
+    },
+    {
+      type  : "lose-member-weak",
+      skill: "Woodsman",
+      hidden: false,
+    },
+  ],
   updateEventTo: ForestThatIsCutDown,
   followUpText: "Your lumberjack gets to work, and after some time, the entire forest is leveled.",
 };
