@@ -6,6 +6,7 @@ import { Particles } from './particles';
 import { IEntity } from './entity';
 
 export class BlightManager implements IEntity {
+  // reserve undefined so we can garbage collect unused particles properly without race conditions
   public particles: (Particles | undefined)[] = [];
   
   public applyBlightAndRenderImminent(state: State, node: Node, idol_time: number): void {
@@ -13,8 +14,13 @@ export class BlightManager implements IEntity {
   }
 
   public unRenderImminent(): void {
-    for(let particle of this.particles) {
-      particle;
+    for (let i = 0; i < this.particles.length; i++) {
+      let particle = this.particles[i];
+      if (particle) {
+        particle.disable(() => {
+          this.particles[i] = undefined;
+        })
+      }
     }
   }
 
