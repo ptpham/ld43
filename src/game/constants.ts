@@ -1,4 +1,8 @@
 
+export class Debug {
+  public static SeedRandom = true;
+}
+
 export class C {
   public static CANVAS_WIDTH = 1000;
   public static CANVAS_HEIGHT = 600;

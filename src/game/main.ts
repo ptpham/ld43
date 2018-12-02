@@ -32,7 +32,9 @@ export class Game {
     this.state.stage.addChild(stest);
 
     let emitter: Emitter = new Emitter(
-      this.state.stage, undefined, undefined
+      this.state.stage, 
+      [PIXI.loader.resources['blight_particle'].texture], 
+      undefined
     );
     emitter;
   }
