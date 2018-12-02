@@ -1,6 +1,8 @@
 import _ from 'lodash';
 
 export class Debug {
+  public static AUTO_CHOOSE_CARAVAN = true;
+
   public static SeedRandom = true;
 }
 
