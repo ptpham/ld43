@@ -137,11 +137,7 @@ export class ActionChooser extends React.Component<EventChooserProps> {
 
         {
           this.props.event.options.map(option => 
-            <EventButton
-              onClick={ () => this.handleOption(option) }
-            >
-              { this.renderButton(option) }
-            </EventButton>
+            this.renderButton(option)
           )
         }
       </div>
