@@ -82,6 +82,10 @@ export const AllEvents: EventType[] = [
           amount: 20,
         },
       },
+      {
+        skillRequired: { type: "no-skill" },
+        description: "Pass on.",
+      },
     ]
   }
 ]
