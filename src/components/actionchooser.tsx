@@ -136,7 +136,10 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
           option,
         },
       });
+
+      return;
     }
+
     this.props.gameState.handleChooseEventOption(option);
   }
 
