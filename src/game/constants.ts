@@ -38,7 +38,7 @@ export class C {
 }
 
 export const SeedRandom = (function() {
-  var seed = 0x2F6E2B1;
+  var seed = Debug.SeedRandom ? 0x2F6E2B1 : Math.random();
 
 	return function() {
 		// Robert Jenkins’ 32 bit integer hash function
