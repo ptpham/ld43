@@ -110,7 +110,7 @@ class App extends React.Component<{ game: Game }, AppState>  {
         />
 
         <ActionChooser 
-          event={ AllEvents[0] }
+          event={ this.state.gameState.activeEvent }
           gameState={ this.state.gameState }
         />
       </div>
