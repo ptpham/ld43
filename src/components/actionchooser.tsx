@@ -61,7 +61,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
     super(props);
 
     this.state = {
-
+      mode: "choice",
     };
   }
 
