@@ -114,7 +114,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
                   paddingBottom: "20px",
                 }}
               >
-                <strong>Currently selected location:</strong>
+                <strong>Currently { mousedOverLoc ? "hovered" : "selected" } location:</strong>
               </div>
 
               <div
