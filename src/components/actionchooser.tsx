@@ -34,7 +34,10 @@ type EventChooserProps = {
 };
 
 export class ActionChooser extends React.Component<EventChooserProps> {
-  renderRequirement(opt: EventOption): React.ReactNode {
+  renderRequirement(opt: EventOption): {
+    node              : React.ReactNode;
+    renderNothingElse?: boolean;
+  } {
     if (opt.skillRequired.type === "specific-skill") {
       const skill         = opt.skillRequired.skill;
       const doWeHaveSkill = [...this.props.gameState.cardsInCaravan.keys()].filter(x => x.skill === skill).length > 0;
