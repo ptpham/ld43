@@ -216,10 +216,10 @@ const BlightedBarbarianVillageWornDown: EventType = {
       updateEventTo: {
         location: "BarbarianVillage",
         description: `
-          The village has been since been burned to the ground. No trace of the assassin or the "Democratic Republican Barbarians" remain.`,
+          Your assassin is helping the Democratic Republican Barbarians rule with an iron fist. You avoid the peasant riots and are able to pass through with their help.`,
         difficulty: 1,
         options: [
-          PassOn({ price: 10 }),
+          PassOn({ price: 0 }),
         ]
       },
     },
