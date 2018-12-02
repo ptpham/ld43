@@ -1,13 +1,13 @@
 
-import { Entity, IEntity } from "./entity";
+import { IEntity } from "./entity";
 import { State } from "./state";
 import { Node } from "./graph";
 
 import { C } from "./constants";
 import { Caravan } from "./caravan";
-import { Graphics } from "pixi.js";
 import { random } from "lodash";
 import { Idol } from "./idol";
+import { GraphSprite } from "./graphsprite";
 
 function makeSprite(texture: PIXI.Texture): PIXI.Sprite {
   const sprite = new PIXI.Sprite(texture);
@@ -18,9 +18,9 @@ function makeSprite(texture: PIXI.Texture): PIXI.Sprite {
   return sprite;
 }
 
-export class GameMap extends Entity {
+export class GameMap extends PIXI.Sprite implements IEntity {
   state: State;
-  graphSprite: Graphics;
+  graphSprite: GraphSprite;
 
   constructor(state: State) {
     super();
@@ -29,8 +29,10 @@ export class GameMap extends Entity {
     this.makeBG();
 
     this.graphSprite = this.makeGraph();
-    this.makeRiver(this.graphSprite);
-    this.makeCanyon(this.graphSprite);
+    this.addChild(this.graphSprite);
+
+    this.makeRiver();
+    this.makeCanyon();
 
     this.makeCaravan();
     this.makeIdol();
@@ -67,42 +69,19 @@ export class GameMap extends Entity {
     this.state.stage.addChild(container);
   }
 
-  makeGraph(): PIXI.Graphics {
-    const graphSprite = new PIXI.Graphics();
-    graphSprite.lineWidth = 1;
-    graphSprite.lineStyle(1, 0x000000)
-
-    for (let node of this.state.graph) {
-      for (let neighbor of node.neighbors) {
-        graphSprite.moveTo(node.position.x, node.position.y);
-        graphSprite.lineTo(neighbor.position.x, neighbor.position.y);
-      }
-    }
-
-    for (let node of this.state.graph) {
-      const newCircle = new GameMapCircle({ node, state: this.state });
-
-      graphSprite.addChild(newCircle);
-      this.state.addEntity(newCircle);
-    }
-
-    graphSprite.x = 50;
-    graphSprite.y = 50;
-
-    this.state.stage.addChild(graphSprite);
-
-    return graphSprite;
+  makeGraph(): GraphSprite {
+    return new GraphSprite(this.state);
   }
 
-  makeRiver(graph: PIXI.Graphics): PIXI.mesh.Rope {
+  makeRiver(): PIXI.mesh.Rope {
     const river = new PIXI.mesh.Rope(PIXI.loader.resources['river'].texture, this.state.river);
-    graph.addChildAt(river, 0);
+    this.addChildAt(river, 0);
     return river;
   }
 
-  makeCanyon(graph: PIXI.Graphics): PIXI.mesh.Rope {
+  makeCanyon(): PIXI.mesh.Rope {
     const canyon = new PIXI.mesh.Rope(PIXI.loader.resources['canyon'].texture, this.state.canyon);
-    graph.addChildAt(canyon, 0);
+    this.addChildAt(canyon, 0);
     return canyon;
   }
 
@@ -115,7 +94,7 @@ export class GameMap extends Entity {
 
     this.state.addEntity(caravan);
 
-    this.graphSprite.addChild(caravan);
+    this.addChild(caravan);
 
     return caravan;
   }
@@ -143,6 +122,7 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
     state: State;
   }) {
     super();
+
     const { node, state } = props;
 
     this.node = node;
@@ -203,7 +183,7 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
         // we just double clicked this node
         // can only select nodes adjacent to current caravan location to move caravan to
 
-        if (this.state.caravan_location.neighbors.indexOf(this.node) > -1) {
+        if (this.state.caravanLocation.neighbors.indexOf(this.node) > -1) {
           this.state.moveCaravan(this.node);
         }
 

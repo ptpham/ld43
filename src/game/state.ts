@@ -36,9 +36,11 @@ export class State {
   cardsInWholeGame    : Set<CardType>;
   stage               : PIXI.Container;
   graph               : Graph.Node[];
+  visibleNodes        : Set<Graph.Node>;
   river               : PIXI.Point[];
   canyon              : PIXI.Point[];
-  caravan_location    : Graph.Node;
+  caravanLocation     : Graph.Node;
+  volcanoLocation     : Graph.Node;
   selectedNextLocation: GameMapCircle | undefined;
   mousedOverLocation  : GameMapCircle | undefined;
   isLocationDone      : boolean;
@@ -60,11 +62,20 @@ export class State {
       spacing: 48
     };
     this.graph = Graph.generate(graphOptions);
+
     this.river = Graph.generateRiver(this.graph, graphOptions);
     this.canyon = Graph.generateCanyon(this.graph, graphOptions, this.river);
 
-    this.caravan_location = this.graph.find(node => node.locationType === 'Start')!;
+    this.caravanLocation = this.graph.find(node => node.locationType === 'Start')!;
+    this.volcanoLocation = this.graph.find(node => node.locationType === 'Finish')!;
     this.isLocationDone = false;
+
+    // Fog of war stuff
+
+    this.visibleNodes = new Set();
+
+    this.visibleNodes.add(this.caravanLocation);
+    this.visibleNodes.add(this.volcanoLocation);
 
     // Resource stuff
 
@@ -82,7 +93,7 @@ export class State {
   }
 
   moveCaravan(to: Graph.Node): void {
-    this.caravan_location = to;
+    this.caravanLocation = to;
     this.isLocationDone = false;
 
     this.meat -= to.meatCost(this);
@@ -92,7 +103,7 @@ export class State {
     if (this.idolState.state === "carried") {
       this.idolState = {
         state: "dropped",
-        node: this.caravan_location,
+        node: this.caravanLocation,
       };
     }
 
@@ -102,7 +113,7 @@ export class State {
   onPickUpIdol(): void {
     if (
       this.idolState.state === "dropped" &&
-      this.caravan_location.equals(this.idolState.node)
+      this.caravanLocation.equals(this.idolState.node)
       ) {
       this.idolState = {
         state: "carried",

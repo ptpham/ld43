@@ -40,7 +40,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
     const state = this.props.gameState;
 
     if (state.idolState.state === "dropped") {
-      canPickUpIdol = state.idolState.node.equals(state.caravan_location);
+      canPickUpIdol = state.idolState.node.equals(state.caravanLocation);
     }
 
     const hasIdol = this.props.gameState.hasIdol();
@@ -138,10 +138,10 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
         }
 
         {
-          this.props.gameState.caravan_location.locationType !== 'Start' &&
+          this.props.gameState.caravanLocation.locationType !== 'Start' &&
             <EventChooser 
               gameState={this.props.gameState} 
-              node={this.props.gameState.caravan_location}
+              node={this.props.gameState.caravanLocation}
               onDone={ () => this.props.onDoEvent() }
             />
         }

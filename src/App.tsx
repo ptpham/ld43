@@ -53,9 +53,9 @@ class App extends React.Component<{ game: Game }, AppState>  {
   }
 
   renderCurrentLocation(state: State) {
-    const { caravan_location } = state;
+    const { caravanLocation } = state;
 
-    switch (caravan_location.locationType) {
+    switch (caravanLocation.locationType) {
       case 'Start':
         return (
           <CardChooser 
@@ -72,7 +72,7 @@ class App extends React.Component<{ game: Game }, AppState>  {
     let { gameState, isEventVisible } = this.state;
 
     if (gameState.isLocationDone) return null;
-    if (gameState.caravan_location.locationType === "Start") {
+    if (gameState.caravanLocation.locationType === "Start") {
       return <div className={`modal ${isEventVisible ? 'show-map' : ''}`}>
         { !isEventVisible ? <button onClick={() => this.setState({ isEventVisible: true })}>Hide Event</button> : null }
         { isEventVisible ? <button className="glowing" onClick={() => this.setState({ isEventVisible: false })}>Show Event</button> : null }
