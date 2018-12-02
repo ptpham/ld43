@@ -63,7 +63,7 @@ export class BlightManager implements IEntity {
         if (state.blightedNodes.has(node)) {
           continue;
         }
-        if (random() < 0.6) {
+        if (random() < 0.8) {
           this.imminent.push(node);
         }
       }
