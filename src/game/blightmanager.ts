@@ -68,10 +68,10 @@ export class BlightManager implements IEntity {
     let to_ret: { text: string, remaining: number } = { text: "", remaining: 0};
     if (t < 2) {
       to_ret = { text: "Minimal", remaining: 2 - t };
-    } else if (t < 20) {
-      to_ret = { text: "Low", remaining: 20 - t };
-    } else if (t < 30) {
-      to_ret = { text: "Medium", remaining: 30 - t };
+    } else if (t < 4) {
+      to_ret = { text: "Low", remaining: 4 - t };
+    } else if (t < 6) {
+      to_ret = { text: "Medium", remaining: 6 - t };
     } else if (t < 40) {
       to_ret = { text: "High", remaining: 40 - t };
     } else {
