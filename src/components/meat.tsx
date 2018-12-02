@@ -20,16 +20,9 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
   public render(): JSX.Element {
     return (
       <div
-        onClick = { () => {
-          //console.log("cawas clicked", this.props.card, this.props.gameState);
-          //this.props.gameState.active_caravan.push(this.props.card);
-        } }
         style={{
-          //display: "inline-block",
-          //border: "1px solid lightgray",
-          //height: "200px",
-          //width: "100px",
-          //margin: "0 20px 10px 20px",
+          backgroundColor: "#080c0a",
+          color: "white",
         }}
       >
         <div
