@@ -7,6 +7,8 @@ export class Debug {
 }
 
 export class C {
+  public static STARTING_MEAT = 50;
+
   public static CANVAS_WIDTH = 1000;
   public static CANVAS_HEIGHT = 600;
 

@@ -22,7 +22,7 @@ export class Caravan extends PIXI.Sprite implements IEntity {
     let { caravanLocation, idolState } = state;
 
     if (state.walkAnimation == null && start.distance(caravanLocation.position) > 1e-6) {
-      state.walkAnimation = Animations.makeBoundedTicker(120, (delta, t) => {
+      state.walkAnimation = Animations.makeBoundedTicker(60, (delta, t) => {
         let current = start.lerp(caravanLocation.position, t);
         this.x = current.x;
         this.y = current.y;

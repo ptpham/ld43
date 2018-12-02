@@ -132,7 +132,11 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
     }
   }
 
-  renderCost(opt: EventOption): React.ReactNode {
+  renderCost(opt: EventOption): {
+    node    : React.ReactNode; 
+    cantBuy?: boolean;
+  } {
+    let to_ret: { node    : React.ReactNode; cantBuy?: boolean; }[] = [];
     if (opt.outcome) {
       const outcomes = Array.isArray(opt.outcome) ? opt.outcome : [opt.outcome];
       const meatOutcome = outcomes.filter(x => x.type === "gain-meat" || x.type === "lose-meat")[0];
@@ -140,31 +144,73 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
       if (meatOutcome) {
         if (meatOutcome.type === "gain-meat") {
           if (meatOutcome.hidden) {
-            return null;
+            to_ret.push( { node: null });
           } else {
-            return (
-              <span style={{ color: "#00cc00" }}>
-                +{ meatOutcome.amount } meat
-              </span>
-            );
+            to_ret.push({
+              node: (
+                <span style={{ color: "#00cc00" }}>
+                  +{ meatOutcome.amount } meat
+                </span>
+              ),
+            });
           }
         } else if (meatOutcome.type === "lose-meat") {
           if (meatOutcome.hidden) {
-            return null;
+            to_ret.push({ node: null });
           } else {
-            return (
-              <span style={{ color: "red" }}>
-                -{ meatOutcome.amount } meat
-              </span>
-            );
+            //to_ret.push((
+            //  <span style={{ color: "red" }}>
+            //    -{ meatOutcome.amount } meat
+            //  </span>
+            //))
+            to_ret.push({
+              node: (
+                <span style={{ color: "red" }}>
+                  -{ meatOutcome.amount } meat
+                </span>
+              ),
+              cantBuy: this.props.gameState.meat < meatOutcome.amount,
+            });
           }
         } else {
           throw new Error("should be impossible! " + meatOutcome);
         }
       }
+
+      const sacrificeOutcome = outcomes.filter(x => x.type === 'lose-member-weak' || x.type === 'lose-member-strong')[0];
+      if (sacrificeOutcome) {
+        if (sacrificeOutcome.type === 'lose-member-weak') {
+          to_ret.push({
+            node: 
+              <span style={{ color: "red "}}>
+                Lose { sacrificeOutcome.skill } temporarily.
+              </span>
+          });
+        } else if (sacrificeOutcome.type === 'lose-member-strong') {
+          to_ret.push({
+            node: 
+              <span style={{ color: "red "}}>
+                Lose { sacrificeOutcome.skill } permanently.
+              </span>
+          });
+        } else {
+          throw new Error("should be impossible! " + sacrificeOutcome);
+        }
+      }
     }
 
-    return null;
+    return {
+      node: (
+        <span>
+          { to_ret.map((x, i) => { return i ===0 ? x.node : (
+            <span>
+              {', '} {x.node}
+            </span>
+         ) }) }
+        </span>
+      ),
+      cantBuy: to_ret.reduce((pv, cv) => (pv || (cv.cantBuy || false)), false)
+    }
   }
 
   handleOption(option: EventOption): void {
@@ -184,11 +230,27 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
 
   renderButton(option: EventOption): React.ReactNode {
     const { node: requirement, renderNothingElse } = this.renderRequirement(option);
+    const { node: costNode, cantBuy } = this.renderCost(option);
 
     if (renderNothingElse) {
       return (
         <EventButton disabled>
           { requirement }
+        </EventButton>
+      );
+    }
+
+    if (cantBuy) {
+      return (
+        <EventButton disabled>
+          <div>
+            { requirement }{' '}
+            { option.description }{' '}
+            { costNode }
+          </div>
+          <div>
+            Too expensive!
+          </div>
         </EventButton>
       );
     }
@@ -211,7 +273,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
           }}
         >
           { option.description }{' '}
-          { this.renderCost(option) }
+          { costNode }
         </span>
       </EventButton>
     );
@@ -219,6 +281,22 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
 
   renderDialogContent(): React.ReactNode {
     if (this.state.mode.type === "choice") {
+      const options = this.props.event.options;
+
+      const everyOptionCostsMoney = options.every(x => {
+        return x.outcome.some(outcome => 
+          outcome.type === "lose-meat" ||
+          (outcome.type === "gain-meat" && outcome.hidden)
+        )
+      });
+
+      const turnBackOption: EventOption = {
+        skillRequired: { type: "no-skill" },
+        description  : "Turn back.",
+        followUpText : "",
+        outcome      : [{ type: "turn-back" }],
+      };
+
       return (
         <>
           <div style={{ padding: "0 0 20px 0" }}>
@@ -229,6 +307,11 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
             this.props.event.options.map(option => 
               this.renderButton(option)
             )
+          }
+
+          {
+            everyOptionCostsMoney &&
+              this.renderButton(turnBackOption)
           }
         </>
       );
@@ -285,6 +368,47 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
                     }}
                   >
                     You gain a { outcome.item }!
+                  </div>
+                )
+              }
+
+              if (outcome.type === "turn-back") {
+                return (
+                  <div
+                    style={{
+                      backgroundColor: "yellow",
+                    }}
+                  >
+                    You run back!
+                  </div>
+                )
+              }
+
+
+              if (outcome.type === "lose-member-strong") {
+                return (
+                  <div
+                    style={{
+                      backgroundColor: "pink",
+                      padding: "5px",
+                      margin: "10px 0 0 0"
+                    }}
+                  >
+                    You have permanently left behind your { outcome.skill }.
+                  </div>
+                )
+              }
+
+              if (outcome.type === "lose-member-weak") {
+                return (
+                  <div
+                    style={{
+                      backgroundColor: "pink",
+                      padding: "5px",
+                      margin: "10px 0 0 0"
+                    }}
+                  >
+                    You have left behind your { outcome.skill }. (S)he will return home alone.
                   </div>
                 )
               }

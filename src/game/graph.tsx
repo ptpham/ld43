@@ -224,6 +224,8 @@ export function addLocationBasedData(nodes: Node[], width: number): Node[] {
   let maxDifficulty = EventDifficulty.MaxDifficulty;
   return nodes.map(node => {
     let desiredDifficulty = _.clamp(Math.floor(maxDifficulty*node.position.x/width + Math.random() - 0.5), 0, maxDifficulty - 1);
+    if (node.neighbors.length > 4) desiredDifficulty++;
+
     let locationEvents = AllEvents.filter(event => event.location === node.locationType);
     let locationEventsByDifficulty = _.groupBy(locationEvents, 'difficulty');
 

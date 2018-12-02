@@ -40,7 +40,6 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
     this.graphSprite.lineWidth = 1;
     this.graphSprite.lineStyle(1, 0x000000)
 
-    console.log(this.state.visitedNodes);
     for (let node of visibleNodes) {
       for (let neighbor of node.neighbors) {
         if (!visibleNodes.has(neighbor)) { continue; }

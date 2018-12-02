@@ -52,6 +52,7 @@ export class State {
   blightedNodes       : Set<Graph.Node> = new Set();
   river               : PIXI.Point[];
   canyon              : PIXI.Point[];
+  lastCaravanLocation : Graph.Node;
   caravanLocation     : Graph.Node;
   volcanoLocation     : Graph.Node;
   selectedNextLocation: Location | undefined;
@@ -89,6 +90,8 @@ export class State {
 
     this.caravanLocation = this.graph.find(node => node.locationType === 'Start')!;
     this.volcanoLocation = this.graph.find(node => node.locationType === 'Finish')!;
+    this.lastCaravanLocation = this.caravanLocation;
+
     this.isLocationDone = false;
 
     // Fog of war stuff
@@ -100,7 +103,7 @@ export class State {
 
     // Resource stuff
 
-    this.meat     = 50;
+    this.meat     = C.STARTING_MEAT;
 
     // Idol stuff 
 
@@ -141,7 +144,11 @@ export class State {
     this.entities.push(entity);
   }
 
-  moveCaravan(to: Graph.Node): void {
+  moveCaravan(to: Graph.Node, retreat = false): void {
+    if (!retreat) {
+      this.lastCaravanLocation = this.caravanLocation;
+    }
+
     this.caravanLocation = to;
     this.isLocationDone = false;
 
@@ -230,6 +237,41 @@ export class State {
             break;
           }
 
+          case "turn-back": {
+            this.moveCaravan(
+              this.lastCaravanLocation,
+              true
+            );
+
+            break;
+          }
+
+          case "lose-member-strong": {
+            for (let c of this.cardsInCaravan) {
+              if (c.skill == outcome.skill) {
+                this.cardsInCaravan.delete(c);
+                break;
+              }
+            }
+            break;
+          }
+
+          case "lose-member-weak": {
+            let c: CardType | undefined;
+            for (c of this.cardsInCaravan) {
+              if (c.skill == outcome.skill) {
+                this.cardsInCaravan.delete(c);
+                break;
+              }
+            }
+            // add him back home
+            if (c) {
+              this.cardsInWholeGame.add(c);
+            }
+
+            break;
+          }
+
           default: {
             const x: never = outcome;
 
@@ -241,6 +283,13 @@ export class State {
 
     if (option.updateEventTo) {
       this.caravanLocation.event = option.updateEventTo;
+    }
+
+    if (this.caravanLocation.event && this.caravanLocation.event.stopsProgress) {
+      this.moveCaravan(
+        this.lastCaravanLocation,
+        /* retreat */ true
+      );
     }
 
     if (option.chucksIdol) {
