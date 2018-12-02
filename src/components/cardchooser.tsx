@@ -55,7 +55,7 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
       <div
         //onClick={ () => console.log('was clicked!') }
         style={{
-          width: "600px",
+          width: "750px",
           padding: "20px",
           border: "1px solid lightgray",
         } }

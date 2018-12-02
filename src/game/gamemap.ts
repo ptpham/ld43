@@ -8,6 +8,7 @@ import { random } from "lodash";
 import { Idol } from "./idol";
 import { GraphSprite } from "./graphsprite";
 import { Cloud } from "./cloud";
+import { Fog } from "./fog";
 import { makeSprite } from "./lib/sprite";
 
 export class GameMap extends PIXI.Sprite implements IEntity {
@@ -36,6 +37,8 @@ export class GameMap extends PIXI.Sprite implements IEntity {
 
     this.makeCaravan();
     this.makeIdol();
+
+    this.makeFog();
     this.makeClouds();
 
     this.x = 50;
@@ -129,6 +132,24 @@ export class GameMap extends PIXI.Sprite implements IEntity {
       this.state.addEntity(cloud);
     });
     return clouds;
+  }
+
+  makeFog(): Fog[] {
+    const fogs: Fog[] = [];
+
+    this.state.graph.forEach(node => {
+      fogs.push(new Fog(node));
+      fogs.push(new Fog(node));
+      fogs.push(new Fog(node));
+      fogs.push(new Fog(node));
+    });
+
+    fogs.forEach(fog => {
+      this.addChild(fog);
+      this.state.addEntity(fog);
+    });
+
+    return fogs;
   }
 
   update(state: State) {
