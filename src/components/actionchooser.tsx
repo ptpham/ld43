@@ -129,6 +129,14 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
   }
 
   handleOption(option: EventOption): void {
+    if (option.followUpText && this.state.mode.type === "choice") {
+      this.setState({
+        mode: {
+          type: "follow-up",
+          option,
+        },
+      });
+    }
     this.props.gameState.handleChooseEventOption(option);
   }
 
