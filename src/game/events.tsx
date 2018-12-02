@@ -42,7 +42,7 @@ const ForestThatIsCutDown: EventType = {
 };
 
 const CutDownForestOption: EventOption = {
-  skillRequired: { type: "specific-skill", skill: "WoodCutter" },
+  skillRequired: { type: "specific-skill", skill: "WoodCutter", withoutSkill: "Everything" },
   description: "Cut the forest down, one log at a time.",
   outcome: {
     type: "lose-meat",
