@@ -42,7 +42,8 @@ export class BlightManager implements IEntity {
 
     // rerender
     for (let node of imminentBlight) {
-      this.particles.push(new Particles(this.state.stage, node.position.x, node.position.y, 6));
+      node;
+      //this.particles.push(new Particles(state.stage, node.position.x, node.position.y, 6));
     }
   }
 
