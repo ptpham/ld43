@@ -293,7 +293,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
                 return (
                   <div
                     style={{
-                      backgroundColor: "lightblue",
+                      backgroundColor: "red",
                       padding: "5px",
                       margin: "10px 0 0 0"
                     }}
@@ -307,7 +307,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
                 return (
                   <div
                     style={{
-                      backgroundColor: "lightblue",
+                      backgroundColor: "red",
                       padding: "5px",
                       margin: "10px 0 0 0"
                     }}
