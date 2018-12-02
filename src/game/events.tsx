@@ -37,10 +37,9 @@ export const AllEvents: EventType[] = [
         description: "Build a house.",
         outcome: { 
           type: "lose-meat", 
-          amount: 10,
+          amount: 20,
         },
       },
-
     ]
   }
 ]
