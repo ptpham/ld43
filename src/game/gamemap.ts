@@ -28,8 +28,8 @@ export class GameMap extends Entity {
     this.state = state;
     this.makeBG();
 
-    this.makeRiver();
     this.graphSprite = this.makeGraph();
+    this.makeRiver(this.graphSprite);
 
     this.makeCaravan();
     this.makeIdol();
@@ -92,10 +92,9 @@ export class GameMap extends Entity {
     return graphSprite;
   }
 
-  makeRiver(): PIXI.mesh.Rope {
+  makeRiver(graph: PIXI.Graphics): PIXI.mesh.Rope {
     const river = new PIXI.mesh.Rope(PIXI.loader.resources['river'].texture, this.state.river);
-    console.log(river, this.state.river);
-    this.state.stage.addChild(river);
+    graph.addChildAt(river, 0);
     return river;
   }
 
