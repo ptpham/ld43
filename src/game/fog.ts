@@ -41,7 +41,7 @@ export class Fog extends PIXI.Sprite implements IEntity {
       return;
     }
 
-    if (state.idolState.state === 'gone' || this.node.isVisible(state.visitedNodes)) {
+    if (state.hasWon || this.node.isVisible(state.visitedNodes)) {
       if (this.alpha > 0) {
         this.alpha -= 0.01;
       }

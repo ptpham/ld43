@@ -76,7 +76,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
           }}
         >
           {
-            this.props.gameState.idolState.state === 'gone' ?
+            this.props.gameState.hasWon ?
             "so winning" : (
               <>
                 You <strong>{ this.props.gameState.hasIdol() ? "have" : "don't have" }</strong> the idol.

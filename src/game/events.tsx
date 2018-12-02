@@ -43,7 +43,7 @@ export type EventOption = {
   followUpText  : string;
   outcome       : EventOutcome[];
   updateEventTo?: EventType;
-  chucksIdol   ?: boolean;
+  winsGame   ?: boolean;
 }
 
 export type EventType = {
@@ -75,7 +75,7 @@ const GameFinish: EventType = {
       skillRequired: {type: "no-skill"},
       description: "Drop the idol into the maws of the volcano from whence it came.",
       followUpText: "",
-      chucksIdol: true,
+      winsGame: true,
       outcome: [],
     }
   ]
