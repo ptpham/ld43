@@ -49,22 +49,24 @@ export class ActionChooser extends React.Component<EventChooserProps> {
   }
 
   renderCost(opt: EventOption): React.ReactNode {
-    if (opt.outcome.type === "gain-meat") {
-      return (
-        <span style={{ color: "#00cc00" }}>
-          +{ opt.outcome.amount } meat
-        </span>
-      );
-    } else if (opt.outcome.type === "lose-meat") {
-      return (
-        <span style={{ color: "red" }}>
-          -{ opt.outcome.amount } meat
-        </span>
-      );
-    } else {
-      const x: never = opt.outcome;
+    if (opt.outcome) {
+      if (opt.outcome.type === "gain-meat") {
+        return (
+          <span style={{ color: "#00cc00" }}>
+            +{ opt.outcome.amount } meat
+          </span>
+        );
+      } else if (opt.outcome.type === "lose-meat") {
+        return (
+          <span style={{ color: "red" }}>
+            -{ opt.outcome.amount } meat
+          </span>
+        );
+      } else {
+        const x: never = opt.outcome;
 
-      throw new Error("should be never! " + x);
+        throw new Error("should be never! " + x);
+      }
     }
   }
 
