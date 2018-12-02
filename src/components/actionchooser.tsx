@@ -39,9 +39,19 @@ export class ActionChooser extends React.Component<EventChooserProps> {
       const skill         = opt.skillRequired.skill;
       const doWeHaveSkill = [...this.props.gameState.cardsInCaravan.keys()].filter(x => x.skill === skill).length > 0;
 
-      return (
-        <strong>{ opt.skillRequired.skill } :</strong>
-      );
+      if (doWeHaveSkill) {
+        return (
+          <strong>{ opt.skillRequired.skill } :</strong>
+        );
+      } else {
+        if (opt.skillRequired.withoutSkill === "Invisible") {
+          return null;
+        } else if (opt.skillRequired.withoutSkill === "Unlabeled") {
+          return (
+            <strong>???????</strong>
+          )
+        }
+      }
     } else if (opt.skillRequired.type === "no-skill") {
       return null;
     } else {
