@@ -52,4 +52,4 @@ export const SeedRandom = (function() {
 	};
 }());
 
-Math.random = () => alert("Dont use random");
+Math.random = () => { alert("Dont use random use SeedRandom"); return 0; };
