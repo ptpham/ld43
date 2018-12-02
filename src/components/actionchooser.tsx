@@ -2,6 +2,7 @@
 import React from 'react';
 import { State } from '../game/state';
 import _ from 'lodash';
+import { EventType } from '../game/events';
 
 const EventButton = (props: { 
   onClick : () => void;
@@ -29,6 +30,7 @@ const EventButton = (props: {
 
 type EventChooserProps = {
   gameState: State,
+  event: EventType,
 };
 
 export class ActionChooser extends React.Component<EventChooserProps> {
