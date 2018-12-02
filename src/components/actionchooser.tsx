@@ -34,13 +34,15 @@ type EventChooserProps = {
 };
 
 export class ActionChooser extends React.Component<EventChooserProps> {
-  renderRequirement(opt: EventOption): JSX.Element {
+  renderRequirement(opt: EventOption): React.ReactNode {
     if (opt.skillRequired.type === "specific-skill") {
       return (
         <strong>{ opt.skillRequired.skill }</strong>
       );
     } else if (opt.skillRequired.type === "no-skill") {
       return null;
+    } else {
+      const x: never = opt.skillRequired;
     }
   }
 
