@@ -40,7 +40,7 @@ export const LocationTypeData: { [key in LocationType]: {
   Forest: { targetSkill: 'Woodsman' },
   GoblinNest: {},
   River: {},
-  Canyon: { targetSkill: 'Builder' },
+  Canyon: { targetSkill: 'Architect' },
   Desert: { targetSkill: 'Priest' },
   Mountain: {},
   Swamp: {},

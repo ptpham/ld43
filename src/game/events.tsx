@@ -76,7 +76,7 @@ const ForestElfEvent: EventType = {
   options: [
     CutDownForestOption,
     {
-      skillRequired: { type: "specific-skill", skill: "Builder", withoutSkill: "Everything" },
+      skillRequired: { type: "specific-skill", skill: "Architect", withoutSkill: "Everything" },
       description: "Build a house.",
       followUpText : "You cut down some trees and build a log cabin.",
       outcome: { type: "lose-meat", amount: 20, hidden: false, },
@@ -115,7 +115,7 @@ const BlightedForestElfEvent: EventType = {
       followUpText: "Your lumberjack gets to work, and after some time, the entire forest is leveled.",
     },
     {
-      skillRequired: { type: "specific-skill", skill: "Builder", withoutSkill: "Everything" },
+      skillRequired: { type: "specific-skill", skill: "Architect", withoutSkill: "Everything" },
       description: "Build a house.",
       followUpText : "You cut down some trees and build a log cabin.",
       outcome: { type: "lose-meat", amount: 20, hidden: false, },
@@ -166,7 +166,7 @@ const BarbarianVillageWornDown: EventType = {
   difficulty: 1,
   options: [
     {
-      skillRequired: { type: "specific-skill", skill: "Builder", withoutSkill: "Unlabeled" },
+      skillRequired: { type: "specific-skill", skill: "Architect", withoutSkill: "Unlabeled" },
       description  : "Repair some of the barbarian's buildings.",
       followUpText : 
       `Thok thanks you for your kindness and lets you pass. The barbarians
