@@ -11,7 +11,7 @@ export type SkillRequirement =
 export type EventOption = {
   skillRequired : SkillRequirement;
   description   : string;
-  outcome       : EventOutcome;
+  outcome      ?: EventOutcome;
   updateEventTo : EventType;
 }
 
@@ -31,9 +31,8 @@ const CutDownForest = {
       skillRequired: { type: "no-skill" },
       description: "Pass on.",
     },
-
   ]
-}
+};
 
 export const AllEvents: EventType[] = [
   {
