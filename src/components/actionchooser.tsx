@@ -109,13 +109,15 @@ export class ActionChooser extends React.Component<EventChooserProps> {
     }
 
     return (
-      <>
+      <EventButton
+        onClick={ () => this.handleOption(option) }
+      >
         <strong>
           { requirement }
         </strong>{' '}
         { option.description }{' '}
         { this.renderCost(option) }
-      </>
+      </EventButton>
     );
   }
 
