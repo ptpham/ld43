@@ -27,6 +27,7 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
       }
     }
 
+    // clear the old nodes
     this.graphSprite.clear();
 
     this.graphSprite.lineWidth = 1;
