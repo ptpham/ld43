@@ -231,7 +231,12 @@ export class State {
           }
 
           case "lose-member": {
-            // TODO(bowei): lose the member!
+            for (let c of this.cardsInCaravan) {
+              if (c.skill == outcome.skill) {
+                this.cardsInCaravan.delete(c);
+                break;
+              }
+            }
 
             break;
           }
