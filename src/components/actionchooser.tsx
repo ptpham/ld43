@@ -302,6 +302,20 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
                   </div>
                 )
               }
+
+              if (outcome.type === "lose-member-weak") {
+                return (
+                  <div
+                    style={{
+                      backgroundColor: "lightblue",
+                      padding: "5px",
+                      margin: "10px 0 0 0"
+                    }}
+                  >
+                    You have left behind your { outcome.skill }. (S)he will return home alone.
+                  </div>
+                )
+              }
               const x: never = outcome;
               throw new Error("x should be never " + x);
             })
