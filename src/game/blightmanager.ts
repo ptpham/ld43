@@ -11,9 +11,13 @@ export class BlightManager implements IEntity {
   public applyBlightAndRenderImminent(state: State, node: Node, idol_time: number): void {
 
   }
-  public unRenderImminent(): void {
 
+  public unRenderImminent(): void {
+    for(let particle of this.particles) {
+      particle;
+    }
   }
+
   public renderImminent(state: State, idol_position: Node, idol_time: number): void {
     let imminentBlight: Node[] = [];
     // l2 distance? or graph distance?
