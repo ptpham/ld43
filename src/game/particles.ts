@@ -41,9 +41,8 @@ export class Particles extends Emitter {
   }
 
   update_(state: State): void {
-
       let now: number = Date.now();
-      now - this.elapsed;
+      this.update((now - this.elapsed) * 0.001);
       this.elapsed = now;
       return;
   }

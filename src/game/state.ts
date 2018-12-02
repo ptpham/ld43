@@ -62,6 +62,8 @@ export class State {
       spacing: 48
     };
 
+    this.activeEvent = AllEvents[0];
+
     this.graph = Graph.generate(graphOptions);
 
     this.cardsInCaravan     = new Set();
@@ -114,7 +116,6 @@ export class State {
       this.isLocationDone = true;
     }
 
-    this.activeEvent = AllEvents[0];
   }
   
   getGameMode(): GameMode {
