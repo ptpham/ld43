@@ -140,14 +140,18 @@ export class State {
 
     this.activeEvent = to.event;
     this.time.from_start++;
-    if (this.idolState.state === 'dropped') {
-      // before incrementing, check if we hit a blight point
+    if (this.idolState.state === 'carried') {
+      // if it was newly picked up : remove the imminently blighted spots
+    } else {
+      // if it was newly dropped : figure out the imminently blighted spots
+      //this.imminentBlight 
+      // before incrementing, check if we hit a blight application
       if (this.getIdolBlightDanger().remaining === 1) {
         console.log("blight happens... maybe");
         // TODO(bowei): DO THIS
       }
       this.time.for_idol++;
-      // after incrementing, mark down the places to be blighted next
+      // after incrementing, re-figure the imminent blight
     }
   }
 

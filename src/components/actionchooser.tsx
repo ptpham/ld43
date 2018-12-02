@@ -48,7 +48,7 @@ export class ActionChooser extends React.Component<EventChooserProps> {
           return null;
         } else if (opt.skillRequired.withoutSkill === "Unlabeled") {
           return (
-            <strong>???????</strong>
+            <strong>?????????????</strong>
           )
         }
       }
