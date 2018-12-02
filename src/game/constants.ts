@@ -51,3 +51,5 @@ export const SeedRandom = (function() {
 		return (seed & 0xFFFFFFF) / 0x10000000;
 	};
 }());
+
+Math.random = () => alert("Dont use random");
