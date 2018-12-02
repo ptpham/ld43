@@ -146,14 +146,47 @@ export function generate(options: GenerateOptions): Node[] {
   return _.sortBy(result, (node) => { return node.position.y; });
 }
 
-export function generateSnake(nodes: Node[], type: LocationType, options: GenerateOptions): PIXI.Point[] {
+export function generateRiver(nodes: Node[], options: GenerateOptions): PIXI.Point[] {
   const { width, height } = options;
   const line = new Line({ x1: width * SeedRandom(), x2: width * SeedRandom(), y1: -64, y2: height + 64 });
 
   const snake = [new PIXI.Point(line.x1, line.y1)];
   nodes.forEach((node: Node) => {
+    if (node.locationType === 'Start' || node.locationType === 'Finish') {
+      return;
+    }
     if (line.intersectCircle(node.position, C.NODE_RADIUS * 1.25)) {
-      node.locationType = type;
+      node.locationType = 'River';
+      snake.push(new PIXI.Point(node.position.x, node.position.y));
+    }
+  });
+  snake.push(new PIXI.Point(line.x2, line.y2));
+  return snake;
+}
+
+export function generateCanyon(nodes: Node[], options: GenerateOptions, split: PIXI.Point[]): PIXI.Point[] {
+  const { width, height } = options;
+  
+  let w = 3 * width / 5;
+  let x = 0;
+  const splitX = split[0].x;
+  if (splitX < width / 2) {
+    x = width / 2;
+  }
+  const line = new Line({
+    x1: x + w * SeedRandom(),
+    x2: x + w * SeedRandom(),
+    y1: height * SeedRandom(),
+    y2: height * SeedRandom()
+  });
+
+  const snake = [new PIXI.Point(line.x1, line.y1)];
+  nodes.forEach((node: Node) => {
+    if (node.locationType === 'Start' || node.locationType === 'Finish') {
+      return;
+    }
+    if (line.intersectCircle(node.position, C.NODE_RADIUS * 1.25)) {
+      node.locationType = 'Canyon';
       snake.push(new PIXI.Point(node.position.x, node.position.y));
     }
   });

@@ -19,7 +19,10 @@ export class C {
   public static SPRITE_ASSETS = [
     'test',
     'idol',
+    'canyon',
     'caravan',
+    'cloud_0',
+    'cloud_1',
     'volcano',
     'forest',
     'goblin',

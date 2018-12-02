@@ -1,0 +1,35 @@
+import { State } from "./state";
+import { IEntity } from "./entity";
+import { C } from "./constants";
+import { SeedRandom } from './constants';
+
+function getRandomTexture(textures: PIXI.Texture[]) {
+  const index = Math.floor(SeedRandom() * textures.length);
+  return textures[index];
+}
+
+export class Cloud extends PIXI.Sprite implements IEntity {
+  constructor() {
+    super(getRandomTexture([
+      PIXI.loader.resources['cloud_0'].texture,
+      PIXI.loader.resources['cloud_1'].texture,
+    ]));
+    this.y = C.MAP_HEIGHT * SeedRandom();
+    this.x = C.MAP_WIDTH * SeedRandom();
+    this.scale.x = 2 * C.SPRITE_SCALE;
+    this.scale.y = C.SPRITE_SCALE;
+    this.alpha = 0.3;
+  }
+
+  update(state: State): void {
+    if (this.x > C.MAP_WIDTH) {
+      this.y = C.MAP_HEIGHT * SeedRandom();
+      this.x = -400;
+      this.texture = getRandomTexture([
+        PIXI.loader.resources['cloud_0'].texture,
+        PIXI.loader.resources['cloud_1'].texture,
+      ]);
+    }
+    this.x += 2;
+  }
+}
