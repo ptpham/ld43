@@ -60,22 +60,6 @@ export type GenerateOptions = {
   height: number
 }
 
-export function candidateEdgeHasIntersection(nodes: Node[], first: Node, second: Node, radiusSize: number): boolean {
-  let query = new Line({ one: first.position, two: second.position });
-  for (let node of nodes) {
-    if (node == first || node == second) continue;
-    if (query.intersectCircle(node.position, radiusSize)) return true;
-
-    for (let other of node.neighbors) {
-      if (other == first || other == second) continue;
-      let line = new Line({ one: node.position, two: other.position });
-      if (query.intersectLine(line)) return true;
-    }
-  }
-
-  return false;
-}
-
 export function generate(options: GenerateOptions): Node[] {
   let { width, height, spacing, radiusSize, iters = 1000, minAngle = Math.PI / 4 } = options;
   radiusSize = radiusSize || spacing/2;
@@ -143,8 +127,26 @@ export function generate(options: GenerateOptions): Node[] {
   for (const node of result) {
     node.baseMeatCost = _.random(1, 4, false);
   }
+  
+  // Add events to nodes
 
   return _.sortBy(result, (node) => { return node.position.y; });
+}
+
+export function candidateEdgeHasIntersection(nodes: Node[], first: Node, second: Node, radiusSize: number): boolean {
+  let query = new Line({ one: first.position, two: second.position });
+  for (let node of nodes) {
+    if (node == first || node == second) continue;
+    if (query.intersectCircle(node.position, radiusSize)) return true;
+
+    for (let other of node.neighbors) {
+      if (other == first || other == second) continue;
+      let line = new Line({ one: node.position, two: other.position });
+      if (query.intersectLine(line)) return true;
+    }
+  }
+
+  return false;
 }
 
 export function generateRiver(nodes: Node[], options: GenerateOptions): PIXI.Point[] {
