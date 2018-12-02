@@ -56,7 +56,11 @@ type EventChooserState = {
   mode: "choice" | "follow-up";
 }
 
-export class ActionChooser extends React.Component<EventChooserProps> {
+export class ActionChooser extends React.Component<EventChooserProps, EventChooserState> {
+  constructor(props: EventChooserProps) {
+
+  }
+
   renderRequirement(opt: EventOption): {
     node              : React.ReactNode;
     renderNothingElse?: boolean;
