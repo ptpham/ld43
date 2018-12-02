@@ -89,5 +89,5 @@ const ForestElfEvent: EventType = {
 }
 
 export const AllEvents: EventType[] = [
-  
+  ForestElfEvent,
 ]
