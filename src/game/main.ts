@@ -24,32 +24,11 @@ export class Game {
       [PIXI.loader.resources['blight_particle'].texture], 
       //[],
       {
-        alpha: {
-          list: [
-            {
-              value: 0.8,
-              time: 0
-            },
-            {
-              value: 0.1,
-              time: 1
-            }
-          ],
-          isStepped: false
-        },
-        scale: {
-          list: [
-            {
-              value: 1,
-              time: 0
-            },
-            {
-              value: 0.3,
-              time: 1
-            }
-          ],
-          isStepped: false
-        },
+        // alpha decays from 1 to 0
+        alpha: { list: [ { value: 1, time: 0 }, { value: 0, time: 1 } ], isStepped: false },
+        // scale is always 2
+        scale: { list: [ { value: 2, time: 0 }, { value: 2, time: 1 } ], isStepped: false },
+        // can we disable color please?
         color: {
           list: [
             {
@@ -63,47 +42,26 @@ export class Game {
           ],
           isStepped: false
         },
-        speed: {
-          list: [
-            {
-              value: 200,
-              time: 0
-            },
-            {
-              value: 100,
-              time: 1
-            }
-          ],
-          isStepped: false
-        },
-        startRotation: {
-          min: 0,
-          max: 360
-        },
-        rotationSpeed: {
-          min: 0,
-          max: 0
-        },
-        lifetime: {
-          min: 0.5,
-          max: 0.5
-        },
-        frequency: 0.008,
+        // speed always 25
+        speed: { list: [ { value: 25, time: 0 }, { value: 25, time: 1 } ], isStepped: false },
+        // always fire particles up
+        startRotation: { min: 270, max: 270 },
+        // they do not rotate
+        rotationSpeed: { min: 0, max: 0 },
+        // lifetime -- tunable, around .5 ish works fine
+        lifetime: { min: 0.4, max: 0.6 },
+        // seconds per particle
+        frequency: 0.1667,
         spawnChance: 1,
         particlesPerWave: 1,
+        // emit forever
         emitterLifetime: -1,
         maxParticles: 1000,
-        pos: {
-          x: 0,
-          y: 0
-        },
+        pos: { x: 0, y: 0 },
         addAtBack: false,
+        // radius 100
         spawnType: "circle",
-        spawnCircle: {
-          x: 0,
-          y: 0,
-          r: 100
-        }
+        spawnCircle: { x: 0, y: 0, r: 100 }
       }
     );
   }
