@@ -6,12 +6,14 @@ import { Point } from './lib/point';
 import { LocationType, LocationTypeNames } from './data';
 import _ from 'lodash';
 import { State } from './state';
+import { EventType } from "./events";
 
 export class Node {
   // not counting disadvantages due to idol etc
   baseMeatCost!: number;
-  neighbors: Node[] = [];
-  upgraded: boolean = false;
+  neighbors    : Node[] = [];
+  upgraded     : boolean = false;
+  event        : EventType;
 
   constructor(
     public position: Point, 
