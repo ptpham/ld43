@@ -105,7 +105,10 @@ export class ActionChooser extends React.Component<EventChooserProps> {
     const { node: requirement, renderNothingElse } = this.renderRequirement(option);
 
     if (renderNothingElse) {
-      return requirement;
+      return (
+        <EventButton disabled>
+          { requirement }
+        </EventButton>
     }
 
     return (
