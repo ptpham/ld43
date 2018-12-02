@@ -44,6 +44,15 @@ export const AllEvents: EventType[] = [
           amount: 20,
         },
       },
+
+      {
+        skillRequired: { type: "specific-skill", skill: "Builder" },
+        description: "Build a house.",
+        outcome: { 
+          type: "lose-meat", 
+          amount: 20,
+        },
+      },
     ]
   }
 ]
