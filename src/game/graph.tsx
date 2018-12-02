@@ -182,7 +182,7 @@ export function generateRiver(nodes: Node[], options: GenerateOptions): PIXI.Poi
     if (node.locationType === 'Start' || node.locationType === 'Finish') {
       return;
     }
-    if (line.intersectCircle(node.position, C.NODE_RADIUS * 1.25)) {
+    if (line.intersectCircle(node.position, C.NODE_RADIUS * 2)) {
       node.locationType = 'River';
       snake.push(new PIXI.Point(node.position.x, node.position.y));
     }
@@ -212,7 +212,7 @@ export function generateCanyon(nodes: Node[], options: GenerateOptions, split: P
     if (node.locationType === 'Start' || node.locationType === 'Finish') {
       return;
     }
-    if (line.intersectCircle(node.position, C.NODE_RADIUS * 1.25)) {
+    if (line.intersectCircle(node.position, C.NODE_RADIUS * 2)) {
       node.locationType = 'Canyon';
       snake.push(new PIXI.Point(node.position.x, node.position.y));
     }

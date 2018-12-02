@@ -136,9 +136,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
     node    : React.ReactNode; 
     cantBuy?: boolean;
   } {
-    let to_ret: React.ReactNode[] = [];
-    let cantBuy: boolean | undefined = undefined;
-    cantBuy;
+    let to_ret: { node    : React.ReactNode; cantBuy?: boolean; }[] = [];
     if (opt.outcome) {
       const outcomes = Array.isArray(opt.outcome) ? opt.outcome : [opt.outcome];
       const meatOutcome = outcomes.filter(x => x.type === "gain-meat" || x.type === "lose-meat")[0];
@@ -146,7 +144,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
       if (meatOutcome) {
         if (meatOutcome.type === "gain-meat") {
           if (meatOutcome.hidden) {
-            return { node: null };
+            to_ret.push( { node: null });
           } else {
             to_ret.push({
               node: (
@@ -158,21 +156,21 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
           }
         } else if (meatOutcome.type === "lose-meat") {
           if (meatOutcome.hidden) {
-            return { node: null };
+            to_ret.push({ node: null });
           } else {
-            to_ret.push((
-              <span style={{ color: "red" }}>
-                -{ meatOutcome.amount } meat
-              </span>
-            ))
-            return {
+            //to_ret.push((
+            //  <span style={{ color: "red" }}>
+            //    -{ meatOutcome.amount } meat
+            //  </span>
+            //))
+            to_ret.push({
               node: (
                 <span style={{ color: "red" }}>
                   -{ meatOutcome.amount } meat
                 </span>
               ),
               cantBuy: this.props.gameState.meat < meatOutcome.amount,
-            };
+            });
           }
         } else {
           throw new Error("should be impossible! " + meatOutcome);
@@ -182,14 +180,14 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
       const sacrificeOutcome = outcomes.filter(x => x.type === 'lose-member-weak' || x.type === 'lose-member-strong')[0];
       if (sacrificeOutcome) {
         if (sacrificeOutcome.type === 'lose-member-weak') {
-          return ({
+          to_ret.push({
             node: 
               <span style={{ color: "red "}}>
                 Lose { sacrificeOutcome.skill } temporarily.
               </span>
           });
         } else if (sacrificeOutcome.type === 'lose-member-strong') {
-          return ({
+          to_ret.push({
             node: 
               <span style={{ color: "red "}}>
                 Lose { sacrificeOutcome.skill } permanently.
@@ -201,15 +199,18 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
       }
     }
 
-     return {node: (
-      <span>
-        { to_ret.map((x, i) => { return i ===0 ? x : (
-          <span>
-            {', '} {x}
-          </span>
-        ) }) }
-      </span>
-    )}
+    return {
+      node: (
+        <span>
+          { to_ret.map((x, i) => { return i ===0 ? x.node : (
+            <span>
+              {', '} {x.node}
+            </span>
+         ) }) }
+        </span>
+      ),
+      cantBuy: to_ret.reduce((pv, cv) => (pv || (cv.cantBuy || false)), false)
+    }
   }
 
   handleOption(option: EventOption): void {
