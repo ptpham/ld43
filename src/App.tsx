@@ -107,8 +107,33 @@ class App extends React.Component<{ game: Game }, AppState>  {
           gameState={this.state.gameState}
         />
 
-        <div>
-          <strong>You arrive at the Mountain.</strong>
+        <div
+          style={{
+            position: "fixed",
+            top: "150px",
+            left: "150px",
+            width: "400px",
+            height: "200px",
+            backgroundColor: "white",
+            padding: "20px",
+          }}
+        >
+          <div>
+            <strong>You arrive at the Mountain.</strong> Outside, an old man solicits you for help.
+          </div>
+
+          <div>
+            <strong>Storyteller:</strong> Tell him a story.
+          </div>
+
+          <div>
+            <strong>Storyteller:</strong> Tell him a story.
+          </div>
+
+          <div>
+            <strong>Stupid:</strong> Eat him.
+          </div>
+
         </div>
 
       </div>

@@ -21,12 +21,6 @@ export class C {
   public static SPRITE_ASSETS = [
     'test',
     'idol',
-    'caravan',
-    'cloud_0',
-    'cloud_1',
-    'caravan',
-    'cloud_0',
-    'cloud_1',
     'canyon',
     'caravan',
     'cloud_0',
