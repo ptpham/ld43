@@ -145,6 +145,20 @@ export class State {
     }
   }
 
+  public getIdolBlightDanger(): string {
+    if (this.time.for_idol <= 10) {
+      return "Minimal";
+    } else if (this.time.for_idol <= 20) {
+      return "Low";
+    } else if (this.time.for_idol <= 30) {
+      return "Medium";
+    } else if (this.time.for_idol <= 40) {
+      return "High";
+    } else {
+      return "Catastrophic";
+    }
+  }
+
   onDropIdol(): void {
     if (this.idolState.state === "carried") {
       this.idolState = {
