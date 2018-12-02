@@ -189,6 +189,10 @@ export class State {
       }
     }
 
+    if (option.updateEventTo) {
+      this.caravanLocation.event = option.updateEventTo;
+    }
+
     this.activeEvent = undefined;
     this.triggerChange();
   }
