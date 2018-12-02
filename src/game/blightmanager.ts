@@ -9,7 +9,7 @@ export class BlightManager {
   public unRenderImminent(): void {
 
   }
-  public renderImminent(state: State, node: Node, idol_time: number): void {
+  public renderImminent(state: State, idol_position: Node, idol_time: number): void {
 
   }
 }
