@@ -118,7 +118,7 @@ const ForestElfEvent: EventType = {
       ],
     },
     PassOn({ price: 10 }),
-  ]
+  ],
 };
 
 const ForestElfEventBlighted: EventType = {
@@ -159,6 +159,7 @@ const ForestElfEventBlighted: EventType = {
     PassOn({ price: 40 }),
   ]
 };
+ForestElfEvent.whenBlighted = ForestElfEventBlighted;
 
 
 const BarbarianVillageRepaired: EventType = {
