@@ -193,8 +193,6 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
       );
     }
 
-    debugger;
-
     return (
       <EventButton
         onClick={ () => this.handleOption(option) }
