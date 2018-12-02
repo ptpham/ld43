@@ -19,6 +19,12 @@ export class GameMap extends PIXI.Sprite implements IEntity {
     super();
 
     this.filter = new PIXI.filters.ColorMatrixFilter();
+    this.filter.matrix = [
+      1, 0.1, 0, 0, 0,
+      0.1, 0.9, 0, 0, 0,
+      0, 0, 1.1, 0, 0,
+      0, 0, 0, 1, 0,
+    ];
 
     this.state = state;
     this.makeBG();
@@ -64,6 +70,7 @@ export class GameMap extends PIXI.Sprite implements IEntity {
         container.addChild(sprite);
       }
     }
+    container.filters = [this.filter];
     this.state.stage.addChild(container);
   }
 
@@ -101,6 +108,7 @@ export class GameMap extends PIXI.Sprite implements IEntity {
 
   makeIdol(): Idol {
     const idol = new Idol(this.state);
+    idol.filters = [this.filter];
     this.addChild(idol);
     return idol;
   }
@@ -124,6 +132,22 @@ export class GameMap extends PIXI.Sprite implements IEntity {
   }
 
   update(state: State) {
-    // update some circles
+    if (this.state.idolState.state === 'gone') {
+      const idealFilter = [
+        1, 0, 0, 0, 0,
+        0, 1, 0, 0, 0,
+        0, 0, 1, 0, 0,
+        0, 0, 0, 1, 0
+      ];
+
+      this.filter.matrix = this.filter.matrix.map((val, i) => {
+        if (val < idealFilter[i]) {
+          val += 0.001;
+        } else if (val > idealFilter[i]) {
+          val -= 0.001;
+        }
+        return val;
+      });
+    }
   }
 }
