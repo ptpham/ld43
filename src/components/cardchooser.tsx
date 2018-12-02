@@ -104,7 +104,7 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
           style={{ textAlign: "center" }}>
           { 
             (() => { 
-              if (true) { 
+              if ( 0 < this.state.selectedCards.size && this.state.selectedCards.size <= C.MAX_PARTY_SIZE) { 
                 return (
                   <a href="javascript:;" onClick={() => this.props.onDone(this.state.selectedCards)}> 
                   { this.state.selectedCards.size + "/" + C.MAX_PARTY_SIZE } Go! 
@@ -112,12 +112,15 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
                 );
               } else { 
                 return (
-                  <a href="javascript:;" onClick={() => this.props.onDone(this.state.selectedCards)}> 
+                  //<a href="javascript:;" onClick={() => this.props.onDone(this.state.selectedCards)}> 
+                  <div>
                   { this.state.selectedCards.size + "/" + C.MAX_PARTY_SIZE } Go! 
-                  </a> 
-                )
+                  </div>
+                  //</a> 
+                );
               }
-          })() }
+            })() 
+          }
         </div>
       </div>
     );
