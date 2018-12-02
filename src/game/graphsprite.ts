@@ -10,10 +10,10 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
 
     this.state = state;
 
-    this.build();
+    this.render();
   }
 
-  build() {
+  render() {
     const graphSprite = new PIXI.Graphics();
 
     graphSprite.lineWidth = 1;
