@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import { State } from '../game/state';
 import _ from 'lodash';
 import { EventType, EventOption } from '../game/events';
@@ -34,11 +34,13 @@ type EventChooserProps = {
 };
 
 export class ActionChooser extends React.Component<EventChooserProps> {
-  renderRequirement(opt: EventOption): void {
+  renderRequirement(opt: EventOption): JSX.Element {
     if (opt.skillRequired.type === "specific-skill") {
       return (
         <strong>{ opt.skillRequired.skill }</strong>
       );
+    } else if (opt.skillRequired.type === "no-skill") {
+      return null;
     }
   }
 
