@@ -64,6 +64,7 @@ export class State {
 
     this.graph = Graph.generate(graphOptions);
 
+    this.gameMode           = "Normal";
     this.cardsInCaravan     = new Set();
     this.cardsInWholeGame   = new Set();
     this.mousedOverLocation = undefined;
