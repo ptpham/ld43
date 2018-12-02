@@ -70,6 +70,7 @@ class App extends React.Component<{ game: Game }, AppState>  {
 
   renderCardChooser() {
     let { gameState, isEventVisible } = this.state;
+
     if (gameState.isLocationDone) return null;
     if (gameState.caravan_location.locationType === "Start") {
       return <div className={`modal ${isEventVisible ? 'show-map' : ''}`}>
