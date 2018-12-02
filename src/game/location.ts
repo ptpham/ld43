@@ -14,10 +14,12 @@ export class Location extends PIXI.Graphics implements IEntity {
   public particles: Particles | undefined;
 
   private mousedOver = false;
+  private sprite: PIXI.Sprite | undefined = undefined;
 
   constructor(props: {
     node: Node;
     state: State;
+    visited: boolean;
   }) {
     super();
 
@@ -26,39 +28,38 @@ export class Location extends PIXI.Graphics implements IEntity {
     this.node = node;
     this.state = state;
 
-    let sprite: PIXI.Sprite | undefined = undefined;
-
     // add a sprite
     if (node.locationType == 'Start') {
-      sprite = makeSprite(PIXI.loader.resources['grass'].texture);
+      this.sprite = makeSprite(PIXI.loader.resources['grass'].texture);
     } else if (node.locationType == 'Finish') {
       // mount DOOM!
-      sprite = makeSprite(PIXI.loader.resources['volcano'].texture);
-      sprite.x *= 2;
-      sprite.y *= 2;
-      sprite.scale.x *= 2;
-      sprite.scale.y *= 2;
+      this.sprite = makeSprite(PIXI.loader.resources['volcano'].texture);
+      this.sprite.x *= 2;
+      this.sprite.y *= 2;
+      this.sprite.scale.x *= 2;
+      this.sprite.scale.y *= 2;
       this.particles = new Particles(this, node.position.x, node.position.y - 32, 60, 'red_particle');
     } else if (node.locationType == 'Forest') {
-      sprite = makeSprite(PIXI.loader.resources['forest'].texture);
+      this.sprite = makeSprite(PIXI.loader.resources['forest'].texture);
     } else if (node.locationType == 'GoblinNest') {
-      sprite = makeSprite(PIXI.loader.resources['goblin'].texture);
+      this.sprite = makeSprite(PIXI.loader.resources['goblin'].texture);
     } else if (node.locationType == 'Mountain') {
-      sprite = makeSprite(PIXI.loader.resources['mountain'].texture);
+      this.sprite = makeSprite(PIXI.loader.resources['mountain'].texture);
     } else if (node.locationType == 'BarbarianVillage') {
-      sprite = makeSprite(PIXI.loader.resources['barbarian'].texture);
+      this.sprite = makeSprite(PIXI.loader.resources['barbarian'].texture);
     } else if (node.locationType == 'Desert') {
-      sprite = makeSprite(PIXI.loader.resources['desert'].texture);
+      this.sprite = makeSprite(PIXI.loader.resources['desert'].texture);
     } else if (node.locationType == 'Swamp') {
-      sprite = makeSprite(PIXI.loader.resources['swamp'].texture);
+      this.sprite = makeSprite(PIXI.loader.resources['swamp'].texture);
     }
 
+    if (this.sprite) {
+      this.addChild(this.sprite);
 
-    if (sprite) {
-      this.addChild(sprite);
+      this.sprite.x = node.position.x - this.sprite.width / 2;
+      this.sprite.y = node.position.y - this.sprite.height / 2;
 
-      sprite.x = node.position.x - sprite.width / 2;
-      sprite.y = node.position.y - sprite.height / 2;
+      (this.sprite as any).visited = props.visited;
     }
 
     this.interactive = true;
@@ -120,17 +121,17 @@ export class Location extends PIXI.Graphics implements IEntity {
   render(): void {
     this.clear();
 
-    if (this.selected) {
-      for (const child of this.children) {
-        (child as any).tint = 0xffff00;
-      }
-    } else if (this.mousedOver) {
-      for (const child of this.children) {
-        (child as any).tint = 0xdddddd;
-      }
+    if (!this.sprite) { return; }
+
+    if (!(this.sprite as any).visited) {
+      this.sprite.tint = 0x0;
     } else {
-      for (const child of this.children) {
-        (child as any).tint = 0xffffff;
+      if (this.selected) {
+        this.sprite.tint = 0xffff00;
+      } else if (this.mousedOver) {
+        this.sprite.tint = 0xdddddd;
+      } else {
+        this.sprite.tint = 0xffffff;
       }
     }
   }

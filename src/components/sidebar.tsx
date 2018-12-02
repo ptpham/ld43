@@ -114,6 +114,29 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
         }
 
         {
+          this.props.gameState.items.size > 0 &&
+            <div
+              style={{
+                paddingTop: "20px",
+              }}
+            >
+              <div>
+                <strong>Items</strong>
+              </div>
+
+              {
+                [...this.props.gameState.items.keys()].map(item => {
+                  return (
+                    <div>
+                      { item }
+                    </div>
+                  );
+                })
+              }
+            </div>
+        }
+
+        {
           location &&
             <>
               <div
