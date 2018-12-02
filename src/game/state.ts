@@ -110,6 +110,10 @@ export class State {
           skill: "Assassin",
           meat: 1,
         },
+        {
+          skill: "Priest",
+          meat: 1,
+        },
       ] as CardType[]);
 
       this.isLocationDone = true;
