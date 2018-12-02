@@ -193,6 +193,7 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
   mouseOut(): void {
     this.mousedOver = false;
     this.state.mousedOverLocation = undefined;
+    this.particles = undefined;
 
     this.render();
   }
