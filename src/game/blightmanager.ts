@@ -32,6 +32,16 @@ export class BlightManager implements IEntity {
     this.imminent = [];
   }
 
+  private computeSeed(state: State, idol_position: Node): number {
+    // computes a deterministic seed based on the already blighted nodes and the current node
+    let seed = 0;
+    for (let node of state.blightedNodes) {
+      seed += node.position.x + 12345 * node.position.y;
+    }
+    seed += idol_position.position.x + 12345 * idol_position.position.y;
+    return seed;
+  }
+
   public renderImminent(state: State, idol_position: Node, idol_time: number): void {
     // l2 distance? or graph distance?
     let neighborsByDegree: Node[][] = [ ];
@@ -43,7 +53,7 @@ export class BlightManager implements IEntity {
     }
     neighborsByDegree.push(deg2);
 
-    let random = SeedRandomGenerator(idol_position.position.x + 12345 * idol_position.position.y);
+    let random = SeedRandomGenerator(this.computeSeed(state, idol_position));
 
     for (let degree = 0; degree < 2 /* lol */; degree++ ){
       let neighbors: Node[] = neighborsByDegree[degree];
