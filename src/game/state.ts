@@ -16,6 +16,9 @@ export type IdolState =
       state : "dropped";
       node  : Graph.Node;
     }
+  | {
+      state: "gone";
+    }
   ;
 
 export type GameMode = 
@@ -82,6 +85,8 @@ export class State {
 
     this.river = Graph.generateRiver(this.graph, graphOptions);
     this.canyon = Graph.generateCanyon(this.graph, graphOptions, this.river);
+
+    this.graph = Graph.addLocationBasedData(this.graph, C.CANVAS_WIDTH);
 
     this.caravanLocation = this.graph.find(node => node.locationType === 'Start')!;
     this.volcanoLocation = this.graph.find(node => node.locationType === 'Finish')!;
@@ -154,7 +159,7 @@ export class State {
 
     this.activeEvent = to.event;
     this.time.from_start++;
-    if (this.idolState.state === 'carried') {
+    if (this.idolState.state === 'carried' || this.idolState.state === 'gone') {
       // if it was newly picked up : remove the imminently blighted spots
       //this.blightManager.unRenderImminent();
     } else {
@@ -235,9 +240,19 @@ export class State {
           case "turn-back": {
             this.moveCaravan(
               this.lastCaravanLocation,
-              // { retreat: true }
+              true
             );
 
+            return;
+          }
+
+          case "lose-member": {
+            for (let c of this.cardsInCaravan) {
+              if (c.skill == outcome.skill) {
+                this.cardsInCaravan.delete(c);
+                break;
+              }
+            }
             break;
           }
 
@@ -252,6 +267,13 @@ export class State {
 
     if (option.updateEventTo) {
       this.caravanLocation.event = option.updateEventTo;
+    }
+
+    if (option.chucksIdol) {
+      this.idolState = {
+        state: "gone",
+      };
+      this.blightManager.unRenderImminent();
     }
 
     this.activeEvent = undefined;

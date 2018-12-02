@@ -6,7 +6,7 @@ import { Point } from './lib/point';
 import { LocationType, LocationTypeNames } from './data';
 import _ from 'lodash';
 import { State } from './state';
-import { EventType, AllEvents } from "./events";
+import { EventType, AllEvents, EventDifficulty } from "./events";
 
 export class Node {
   // not counting disadvantages due to idol etc
@@ -60,13 +60,22 @@ export type GenerateOptions = {
   height: number
 }
 
+export function connectSingleNodeCloseTo(nodes: Node[], target: Node) {
+  let sorted = _.sortBy(nodes, node => node.position.distance(target.position));
+  sorted[0].connect(target);
+  return sorted[0];
+}
+
 export function generate(options: GenerateOptions): Node[] {
   let { width, height, spacing, radiusSize, iters = 1000, minAngle = Math.PI / 4 } = options;
   radiusSize = radiusSize || spacing/2;
 
+  let finish = 
+    new Node(new Point(width - spacing, height / 2), "Finish");
+
   let result: Node[] = [
     new Node(new Point(spacing, height / 2), "Start"),
-    new Node(new Point(width - spacing, height / 2), "Finish")
+    finish
   ];
 
   // Place initial node positions
@@ -87,13 +96,25 @@ export function generate(options: GenerateOptions): Node[] {
     result.push(new Node(current, Sample(validLocationTypeNames) as LocationType));
   }
 
+  // Create gauntlet toward the end
+  let GAUNTLET_SIZE = 3;
+  let gauntlet = [finish];
+  for (let i = 0; i < GAUNTLET_SIZE; i++) {
+    let created = connectSingleNodeCloseTo(_.difference(result, gauntlet), _.last(gauntlet)!);
+    gauntlet.push(created);
+  }
+  let gauntletProhibitSet = new Set(gauntlet.slice(0, -1));
+
   // Create nice edges between nodes
   for (let i = 0; i < result.length; i++) {
     let first = result[i];
+    if (gauntletProhibitSet.has(first)) continue;
 
     outer:
     for (let j = 0; j < i; j++) {
       let second = result[j];
+      if (gauntletProhibitSet.has(second)) continue;
+
       let toSecond = second.position.subtract(first.position);
       if (first.position.distance(second.position) > 2*spacing) continue;
       
@@ -114,11 +135,13 @@ export function generate(options: GenerateOptions): Node[] {
   for (let first of result) {
     let { neighbors } = first;
     if (neighbors.length > targetDegree) continue;
+    if (gauntletProhibitSet.has(first)) continue;
 
     let prohibit = [first, ...first.neighbors];
     let sorted = _.sortBy(_.difference(result, prohibit), second => first.position.distance(second.position))!;
 
     for (let i = 0; i < sorted.length && neighbors.length < targetDegree; i++) {
+      if (gauntletProhibitSet.has(sorted[i])) continue;
       if (candidateEdgeHasIntersection(result, first, sorted[i], radiusSize)) continue;
       first.connect(sorted[i]);
     }
@@ -126,16 +149,6 @@ export function generate(options: GenerateOptions): Node[] {
 
   for (const node of result) {
     node.baseMeatCost = _.random(1, 4, false);
-  }
-  
-  // Add events to nodes
-
-  for (const node of result) {
-    const relevantEvent = Sample(AllEvents.filter(event => event.location === node.locationType));
-
-    if (relevantEvent) {
-      node.event = relevantEvent;
-    }
   }
 
   return _.sortBy(result, (node) => { return node.position.y; });
@@ -203,5 +216,28 @@ export function generateCanyon(nodes: Node[], options: GenerateOptions, split: P
   });
   snake.push(new PIXI.Point(line.x2, line.y2));
   return snake;
+}
+
+export function addLocationBasedData(nodes: Node[], width: number): Node[] {
+
+  // Add events to nodes
+  let maxDifficulty = EventDifficulty.MaxDifficulty;
+  return nodes.map(node => {
+    let desiredDifficulty = _.clamp(Math.floor(maxDifficulty*node.position.x/width + Math.random() - 0.5), 0, maxDifficulty - 1);
+    let locationEvents = AllEvents.filter(event => event.location === node.locationType);
+    let locationEventsByDifficulty = _.groupBy(locationEvents, 'difficulty');
+
+    for (let i = 0; i < maxDifficulty; i++) {
+      let lower = locationEventsByDifficulty[desiredDifficulty + i];
+      let upper = locationEventsByDifficulty[desiredDifficulty - i];
+      let candidates = _.union(lower, upper);
+      const relevantEvent = Sample(candidates);
+      if (relevantEvent) {
+        node.event = relevantEvent;
+        break;
+      }
+    }
+    return node;
+  });
 }
 

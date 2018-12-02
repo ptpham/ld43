@@ -53,10 +53,6 @@ export class Particles extends Emitter {
   }
 
   update_(state: State): void {
-    if (this.asset_name === 'purple_particle') {
-      console.log("PURTICLE UPDATE")
-    }
-    
     let now: number = Date.now();
     this.update((now - this.elapsed) * 0.001);
     this.elapsed = now;

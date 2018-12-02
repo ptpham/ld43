@@ -19,7 +19,7 @@ export class Idol extends PIXI.Sprite implements IEntity {
   update(state: State): void {
     const idolState = state.idolState;
 
-    if (idolState.state === "carried") {
+    if (idolState.state === "carried" || idolState.state === "gone") {
       this.alpha = 0;
       // this.x = state.caravanLocation.position.x;
       // this.y = state.caravanLocation.position.y;

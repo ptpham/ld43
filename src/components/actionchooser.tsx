@@ -315,11 +315,24 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
                   <div
                     style={{
                       backgroundColor: "yellow",
+                    }}
+                  >
+                    You run back!
+                  </div>
+                )
+              }
+
+
+              if (outcome.type === "lose-member") {
+                return (
+                  <div
+                    style={{
+                      backgroundColor: "lightblue",
                       padding: "5px",
                       margin: "10px 0 0 0"
                     }}
                   >
-                    You run back!
+                    You have permanently left behind your { outcome.skill }.
                   </div>
                 )
               }
