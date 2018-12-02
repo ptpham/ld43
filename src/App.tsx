@@ -119,7 +119,7 @@ class App extends React.Component<{ game: Game }, AppState>  {
           }}
         >
           <div style={{ padding: "0 0 20px 0"}}>
-            <strong>You arrive at the Mountain.</strong> Outside, an old man solicits you for help.
+            <strong>You arrive at the Mountain.</strong> Outside, an old, frail man solicits you for help. He looks to be on the brink of death.
           </div>
 
           <div style={{ padding: "0 0 10px 0" }}>
