@@ -89,7 +89,10 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
           }}
         >
           Idol danger: { this.props.gameState.getIdolBlightDanger().text }
-          {", increases in "  + this.props.gameState.getIdolBlightDanger().remaining + " weeks"}
+          {
+            this.props.gameState.getIdolBlightDanger().remaining === -1 ? ", stable" :
+            ", increases in "  + this.props.gameState.getIdolBlightDanger().remaining + " weeks"
+          }
         </div>
       </div>
     );
