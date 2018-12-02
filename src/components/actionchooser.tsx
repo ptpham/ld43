@@ -5,15 +5,15 @@ import _ from 'lodash';
 import { EventType, EventOption } from '../game/events';
 
 const EventButton = (props: { 
-  onClick : () => void;
+  onClick ?: () => void;
   disabled?: boolean;
-  children: React.ReactNode;
+  children : React.ReactNode;
 }): JSX.Element => {
   return (
     <a 
       href="javascript:;"
       className={ props.disabled ? "" : "event-button" }
-      onClick={() => props.onClick() }
+      onClick={() => props.onClick && props.onClick() }
       style={{
         textDecoration: "none",
         display: "block",
