@@ -5,7 +5,7 @@ import { State } from "./state";
 
 export class Particles extends Emitter {
   public elapsed: number = Date.now();
-  constructor(parent: PIXI.Graphics) {
+  constructor(parent: PIXI.Graphics, x: number, y: number) {
     super(
       parent,
       [PIXI.loader.resources['purple_particle'].texture], 
@@ -35,7 +35,7 @@ export class Particles extends Emitter {
         addAtBack: false,
         // radius 100
         spawnType: "circle",
-        spawnCircle: { x: 30, y: 30, r: 16 },
+        spawnCircle: { x: x, y: y, r: 16 },
         // auto start emitting
         emit: true
       }

@@ -13,7 +13,7 @@ export class Node {
   baseMeatCost!: number;
   neighbors    : Node[] = [];
   upgraded     : boolean = false;
-  event        : EventType;
+  event        : EventType | undefined;
 
   constructor(
     public position: Point, 
