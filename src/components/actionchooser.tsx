@@ -50,23 +50,15 @@ export class ActionChooser extends React.Component<EventChooserProps> {
           { this.props.event.description }
         </div>
 
-        <EventButton
-          onClick={ () => {}}
-        >
-          <strong>Storyteller:</strong> Tell him a story.
-        </EventButton>
-
-        <EventButton
-          onClick={ () => {}}
-        >
-          <strong>Fighter:</strong> Try... to punch him?
-        </EventButton>
-
-        <EventButton
-          onClick={ () => {}}
-        >
-          <strong>Stupid:</strong> Eat him.
-        </EventButton>
+        {
+          this.props.event.options.map(option => 
+            <EventButton
+              onClick={ () => {}}
+            >
+              { option.description }
+            </EventButton>
+          )
+        }
       </div>
     )
   }
