@@ -1,5 +1,5 @@
 
-import React, { useCallback } from 'react';
+import React from 'react';
 import { State } from '../game/state';
 import _ from 'lodash';
 import { EventType, EventOption } from '../game/events';
