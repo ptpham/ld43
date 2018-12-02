@@ -4,6 +4,7 @@ import { Node } from './graph';
 import { SeedRandomGenerator } from './constants';
 import { Particles } from './particles';
 import { IEntity } from './entity';
+//import * from 'crypto';
 
 export class BlightManager implements IEntity {
   // reserve undefined so we can garbage collect unused particles properly without race conditions
@@ -39,6 +40,7 @@ export class BlightManager implements IEntity {
       seed += node.position.x + 12345 * node.position.y;
     }
     seed += idol_position.position.x + 12345 * idol_position.position.y;
+    //seed += hash(state.getIdolBlightDanger().text);
     return seed;
   }
 
