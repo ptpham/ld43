@@ -28,5 +28,6 @@ export class C {
     'grassland_6',
     'grassland_7',
     'grassland_8',
+    'river',
   ];
 }
