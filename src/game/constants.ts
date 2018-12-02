@@ -17,6 +17,7 @@ export class C {
   public static SPRITE_SCALE = 2;
 
   public static IDOL_MEAT_COST = 1;
+  public static MAX_PARTY_SIZE = 3;
 
   public static SPRITE_ASSETS = [
     'test',
