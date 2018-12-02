@@ -50,7 +50,9 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
           : "None";
 
 
-    let location = this.props.gameState.mousedOverLocation || this.props.gameState.selectedNextLocation;
+    const mousedOverLoc = this.props.gameState.mousedOverLocation;
+    const selectedLoc   = this.props.gameState.selectedNextLocation
+    let location = mousedOverLoc || selectedLoc;
 
     return (
       <div
