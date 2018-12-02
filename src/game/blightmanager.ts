@@ -65,8 +65,8 @@ export class BlightManager implements IEntity {
   public getIdolBlightDanger(time_for_idol: number, idolState: IdolState): { text: string, remaining: number} {
     let t = time_for_idol;
     let to_ret: { text: string, remaining: number } = { text: "", remaining: 0};
-    if (t < 10) {
-      to_ret = { text: "Minimal", remaining: 10 - t };
+    if (t < 2) {
+      to_ret = { text: "Minimal", remaining: 2 - t };
     } else if (t < 20) {
       to_ret = { text: "Low", remaining: 20 - t };
     } else if (t < 30) {
