@@ -38,7 +38,7 @@ export class ActionChooser extends React.Component<EventChooserProps> {
     if (opt.skillRequired.type === "specific-skill") {
       return (
         <strong>{ opt.skillRequired.skill }</strong>
-      )
+      );
     }
   }
 

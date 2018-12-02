@@ -64,6 +64,7 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
 
     if (this.state.stage.children.indexOf(this.graphSprite) === -1) {
       this.state.stage.addChild(this.graphSprite);
+      this.graphSprite.clear();
     }
 
     return this.graphSprite;
