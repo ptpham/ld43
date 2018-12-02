@@ -9,11 +9,12 @@ import { Graphics } from "pixi.js";
 import { random } from "lodash";
 import { Idol } from "./idol";
 
-function makeSprite(texture: PIXI.Texture, x: number, y: number): PIXI.Sprite {
+function makeSprite(texture: PIXI.Texture): PIXI.Sprite {
   const sprite = new PIXI.Sprite(texture);
-  sprite.x = x - sprite.width * C.SPRITE_SCALE / 2;
-  sprite.y = y - sprite.height * C.SPRITE_SCALE / 2;
+  sprite.x = - sprite.width * C.SPRITE_SCALE / 2;
+  sprite.y = - sprite.height * C.SPRITE_SCALE / 2;
   sprite.scale = new PIXI.Point(C.SPRITE_SCALE, C.SPRITE_SCALE);
+
   return sprite;
 }
 
@@ -53,7 +54,12 @@ export class GameMap extends Entity {
     for (let y = 0; y < C.CANVAS_HEIGHT; y += tileSize) {
       for (let x = 0; x < C.CANVAS_WIDTH; x += tileSize) {
         const index = random(0, grasslandTextures.length - 1);
-        container.addChild(makeSprite(grasslandTextures[index], x, y));
+
+        const sprite = makeSprite(grasslandTextures[index]);
+
+        sprite.x = x;
+        sprite.y = y;
+        container.addChild(sprite);
       }
     }
     this.state.stage.addChild(container);
@@ -135,34 +141,27 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
     this.node = node;
     this.state = state;
 
+    let sprite: PIXI.Sprite | undefined = undefined;
+
     // add a sprite
     if (node.locationType == 'Start') {
-      this.addChild(makeSprite(PIXI.loader.resources['grass'].texture,
-        node.position.x,
-        node.position.y,
-      ));
-
+      sprite = makeSprite(PIXI.loader.resources['grass'].texture);
     } else if (node.locationType == 'Finish') {
       // mount DOOM!
-      this.addChild(makeSprite(PIXI.loader.resources['volcano'].texture,
-        node.position.x,
-        node.position.y,
-      ));
+      sprite = makeSprite(PIXI.loader.resources['volcano'].texture);
     } else if (node.locationType == 'Forest') {
-      this.addChild(makeSprite(PIXI.loader.resources['forest'].texture,
-        node.position.x,
-        node.position.y,
-      ));
+      sprite = makeSprite(PIXI.loader.resources['forest'].texture);
     } else if (node.locationType == 'GoblinNest') {
-      this.addChild(makeSprite(PIXI.loader.resources['goblin'].texture,
-        node.position.x,
-        node.position.y,
-      ));
+      sprite = makeSprite(PIXI.loader.resources['goblin'].texture);
     } else if (node.locationType == 'River') {
-      this.addChild(makeSprite(PIXI.loader.resources['test'].texture,
-        node.position.x,
-        node.position.y,
-      ));
+      sprite = makeSprite(PIXI.loader.resources['test'].texture);
+    }
+
+    if (sprite) {
+      this.addChild(sprite);
+
+      sprite.x = node.position.x;
+      sprite.y = node.position.y;
     }
 
     this.interactive = true;
@@ -236,8 +235,6 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
       this.x = 0;
       this.y = 0;
     }
-
-    console.log(this.mousedOver);
 
     if (this.mousedOver) {
       for (const child of this.children) {
