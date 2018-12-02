@@ -143,7 +143,7 @@ export class Game {
   gameLoop(): void {
     requestAnimationFrame(() => this.gameLoop());
 
-    //this.renderer.render(this.stage);
+    this.renderer.render(this.stage);
     let now = Date.now();
     this.emitter.update((now - this.elapsed) * 0.001);
     this.elapsed = now;
