@@ -124,7 +124,7 @@ const BlightedForestElfEvent: EventType = {
       description: "Appease the angry forest elves.",
       followUpText : "The forest elves shriek at you for bringing misfortune to their forest! After some discussion, though, you convince them that your priest might be able to help them lift the curse and restore their way of life. Your priest will need to stay behind and attend to the spirits of the forest.",
       outcome: {
-        type: "lose-meat",
+        type: "lose-meat", // also lose priest!
         amount: 40,
         hidden: false,
       },
@@ -187,9 +187,51 @@ const BarbarianVillageWornDown: EventType = {
   ]
 }
 
+const BlightedBarbarianVillageWornDown: EventType = {
+  location: "BarbarianVillage",
+  description: `
+    After days of journeying, your party encounters a ramshackle 
+    village of barbarians, with many buildings falling apart.
+    There looks to be fresh blood on the walls of some.
+    As you approach, a gigantic barbarian wearing a bone mask jumps out at you and demands, 
+    'Grafff muuuuukinasa!'`,
+  difficulty: 1,
+  options: [
+    {
+      skillRequired: { type: "specific-skill", skill: "Architect", withoutSkill: "Unlabeled" },
+      description  : "Repair some of the barbarian's buildings.",
+      followUpText : 
+      `You gesture to the giant barbarian your intentions to repair the buildings. He punches you in the head.
+      Looks like he didn't understand very much.`,
+      outcome      : { type: "lose-meat", amount: 10, hidden: true },
+      //updateEventTo: BarbarianVillageRepaired,
+    },
+    {
+      skillRequired: { type: "specific-skill", skill: "Assassin", withoutSkill: "Unlabeled" },
+      description  : "Assassinate the masked barbarian. Assassinate his friends hiding around the corner. Assassinate them all",
+      followUpText : 
+        `Strong and tough as they are, it seems no one left is nearly as observant as old Thok the gatekeeper.
+        You lie low for a period, tracking their movements and figuring out what allies you can find to oppose the masked gang. Eventually, you set up a trap and assassinate the masked gang with their help. The village is thrown into chaos and bloodshed as a result and by double-crossing your allies, you are able to help the "Democratic Republican Barbarians" eventually win out. In order to ensure they stay in power, your assassin stays behind as "military counselor".`,
+      outcome      : { type: "lose-meat", amount: 10, hidden: false }, // lose assassin
+      updateEventTo: {
+        location: "BarbarianVillage",
+        description: `
+          The village has been since been burned to the ground. No trace of the assassin or the "Democratic Republican Barbarians" remain.`,
+        difficulty: 1,
+        options: [
+          PassOn({ price: 10 }),
+        ]
+      },
+    },
+    PassOn({ price: 40 }),
+  ]
+}
+
+
 
 export const AllEvents: EventType[] = [
   ForestElfEvent,
   BlightedForestElfEvent,
   BarbarianVillageWornDown,
+  BlightedBarbarianVillageWornDown,
 ]
