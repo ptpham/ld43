@@ -73,7 +73,7 @@ export class BlightManager implements IEntity {
     for (let node of this.imminent) {
       this.imminentParticles.push(new Particles(state.gameMap.graphSprite, node.position.x, node.position.y, 6));
     }
-    console.log('rerendering ', this.imminent);
+    console.log('rerendering ', this.imminentParticles);
   }
 
   public getIdolBlightDanger(time_for_idol: number, idolState: IdolState): { text: string, remaining: number} {
