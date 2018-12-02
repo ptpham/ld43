@@ -10,6 +10,7 @@ export class BlightManager {
 
   }
   public renderImminent(state: State, idol_position: Node, idol_time: number): void {
+    let imminentBlight: Node[] = [];
     // l2 distance? or graph distance?
     let neighborsByDegree: Node[][] = [ ];
     neighborsByDegree.push([idol_position]);
@@ -26,9 +27,12 @@ export class BlightManager {
         if (state.blightedNodes.has(node)) {
           continue;
         }
-        if (Math.random()) {}
-
+        if (Math.random() < 0.4) {
+          imminentBlight.push(node);
+        }
       }
     }
+
+    // rerender
   }
 }
