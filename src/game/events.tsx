@@ -6,6 +6,7 @@ export type EventItem =
 export type EventOutcome = 
   | { type: "gain-meat"; amount: number; hidden: boolean }
   | { type: "lose-meat"; amount: number; hidden: boolean }
+  | { type: "lose-member"; skill: SkillType; hidden: boolean }
   | { type: "gain-item"; item: EventItem }
 
 export type Requirement =
