@@ -17,6 +17,7 @@ export class BlightManager implements IEntity {
       this.blightParticles.push(new Particles(state.gameMap.graphSprite, node.position.x, node.position.y, 60));
     }
     this.unRenderImminent();
+    this.renderImminent(state, idol_position, idol_time);
   }
 
   public unRenderImminent(): void {
