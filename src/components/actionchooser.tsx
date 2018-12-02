@@ -68,6 +68,8 @@ export class ActionChooser extends React.Component<EventChooserProps> {
         throw new Error("should be never! " + x);
       }
     }
+
+    return null;
   }
 
   handleOption(option: EventOption): void {
