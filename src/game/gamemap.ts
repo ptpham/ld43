@@ -159,6 +159,8 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
     } else if (node.locationType == 'Finish') {
       // mount DOOM!
       sprite = makeSprite(PIXI.loader.resources['volcano'].texture);
+      let graphix: PIXI.Graphics = new PIXI.Graphics();
+      new Particles(graphix, node.position.x, node.position.y, 60);
     } else if (node.locationType == 'Forest') {
       sprite = makeSprite(PIXI.loader.resources['forest'].texture);
     } else if (node.locationType == 'GoblinNest') {
