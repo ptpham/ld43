@@ -32,10 +32,7 @@ const ForestThatIsCutDown: EventType = {
   description: "This forest has been cut down.",
   difficulty : 1,
   options: [
-    {
-      skillRequired: { type: "no-skill" },
-      description: "Pass on.",
-    },
+    FreePassOn,
   ]
 };
 
