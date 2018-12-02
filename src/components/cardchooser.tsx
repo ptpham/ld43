@@ -84,7 +84,7 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
             fontSize: "20px",
             paddingBottom: "10px"
           }}
-        >Choose your Caravan! {"40"} characters available! </div>
+        >Choose your Caravan! {this.props.gameState.cardsInWholeGame.size} characters available! </div>
 
         <div>
           {

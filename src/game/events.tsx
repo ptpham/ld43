@@ -50,6 +50,7 @@ const CutDownForestOption: EventOption = {
     amount: 10,
   },
   updateEventTo: ForestThatIsCutDown,
+  followUpText: "Your lumberjack gets to work, and after some time, the entire forest is levelled.",
 };
 
 const ForestWithHouse: EventType = {
