@@ -28,7 +28,7 @@ export class Game {
         // scale is always 2
         scale: { list: [ { value: 2, time: 0 }, { value: 2, time: 1 } ], isStepped: false, minimumScaleMultiplier: 1 },
         // can we disable color please?
-        color: { list: [ { value: "ffffff", time: 0 }, { value: "ffffff", time: 1 } ], isStepped: false },
+        //color: { list: [ { value: "ffffff", time: 0 }, { value: "ffffff", time: 1 } ], isStepped: false },
         // speed always 25, but with 1x-2x random multiplier
         speed: { list: [ { value: 25, time: 0 }, { value: 25, time: 1 } ], isStepped: false, minimumSpeedMultiplier: 2 },
         // always fire particles up
