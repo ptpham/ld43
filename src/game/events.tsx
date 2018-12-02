@@ -60,7 +60,7 @@ const ForestWithHouse: EventType = {
 export const AllEvents: EventType[] = [
   {
     location   : "Forest",
-    description: "You come to a misty forest. You hear the echo of eerie laughter in the distance.",
+    description: "You come to a misty forest. You hear the echo of eerie laughter in the distance. Passing through will be arduous, but is possible.",
     difficulty : 1,
     options    : [
       CutDownForestOption,
