@@ -29,7 +29,7 @@ export const AllEvents: EventType[] = [
     options    : [
       {
         skillRequired: { type: "specific-skill", skill: "WoodCutter" },
-        description: "Cut the forest down, one log at a time",
+        description: "Cut the forest down, one log at a time.",
         outcome: { 
           type: "lose-meat", 
           amount: 10,

@@ -71,7 +71,7 @@ export class ActionChooser extends React.Component<EventChooserProps> {
             >
               <strong>
                 { this.renderRequirement(option) }
-              </strong>
+              </strong>:{' '}
               { option.description }
             </EventButton>
           )
