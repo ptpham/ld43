@@ -49,6 +49,7 @@ export class State {
   blightedNodes       : Set<Graph.Node> = new Set();
   river               : PIXI.Point[];
   canyon              : PIXI.Point[];
+  lastCaravanLocation : Graph.Node;
   caravanLocation     : Graph.Node;
   volcanoLocation     : Graph.Node;
   selectedNextLocation: Location | undefined;
@@ -84,6 +85,8 @@ export class State {
 
     this.caravanLocation = this.graph.find(node => node.locationType === 'Start')!;
     this.volcanoLocation = this.graph.find(node => node.locationType === 'Finish')!;
+    this.lastCaravanLocation = this.caravanLocation;
+
     this.isLocationDone = false;
 
     // Fog of war stuff
@@ -136,7 +139,11 @@ export class State {
     this.entities.push(entity);
   }
 
-  moveCaravan(to: Graph.Node): void {
+  moveCaravan(to: Graph.Node, retreat = false): void {
+    if (!retreat) {
+      this.lastCaravanLocation = this.caravanLocation;
+    }
+
     this.caravanLocation = to;
     this.isLocationDone = false;
 
@@ -221,6 +228,15 @@ export class State {
 
           case "gain-item": {
             this.items.add(outcome.item);
+
+            break;
+          }
+
+          case "turn-back": {
+            this.moveCaravan(
+              this.lastCaravanLocation,
+              // { retreat: true }
+            );
 
             break;
           }

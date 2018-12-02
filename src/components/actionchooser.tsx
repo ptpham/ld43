@@ -219,6 +219,22 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
 
   renderDialogContent(): React.ReactNode {
     if (this.state.mode.type === "choice") {
+      const options = this.props.event.options;
+
+      const canMovePastForFree = options.every(x => {
+        return x.outcome.some(outcome => 
+          outcome.type === "lose-meat" ||
+          (outcome.type === "gain-meat" && outcome.hidden)
+        )
+      });
+
+      const turnBackOption: EventOption = {
+        skillRequired: { type: "no-skill" },
+        description  : "Turn back.",
+        followUpText : "",
+        outcome      : [{ type: "turn-back" }],
+      };
+
       return (
         <>
           <div style={{ padding: "0 0 20px 0" }}>
@@ -229,6 +245,11 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
             this.props.event.options.map(option => 
               this.renderButton(option)
             )
+          }
+
+          {
+            !canMovePastForFree &&
+              this.renderButton(turnBackOption)
           }
         </>
       );
@@ -285,6 +306,20 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
                     }}
                   >
                     You gain a { outcome.item }!
+                  </div>
+                )
+              }
+
+              if (outcome.type === "turn-back") {
+                return (
+                  <div
+                    style={{
+                      backgroundColor: "yellow",
+                      padding: "5px",
+                      margin: "10px 0 0 0"
+                    }}
+                  >
+                    You run back!
                   </div>
                 )
               }
