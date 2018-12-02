@@ -11,7 +11,7 @@ import { C } from './game/constants';
 C.SPRITE_ASSETS.forEach(asset => {
   PIXI.loader.add(asset, `assets/${ asset }.png`);
 });
-
+PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 PIXI.loader.load(() => {
   const game = new Game();
   ReactDOM.render(
