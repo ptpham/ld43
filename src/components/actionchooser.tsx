@@ -289,6 +289,19 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
                 )
               }
 
+              if (outcome.type === "lose-member") {
+                return (
+                  <div
+                    style={{
+                      backgroundColor: "lightblue",
+                      padding: "5px",
+                      margin: "10px 0 0 0"
+                    }}
+                  >
+                    You lose some member (TODO(BOWEI): FIX THIS)
+                  </div>
+                )
+              }
               const x: never = outcome;
               throw new Error("x should be never " + x);
             })
