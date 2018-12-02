@@ -216,6 +216,18 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
                 You gain { option.outcome.amount } meat!
               </div>
           }
+          {
+            option.outcome && option.outcome.type === "lose-meat" &&
+              <div
+                style={{
+                  backgroundColor: "lightgreen",
+                  padding: "5px",
+                  margin: "10px 0 0 0"
+                }}
+              >
+                You lose { option.outcome.amount } meat!
+              </div>
+          }
           <div
             style={{ textAlign: "center", paddingTop: "20px" }}
           >
