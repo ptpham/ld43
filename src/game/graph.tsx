@@ -148,7 +148,7 @@ export function generate(options: GenerateOptions): Node[] {
 
 export function generateSnake(nodes: Node[], type: LocationType, options: GenerateOptions): PIXI.Point[] {
   const { width, height } = options;
-  const line = new Line({ x1: width * SeedRandom(), x2: width * SeedRandom(), y1: 0, y2: height });
+  const line = new Line({ x1: width * SeedRandom(), x2: width * SeedRandom(), y1: -64, y2: height + 64 });
 
   const snake = [new PIXI.Point(line.x1, line.y1)];
   nodes.forEach((node: Node) => {
