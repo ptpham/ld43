@@ -100,16 +100,17 @@ class App extends React.Component<{ game: Game }, AppState>  {
           { this.renderCardChooser() }
         </div>
 
-        <div>
-          <strong>You arrive at the Mountain.</strong>
-        </div>
-
         <Sidebar 
           onDropIdol={ () => this.state.gameState.onDropIdol() }
           onPickUpIdol={ () => this.state.gameState.onPickUpIdol() }
           onDoEvent={ () => this.onDoEvent() }
           gameState={this.state.gameState}
         />
+
+        <div>
+          <strong>You arrive at the Mountain.</strong>
+        </div>
+
       </div>
     );
   }
