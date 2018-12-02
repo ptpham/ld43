@@ -39,13 +39,20 @@ export const LocationTypeData: { [key in LocationType]: {
 export const LocationTypeNames = Object.keys(LocationTypeData);
 
 export type CardVocationType = 
-  | "Builder"
-  | "Storyteller"
-  | "Stupid"
-  | "Fighter"
-  | "WoodCutter"
-  | "Priest"
+  | "Stupid" // the most important one.
+  | "Architect"
   | "Assassin"
+  | "Bard" // aka Storyteller.
+  | "Child"
+  | "Dancer"
+  | "Fisherman" // Good with boats and water
+  | "Historian"
+  | "Merchant"
+  | "Sage" // Knows many things but can't do much.
+  | "Swordswoman"
+  | "Priest"
+  | "Wizard"
+  | "Woodsman" // Woodcutting, but also general forestry.
 ;
 
 export type CardType = {
