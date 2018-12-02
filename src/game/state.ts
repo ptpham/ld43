@@ -285,6 +285,13 @@ export class State {
       this.caravanLocation.event = option.updateEventTo;
     }
 
+    if (this.caravanLocation.event && this.caravanLocation.event.stopsProgress) {
+      this.moveCaravan(
+        this.lastCaravanLocation,
+        /* retreat */ true
+      );
+    }
+
     if (option.chucksIdol) {
       this.idolState = {
         state: "gone",
