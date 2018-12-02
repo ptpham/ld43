@@ -164,23 +164,6 @@ export class State {
 
   public getIdolBlightDanger(): { text: string, remaining: number} {
     return this.blightManager.getIdolBlightDanger(this.time.for_idol, this.idolState);
-    //let t = this.time.for_idol;
-    //let to_ret: { text: string, remaining: number } = { text: "", remaining: 0};
-    //if (t < 10) {
-    //  to_ret = { text: "Minimal", remaining: 10 - t };
-    //} else if (t < 20) {
-    //  to_ret = { text: "Low", remaining: 20 - t };
-    //} else if (t < 30) {
-    //  to_ret = { text: "Medium", remaining: 30 - t };
-    //} else if (t < 40) {
-    //  to_ret = { text: "High", remaining: 40 - t };
-    //} else {
-    //  to_ret = { text: "Catastrophic", remaining: t % 2 + 1 };
-    //}
-    //if (this.idolState.state === 'carried') {
-    //  to_ret.remaining = -1; // never
-    //}
-    //return to_ret;
   }
 
   onDropIdol(): void {
