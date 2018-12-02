@@ -127,16 +127,6 @@ export function generate(options: GenerateOptions): Node[] {
   for (const node of result) {
     node.baseMeatCost = _.random(1, 4, false);
   }
-  
-  // Add events to nodes
-
-  for (const node of result) {
-    const relevantEvent = Sample(AllEvents.filter(event => event.location === node.locationType));
-
-    if (relevantEvent) {
-      node.event = relevantEvent;
-    }
-  }
 
   return _.sortBy(result, (node) => { return node.position.y; });
 }
@@ -203,5 +193,16 @@ export function generateCanyon(nodes: Node[], options: GenerateOptions, split: P
   });
   snake.push(new PIXI.Point(line.x2, line.y2));
   return snake;
+}
+
+export function addLocationBasedData(nodes: Node[]): Node[] {
+  // Add events to nodes
+  return nodes.map(node => {
+    const relevantEvent = Sample(AllEvents.filter(event => event.location === node.locationType));
+    if (relevantEvent) {
+      node.event = relevantEvent;
+    }
+    return node;
+  });
 }
 
