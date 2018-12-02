@@ -230,7 +230,7 @@ export class State {
             break;
           }
 
-          case "lose-member": {
+          case "lose-member-strong": {
             for (let c of this.cardsInCaravan) {
               if (c.skill == outcome.skill) {
                 this.cardsInCaravan.delete(c);

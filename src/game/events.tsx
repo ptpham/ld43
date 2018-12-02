@@ -170,7 +170,7 @@ const ForestElfEventBlighted: EventType = {
       description: "Appease the angry forest elves.",
       followUpText : "The forest elves shriek at you for bringing misfortune to their forest! After some discussion, though, you convince them that your priest might be able to help them lift the curse and restore their way of life. Your priest will need to stay behind and attend to the spirits of the forest.",
       outcome: {
-        type: "lose-member", // also lose priest!
+        type: "lose-member-strong",
         skill: "Priest",
         hidden: false,
       },
