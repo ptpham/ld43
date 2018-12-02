@@ -204,6 +204,12 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
           <div>
             { option.followUpText }
           </div>
+          {
+            option.outcome && option.outcome.type === "gain-meat" &&
+              <div>
+
+              </div>
+          }
           <div
             style={{ textAlign: "center", paddingTop: "20px" }}
           >
