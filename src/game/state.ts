@@ -140,6 +140,9 @@ export class State {
 
     this.activeEvent = to.event;
     this.time.from_start++;
+    if (this.idolState.state === 'dropped') {
+      this.time.for_idol++;
+    }
   }
 
   onDropIdol(): void {
