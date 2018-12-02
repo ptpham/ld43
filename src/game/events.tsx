@@ -9,7 +9,7 @@ export type SkillRequirement =
   { type: "no-skill"      ; }
 
 export type EventOption = {
-  skillRequired: SkillType;
+  skillRequired: SkillRequirement;
   description  : string;
   outcome      : EventOutcome;
 }
@@ -28,7 +28,7 @@ export const AllEvents: EventType[] = [
     difficulty : 1,
     options    : [
       {
-        skillRequired: "WoodCutter",
+        skillRequired: { type: "specific-skill": "WoodCutter" },
         description: "Cut the forest down, one log at a time",
         outcome: { 
           type: "lose-meat", 
