@@ -49,6 +49,11 @@ export class Node {
       this.position.y === other.position.y
     );
   }
+
+  public isVisible(visitedNodes: Set<Node>): boolean {
+    return visitedNodes.has(this) ||
+      !!this.neighbors.find((node) => visitedNodes.has(node));
+  }
 }
 
 export type GenerateOptions = {
