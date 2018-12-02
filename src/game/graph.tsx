@@ -1,16 +1,13 @@
 
-import React from "react";
 import { C, SeedRandom, Sample } from './constants';
 import { Line } from './lib/line';
 import { Point } from './lib/point';
 import { LocationType, LocationTypeNames } from './data';
 import _ from 'lodash';
-import { State } from './state';
 import { EventType, AllEvents, EventDifficulty } from "./events";
 
 export class Node {
   // not counting disadvantages due to idol etc
-  baseMeatCost!: number;
   neighbors    : Node[] = [];
   upgraded     : boolean = false;
   event        : EventType | undefined;
@@ -21,20 +18,6 @@ export class Node {
     public locationType: LocationType,
   ) { 
     this.eventSeen = false;
-  }
-
-  meatCost(state: State): number {
-    return this.baseMeatCost! + (state.hasIdol() ? 1 : 0);
-  }
-
-  meatCostExplanationString(state: State): JSX.Element {
-    let string = `${ this.baseMeatCost } (location)`
-
-    if (state.hasIdol()) {
-      string += ` + ${ C.IDOL_MEAT_COST } (idol burden)`;
-    }
-
-    return <>{ string }</>;
   }
 
   connect(other:Node) {
@@ -148,10 +131,6 @@ export function generate(options: GenerateOptions): Node[] {
       if (candidateEdgeHasIntersection(result, first, sorted[i], radiusSize)) continue;
       first.connect(sorted[i]);
     }
-  }
-
-  for (const node of result) {
-    node.baseMeatCost = _.random(1, 4, false);
   }
 
   return _.sortBy(result, (node) => { return node.position.y; });

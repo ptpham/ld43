@@ -178,8 +178,6 @@ export class State {
     this.caravanLocation = to;
     this.isLocationDone = false;
 
-    this.meat -= to.meatCost(this);
-
     this.visitedNodes.add(to);
     this.gameMap.graphSprite.render();
 
