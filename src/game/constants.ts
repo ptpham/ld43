@@ -53,7 +53,7 @@ export const Sample = <T> (x: T[]): T | undefined => {
 export const SeedRandom = (function(manualSeed: number | null = null) {
   // 0x2F6E2B1
 
-  var seed = Debug.SeedRandom ? 0x2F6E2B2 : Math.random();
+  var seed = manualSeed || (Debug.SeedRandom ? 0x2F6E2B2 : Math.random());
 
 	return function() {
 
