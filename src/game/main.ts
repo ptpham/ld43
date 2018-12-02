@@ -59,14 +59,13 @@ export class Game {
     this.emitter.emit = true;
     this.gameLoop();
 
-    new GameMap(this.state);
+    this.state.stage.addChild(new GameMap(this.state));
 
     const stest = new PIXI.Sprite(PIXI.loader.resources['test'].texture);
     stest.x = 10;
     stest.y = 10;
     stest.scale = new PIXI.Point(4, 4);
     this.state.stage.addChild(stest);
-
   }
 
   private setUpPixiStuff(): void {
