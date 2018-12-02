@@ -49,7 +49,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
           ? "Pick Up"
           : "None";
 
-    const location = this.props.gameState.selectedNextLocation;
+    let location = this.props.gameState.selectedNextLocation;
 
     return (
       <div
