@@ -118,17 +118,6 @@ const BlightedForestElfEvent: EventType = {
       description: "Build a house.",
       followUpText : "You cut down some trees and build a log cabin. However, after leaving one day, you never seem to be able to find it again...",
       outcome: { type: "lose-meat", amount: 20, hidden: false, },
-      //updateEventTo: {
-      //  location   : "Forest",
-      //  description: 
-      //    `This forest has a large, conspicuous house in the middle of it. With the
-      //    house, it seems like some of the mystery of this forest has left.`,
-      //  difficulty : 1,
-      //  options: [
-      //    CutDownForestOption,
-      //    PassOn({ price: 10 }),
-      //  ]
-      //},
     },
     {
       skillRequired: { type: "specific-skill", skill: "Priest", withoutSkill: "Invisible" },
