@@ -4,7 +4,7 @@ import * as Graph from './graph';
 import { CardType } from './data';
 import { IEntity } from './entity';
 import { GameMapCircle, GameMap } from './gamemap';
-import { EventOption, EventType } from './events';
+import { EventOption, EventType, AllEvents } from './events';
 
 type IdolState = 
   | {
@@ -113,6 +113,8 @@ export class State {
 
       this.isLocationDone = true;
     }
+
+    this.activeEvent = AllEvents[0];
   }
   
   getGameMode(): GameMode {

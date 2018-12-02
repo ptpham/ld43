@@ -4,6 +4,7 @@ import { Emitter } from 'pixi-particles';
 import { State } from "./state";
 
 export class Particles extends Emitter {
+  public now: number = new Date();
   constructor(parent: PIXI.Graphics) {
     super(
       parent,
@@ -40,6 +41,8 @@ export class Particles extends Emitter {
   }
 
   update_(state: State): void {
+
+      now =  0;
       return;
   }
 }
