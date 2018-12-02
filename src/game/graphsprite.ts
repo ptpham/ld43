@@ -1,8 +1,8 @@
 import { State } from "./state";
-import { Entity } from "./entity";
+import { IEntity } from "./entity";
 import { GameMapCircle } from "./gamemap";
 
-export class GraphSprite extends Entity {
+export class GraphSprite extends PIXI.Sprite implements IEntity {
   state: State;
 
   constructor(state: State) {
