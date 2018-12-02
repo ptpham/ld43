@@ -69,7 +69,6 @@ const ForestElfEvent: EventType = {
       outcome: { type: "lose-meat", amount: 20, },
       updateEventTo: ForestWithHouse,
     },
-
     {
       skillRequired: { type: "specific-skill", skill: "Priest" },
       description: "Commune with the forest elves.",
@@ -78,11 +77,7 @@ const ForestElfEvent: EventType = {
         amount: 20,
       },
     },
-    {
-      skillRequired: { type: "no-skill" },
-      description: "Pass on.",
-      outcome: { type: "lose-meat", amount: 10, },
-    },
+    PassOn({ price: 10 }),
   ]
 }
 
