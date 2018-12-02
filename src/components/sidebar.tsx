@@ -38,7 +38,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
     const state = this.props.gameState;
 
     if (state.idolState.state === "dropped") {
-      canPickUpIdol = state.idolState.node.equals(state.caravanLocation);
+      canPickUpIdol = !state.hasWon && state.idolState.node.equals(state.caravanLocation);
     }
 
     const hasIdol = this.props.gameState.hasIdol();
@@ -75,14 +75,8 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
             paddingBottom: "20px",
           }}
         >
-          {
-            this.props.gameState.idolState.state === 'gone' ?
-            "so winning" : (
-              <>
-                You <strong>{ this.props.gameState.hasIdol() ? "have" : "don't have" }</strong> the idol.
-              </>
-            )
-          }
+          
+          You <strong>{ this.props.gameState.hasIdol() ? "have" : "don't have" }</strong> the idol.
           {' '}
           <a 
             href="javascript:;"

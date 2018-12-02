@@ -21,7 +21,7 @@ export class Cloud extends PIXI.Sprite implements IEntity {
   }
 
   update(state: State): void {
-    if (state.idolState.state === 'gone') {
+    if (state.hasWon) {
       if (this.alpha > 0) {
         this.alpha -= 0.01;
       }
