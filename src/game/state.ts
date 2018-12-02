@@ -4,7 +4,7 @@ import * as Graph from './graph';
 import { CardType } from './data';
 import { IEntity } from './entity';
 import { GameMapCircle, GameMap } from './gamemap';
-import { EventOption, EventType, AllEvents } from './events';
+import { EventOption, EventType } from './events';
 
 type IdolState = 
   | {
