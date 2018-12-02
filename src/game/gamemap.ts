@@ -108,7 +108,7 @@ export class GameMap extends PIXI.Sprite implements IEntity {
 
   makeIdol(): Idol {
     const idol = new Idol(this.state);
-
+    this.addChild(idol);
     return idol;
   }
 
