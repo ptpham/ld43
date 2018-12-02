@@ -165,7 +165,9 @@ export class State {
       }
 
       default: {
-        return;
+        const x: never = option.outcome;
+
+        throw new Exception("expected x to be never! " + x);
       }
     }
   }
