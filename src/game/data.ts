@@ -25,8 +25,6 @@ export type SkillType =
   // We do not have assets for those below this line.
   | "Merchant"
   | "Sage" // Knows many things but can't do much.
-  | "Swordswoman"
-  | "Wizard"
 ;
 
 export const LocationTypeData: { [key in LocationType]: {
