@@ -9,6 +9,8 @@ import { random } from "lodash";
 import { Idol } from "./idol";
 import { GraphSprite } from "./graphsprite";
 import { Cloud } from "./cloud";
+import { Particles } from "./particles";
+Particles;
 
 function makeSprite(texture: PIXI.Texture): PIXI.Sprite {
   const sprite = new PIXI.Sprite(texture);
@@ -134,6 +136,7 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
   public node: Node;
   public state: State;
   public selected: boolean = false;
+  public particles: Particles | undefined;
 
   private mousedOver = false;
 
@@ -156,6 +159,7 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
     } else if (node.locationType == 'Finish') {
       // mount DOOM!
       sprite = makeSprite(PIXI.loader.resources['volcano'].texture);
+      this.particles = new Particles(this, node.position.x, node.position.y - 24, 60);
     } else if (node.locationType == 'Forest') {
       sprite = makeSprite(PIXI.loader.resources['forest'].texture);
     } else if (node.locationType == 'GoblinNest') {
@@ -182,6 +186,7 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
   mouseOver(): void {
     this.mousedOver = true;
     this.state.mousedOverLocation = this;
+    this.particles = new Particles(this, this.node.position.x, this.node.position.y, 6);
 
     this.render();
   }
@@ -189,6 +194,9 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
   mouseOut(): void {
     this.mousedOver = false;
     this.state.mousedOverLocation = undefined;
+    if (this.particles) {
+      this.particles.emit = false;
+    }
 
     this.render();
   }
@@ -257,5 +265,8 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
   }
 
   update(state: State): void {
+    if (this.particles) {
+      this.particles.update_(state);
+    }
   }
 }

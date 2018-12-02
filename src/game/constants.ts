@@ -45,7 +45,7 @@ export class C {
   ];
 }
 
-export const Sample = <T> (x: T[]): T => {
+export const Sample = <T> (x: T[]): T | undefined => {
   return x[Math.floor(SeedRandom() * x.length)];
 }
 

@@ -7,7 +7,6 @@ import { Toolbar } from './components/meat';
 import { Sidebar } from './components/sidebar';
 import { CardType } from './game/data';
 import { ActionChooser } from './components/actionchooser';
-import { AllEvents } from './game/events';
 
 type AppState = {
   isEventVisible: boolean;
@@ -91,6 +90,8 @@ class App extends React.Component<{ game: Game }, AppState>  {
   };
 
   public render() {
+    const gameMode = this.state.gameState.getGameMode();
+
     return (
       <div>
         <Toolbar gameState={this.state.gameState}/>
@@ -109,10 +110,13 @@ class App extends React.Component<{ game: Game }, AppState>  {
           gameState={this.state.gameState}
         />
 
-        <ActionChooser 
-          event={ AllEvents[0] }
-          gameState={ this.state.gameState }
-        />
+        {
+          gameMode === "Looking At Event" &&
+            <ActionChooser 
+              event={ this.state.gameState.activeEvent! }
+              gameState={ this.state.gameState }
+            />
+        }
       </div>
     );
   }

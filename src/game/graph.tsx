@@ -6,17 +6,18 @@ import { Point } from './lib/point';
 import { LocationType, LocationTypeNames } from './data';
 import _ from 'lodash';
 import { State } from './state';
+import { EventType, AllEvents } from "./events";
 
 export class Node {
   // not counting disadvantages due to idol etc
   baseMeatCost!: number;
-
-  neighbors: Node[] = [];
-  upgraded: boolean = false;
+  neighbors    : Node[] = [];
+  upgraded     : boolean = false;
+  event        : EventType | undefined;
 
   constructor(
     public position: Point, 
-    public locationType: LocationType
+    public locationType: LocationType,
   ) { }
 
   meatCost(state: State): number {
@@ -57,22 +58,6 @@ export type GenerateOptions = {
   spacing: number,
   width: number,
   height: number
-}
-
-export function candidateEdgeHasIntersection(nodes: Node[], first: Node, second: Node, radiusSize: number): boolean {
-  let query = new Line({ one: first.position, two: second.position });
-  for (let node of nodes) {
-    if (node == first || node == second) continue;
-    if (query.intersectCircle(node.position, radiusSize)) return true;
-
-    for (let other of node.neighbors) {
-      if (other == first || other == second) continue;
-      let line = new Line({ one: node.position, two: other.position });
-      if (query.intersectLine(line)) return true;
-    }
-  }
-
-  return false;
 }
 
 export function generate(options: GenerateOptions): Node[] {
@@ -142,8 +127,34 @@ export function generate(options: GenerateOptions): Node[] {
   for (const node of result) {
     node.baseMeatCost = _.random(1, 4, false);
   }
+  
+  // Add events to nodes
+
+  for (const node of result) {
+    const relevantEvent = Sample(AllEvents.filter(event => event.location === node.locationType));
+
+    if (relevantEvent) {
+      node.event = relevantEvent;
+    }
+  }
 
   return _.sortBy(result, (node) => { return node.position.y; });
+}
+
+export function candidateEdgeHasIntersection(nodes: Node[], first: Node, second: Node, radiusSize: number): boolean {
+  let query = new Line({ one: first.position, two: second.position });
+  for (let node of nodes) {
+    if (node == first || node == second) continue;
+    if (query.intersectCircle(node.position, radiusSize)) return true;
+
+    for (let other of node.neighbors) {
+      if (other == first || other == second) continue;
+      let line = new Line({ one: node.position, two: other.position });
+      if (query.intersectLine(line)) return true;
+    }
+  }
+
+  return false;
 }
 
 export function generateRiver(nodes: Node[], options: GenerateOptions): PIXI.Point[] {

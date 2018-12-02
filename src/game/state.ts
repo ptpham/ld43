@@ -4,7 +4,7 @@ import * as Graph from './graph';
 import { CardType } from './data';
 import { IEntity } from './entity';
 import { GameMapCircle, GameMap } from './gamemap';
-import { EventOption } from './events';
+import { EventOption, EventType } from './events';
 
 type IdolState = 
   | {
@@ -15,6 +15,10 @@ type IdolState =
       node  : Graph.Node;
     }
   ;
+
+export type GameMode = 
+  | "Moving On Map"
+  | "Looking At Event"
 
 /**
  * This will be the god object that holds all state. 
@@ -36,6 +40,7 @@ export class State {
   cardsInCaravan      : Set<CardType>;
   cardsInWholeGame    : Set<CardType>;
   stage               : PIXI.Container;
+  activeEvent         : EventType | undefined;
   graph               : Graph.Node[];
   visitedNodes        : Set<Graph.Node>;
   river               : PIXI.Point[];
@@ -108,6 +113,15 @@ export class State {
 
       this.isLocationDone = true;
     }
+
+  }
+  
+  getGameMode(): GameMode {
+    if (this.activeEvent) {
+      return "Looking At Event";
+    }
+
+    return "Moving On Map";
   }
 
   addEntity(entity: IEntity): void {
@@ -122,6 +136,8 @@ export class State {
 
     this.visitedNodes.add(to);
     this.gameMap.graphSprite.render();
+
+    this.activeEvent = to.event;
   }
 
   onDropIdol(): void {
@@ -132,7 +148,7 @@ export class State {
       };
     }
 
-    this.onChange();
+    this.triggerChange();
   }
 
   onPickUpIdol(): void {
@@ -145,7 +161,7 @@ export class State {
       };
     }
 
-    this.onChange();
+    this.triggerChange();
   }
 
   public hasIdol(): boolean {
@@ -153,25 +169,32 @@ export class State {
   }
 
   public handleChooseEventOption(option: EventOption): void {
-    switch (option.outcome.type) {
-      case "gain-meat": {
-        this.meat += option.outcome.amount;
-        break;
-      }
+    if (option.outcome) {
+      switch (option.outcome.type) {
+        case "gain-meat": {
+          this.meat += option.outcome.amount;
+          break;
+        }
 
-      case "lose-meat": {
-        this.meat -= option.outcome.amount;
-        break;
-      }
+        case "lose-meat": {
+          this.meat -= option.outcome.amount;
+          break;
+        }
 
-      default: {
-        const x: never = option.outcome;
+        default: {
+          const x: never = option.outcome;
 
-        throw new Error("expected x to be never! " + x);
+          throw new Error("expected x to be never! " + x);
+        }
       }
     }
 
-    this.onChange();
+    if (option.updateEventTo) {
+      this.caravanLocation.event = option.updateEventTo;
+    }
+
+    this.activeEvent = undefined;
+    this.triggerChange();
   }
 
   // stupid stuff to ensure we always propagate changes to react.
@@ -182,7 +205,7 @@ export class State {
     this.changeListeners.push(e);
   }
 
-  onChange(): void {
+  triggerChange(): void {
     for (const listener of this.changeListeners) {
       listener(this);
     }

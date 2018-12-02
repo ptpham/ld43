@@ -37,7 +37,7 @@ export class ActionChooser extends React.Component<EventChooserProps> {
   renderRequirement(opt: EventOption): React.ReactNode {
     if (opt.skillRequired.type === "specific-skill") {
       return (
-        <strong>{ opt.skillRequired.skill }</strong>
+        <strong>{ opt.skillRequired.skill } :</strong>
       );
     } else if (opt.skillRequired.type === "no-skill") {
       return null;
@@ -49,28 +49,30 @@ export class ActionChooser extends React.Component<EventChooserProps> {
   }
 
   renderCost(opt: EventOption): React.ReactNode {
-    if (opt.outcome.type === "gain-meat") {
-      return (
-        <span style={{ color: "#00cc00" }}>
-          +{ opt.outcome.amount } meat
-        </span>
-      );
-    } else if (opt.outcome.type === "lose-meat") {
-      return (
-        <span style={{ color: "red" }}>
-          -{ opt.outcome.amount } meat
-        </span>
-      );
-    } else {
-      const x: never = opt.outcome;
+    if (opt.outcome) {
+      if (opt.outcome.type === "gain-meat") {
+        return (
+          <span style={{ color: "#00cc00" }}>
+            +{ opt.outcome.amount } meat
+          </span>
+        );
+      } else if (opt.outcome.type === "lose-meat") {
+        return (
+          <span style={{ color: "red" }}>
+            -{ opt.outcome.amount } meat
+          </span>
+        );
+      } else {
+        const x: never = opt.outcome;
 
-      throw new Error("should be never! " + x);
+        throw new Error("should be never! " + x);
+      }
     }
+
+    return null;
   }
 
   handleOption(option: EventOption): void {
-    debugger;
-
     this.props.gameState.handleChooseEventOption(option);
   }
 
@@ -97,7 +99,7 @@ export class ActionChooser extends React.Component<EventChooserProps> {
             >
               <strong>
                 { this.renderRequirement(option) }
-              </strong>:{' '}
+              </strong>{' '}
               { option.description }{' '}
               { this.renderCost(option) }
             </EventButton>

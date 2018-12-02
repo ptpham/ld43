@@ -9,9 +9,10 @@ export type SkillRequirement =
   | { type: "no-skill"      ; }
 
 export type EventOption = {
-  skillRequired: SkillRequirement;
-  description  : string;
-  outcome      : EventOutcome;
+  skillRequired : SkillRequirement;
+  description   : string;
+  outcome      ?: EventOutcome;
+  updateEventTo?: EventType;
 }
 
 export type EventType = {
@@ -20,6 +21,18 @@ export type EventType = {
   difficulty : 1 | 2 | 3;
   options    : EventOption[];
 }
+
+const CutDownForest: EventType = {
+  location   : "Forest",
+  description: "This forest has been cut down.",
+  difficulty : 1,
+  options: [
+    {
+      skillRequired: { type: "no-skill" },
+      description: "Pass on.",
+    },
+  ]
+};
 
 export const AllEvents: EventType[] = [
   {
@@ -34,6 +47,7 @@ export const AllEvents: EventType[] = [
           type: "lose-meat", 
           amount: 10,
         },
+        updateEventTo: CutDownForest,
       },
 
       {
