@@ -241,13 +241,15 @@ const BlightedBarbarianVillageWornDown: EventType = {
       skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Unlabeled" },
       description  : "Assassinate the masked barbarian. Assassinate his friends hiding around the corner. Assassinate them all",
       followUpText : 
-        `Strong and tough as they are, it seems no one left is nearly as observant as old Thok the gatekeeper.
-        You lie low for a period, tracking their movements and figuring out what allies you can find to oppose the masked gang. Eventually, you set up a trap and assassinate the masked gang with their help. The village is thrown into chaos and bloodshed as a result and by double-crossing your allies, you are able to help the "Democratic Republican Barbarians" eventually win out. In order to ensure they stay in power, your assassin stays behind as "military counselor".`,
+        //`Strong and tough as they are, it seems no one left is nearly as observant as old Thok the gatekeeper. You lie low for a period, tracking their movements and figuring out what allies you can find to oppose the masked gang. Eventually, you set up a trap and assassinate the masked gang with their help. The village is thrown into chaos and bloodshed as a result and by double-crossing your allies, you are able to help the "Democratic Republican Barbarians" eventually win out. In order to ensure they stay in power, your assassin stays behind as "military counselor".`,
+        //`Strong and tough as they are, it seems no one left is nearly as observant as old Thok the gatekeeper. Your assassin slays an entire generation of barbarians. Hardly anyone is left after `,
+        `Strong and tough as they are, it seems no one left is nearly as observant as old Thok the gatekeeper. Leaving your assassin behind, he slowly and strategically takes out all members of the ruling faction.`,
       outcome      : { type: "lose-meat", amount: 10, hidden: false }, // lose assassin
       updateEventTo: {
         location: "BarbarianVillage",
-        description: `
-          Your assassin is helping the Democratic Republican Barbarians rule with an iron fist. You avoid the peasant riots and are able to pass through with their help.`,
+        description: 
+        //` Your assassin is helping the Democratic Republican Barbarians rule with an iron fist. You avoid the peasant riots and are able to pass through with their help.`,
+        `There are no more barbarians here, blighted or otherwise.`,
         difficulty: EventDifficulty.NormalDifficutly,
         stopsProgress: false,
         options: [
