@@ -95,22 +95,12 @@ const BarbarianVillage: EventType = {
   description: "After days of journeying, your party encounters a village of barbarians. Thok, the gatekeeper to the village, looks you up and down and says, 'Grunt.'",
   difficulty: 1,
   options: [
-    CutDownForestOption,
     {
       skillRequired: { type: "specific-skill", skill: "Builder", withoutSkill: "Everything" },
       description: "Build a house.",
       followUpText : "You cut down some trees and build a log cabin.",
       outcome: { type: "lose-meat", amount: 20, },
       updateEventTo: ForestWithHouse,
-    },
-    {
-      skillRequired: { type: "specific-skill", skill: "Priest", withoutSkill: "Unlabeled" },
-      description: "Commune with the forest elves.",
-      followUpText : "The forest elves pay you with lots of meat!",
-      outcome: {
-        type: "gain-meat",
-        amount: 20,
-      },
     },
     PassOn({ price: 10 }),
   ]

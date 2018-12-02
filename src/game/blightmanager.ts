@@ -20,8 +20,9 @@ export class BlightManager {
     }
     neighborsByDegree.push(deg2);
 
-
-
-
+    for (let degree = 0; degree < 3; degree++ ){
+      let neighbors: Node[] = neighborsByDegree[degree];
+      neighbors;
+    }
   }
 }
