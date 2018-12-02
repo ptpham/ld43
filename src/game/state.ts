@@ -170,6 +170,8 @@ export class State {
         throw new Error("expected x to be never! " + x);
       }
     }
+
+    this.onChange();
   }
 
   // stupid stuff to ensure we always propagate changes to react.
