@@ -50,7 +50,7 @@ export const Sample = <T> (x: T[]): T | undefined => {
   return x[Math.floor(SeedRandom() * x.length)];
 }
 
-export const SeedRandom = (function() {
+export const SeedRandom = (function(manualSeed: number | null = null) {
   // 0x2F6E2B1
 
   var seed = Debug.SeedRandom ? 0x2F6E2B2 : Math.random();
