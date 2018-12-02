@@ -136,6 +136,7 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
   public node: Node;
   public state: State;
   public selected: boolean = false;
+  public particles: Particles | undefined;
 
   private mousedOver = false;
 
