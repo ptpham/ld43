@@ -98,11 +98,11 @@ const BarbarianVillageWornDown: EventType = {
     {
       skillRequired: { type: "specific-skill", skill: "Builder", withoutSkill: "Everything" },
       description  : "Repair some of the barbarian's buildings.",
-      followUpText : "",
+      followUpText : "Thok thanks you for your kindness and lets you pass. The ",
       outcome      : { type: "gain-meat", amount: 10, },
       updateEventTo: ForestWithHouse,
     },
-    PassOn({ price: 10 }),
+    PassOn({ price: 20 }),
   ]
 }
 
