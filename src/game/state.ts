@@ -40,14 +40,16 @@ export class State {
   canyon              : PIXI.Point[];
   caravan_location    : Graph.Node;
   selectedNextLocation: GameMapCircle | undefined;
+  mousedOverLocation  : GameMapCircle | undefined;
   isLocationDone      : boolean;
   meat                : number;
   walkAnimation?      : PIXI.ticker.Ticker;
   idolState           : IdolState;
 
   constructor(stage: PIXI.Container) {
-    this.cardsInCaravan = new Set();
-    this.cardsInWholeGame = new Set();
+    this.cardsInCaravan     = new Set();
+    this.cardsInWholeGame   = new Set();
+    this.mousedOverLocation = undefined;
 
     this.stage    = stage;
     this.entities = [];

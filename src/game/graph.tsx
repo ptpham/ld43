@@ -161,3 +161,5 @@ export function generateSnake(nodes: Node[], type: LocationType, options: Genera
   return snake;
 }
 
+
+

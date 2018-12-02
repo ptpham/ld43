@@ -49,7 +49,10 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
           ? "Pick Up"
           : "None";
 
-    const location = this.props.gameState.selectedNextLocation;
+
+    const mousedOverLoc = this.props.gameState.mousedOverLocation;
+    const selectedLoc   = this.props.gameState.selectedNextLocation
+    const location      = mousedOverLoc || selectedLoc;
 
     return (
       <div
@@ -111,7 +114,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
                   paddingBottom: "20px",
                 }}
               >
-                <strong>Currently selected location:</strong>
+                <strong>Currently { mousedOverLoc ? "hovered" : "selected" } location:</strong>
               </div>
 
               <div

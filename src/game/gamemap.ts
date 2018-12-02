@@ -160,8 +160,8 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
     if (sprite) {
       this.addChild(sprite);
 
-      sprite.x = node.position.x;
-      sprite.y = node.position.y;
+      sprite.x = node.position.x - sprite.width / 2;
+      sprite.y = node.position.y - sprite.height / 2;
     }
 
     this.interactive = true;
@@ -176,12 +176,14 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
 
   mouseOver(): void {
     this.mousedOver = true;
+    this.state.mousedOverLocation = this;
 
     this.render();
   }
 
   mouseOut(): void {
     this.mousedOver = false;
+    this.state.mousedOverLocation = undefined;
 
     this.render();
   }
