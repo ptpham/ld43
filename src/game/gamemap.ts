@@ -229,27 +229,27 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
       this.lineStyle(this.lineWidth, 0x000000);
     }
 
-    this.drawCircle(this.node.position.x, this.node.position.y, 16);
     if (this.selected) {
       this.x = -4;
       this.y = -4;
-      //this.scale = new PIXI.Point(1.25, 1.25);
     } else {
       this.x = 0;
       this.y = 0;
-      //this.scale = new PIXI.Point(1.0, 1.0);
     }
-    //console.log(this)
-    //for (let child of this.children) {
-    //  console.log(child)
-    //}
 
+    console.log(this.mousedOver);
 
     if (this.mousedOver) {
-      this.tint = 0x333333;
+      for (const child of this.children) {
+        (child as any).tint = 0xdddddd;
+      }
     } else {
-      this.tint = 0;
+      for (const child of this.children) {
+        (child as any).tint = 0xffffff;
+      }
     }
+
+    this.drawCircle(this.node.position.x, this.node.position.y, 16);
   }
 
   update(state: State): void {
