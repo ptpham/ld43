@@ -116,7 +116,11 @@ export class State {
   }
   
   getGameMode(): GameMode {
-    if (this.)
+    if (this.activeEvent) {
+      return "Moving On Map";
+    }
+
+    return "Looking At Event";
   }
 
   addEntity(entity: IEntity): void {
