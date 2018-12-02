@@ -118,7 +118,7 @@ class App extends React.Component<{ game: Game }, AppState>  {
             padding: "20px",
           }}
         >
-          <div>
+          <div style={{ padding: "0 0 10px 0" }}>
             <strong>You arrive at the Mountain.</strong> Outside, an old man solicits you for help.
           </div>
 
