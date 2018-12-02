@@ -99,6 +99,15 @@ const BarbarianVillageRepaired: EventType = {
   ]
 };
 
+const BarbarianVillageFailedAssassinationAttempt: EventType = {
+  location: "BarbarianVillage",
+  description: "The barbarians all point laugh at you. Then they charge you money to pass on.",
+  difficulty: 1,
+  options: [
+    PassOn({ price: 10 }),
+  ]
+};
+
 const BarbarianVillageWornDown: EventType = {
   location: "BarbarianVillage",
   description: "After days of journeying, your party encounters a ramshackle village of barbarians, with some buildings falling apart. Thok, the gatekeeper to the village, looks you up and down and says, 'Grunt.'",
@@ -115,7 +124,7 @@ const BarbarianVillageWornDown: EventType = {
       skillRequired: { type: "specific-skill", skill: "Assassin", withoutSkill: "Unlabeled" },
       description  : "Assassinate thok.",
       followUpText : "You completely fail to assassinate Thok. He is much too fast for you. He laughs at how slow you are, and picks your meat-filled pockets while he's at at it.",
-      outcome      : { type: "gain-meat", amount: 10, },
+      outcome      : { type: "lose-meat", amount: 10, },
       updateEventTo: BarbarianVillageRepaired,
     },
     PassOn({ price: 20 }),
