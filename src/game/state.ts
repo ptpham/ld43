@@ -103,6 +103,10 @@ export class State {
           meat: 3,
         },
         {
+          skill: "Priest",
+          meat: 7,
+        },
+        {
           skill: "Assassin",
           meat: 1,
         },
