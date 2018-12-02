@@ -34,22 +34,23 @@ const ForestThatIsCutDown: EventType = {
   ]
 };
 
+const CutDownForestOption: EventOption = {
+  skillRequired: { type: "specific-skill", skill: "WoodCutter" },
+  description: "Cut the forest down, one log at a time.",
+  outcome: {
+    type: "lose-meat",
+    amount: 10,
+  },
+  updateEventTo: ForestThatIsCutDown,
+};
+
 export const AllEvents: EventType[] = [
   {
     location   : "Forest",
     description: "You come to a misty forest. You hear the echo of eerie laughter in the distance.",
     difficulty : 1,
     options    : [
-      {
-        skillRequired: { type: "specific-skill", skill: "WoodCutter" },
-        description: "Cut the forest down, one log at a time.",
-        outcome: { 
-          type: "lose-meat", 
-          amount: 10,
-        },
-        updateEventTo: ForestThatIsCutDown,
-      },
-
+      CutDownForestOption,
       {
         skillRequired: { type: "specific-skill", skill: "Builder" },
         description: "Build a house.",
