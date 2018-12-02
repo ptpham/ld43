@@ -26,7 +26,7 @@ export const LocationTypeData: { [key in LocationType]: {
 }} = {
   Start: {},
   Finish: {},
-  Forest: { targetSkill: 'WoodCutter' },
+  Forest: { targetSkill: 'Woodsman' },
   GoblinNest: {},
   River: {},
   Canyon: { targetSkill: 'Builder' },
