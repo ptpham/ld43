@@ -16,7 +16,7 @@ type CardState = {
 const imageMap = new Map([
   ['Priest', '/assets/priest.png'],
   ['Woodsman', '/assets/woodcutter.png'],
-  ['Builder', '/assets/builder.png'],
+  ['Architect', '/assets/builder.png'],
   ['Assassin', '/assets/assassin.png']
 ]);
 
