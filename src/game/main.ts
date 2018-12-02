@@ -26,7 +26,7 @@ export class Game {
         // alpha decays from 1 to 0
         alpha: { list: [ { value: 1, time: 0 }, { value: 0, time: 1 } ], isStepped: false },
         // scale is always 2
-        scale: { list: [ { value: 2, time: 0 }, { value: 2, time: 1 } ], isStepped: false, minimumScaleMultiplier: 1 },
+        scale: { list: [ { value: 8, time: 0 }, { value: 8, time: 1 } ], isStepped: false, minimumScaleMultiplier: 1 },
         // can we disable color please?
         color: { list: [ { value: {r: 0xFF, g: 0xFF, b: 0xFF, a: 0}, time: 0 }, { value: {r: 0xFF, g: 0xFF, b: 0xFF, a: 0}, time: 1 } ], isStepped: false },
         // speed always 25, but with 1x-2x random multiplier
