@@ -60,8 +60,11 @@ export class ActionChooser extends React.Component<EventChooserProps> {
         <div style={{ color: "red" }}>
           - { opt.outcome.amount } meat
         </div>
-      )
+      );
+    } else {
+      const x: never = opt.outcome;
 
+      throw new Error("should be never! " + x);
     }
   }
 
