@@ -92,12 +92,12 @@ const ForestElfEvent: EventType = {
 
 const BarbarianVillageWornDown: EventType = {
   location: "BarbarianVillage",
-  description: "After days of journeying, your party encounters a worn down village of barbarians. Thok, the gatekeeper to the village, looks you up and down and says, 'Grunt.'",
+  description: "After days of journeying, your party encounters a ramshackle village of barbarians, with some buildings falling apart. Thok, the gatekeeper to the village, looks you up and down and says, 'Grunt.'",
   difficulty: 1,
   options: [
     {
       skillRequired: { type: "specific-skill", skill: "Builder", withoutSkill: "Everything" },
-      description: "Build the barbarians a .",
+      description: "Repair some of the barbarian's ",
       followUpText : "You cut down some trees and build a log cabin.",
       outcome: { type: "lose-meat", amount: 20, },
       updateEventTo: ForestWithHouse,
