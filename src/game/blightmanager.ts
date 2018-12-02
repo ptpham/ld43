@@ -2,8 +2,11 @@
 import { State } from './state';
 import { Node } from './graph';
 import { SeedRandomGenerator } from './constants';
+import { Particles } from './particles';
 
 export class BlightManager {
+  public particles: Particles[] = [];
+  
   public applyBlightAndRenderImminent(state: State, node: Node, idol_time: number): void {
 
   }
@@ -38,7 +41,13 @@ export class BlightManager {
 
     // rerender
     for (let node of imminentBlight) {
-      node;
+      this.particles.push(new Particle(this.state.stage, node.position.x, node.position.y, 6));
+    }
+  }
+
+  public update(state: State): void {
+    for ( let particle of this.particles ) {
+      particle.update_(state);
     }
   }
 }
