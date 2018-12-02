@@ -17,7 +17,7 @@ export class Node {
 
   constructor(
     public position: Point, 
-    public locationType: LocationType
+    public locationType: LocationType,
   ) { }
 
   meatCost(state: State): number {
