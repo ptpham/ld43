@@ -61,7 +61,7 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
     this.graphSprite.x = 0;
     this.graphSprite.y = 0;
 
-    //this.state.stage.addChild(this.graphSprite);
+    this.state.stage.addChild(this.graphSprite);
 
     return this.graphSprite;
   }
