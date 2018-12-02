@@ -167,6 +167,12 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
     );
   }
 
+  renderDialogContent(): React.ReactNode {
+    if (this.state.mode === "choice") {
+
+    }
+  }
+
   render() {
     return (
       <div
