@@ -61,7 +61,7 @@ export class BlightManager implements IEntity {
     } else {
       to_ret = { text: "Catastrophic", remaining: t % 2 + 1 };
     }
-    if (this.idolState.state === 'carried') {
+    if (idolState.state === 'carried') {
       to_ret.remaining = -1; // never
     }
     return to_ret;
