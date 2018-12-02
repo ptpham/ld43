@@ -88,6 +88,7 @@ export class GameMap extends Entity {
 
   makeRiver(): PIXI.mesh.Rope {
     const river = new PIXI.mesh.Rope(PIXI.loader.resources['river'].texture, this.state.river);
+    console.log(river, this.state.river);
     this.state.stage.addChild(river);
     return river;
   }
