@@ -40,6 +40,7 @@ export class State {
   canyon              : PIXI.Point[];
   caravan_location    : Graph.Node;
   selectedNextLocation: GameMapCircle | undefined;
+  mousedOverLocation  : GameMapCircle | undefined;
   isLocationDone      : boolean;
   meat                : number;
   walkAnimation?      : PIXI.ticker.Ticker;
