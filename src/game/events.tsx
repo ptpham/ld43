@@ -37,6 +37,7 @@ export type EventOption = {
   followUpText  : string;
   outcome      ?: EventOutcome | EventOutcome[];
   updateEventTo?: EventType;
+  chucksIdol   ?: boolean;
 }
 
 export type EventType = {
@@ -53,6 +54,24 @@ const PassOn = ({ price = 0 }): EventOption => ({
   followUpText : "",
   ...(price === 0 ? undefined : { outcome: { type: "lose-meat", amount: price, hidden: false } }),
 });
+
+const GameFinish: EventType = {
+  location: "Finish",
+  description: `
+    Strange clouds rise from the volcano as it bubbles.
+    Your party is exhausted from the trek but the mood is upbeat
+    since you've finally reached your goal.`,
+  difficulty: EventDifficulty.NothingHappens,
+  stopsProgress: true,
+  options: [
+    {
+      skillRequired: {type: "no-skill"},
+      description: "Drop the idol into the maws of the volcano from whence it came.",
+      followUpText: "",
+      chucksIdol: true,
+    }
+  ]
+};
 
 const ForestThatIsCutDown: EventType = {
   location     : "Forest",
@@ -423,6 +442,9 @@ const MountainFiller: EventType = {
 };
 
 export const AllEvents: EventType[] = [
+  // Finish
+  GameFinish,
+
   // Forest
 
   ForestElfEvent,
