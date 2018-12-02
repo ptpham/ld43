@@ -185,7 +185,7 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
   mouseOver(): void {
     this.mousedOver = true;
     this.state.mousedOverLocation = this;
-    this.particles = new Particles(this);
+    this.particles = new Particles(this, this.node.position.x, this.node.position.y);
 
     this.render();
   }
