@@ -468,7 +468,24 @@ const MountainFiller: EventType = {
   ]
 };
 
-ForestFiller;
+const ForestRandomGood: EventType = {
+  location     : "Forest",
+  description  : "As your party makes it through the forest, you successfully hunt a wild deer!",
+  difficulty   : EventDifficulty.FreeMeat,
+  stopsProgress: false,
+  options: [
+    {
+      skillRequired: { type: "no-skill" },
+      description  : "Take the meat.",
+      followUpText : 
+      `You'll eat well for the next few days.`,
+      outcome      : [{ type: "gain-meat", amount: 30, hidden: false }],
+      updateEventTo: ForestFiller,
+    },
+    PassOn({ price: 0 }),
+  ]
+};
+
 export const AllEvents: EventType[] = [
   // Finish
   GameFinish,
@@ -476,6 +493,7 @@ export const AllEvents: EventType[] = [
   // Forest
 
   ForestElfEvent,
+  ForestRandomGood,
   //ForestElfEventBlighted,
   //ForestFiller,
 
