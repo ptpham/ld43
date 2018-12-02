@@ -74,6 +74,7 @@ export class State {
 
     this.stage    = stage;
     this.entities = [];
+    this.addEntity(this.blightManager);
 
     this.river = Graph.generateRiver(this.graph, graphOptions);
     this.canyon = Graph.generateCanyon(this.graph, graphOptions, this.river);

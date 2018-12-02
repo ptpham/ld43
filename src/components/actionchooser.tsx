@@ -169,8 +169,12 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
         <strong>
           { requirement }
         </strong>{' '}
-        { option.description }{' '}
-        { this.renderCost(option) }
+        <span
+
+        >
+          { option.description }{' '}
+          { this.renderCost(option) }
+        </span>
       </EventButton>
     );
   }
