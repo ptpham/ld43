@@ -108,30 +108,39 @@ const BlightedForestElfEvent: EventType = {
       description: "Cut the forest down, one log at a time.",
       outcome: {
         type  : "lose-meat",
-        amount: 10,
+        amount: 50,
         hidden: false,
       },
-      //updateEventTo: ForestThatIsCutDown,
-      followUpText: "Your lumberjack gets to work, and after some time, the entire forest is leveled.",
+      followUpText: "Your lumberjack gets to work, but even after a significant amount of work, the forest seems as expansive as it always was.",
     },
     {
       skillRequired: { type: "specific-skill", skill: "Architect", withoutSkill: "Everything" },
       description: "Build a house.",
-      followUpText : "You cut down some trees and build a log cabin.",
+      followUpText : "You cut down some trees and build a log cabin. However, after leaving one day, you never seem to be able to find it again...",
       outcome: { type: "lose-meat", amount: 20, hidden: false, },
-      updateEventTo: ForestWithHouse,
+      //updateEventTo: {
+      //  location   : "Forest",
+      //  description: 
+      //    `This forest has a large, conspicuous house in the middle of it. With the
+      //    house, it seems like some of the mystery of this forest has left.`,
+      //  difficulty : 1,
+      //  options: [
+      //    CutDownForestOption,
+      //    PassOn({ price: 10 }),
+      //  ]
+      //},
     },
     {
-      skillRequired: { type: "specific-skill", skill: "Priest", withoutSkill: "Unlabeled" },
+      skillRequired: { type: "specific-skill", skill: "Priest", withoutSkill: "Invisible" },
       description: "Commune with the forest elves.",
-      followUpText : "The forest elves pay you with lots of meat!",
+      followUpText : "The forest elves shriek at you for bringing misfortune to their forest!",
       outcome: {
-        type: "gain-meat",
+        type: "lose-meat",
         amount: 20,
         hidden: true,
       },
     },
-    PassOn({ price: 10 }),
+    PassOn({ price: 40 }),
   ]
 };
 
