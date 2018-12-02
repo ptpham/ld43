@@ -55,7 +55,9 @@ export class ActionChooser extends React.Component<EventChooserProps> {
             <strong>{ opt.skillRequired.skill } :</strong>
           );
         } else {
-          const x: never = opt.skillRequired;
+          const x: never = opt.skillRequired.withoutSkill;
+
+          throw new Error("x should be never" + x);
         }
       }
     } else if (opt.skillRequired.type === "no-skill") {
