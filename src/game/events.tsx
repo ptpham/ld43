@@ -5,7 +5,7 @@ export type EventOutcome =
   | { type: "lose-meat"; amount: number; additionalInfo?: string }
 
 export type SkillRequirement =
-  | { type: "specific-skill"; skill: SkillType; withoutSkill: "invisible" | "unlabeled" | "everything" }
+  | { type: "specific-skill"; skill: SkillType; withoutSkill: "Invisible" | "Unlabeled" | "Everything" }
   | { type: "no-skill"      ; }
 
 export type EventOption = {
