@@ -91,7 +91,7 @@ export class Game {
         frequency: 0.008,
         spawnChance: 1,
         particlesPerWave: 1,
-        emitterLifetime: 0.31,
+        emitterLifetime: -1,
         maxParticles: 1000,
         pos: {
           x: 0,
@@ -102,7 +102,7 @@ export class Game {
         spawnCircle: {
           x: 0,
           y: 0,
-          r: 10
+          r: 100
         }
       }
     );
