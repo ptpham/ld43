@@ -6,7 +6,7 @@ import { Particles } from './particles';
 import { IEntity } from './entity';
 
 export class BlightManager implements IEntity {
-  public particles: Particles[] = [];
+  public particles: (Particles | undefined)[] = [];
   
   public applyBlightAndRenderImminent(state: State, node: Node, idol_time: number): void {
 
@@ -73,7 +73,9 @@ export class BlightManager implements IEntity {
 
   public update(state: State): void {
     for ( let particle of this.particles ) {
-      particle.update_(state);
+      if (particle) {
+        particle.update_(state);
+      }
     }
   }
 }
