@@ -53,10 +53,7 @@ const ForestWithHouse: EventType = {
   difficulty : 1,
   options: [
     CutDownForestOption,
-    {
-      skillRequired: { type: "no-skill" },
-      description: "Pass on.",
-    },
+    PassOn({ price: 10 }),
   ]
 };
 
