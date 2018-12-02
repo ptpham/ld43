@@ -16,7 +16,7 @@ type IdolState =
     }
   ;
 
-export type GameState = 
+export type GameMode = 
   | "Normal"
   | "Looking At Event"
 
@@ -40,6 +40,7 @@ export class State {
   cardsInCaravan      : Set<CardType>;
   cardsInWholeGame    : Set<CardType>;
   stage               : PIXI.Container;
+  gameMode            : GameMode;
   graph               : Graph.Node[];
   visitedNodes        : Set<Graph.Node>;
   river               : PIXI.Point[];
