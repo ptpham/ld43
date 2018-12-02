@@ -102,11 +102,16 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
         <div 
           onClick = { () => console.log('lets embark!') }
           style={{ textAlign: "center" }}>
-          { (() => 
+          { (() => { if (true) { return
           <a href="javascript:;" onClick={() => this.props.onDone(this.state.selectedCards)}>
             { this.state.selectedCards.size + "/" + C.MAX_PARTY_SIZE } Go!
           </a>
-          )() }
+          } else { return 
+          <a href="javascript:;" onClick={() => this.props.onDone(this.state.selectedCards)}>
+            { this.state.selectedCards.size + "/" + C.MAX_PARTY_SIZE } Go!
+          </a>
+          }
+          })() }
         </div>
       </div>
     );

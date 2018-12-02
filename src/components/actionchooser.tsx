@@ -12,7 +12,7 @@ const EventButton = (props: {
   return (
     <a 
       href="javascript:;"
-      className="event-button"
+      className={ props.disabled ? "" : "event-button" }
       onClick={() => props.onClick() }
       style={{
         textDecoration: "none",
