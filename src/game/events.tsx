@@ -69,10 +69,7 @@ export const AllEvents: EventType[] = [
       {
         skillRequired: { type: "specific-skill", skill: "Builder" },
         description: "Build a house.",
-        outcome: { 
-          type: "lose-meat", 
-          amount: 20,
-        },
+        outcome: { type: "lose-meat", amount: 20, },
         updateEventTo: ForestWithHouse,
       },
 
@@ -87,6 +84,7 @@ export const AllEvents: EventType[] = [
       {
         skillRequired: { type: "no-skill" },
         description: "Pass on.",
+        outcome: { type: "lose-meat", amount: 10, },
       },
     ]
   }
