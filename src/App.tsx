@@ -49,6 +49,9 @@ class App extends React.Component<{ game: Game }, AppState>  {
 
   onSelectCards(cards: Set<CardType>): void {
     this.state.gameState.cardsInCaravan   = cards;
+    for (let card of cards) {
+      this.state.gameState.cardsInWholeGame.delete(card);
+    }
     this.state.gameState.isLocationDone = true;
     this.setState({ isEventVisible: false });
   }
