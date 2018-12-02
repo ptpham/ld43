@@ -97,7 +97,7 @@ export class BlightManager implements IEntity {
   }
 
   public update(state: State): void {
-    console.log('BLIGHT MANAGER UPDATE')
+    //console.log('BLIGHT MANAGER UPDATE')
     for (let particle of this.imminentParticles) {
       if (particle) {
         particle.update_(state);
