@@ -20,6 +20,7 @@ const imageMap = new Map([
   ['Assassin', '/assets/assassin.png'],
   ['Cartographer', '/assets/cartographer.png'],
   ['Sage', '/assets/sage.png'],
+  ['Merchant', '/assets/merchant.png'],
   ['Bard', '/assets/bard.png']
 ]);
 
