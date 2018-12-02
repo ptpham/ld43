@@ -246,13 +246,29 @@ export class State {
             return;
           }
 
-          case "lose-member": {
+          case "lose-member-strong": {
             for (let c of this.cardsInCaravan) {
               if (c.skill == outcome.skill) {
                 this.cardsInCaravan.delete(c);
                 break;
               }
             }
+            break;
+          }
+
+          case "lose-member-weak": {
+            let c: CardType | undefined;
+            for (c of this.cardsInCaravan) {
+              if (c.skill == outcome.skill) {
+                this.cardsInCaravan.delete(c);
+                break;
+              }
+            }
+            // add him back home
+            if (c) {
+              this.cardsInWholeGame.add(c);
+            }
+
             break;
           }
 
