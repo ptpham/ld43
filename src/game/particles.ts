@@ -5,7 +5,7 @@ import { State } from "./state";
 
 export class Particles extends Emitter {
   public elapsed: number = Date.now();
-  constructor(parent: PIXI.Graphics, x: number, y: number, asset_name: string = 'purple_particle', corruptness: number) {
+  constructor(parent: PIXI.Graphics, x: number, y: number, corruptness: number, asset_name: string = 'purple_particle') {
     super(
       parent,
       [PIXI.loader.resources[asset_name].texture], 
