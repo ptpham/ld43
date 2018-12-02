@@ -91,6 +91,8 @@ class App extends React.Component<{ game: Game }, AppState>  {
   };
 
   public render() {
+    const gameMode = this.state.gameState.getGameMode();
+
     return (
       <div>
         <Toolbar gameState={this.state.gameState}/>
