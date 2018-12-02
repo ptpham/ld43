@@ -6,8 +6,8 @@ export type EventItem =
 export type EventOutcome = 
   | { type: "gain-meat"; amount: number; hidden: boolean }
   | { type: "lose-meat"; amount: number; hidden: boolean }
-  | { type: "lose-member-strong"; skill: SkillType; hidden: boolean }
-  | { type: "lose-member-weak"; skill: SkillType; hidden: boolean }
+  | { type: "lose-member-strong"; skill: SkillType; }
+  | { type: "lose-member-weak"; skill: SkillType; }
   | { type: "gain-item"; item: EventItem }
   | { type: "turn-back"; }
 
@@ -103,7 +103,6 @@ const CutDownForestOption: EventOption = {
     {
       type  : "lose-member-weak",
       skill: "Woodsman",
-      hidden: false,
     },
   ],
   updateEventTo: ForestThatIsCutDown,
@@ -180,7 +179,6 @@ const ForestElfEventBlighted: EventType = {
       outcome: [{
         type: "lose-member-strong",
         skill: "Priest",
-        hidden: false,
       }],
       updateEventTo: ForestElfEvent
     },
@@ -272,7 +270,10 @@ const BlightedBarbarianVillageWornDown: EventType = {
         //`Strong and tough as they are, it seems no one left is nearly as observant as old Thok the gatekeeper. You lie low for a period, tracking their movements and figuring out what allies you can find to oppose the masked gang. Eventually, you set up a trap and assassinate the masked gang with their help. The village is thrown into chaos and bloodshed as a result and by double-crossing your allies, you are able to help the "Democratic Republican Barbarians" eventually win out. In order to ensure they stay in power, your assassin stays behind as "military counselor".`,
         //`Strong and tough as they are, it seems no one left is nearly as observant as old Thok the gatekeeper. Your assassin slays an entire generation of barbarians. Hardly anyone is left after `,
         `Strong and tough as they are, it seems no one left is nearly as observant as old Thok the gatekeeper. Leaving your assassin behind, he slowly and strategically takes out all members of the ruling faction.`,
-      outcome      : [{ type: "lose-meat", amount: 10, hidden: false }], // TODO: lose assassin
+      outcome      : [
+        { type: "lose-meat", amount: 10, hidden: false },
+        { type: "lose-member-strong", skill: "Assassin" }
+      ], // TODO: lose assassin
       updateEventTo: {
         location: "BarbarianVillage",
         description: 
