@@ -68,13 +68,13 @@ const ForestElfEvent: EventType = {
   options: [
     CutDownForestOption,
     {
-      skillRequired: { type: "specific-skill", skill: "Builder" },
+      skillRequired: { type: "specific-skill", skill: "Builder", withoutSkill: "Everything" },
       description: "Build a house.",
       outcome: { type: "lose-meat", amount: 20, },
       updateEventTo: ForestWithHouse,
     },
     {
-      skillRequired: { type: "specific-skill", skill: "Priest" },
+      skillRequired: { type: "specific-skill", skill: "Priest", withoutSkill: "Everything" },
       description: "Commune with the forest elves.",
       outcome: {
         type: "gain-meat",
