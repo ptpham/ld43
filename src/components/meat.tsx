@@ -76,7 +76,7 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
             paddingRight: "20px",
           }}
         >
-          Crew count: { "not enough to survive " }
+          Crew count: { this.props.gameState.cardsInCaravan.size }
         </div>
       </div>
     );
