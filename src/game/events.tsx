@@ -15,7 +15,7 @@ export type SkillRequirement =
 export type EventOption = {
   skillRequired : SkillRequirement;
   description   : string;
-  followUpText ?: string;
+  followUpText  : string;
   outcome      ?: EventOutcome;
   updateEventTo?: EventType;
 }
@@ -30,6 +30,7 @@ export type EventType = {
 const PassOn = ({ price = 0 }): EventOption => ({
   skillRequired: { type: "no-skill" },
   description  : "Pass on.",
+  followUpText : "",
   ...(price === 0 ? undefined : { outcome: { type: "lose-meat", amount: 10 } }),
 });
 
