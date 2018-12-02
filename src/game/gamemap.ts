@@ -28,6 +28,7 @@ export class GameMap extends Entity {
     this.state = state;
     this.makeBG();
 
+    this.makeRiver();
     this.graphSprite = this.makeGraph();
 
     this.makeCaravan();
@@ -89,6 +90,13 @@ export class GameMap extends Entity {
     this.state.stage.addChild(graphSprite);
 
     return graphSprite;
+  }
+
+  makeRiver(): PIXI.mesh.Rope {
+    const river = new PIXI.mesh.Rope(PIXI.loader.resources['river'].texture, this.state.river);
+    console.log(river, this.state.river);
+    this.state.stage.addChild(river);
+    return river;
   }
 
   makeCaravan(): Caravan {
