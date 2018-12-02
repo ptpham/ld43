@@ -20,6 +20,7 @@ const EventButton = (props: {
         border: "1px solid lightgray",
         padding: "10px 5px",
         margin: "0 0 20px 0",
+        color: props.disabled ? "gray" : "inherit",
       }}
     >
       <div>
