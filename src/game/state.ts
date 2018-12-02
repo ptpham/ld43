@@ -132,7 +132,7 @@ export class State {
       };
     }
 
-    this.onChange();
+    this.triggerChange();
   }
 
   onPickUpIdol(): void {
@@ -145,7 +145,7 @@ export class State {
       };
     }
 
-    this.onChange();
+    this.triggerChange();
   }
 
   public hasIdol(): boolean {
@@ -171,7 +171,7 @@ export class State {
       }
     }
 
-    this.onChange();
+    this.triggerChange();
   }
 
   // stupid stuff to ensure we always propagate changes to react.
@@ -182,7 +182,7 @@ export class State {
     this.changeListeners.push(e);
   }
 
-  onChange(): void {
+  triggerChange(): void {
     for (const listener of this.changeListeners) {
       listener(this);
     }
