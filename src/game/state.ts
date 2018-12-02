@@ -142,8 +142,11 @@ export class State {
     this.time.from_start++;
     if (this.idolState.state === 'dropped') {
       // before incrementing, check if we hit a blight point
-      if 
+      if (this.getIdolBlightDanger().remaining === 1) {
+        console.log("blight happens... maybe");
+      }
       this.time.for_idol++;
+      // after incrementing, mark down the places to be blighted next
     }
   }
 
