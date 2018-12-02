@@ -1,5 +1,8 @@
 import { LocationType, SkillType } from "./data";
 
+export type EventItems =
+  | "Tailisman"
+
 export type EventOutcome = 
   | { type: "gain-meat"; amount: number; hidden: boolean }
   | { type: "lose-meat"; amount: number; hidden: boolean }
@@ -187,6 +190,97 @@ const BarbarianVillageWornDown: EventType = {
   ]
 }
 
+const GoblinNest: EventType = {
+  location: "GoblinNest",
+  description: `
+    You approach the outskirts of a nest of goblins. You believe
+    the goblins are almost certainly warlike. You can overhear
+    them talking about how much they hate humans - a favorite goblin
+    conversational topic, along with how much they smell.
+    `,
+  difficulty: 1,
+  options: [
+    {
+      skillRequired: { type: "specific-skill", skill: "Architect", withoutSkill: "Unlabeled" },
+      description: "Build a watch tower to attack the goblins from.",
+      followUpText:
+        `What were you thinking? The goblins notice you immediately! You barely escape
+        with your lives!`,
+      outcome: { type: "lose-meat", amount: 10, hidden: true },
+
+      updateEventTo: {
+        location: "GoblinNest",
+        description: `
+          You approach the outskirts of a nest of goblins. There is the beginnings
+          of a tower being built here.
+          `,
+        difficulty: 1,
+        options: [
+          {
+            skillRequired: { type: "specific-skill", skill: "Architect", withoutSkill: "Unlabeled" },
+            description: "Continue to build the tower",
+            followUpText:
+              `You continue to try to build the tower. You make a little more
+                progress, and then the goblins (again) notice and run you off. You
+                barely escape with your lives. Again. When will you ever learn?`,
+            outcome: { type: "lose-meat", amount: 10, hidden: true },
+            updateEventTo: {
+              location: "GoblinNest",
+              description: `
+                You approach the outskirts of a nest of goblins. There is a serviceable tower built here.
+                `,
+              difficulty: 1,
+              options: [
+                {
+                  skillRequired: { type: "no-skill" },
+                  description: "Shoot at the goblins from the tower.",
+                  followUpText:
+                    `Amazingly, your tower provides enough defense - or the goblins are stupid enough -
+                     that you can shoot arrows down to the goblins without any risk of counterattack! The goblins
+                     all flee the nest, and you take the opportunity to pick up some left-over goblin meat.`,
+                  outcome: { type: "gain-meat", amount: 50, hidden: true },
+                  updateEventTo: {
+                    location: "GoblinNest",
+                    description: `
+                      You see the outskirts of an abandoned goblin nest.
+                    `,
+                    difficulty: 1,
+                    options: [
+                      PassOn({ price: 0 }),
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+        ]
+      }
+    },
+    {
+      skillRequired: { type: "specific-skill", skill: "Assassin", withoutSkill: "Unlabeled" },
+      description: "Assassinate the goblin leader.",
+      followUpText:
+        `Your assassin waits until nightfall, then sneaks through the camp and
+        assassinates the leader of the goblins! She also finds a large treasure
+        chest of meat in the leader's tent.`,
+      outcome: { type: "gain-meat", amount: 100, hidden: true },
+      updateEventTo: {
+        location: "GoblinNest",
+        description: `
+          You approach the goblin nest. The goblins are swarming around
+          aimlessly, confused, bemoaning the loss of their leader. It seems like
+          slipping through should be easy.
+        `,
+        difficulty: 1,
+        options: [
+          PassOn({ price: 0 }),
+        ]
+      }
+    },
+    PassOn({ price: 20 }),
+  ],
+};
+
 const BlightedBarbarianVillageWornDown: EventType = {
   location: "BarbarianVillage",
   description: `
@@ -227,11 +321,10 @@ const BlightedBarbarianVillageWornDown: EventType = {
   ]
 }
 
-
-
 export const AllEvents: EventType[] = [
   ForestElfEvent,
   BlightedForestElfEvent,
   BarbarianVillageWornDown,
+  GoblinNest,
   BlightedBarbarianVillageWornDown,
 ]

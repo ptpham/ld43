@@ -63,7 +63,7 @@ export class State {
     const graphOptions = {
       width: C.CANVAS_WIDTH - 100, // TODO(bowei): this should be MAP_WIDTH and MAP_HEIGHT once we get scrolling working
       height: C.CANVAS_HEIGHT - 100,
-      spacing: 48
+      spacing: 80
     };
 
     this.graph = Graph.generate(graphOptions);

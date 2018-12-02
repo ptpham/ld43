@@ -241,26 +241,30 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
   render(): void {
     this.clear();
 
-    this.lineWidth = this.selected ? 3 : 1;
+    // this.lineWidth = this.selected ? 3 : 1;
 
-    if (this.node.locationType === 'Start') {
-      this.lineStyle(this.lineWidth, 0x00FF00);
-    } else if (this.node.locationType === 'Finish') {
-      this.lineStyle(this.lineWidth, 0xFF0000);
-      this.lineWidth = 0;
-    } else {
-      this.lineStyle(this.lineWidth, 0x000000);
-    }
+    // if (this.node.locationType === 'Start') {
+    //   this.lineStyle(this.lineWidth, 0x00FF00);
+    // } else if (this.node.locationType === 'Finish') {
+    //   this.lineStyle(this.lineWidth, 0xFF0000);
+    //   this.lineWidth = 0;
+    // } else {
+    //   this.lineStyle(this.lineWidth, 0x000000);
+    // }
+
+    // if (this.selected) {
+    //   this.x = -4;
+    //   this.y = -4;
+    // } else {
+    //   this.x = 0;
+    //   this.y = 0;
+    // }
 
     if (this.selected) {
-      this.x = -4;
-      this.y = -4;
-    } else {
-      this.x = 0;
-      this.y = 0;
-    }
-
-    if (this.mousedOver) {
+      for (const child of this.children) {
+        (child as any).tint = 0xffff00;
+      }
+    } else if (this.mousedOver) {
       for (const child of this.children) {
         (child as any).tint = 0xdddddd;
       }
@@ -270,7 +274,7 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
       }
     }
 
-    this.drawCircle(this.node.position.x, this.node.position.y, 16);
+    //this.drawCircle(this.node.position.x, this.node.position.y, 16);
   }
 
   update(state: State): void {
