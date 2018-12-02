@@ -230,6 +230,12 @@ export class State {
             break;
           }
 
+          case "lose-member": {
+            // TODO(bowei): lose the member!
+
+            break;
+          }
+
           default: {
             const x: never = outcome;
 
