@@ -21,6 +21,8 @@ export class BlightManager {
     }
     neighborsByDegree.push(deg2);
 
+    //let random = 
+
     for (let degree = 0; degree < 2 /* lol */; degree++ ){
       let neighbors: Node[] = neighborsByDegree[degree];
       for (let node of neighbors) {
