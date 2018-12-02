@@ -22,7 +22,7 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
     const visitedNodes = this.state.visitedNodes;
     let visibleNodes = new Set<Graph.Node>();
 
-    if (Debug.FOG_OF_WAR_OFF || this.state.idolState.state === 'gone') {
+    if (Debug.FOG_OF_WAR_OFF || this.state.hasWon) {
       visibleNodes = new Set(this.state.graph);
     } else {
       this.state.graph.forEach(node => {
@@ -73,7 +73,11 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
     }
 
     for (let node of visibleNodes) {
-      const newCircle = new Location({ node, state: this.state });
+      const newCircle = new Location({ 
+        node, 
+        state: this.state,
+        visited: visitedNodes.has(node),
+      });
 
       this.graphSprite.addChild(newCircle);
       this.state.addEntity(newCircle);

@@ -76,7 +76,7 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
           }}
         >
           {
-            this.props.gameState.idolState.state === 'gone' ?
+            this.props.gameState.hasWon ?
             "so winning" : (
               <>
                 You <strong>{ this.props.gameState.hasIdol() ? "have" : "don't have" }</strong> the idol.
@@ -114,11 +114,34 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
         }
 
         {
+          this.props.gameState.items.size > 0 &&
+            <div
+              style={{
+                paddingTop: "20px",
+              }}
+            >
+              <div>
+                <strong>Items</strong>
+              </div>
+
+              {
+                [...this.props.gameState.items.keys()].map(item => {
+                  return (
+                    <div>
+                      { item }
+                    </div>
+                  );
+                })
+              }
+            </div>
+        }
+
+        {
           location &&
             <>
               <div
                 style = {{
-                  paddingBottom: "20px",
+                  paddingTop: "20px",
                 }}
               >
                 <strong>Currently { mousedOverLoc ? "hovered" : "selected" } location:</strong>
@@ -131,9 +154,6 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
               >
                 <div>
                   Type: { location.node.locationType }
-                </div>
-                <div>
-                  Meat Cost: { location.node.meatCostExplanationString(this.props.gameState) }
                 </div>
               </div>
             </>

@@ -99,9 +99,6 @@ export class BlightManager implements IEntity {
     if (idolState.state === 'carried') {
       to_ret.remaining = -1; // never
     }
-    if (idolState.state === 'gone') {
-      to_ret = { text: "much win", remaining: -1 };
-    }
     return to_ret;
   }
 

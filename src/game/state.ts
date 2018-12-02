@@ -16,9 +16,6 @@ export type IdolState =
       state : "dropped";
       node  : Graph.Node;
     }
-  | {
-      state: "gone";
-    }
   ;
 
 export type GameMode = 
@@ -41,6 +38,7 @@ export class State {
    * 
    * They will be automatically updated and stuff
    */
+  hasWon              : boolean;
   entities            : IEntity[];
   items               : Set<EventItem>;
   cardsInCaravan      : Set<CardType>;
@@ -71,6 +69,8 @@ export class State {
       height: C.CANVAS_HEIGHT - 100,
       spacing: 80
     };
+
+    this.hasWon = false;
 
     this.items = new Set();
     this.graph = Graph.generate(graphOptions);
@@ -171,8 +171,6 @@ export class State {
     this.caravanLocation = to;
     this.isLocationDone = false;
 
-    this.meat -= to.meatCost(this);
-
     this.visitedNodes.add(to);
     this.gameMap.graphSprite.render();
 
@@ -182,7 +180,7 @@ export class State {
 
     this.time.from_start++;
 
-    if (this.idolState.state === 'carried' || this.idolState.state === 'gone') {
+    if (this.idolState.state === 'carried' || this.hasWon) {
       // if it was newly picked up : remove the imminently blighted spots
       //this.blightManager.unRenderImminent();
     } else {
@@ -328,16 +326,19 @@ export class State {
       );
     }
 
-    if (option.chucksIdol) {
-      this.idolState = {
-        state: "gone",
-      };
-      this.gameMap.graphSprite.render();
-      this.blightManager.unRenderImminent();
+    if (option.winsGame) {
+      this.winGame();
     }
 
     this.activeEvent = undefined;
     this.triggerChange();
+  }
+
+  winGame() {
+    this.hasWon = true;
+    this.onDropIdol();
+    this.gameMap.graphSprite.render();
+    this.blightManager.unRenderImminent();
   }
 
   // stupid stuff to ensure we always propagate changes to react.

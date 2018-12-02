@@ -153,7 +153,7 @@ export class GameMap extends PIXI.Sprite implements IEntity {
   }
 
   update(state: State) {
-    if (this.state.idolState.state === 'gone') {
+    if (this.state.hasWon) {
       const idealFilter = [
         1, 0, 0, 0, 0,
         0, 1, 0, 0, 0,

@@ -43,7 +43,7 @@ export type EventOption = {
   followUpText  : string;
   outcome       : EventOutcome[];
   updateEventTo?: EventType;
-  chucksIdol   ?: boolean;
+  winsGame   ?: boolean;
 }
 
 export type EventType = {
@@ -69,13 +69,13 @@ const GameFinish: EventType = {
     Your party is exhausted from the trek but the mood is upbeat
     since you've finally reached your goal.`,
   difficulty: EventDifficulty.NothingHappens,
-  stopsProgress: true,
+  stopsProgress: false,
   options: [
     {
       skillRequired: {type: "no-skill"},
       description: "Drop the idol into the maws of the volcano from whence it came.",
       followUpText: "",
-      chucksIdol: true,
+      winsGame: true,
       outcome: [],
     }
   ]
@@ -223,7 +223,7 @@ const BarbarianVillageFailedAssassinationAttempt: EventType = {
 
 const BarbarianVillageWornDown: EventType = {
   location: "BarbarianVillage",
-  stopsProgress: true,
+  stopsProgress: false,
   description: `
     After days of journeying, your party encounters a ramshackle 
     village of barbarians, with some buildings falling apart. 
