@@ -139,6 +139,7 @@ export class State {
     this.gameMap.graphSprite.render();
 
     this.activeEvent = to.event;
+    this.time.from_start++;
   }
 
   onDropIdol(): void {
