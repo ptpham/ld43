@@ -13,6 +13,10 @@ type CardState = {
  selected: boolean;
 }
 
+const imageMap = new Map([
+  ['Priest', '/assets/priest.png']
+]);
+
 export class Card extends React.Component<CardProps, CardState> {
   constructor(props: CardProps) {
     super(props);
@@ -35,6 +39,9 @@ export class Card extends React.Component<CardProps, CardState> {
           height: "200px",
           width: "100px",
           margin: "0 20px 10px 20px",
+          backgroundImage: `url(${imageMap.get(this.props.card.skill)}`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '100%'
         }}
       >
         <div>
