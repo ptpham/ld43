@@ -40,6 +40,10 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
           skill: "Stupid",
           meat: 1,
         },
+        {
+          skill: "WoodCutter",
+          meat: 1,
+        },
       ]
     };
   }
