@@ -153,7 +153,17 @@ export class State {
   }
 
   public handleChooseEventOption(option: EventOption): void {
+    switch (option.outcome.type) {
+      case "gain-meat": {
+        this.meat += option.outcome.amount;
+        break;
+      }
 
+      case "lose-meat": {
+        this.meat -= option.outcome.amount;
+        break;
+      }
+    }
   }
 
   // stupid stuff to ensure we always propagate changes to react.
