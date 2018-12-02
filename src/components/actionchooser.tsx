@@ -289,7 +289,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
                 )
               }
 
-              if (outcome.type === "lose-member") {
+              if (outcome.type === "lose-member-strong") {
                 return (
                   <div
                     style={{
