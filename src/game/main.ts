@@ -26,6 +26,7 @@ export class Game {
 
     this.state.stage.addChild(gameMap);
     this.state.gameMap = gameMap;
+    this.state.addEntity(gameMap);
 
     const stest = new PIXI.Sprite(PIXI.loader.resources['test'].texture);
     stest.x = 10;

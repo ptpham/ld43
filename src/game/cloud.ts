@@ -25,7 +25,11 @@ export class Cloud extends PIXI.Sprite implements IEntity {
   }
 
   update(state: State): void {
-    if (this.x > C.MAP_WIDTH) {
+    if (state.idolState.state === 'gone') {
+      if (this.alpha > 0) {
+        this.alpha -= 0.01;
+      }
+    } else if (this.x > C.MAP_WIDTH) {
       this.y = C.MAP_HEIGHT * SeedRandom();
       this.x = -400;
       this.texture = getRandomTexture([
