@@ -220,7 +220,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
             option.outcome && option.outcome.type === "lose-meat" &&
               <div
                 style={{
-                  backgroundColor: "lightgreen",
+                  backgroundColor: "lightred",
                   padding: "5px",
                   margin: "10px 0 0 0"
                 }}
