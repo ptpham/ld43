@@ -240,8 +240,7 @@ export class GameMapCircle extends PIXI.Graphics implements IEntity {
     if (this.mousedOver) {
       this.tint = 0x333333;
     } else {
-      this.scale.x = 1;
-      this.scale.y = 1;
+      this.tint = 0;
     }
   }
 
