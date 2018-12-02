@@ -22,9 +22,9 @@ export type SkillType =
   | "Cartographer"
   | "Priest"
   | "Woodsman" // Woodcutting, but also general forestry.
+  | "Sage" // Knows many things but can't do much.
   // We do not have assets for those below this line.
   | "Merchant"
-  | "Sage" // Knows many things but can't do much.
 ;
 
 export const LocationTypeData: { [key in LocationType]: {
