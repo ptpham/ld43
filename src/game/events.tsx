@@ -85,6 +85,7 @@ const ForestElfEvent: EventType = {
       outcome: {
         type: "gain-meat",
         amount: 20,
+        hidden: true,
       },
     },
     PassOn({ price: 10 }),
@@ -118,7 +119,7 @@ const BarbarianVillageWornDown: EventType = {
       skillRequired: { type: "specific-skill", skill: "Builder", withoutSkill: "Unlabeled" },
       description  : "Repair some of the barbarian's buildings.",
       followUpText : "Thok thanks you for your kindness and lets you pass. The barbarians give you some meat as you leave.",
-      outcome      : { type: "gain-meat", amount: 10, },
+      outcome      : { type: "gain-meat", amount: 10, hidden: true },
       updateEventTo: BarbarianVillageRepaired,
     },
     {
