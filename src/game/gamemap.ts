@@ -7,11 +7,8 @@ import { C } from "./constants";
 import { Caravan } from "./caravan";
 import { random } from "lodash";
 import { Idol } from "./idol";
-<<<<<<< HEAD
 import { GraphSprite } from "./graphsprite";
-=======
 import { Cloud } from "./cloud";
->>>>>>> 5c7bd90e444a2cd8b1606665705532b8fe7c8d61
 
 function makeSprite(texture: PIXI.Texture): PIXI.Sprite {
   const sprite = new PIXI.Sprite(texture);
