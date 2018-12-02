@@ -1,7 +1,6 @@
 import React from "react";
 import { State } from "../game/state";
 import { LocationTypeData } from "../game/data";
-import { EventChooser } from "./eventchooser";
 
 type SidebarProps = {
   gameState   : State;
@@ -135,15 +134,6 @@ export class Sidebar extends React.Component<SidebarProps, SidebarState> {
                 </div>
               </div>
             </>
-        }
-
-        {
-          this.props.gameState.caravanLocation.locationType !== 'Start' &&
-            <EventChooser 
-              gameState={this.props.gameState} 
-              node={this.props.gameState.caravanLocation}
-              onDone={ () => this.props.onDoEvent() }
-            />
         }
       </div>
     );

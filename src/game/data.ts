@@ -23,7 +23,6 @@ export type SkillType =
   | "Priest"
   | "Woodsman" // Woodcutting, but also general forestry.
   | "Sage" // Knows many things but can't do much.
-  // We do not have assets for those below this line.
   | "Merchant"
 ;
 

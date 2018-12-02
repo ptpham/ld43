@@ -21,6 +21,16 @@ export type Requirement =
     }
   | { type: "no-skill"      ; }
 
+export enum EventDifficulty {
+  NothingHappens   = 0,
+  FreeMeat         = 1,
+  NormalDifficutly = 2,
+  HardDifficulty   = 3,
+
+  // let's not use this one (unless they do something stupid)
+  LoseMeat         = 4,
+}
+
 export type EventOption = {
   skillRequired : Requirement;
   description   : string;
@@ -30,10 +40,11 @@ export type EventOption = {
 }
 
 export type EventType = {
-  location   : LocationType;
-  description: string;
-  difficulty : 1 | 2 | 3;
-  options    : EventOption[];
+  location     : LocationType;
+  stopsProgress: boolean;
+  description  : string;
+  difficulty   : EventDifficulty;
+  options      : EventOption[];
 }
 
 const PassOn = ({ price = 0 }): EventOption => ({
@@ -44,9 +55,10 @@ const PassOn = ({ price = 0 }): EventOption => ({
 });
 
 const ForestThatIsCutDown: EventType = {
-  location   : "Forest",
-  description: "This forest has been cut down.",
-  difficulty : 1,
+  location     : "Forest",
+  description  : "This forest has been cut down.",
+  difficulty   : EventDifficulty.NothingHappens,
+  stopsProgress: false,
   options: [
     PassOn({ price: 0 }),
   ]
@@ -65,11 +77,12 @@ const CutDownForestOption: EventOption = {
 };
 
 const ForestWithHouse: EventType = {
-  location   : "Forest",
+  location     : "Forest",
+  stopsProgress: false,
   description: 
     `This forest has a large, conspicuous house in the middle of it. With the
     house, it seems like some of the mystery of this forest has left.`,
-  difficulty : 1,
+  difficulty   : EventDifficulty.NothingHappens,
   options: [
     CutDownForestOption,
     PassOn({ price: 10 }),
@@ -77,12 +90,13 @@ const ForestWithHouse: EventType = {
 };
 
 const ForestElfEvent: EventType = {
-  location: "Forest",
+  location     : "Forest",
+  stopsProgress: true,
   description: 
     `You come to a misty forest. You hear the echo of soft, sad voices in the
     distance, but every time you come closer, they go further away. Passing
     through will be arduous, but is possible.`,
-  difficulty: 1,
+  difficulty   : EventDifficulty.NothingHappens,
   options: [
     CutDownForestOption,
     {
@@ -110,7 +124,8 @@ const BlightedForestElfEvent: EventType = {
   description: 
     `You come to a dark, misty forest. You hear the shrill echo of eerie laughter in the
     distance, and you feel uneasy. Passing through will not be easy.`,
-  difficulty: 1,
+  difficulty   : EventDifficulty.NothingHappens,
+  stopsProgress: true,
   options: [
     {
       skillRequired: { type: "specific-skill", skill: "Woodsman", withoutRequirement: "Everything" },
@@ -146,8 +161,9 @@ const BlightedForestElfEvent: EventType = {
 
 const BarbarianVillageRepaired: EventType = {
   location: "BarbarianVillage",
-  description: "You find a barbarian village in state of good repair.",
-  difficulty: 1,
+  description: "You find a barbarian village in state of good repair. The barbarians greet you with a friendly wave and let you continue on your way.",
+  stopsProgress: false,
+  difficulty   : EventDifficulty.NothingHappens,
   options: [
     PassOn({ price: 0 }),
   ]
@@ -155,23 +171,25 @@ const BarbarianVillageRepaired: EventType = {
 
 const BarbarianVillageFailedAssassinationAttempt: EventType = {
   location: "BarbarianVillage",
+  stopsProgress: false,
   description: `
     The barbarians all point and laugh at you. Then they 
     charge you money to pass on.`,
-  difficulty: 1,
+  difficulty: EventDifficulty.LoseMeat,
   options: [
-    PassOn({ price: 10 }),
+    PassOn({ price: 5 }),
   ]
 };
 
 const BarbarianVillageWornDown: EventType = {
   location: "BarbarianVillage",
+  stopsProgress: true,
   description: `
     After days of journeying, your party encounters a ramshackle 
     village of barbarians, with some buildings falling apart. 
     Thok, the gatekeeper to the village, looks you up and down 
     and says, 'Grunt.'`,
-  difficulty: 1,
+  difficulty: EventDifficulty.NormalDifficutly,
   options: [
     {
       skillRequired: { type: "specific-skill", skill: "Architect", withoutRequirement: "Unlabeled" },
@@ -198,29 +216,31 @@ const BarbarianVillageWornDown: EventType = {
 
 const GoblinNest: EventType = {
   location: "GoblinNest",
+  stopsProgress: true,
   description: `
     You approach the outskirts of a nest of goblins. You believe
     the goblins are almost certainly warlike. You can overhear
     them talking about how much they hate humans - a favorite goblin
     conversational topic, along with how much they smell.
     `,
-  difficulty: 1,
+  difficulty: EventDifficulty.NormalDifficutly,
   options: [
     {
       skillRequired: { type: "specific-skill", skill: "Architect", withoutRequirement: "Unlabeled" },
       description: "Build a watch tower to attack the goblins from.",
       followUpText:
-        `What were you thinking? The goblins notice you immediately! You barely escape
-        with your lives!`,
+        `What were you thinking? The goblins notice your shoddy attempts at
+        architecture immediately! You barely escape with your lives!`,
       outcome: { type: "lose-meat", amount: 10, hidden: true },
 
       updateEventTo: {
         location: "GoblinNest",
+        stopsProgress: true,
         description: `
           You approach the outskirts of a nest of goblins. There is the beginnings
           of a tower being built here.
           `,
-        difficulty: 1,
+        difficulty: EventDifficulty.NormalDifficutly,
         options: [
           {
             skillRequired: { type: "specific-skill", skill: "Architect", withoutRequirement: "Unlabeled" },
@@ -232,10 +252,11 @@ const GoblinNest: EventType = {
             outcome: { type: "lose-meat", amount: 10, hidden: true },
             updateEventTo: {
               location: "GoblinNest",
+              stopsProgress: true,
               description: `
                 You approach the outskirts of a nest of goblins. There is a serviceable tower built here.
                 `,
-              difficulty: 1,
+              difficulty: EventDifficulty.NormalDifficutly,
               options: [
                 {
                   skillRequired: { type: "no-skill" },
@@ -247,10 +268,11 @@ const GoblinNest: EventType = {
                   outcome: { type: "gain-meat", amount: 50, hidden: true },
                   updateEventTo: {
                     location: "GoblinNest",
+                    stopsProgress: false,
                     description: `
                       You see the outskirts of an abandoned goblin nest.
                     `,
-                    difficulty: 1,
+                    difficulty: EventDifficulty.NormalDifficutly,
                     options: [
                       PassOn({ price: 0 }),
                     ]
@@ -272,12 +294,13 @@ const GoblinNest: EventType = {
       outcome: { type: "gain-meat", amount: 100, hidden: true },
       updateEventTo: {
         location: "GoblinNest",
+        stopsProgress: false,
         description: `
           You approach the goblin nest. The goblins are swarming around
-          aimlessly, confused, bemoaning the loss of their leader. It seems like
-          slipping through should be easy.
+          aimlessly, confused, bemoaning the loss of their leader. Slipping
+          past them should be easy.
         `,
-        difficulty: 1,
+        difficulty: EventDifficulty.NormalDifficutly,
         options: [
           PassOn({ price: 0 }),
         ]
@@ -295,7 +318,8 @@ const BlightedBarbarianVillageWornDown: EventType = {
     There looks to be fresh blood on the walls of some.
     As you approach, a gigantic barbarian wearing a bone mask jumps out at you and demands, 
     'Grafff muuuuukinasa!'`,
-  difficulty: 1,
+  difficulty: EventDifficulty.NormalDifficutly,
+  stopsProgress: true,
   options: [
     {
       skillRequired: { type: "specific-skill", skill: "Architect", withoutRequirement: "Unlabeled" },
@@ -317,7 +341,8 @@ const BlightedBarbarianVillageWornDown: EventType = {
         location: "BarbarianVillage",
         description: `
           Your assassin is helping the Democratic Republican Barbarians rule with an iron fist. You avoid the peasant riots and are able to pass through with their help.`,
-        difficulty: 1,
+        difficulty: EventDifficulty.NormalDifficutly,
+        stopsProgress: false,
         options: [
           PassOn({ price: 0 }),
         ]
