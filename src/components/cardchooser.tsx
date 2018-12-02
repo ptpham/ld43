@@ -107,7 +107,7 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
               if ( 0 < this.state.selectedCards.size && this.state.selectedCards.size <= C.MAX_PARTY_SIZE) { 
                 return (
                   <a href="javascript:;" onClick={() => this.props.onDone(this.state.selectedCards)}> 
-                  { this.state.selectedCards.size + "/" + C.MAX_PARTY_SIZE } Go! 
+                  { this.state.selectedCards.size + "/" + C.MAX_PARTY_SIZE } Go{ this.state.selectedCards.size === C.MAX_PARTY_SIZE ? "" : "??"}! 
                   </a> 
                 );
               } else { 
