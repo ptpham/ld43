@@ -71,6 +71,7 @@ export const AllEvents: EventType[] = [
           type: "lose-meat", 
           amount: 20,
         },
+        updateEventTo: ForestWithHouse,
       },
 
       {

@@ -146,13 +146,15 @@ export class State {
   }
 
   public getIdolBlightDanger(): string {
-    if (this.time.for_idol <= 10) {
+    let t = this.time.for_idol;
+    if (t <= 10) {
+      //return { text: "Minimal", remaining: 10 - this.time_for_idol };
       return "Minimal";
-    } else if (this.time.for_idol <= 20) {
+    } else if (t <= 20) {
       return "Low";
-    } else if (this.time.for_idol <= 30) {
+    } else if (t <= 30) {
       return "Medium";
-    } else if (this.time.for_idol <= 40) {
+    } else if (t <= 40) {
       return "High";
     } else {
       return "Catastrophic";
