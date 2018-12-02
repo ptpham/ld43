@@ -4,7 +4,7 @@ import * as Graph from './graph';
 import { CardType } from './data';
 import { IEntity } from './entity';
 import { GameMapCircle, GameMap } from './gamemap';
-import { EventOption } from './events';
+import { EventOption, EventType } from './events';
 
 type IdolState = 
   | {
@@ -40,6 +40,7 @@ export class State {
   cardsInCaravan      : Set<CardType>;
   cardsInWholeGame    : Set<CardType>;
   stage               : PIXI.Container;
+  activeEvent         : EventType | undefined;
   graph               : Graph.Node[];
   visitedNodes        : Set<Graph.Node>;
   river               : PIXI.Point[];
@@ -112,6 +113,10 @@ export class State {
 
       this.isLocationDone = true;
     }
+  }
+  
+  getGameMode(): GameMode {
+    if (this.)
   }
 
   addEntity(entity: IEntity): void {
