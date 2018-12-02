@@ -1,5 +1,6 @@
 
 import { State } from './state';
+import { Node } from './graph';
 
 export class BlightManager {
   public applyBlightAndRenderImminent(state: State, node: Node, idol_time: number): void {
