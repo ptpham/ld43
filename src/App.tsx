@@ -7,7 +7,6 @@ import { Toolbar } from './components/meat';
 import { Sidebar } from './components/sidebar';
 import { CardType } from './game/data';
 import { ActionChooser } from './components/actionchooser';
-import { AllEvents } from './game/events';
 
 type AppState = {
   isEventVisible: boolean;
