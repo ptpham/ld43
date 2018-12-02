@@ -26,11 +26,11 @@ export class Game {
         // alpha decays from 1 to 0
         alpha: { list: [ { value: 1, time: 0 }, { value: 0, time: 1 } ], isStepped: false },
         // scale is always 2
-        scale: { list: [ { value: 2, time: 0 }, { value: 2, time: 1 } ], isStepped: false },
+        scale: { list: [ { value: 2, time: 0 }, { value: 2, time: 1 } ], isStepped: false, minimumScaleMultiplier: 1 },
         // can we disable color please?
         color: { list: [ { value: "fb1010", time: 0 }, { value: "f5b830", time: 1 } ], isStepped: false },
-        // speed always 25
-        speed: { list: [ { value: 25, time: 0 }, { value: 25, time: 1 } ], isStepped: false },
+        // speed always 25, but with 1x-2x random multiplier
+        speed: { list: [ { value: 25, time: 0 }, { value: 25, time: 1 } ], isStepped: false, minimumSpeedMultiplier: 2 },
         // always fire particles up
         startRotation: { min: 270, max: 270 },
         // they do not rotate
