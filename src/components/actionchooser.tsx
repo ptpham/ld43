@@ -290,11 +290,25 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
         )
       });
 
+      const everyOptionTooExpensive = options.every(x => {
+        return x.outcome.some(outcome => 
+          outcome.type === "lose-meat" && 
+          outcome.amount >= this.props.gameState.meat
+        );
+      });
+
       const turnBackOption: EventOption = {
         skillRequired: { type: "no-skill" },
         description  : "Turn back.",
         followUpText : "",
         outcome      : [{ type: "turn-back" }],
+      };
+
+      const regroupOption: EventOption = {
+        skillRequired: { type: "no-skill" },
+        description  : "We're running out of meat! Return to hometown and regroup.",
+        followUpText : "",
+        outcome      : [{ type: "end-run" }],
       };
 
       return (
@@ -312,6 +326,11 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
           {
             everyOptionCostsMoney &&
               this.renderButton(turnBackOption)
+          }
+
+          {
+            everyOptionTooExpensive &&
+              this.renderButton(regroupOption)
           }
         </>
       );
@@ -409,6 +428,20 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
                     }}
                   >
                     You have left behind your { outcome.skill }. (S)he will return home alone.
+                  </div>
+                )
+              }
+
+              if (outcome.type === "end-run") {
+                return (
+                  <div
+                    style={{
+                      backgroundColor: "lightblue",
+                      padding: "5px",
+                      margin: "10px 0 0 0"
+                    }}
+                  >
+                    You have run out of food, so you return to your hometown to regroup.
                   </div>
                 )
               }
