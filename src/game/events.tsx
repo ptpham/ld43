@@ -436,10 +436,10 @@ const MountainFiller: EventType = {
         description: "This mountain pass is much easier to cross now that there is a real trail.",
         difficulty: EventDifficulty.NothingHappens,
         stopsProgress: false,
-        options: [ PassOn({price: 0}) ]
+        options: [ PassOn({price: 5}) ]
       }
     },
-    PassOn({ price: 10 }),
+    PassOn({ price: 15 }),
   ]
 };
 
