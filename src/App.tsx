@@ -4,7 +4,7 @@ import { Game } from './game/main';
 import { CardChooser } from './components/cardchooser';
 import './App.css';
 import { Toolbar } from './components/meat';
-import { Sidebar } from './components/sidebar';
+import { Interface } from './components/interface';
 import { CardType } from './game/data';
 import { ActionChooser } from './components/actionchooser';
 
@@ -96,7 +96,7 @@ class App extends React.Component<{ game: Game }, AppState>  {
     const gameMode = this.state.gameState.getGameMode();
 
     return (
-      <div>
+      <div style={{position: "relative"}}>
         <Toolbar gameState={this.state.gameState}/>
         <div 
           style={{
@@ -106,11 +106,10 @@ class App extends React.Component<{ game: Game }, AppState>  {
           { this.renderCardChooser() }
         </div>
 
-        <Sidebar 
-          onDropIdol={ () => this.state.gameState.onDropIdol() }
-          onPickUpIdol={ () => this.state.gameState.onPickUpIdol() }
-          onDoEvent={ () => this.onDoEvent() }
+        <Interface
           gameState={this.state.gameState}
+          onDropIdol={() => this.state.gameState.onDropIdol()}
+          onPickUpIdol={() => this.state.gameState.onPickUpIdol()}
         />
 
         {

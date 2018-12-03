@@ -48,3 +48,15 @@ export type CardType = {
   skill: SkillType;
   meat: number;
 }
+
+export const CardToAsset = new Map([
+  ['Priest', '/assets/priest.png'],
+  ['Woodsman', '/assets/woodcutter.png'],
+  ['Architect', '/assets/builder.png'],
+  ['Assassin', '/assets/assassin.png'],
+  ['Cartographer', '/assets/cartographer.png'],
+  ['Sage', '/assets/sage.png'],
+  ['Merchant', '/assets/merchant.png'],
+  ['Bard', '/assets/bard.png'],
+  ['Fool', '/assets/fool.png']
+]);

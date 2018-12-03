@@ -59,18 +59,6 @@ export class Toolbar extends React.Component<ToolbarProps, ToolbarState> {
             paddingRight: "20px",
           }}
         >
-          Party count: { this.props.gameState.cardsInCaravan.size }
-        </div>
-        <div
-          style = {{
-            display: "inline-block",
-            textAlign: "center",
-            paddingTop: "5px",
-            paddingBottom: "5px",
-            paddingLeft: "20px",
-            paddingRight: "20px",
-          }}
-        >
           Idol danger: { this.props.gameState.getIdolBlightDanger().text }
           {
             this.props.gameState.getIdolBlightDanger().remaining === -1 ? ", and stable" :

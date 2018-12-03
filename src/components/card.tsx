@@ -1,5 +1,5 @@
 
-import { CardType } from "../game/data";
+import { CardType, CardToAsset } from "../game/data";
 import { State } from "../game/state";
 import React from "react";
 
@@ -7,24 +7,15 @@ type CardProps = {
   card: CardType;
   gameState: State;
   onChangeSelection: (card: CardType, selected: boolean) => void;
+  style?: object;
+  hideContents?: boolean;
 }
 
 type CardState = {
  selected: boolean;
 }
 
-const imageMap = new Map([
-  ['Priest', '/assets/priest.png'],
-  ['Woodsman', '/assets/woodcutter.png'],
-  ['Architect', '/assets/builder.png'],
-  ['Assassin', '/assets/assassin.png'],
-  ['Cartographer', '/assets/cartographer.png'],
-  ['Sage', '/assets/sage.png'],
-  ['Merchant', '/assets/merchant.png'],
-  ['Bard', '/assets/bard.png'],
-  ['Fool', '/assets/fool.png']
-]);
-
+const imageMap = CardToAsset;
 export class Card extends React.Component<CardProps, CardState> {
   constructor(props: CardProps) {
     super(props);
@@ -35,13 +26,14 @@ export class Card extends React.Component<CardProps, CardState> {
   }
 
   public render(): JSX.Element {
+    const { style = {}, hideContents = false } = this.props;
     return (
       <div
         onClick = { () => {
           //console.log("cawas clicked", this.props.card, this.props.gameState);
           //this.props.gameState.active_caravan.push(this.props.card);
         } }
-        style={{
+        style={Object.assign({
           display: "inline-block",
           border: "1px solid lightgray",
           height: "200px",
@@ -50,29 +42,33 @@ export class Card extends React.Component<CardProps, CardState> {
           backgroundImage: `url(${imageMap.get(this.props.card.skill)}`,
           backgroundRepeat: 'no-repeat',
           backgroundSize: '100%'
-        }}
+        }, style)}
       >
-        <div>
-          {
-            this.state.selected
-              ? <strong>{ this.props.card.skill }</strong>
-              : this.props.card.skill
-          }
-        </div>
-        <div>Meat: { this.props.card.meat }</div>
-
-        <div style={{ paddingTop: "20px" }}>
-          <a 
-            onClick={() => { 
-                this.setState({ selected: !this.state.selected })
-
-                this.props.onChangeSelection(this.props.card, !this.state.selected);
+        {!hideContents &&
+          <>
+            <div>
+              {
+                this.state.selected
+                  ? <strong>{ this.props.card.skill }</strong>
+                  : this.props.card.skill
               }
-            }
-            href="javascript:;">
-            { this.state.selected ? "Unselect" : "Select" }
-          </a>
-        </div>
+            </div>
+            <div>Meat: { this.props.card.meat }</div>
+
+            <div style={{ paddingTop: "20px" }}>
+              <a 
+                onClick={() => { 
+                    this.setState({ selected: !this.state.selected })
+
+                    this.props.onChangeSelection(this.props.card, !this.state.selected);
+                  }
+                }
+                href="javascript:;">
+                { this.state.selected ? "Unselect" : "Select" }
+              </a>
+            </div>
+          </>
+        }
       </div>
     );
   }

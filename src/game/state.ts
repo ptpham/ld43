@@ -237,6 +237,12 @@ export class State {
     return this.idolState.state === "carried";
   }
 
+  public canPickUpIdol(): boolean {
+    return !this.hasWon &&
+      this.idolState.state === "dropped" &&
+      this.idolState.node.equals(this.caravanLocation);
+  }
+
   public handleChooseEventOption(option: EventOption): void {
     if (option.outcome) {
       const outcomes = 
