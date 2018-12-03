@@ -397,6 +397,20 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
                 )
               }
 
+              if (outcome.type === "lose-item") {
+                return (
+                  <div
+                    style={{
+                      backgroundColor: "pink",
+                      padding: "5px",
+                      margin: "10px 0 0 0"
+                    }}
+                  >
+                    You lost the {outcome.item}!
+                  </div>
+                )
+              }
+
               if (outcome.type === "turn-back") {
                 return (
                   <div

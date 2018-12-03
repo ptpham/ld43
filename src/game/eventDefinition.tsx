@@ -4,6 +4,7 @@ import { LocationType, SkillType } from "./data";
 export type EventItem =
   | "Tailisman"
   | "Golden Snake"
+  | "Red Orb"
 
 export type EventOutcome = 
   | { type: "gain-meat"; amount: number; hidden: boolean }
@@ -11,6 +12,7 @@ export type EventOutcome =
   | { type: "lose-member-strong"; skill: SkillType; hidden: boolean }
   | { type: "lose-member-weak"; skill: SkillType; hidden: boolean }
   | { type: "gain-item"; item: EventItem }
+  | { type: "lose-item"; item: EventItem }
   | { type: "turn-back"; }
   | { type: "end-run"; }
 

@@ -5,7 +5,8 @@ import { Point } from './lib/point';
 import { LocationType, LocationTypeNames } from './data';
 import _ from 'lodash';
 import { EventType, EventDifficulty } from "./eventDefinition";
-import { AllEvents, FinalGambit } from './events';
+import { AllEvents } from './events';
+import { FinalGambit } from './eventsByLocation/final';
 
 export class Node {
   // not counting disadvantages due to idol etc

@@ -4,57 +4,10 @@ import { DesertEvents } from './eventsByLocation/desert';
 import { MountainEvents } from './eventsByLocation/mountain';
 import { SwampEvents } from './eventsByLocation/swamp';
 import { CanyonEvents } from './eventsByLocation/canyon';
+import { FinalEvents } from './eventsByLocation/final';
 import { GoblinNestFillerEvents } from './eventsByLocation/goblinnestfiller';
 
 export const CONTINUE_TEXT = "Continue with your journey.";
-
-export const VolcanoStayOption: EventOption = {
-  skillRequired: { type: "no-skill" },
-  description: "Camp on the volcano.",
-  followUpText: "",
-  outcome: [{ type: "lose-meat", amount: 20, hidden: false }],
-};
-
-const Finale: EventType = {
-  location: "Finish",
-  description: `
-    Lava bubbles inside the volcano's mouth.`,
-  difficulty: EventDifficulty.NothingHappens,
-  stopsProgress: false,
-  options: [
-    {
-      skillRequired: { type: "specific-skill", skill: "Fool", withoutRequirement: "Unlabeled"},
-      description: "Drop the idol into the maws of the volcano from whence it came.",
-      followUpText: "",
-      winsGame: true,
-      requiresIdol: true,
-      outcome: [{ type: "lose-member-strong", skill: "Fool", hidden: true }],
-    },
-    VolcanoStayOption
-  ]
-};
-
-export const FinalGambit: EventType = {
-  location: "Finish",
-  description: `
-    Strange clouds rise from the volcano as it bubbles.
-    They prevent you from approaching the mouth.`,
-  stopsProgress: true,
-  difficulty: EventDifficulty.NormalDifficutly,
-  options: [
-    {
-      skillRequired: { type: "specific-item", skill: "Tailisman", withoutRequirement: "Unlabeled" },
-      description: "Chant while holding the Tailisman.",
-      followUpText: `
-        You chant with the Tailisman. The smoke seems to shrink into the mouth of the volcano.
-        The earth jolts, sending you backwards.
-      `,
-      outcome: [{ type: "turn-back" }],
-      updateEventTo: Finale,
-    },
-    VolcanoStayOption
-  ],
-}
 
 const ForestThatIsCutDown: EventType = {
   location     : "Forest",
@@ -429,8 +382,7 @@ const ForestRandomGood: EventType = {
 
 export const AllEvents: EventType[] = [
   // Finish
-  FinalGambit,
-  Finale,
+  ...FinalEvents,
 
   // Forest
 

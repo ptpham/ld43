@@ -293,6 +293,12 @@ export class State {
             break;
           }
 
+          case "lose-item": {
+            this.items.delete(outcome.item);
+
+            break;
+          }
+
           case "turn-back": {
             newCaravanLocation = this.lastCaravanLocation;
 
@@ -344,6 +350,7 @@ export class State {
             newCaravanLocation = this.hometownLocation;
             this.meat = C.STARTING_MEAT;
             this.choosingCharacters = true;
+            this.isLocationDone = false;
 
             break;
           }
