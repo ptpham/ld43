@@ -341,7 +341,7 @@ export class State {
             // this should retrigger the card choosing logic
             // WHY DOESNT IT
 
-            this.caravanLocation = this.hometownLocation;
+            newCaravanLocation = this.hometownLocation;
             this.meat = C.STARTING_MEAT;
             this.choosingCharacters = true;
 
