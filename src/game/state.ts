@@ -205,7 +205,6 @@ export class State {
     this.time.from_start++;
 
     if (this.idolState.state === 'carried' || this.hasWon) {
-      //this.blightManager.unRenderImminent();
     } else {
       // before incrementing, check if we hit a blight application
       if (this.getIdolBlightDanger().remaining === 1) {
@@ -342,9 +341,11 @@ export class State {
 
             // move player back home too
             // this should retrigger the card choosing logic
+            // WHY DOESNT IT
 
             this.caravanLocation = this.hometownLocation;
             this.meat = C.STARTING_MEAT;
+            this.choosingCharacters = true;
 
             break;
           }
