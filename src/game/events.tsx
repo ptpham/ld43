@@ -469,7 +469,7 @@ const DesertFiller: EventType = {
       outcome: [{ type: "gain-meat", amount: 10, hidden: true, }],
     },
     PassOn({ price: 10 }),
-  ]
+  ],
 };
 
 const MountainFiller: EventType = {
