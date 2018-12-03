@@ -21,6 +21,7 @@ export type IdolState =
 export type GameMode = 
   | "Moving On Map"
   | "Looking At Event"
+  | "Ending";
 
 /**
  * This will be the god object that holds all state. 
@@ -149,6 +150,10 @@ export class State {
   }
   
   getGameMode(): GameMode {
+    if (this.hasWon) {
+      return "Ending";
+    }
+
     if (this.activeEvent) {
       return "Looking At Event";
     }

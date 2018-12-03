@@ -73,6 +73,10 @@ export class Location extends PIXI.Graphics implements IEntity {
   }
 
   mouseOver(): void {
+    if (this.state.getGameMode() !== 'Moving On Map') {
+      return;
+    }
+
     this.mousedOver = true;
     this.state.mousedOverLocation = this;
     //this.particles = new Particles(this, this.node.position.x, this.node.position.y, 6);
@@ -81,6 +85,10 @@ export class Location extends PIXI.Graphics implements IEntity {
   }
 
   mouseOut(): void {
+    if (this.state.getGameMode() !== 'Moving On Map') {
+      return;
+    }
+
     this.mousedOver = false;
     this.state.mousedOverLocation = undefined;
     if (this.particles) {
@@ -91,31 +99,32 @@ export class Location extends PIXI.Graphics implements IEntity {
   }
 
   onClick(): void {
-    //if (this.state.caravan_location.neighbors.indexOf(this.node) > -1) {
-    if (true) {
-      if (this.selected) {
-        this.selected = false;
-        // we just double clicked this node
-        // can only select nodes adjacent to current caravan location to move caravan to
+    if (this.state.getGameMode() !== 'Moving On Map') {
+      return;
+    }
 
-        if (this.state.caravanLocation.neighbors.indexOf(this.node) > -1) {
-          this.state.moveCaravan(this.node);
-        }
+    // if (this.selected) {
+    //   this.selected = false;
+      // we just double clicked this node
+      // can only select nodes adjacent to current caravan location to move caravan to
 
-        this.state.selectedNextLocation = undefined;
-      } else {
-        // unselect the other guy
-        let lastLocation = this.state.selectedNextLocation;
-        if (lastLocation) {
-          lastLocation.selected = false;
-          lastLocation.render();
-        }
-        this.state.selectedNextLocation = this;
-        this.selected = true;
+      if (this.state.caravanLocation.neighbors.indexOf(this.node) > -1) {
+        this.state.moveCaravan(this.node);
       }
 
-      this.render();
-    }
+      this.state.selectedNextLocation = undefined;
+    // } else {
+    //   // unselect the other guy
+    //   let lastLocation = this.state.selectedNextLocation;
+    //   if (lastLocation) {
+    //     lastLocation.selected = false;
+    //     lastLocation.render();
+    //   }
+    //   this.state.selectedNextLocation = this;
+    //   this.selected = true;
+    // }
+
+    this.render();
   }
 
   render(): void {
