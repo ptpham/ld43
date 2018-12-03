@@ -7,6 +7,7 @@ import { CanyonEvents } from './eventsByLocation/canyon';
 import { GoblinNestFillerEvents } from './eventsByLocation/goblinnestfiller';
 import { BarbarianVillageFillerEvents } from './eventsByLocation/barbarianvillagefiller';
 import { RiverEvents } from './eventsByLocation/river';
+import { ForestFillerEvents } from './eventsByLocation/forestfiller';
 
 export const VolcanoStayOption: EventOption = {
   skillRequired: { type: "no-skill" },
@@ -372,33 +373,6 @@ const GoblinNest: EventType = {
   ],
 };
 
-const ForestFiller: EventType = {
-  location     : "Forest",
-  description  : "Your party makes it through the forest. Everyone remarks on how unremarkable the forest was.",
-  difficulty   : EventDifficulty.NothingHappens,
-  stopsProgress: false,
-  options: [
-    PassOn({ price: 10 }),
-  ]
-};
-
-const ForestRandomGood: EventType = {
-  location     : "Forest",
-  description  : "As your party makes it through the forest, you successfully hunt a wild deer!",
-  difficulty   : EventDifficulty.FreeMeat,
-  stopsProgress: false,
-  options: [
-    {
-      skillRequired: { type: "no-skill" },
-      description  : "Take the meat.",
-      followUpText : 
-      `You'll eat well for the next few days.`,
-      outcome      : [{ type: "gain-meat", amount: 30, hidden: false }],
-      updateEventTo: ForestFiller,
-    },
-  ]
-};
-
 export const AllEvents: EventType[] = [
   // Finish
   FinalGambit,
@@ -407,9 +381,8 @@ export const AllEvents: EventType[] = [
   // Forest
 
   ForestElfEvent,
-  ForestRandomGood,
   //ForestElfEventBlighted,
-  //ForestFiller,
+  ...ForestFillerEvents,
 
   // GoblinNest
 
