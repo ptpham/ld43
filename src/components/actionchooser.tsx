@@ -2,7 +2,7 @@
 import React from 'react';
 import { State } from '../game/state';
 import _ from 'lodash';
-import { EventType, EventOption } from '../game/events';
+import { EventType, EventOption } from '../game/eventDefinition';
 
 const EventButton = (props: { 
   onClick ?: () => void;

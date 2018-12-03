@@ -4,7 +4,8 @@ import { Line } from './lib/line';
 import { Point } from './lib/point';
 import { LocationType, LocationTypeNames } from './data';
 import _ from 'lodash';
-import { EventType, AllEvents, EventDifficulty } from "./events";
+import { EventType, EventDifficulty } from "./eventDefinition";
+import { AllEvents } from './events';
 
 export class Node {
   // not counting disadvantages due to idol etc

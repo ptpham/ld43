@@ -1,5 +1,6 @@
 
-import { AllEvents, EventDifficulty } from './game/events';
+import { AllEvents } from './game/events';
+import { EventDifficulty } from './game/eventDefinition';
 import { LocationTypeNames, SkillTypeNames } from './game/data';
 import _ from 'lodash';
 
