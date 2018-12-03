@@ -58,6 +58,7 @@ class App extends React.Component<{ game: Game }, AppState>  {
       this.state.gameState.cardsInWholeGame.delete(card);
     }
     this.state.gameState.isLocationDone = true;
+    this.state.gameState.choosingCharacters = false;
     this.setState({ isEventVisible: false });
   }
 
@@ -66,23 +67,18 @@ class App extends React.Component<{ game: Game }, AppState>  {
 
     switch (caravanLocation.locationType) {
       case 'Start':
-        if (this.state.gameState.cardsInCaravan.size === 0) {
-          // add my current caravan back to the pool
-          for (let card of this.state.gameState.cardsInCaravan) {
-            this.state.gameState.cardsInWholeGame.add(card);
-          }
-
-          this.state.gameState.cardsInCaravan = new Set();
-
-          return (
-            <CardChooser 
-              gameState={state} 
-              onDone={ cards => this.onSelectCards(cards) }
-            />
-          );
+        for (let card of this.state.gameState.cardsInCaravan) {
+          this.state.gameState.cardsInWholeGame.add(card);
         }
 
-        return null;
+        this.state.gameState.cardsInCaravan = new Set();
+
+        return (
+          <CardChooser
+            gameState={state}
+            onDone={cards => this.onSelectCards(cards)}
+          />
+        );
       default:
         return null;
     }
@@ -94,7 +90,7 @@ class App extends React.Component<{ game: Game }, AppState>  {
     if (gameState.isLocationDone) return null;
     if (
       gameState.caravanLocation.locationType === "Start" &&
-      gameState.cardsInCaravan.size === 0
+      gameState.choosingCharacters
     ) {
       return <div className={`modal ${isEventVisible ? 'show-map' : ''}`}>
         <div className="content"> { this.renderCurrentLocation(gameState) } </div>
@@ -120,13 +116,13 @@ class App extends React.Component<{ game: Game }, AppState>  {
             display: "inline-block",
           }}
           ref={ div => this.div = div! }>
-          { this.renderCardChooser() }
         </div>
 
         <Interface
           gameState={this.state.gameState}
           onDropIdol={() => this.state.gameState.onDropIdol()}
           onPickUpIdol={() => this.state.gameState.onPickUpIdol()}
+          onClickChangeParty={() => this.state.gameState.onRequestChangeParty()}
         />
 
         {
@@ -135,6 +131,10 @@ class App extends React.Component<{ game: Game }, AppState>  {
               event={ this.state.gameState.activeEvent! }
               gameState={ this.state.gameState }
             />
+        }
+        {
+          gameMode === "Choosing Characters" &&
+          this.renderCardChooser()
         }
       </div>
     );

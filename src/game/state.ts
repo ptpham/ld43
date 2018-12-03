@@ -19,6 +19,7 @@ export type IdolState =
   ;
 
 export type GameMode = 
+  | "Choosing Characters"
   | "Moving On Map"
   | "Looking At Event"
   | "Ending";
@@ -40,6 +41,7 @@ export class State {
    * They will be automatically updated and stuff
    */
   hasWon              : boolean;
+  choosingCharacters  : boolean;
   entities            : IEntity[];
   items               : Set<EventItem>;
   cardsInCaravan      : Set<CardType>;
@@ -73,6 +75,7 @@ export class State {
     };
 
     this.hasWon = false;
+    this.choosingCharacters = Debug.AUTO_CHOOSE_CARAVAN ? false : true;
 
     this.items = new Set();
     this.graph = Graph.generate(graphOptions);
@@ -170,6 +173,10 @@ export class State {
       return "Looking At Event";
     }
 
+    if (this.choosingCharacters) {
+      return "Choosing Characters";
+    }
+
     return "Moving On Map";
   }
 
@@ -253,6 +260,16 @@ export class State {
     return !this.hasWon &&
       this.idolState.state === "dropped" &&
       this.idolState.node.equals(this.caravanLocation);
+  }
+
+  public canChangeParty(): boolean {
+    return this.hometownLocation.equals(this.caravanLocation);
+  }
+
+  public onRequestChangeParty(): void {
+    this.isLocationDone = false;
+    this.choosingCharacters = true;
+    this.triggerChange();
   }
 
   public handleChooseEventOption(option: EventOption): void {

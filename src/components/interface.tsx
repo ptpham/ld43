@@ -6,6 +6,7 @@ type InterfaceProps = {
   gameState: State;
   onDropIdol: () => void;
   onPickUpIdol: () => void;
+  onClickChangeParty: () => void;
 }
 
 export class Interface extends React.PureComponent<InterfaceProps> {
@@ -27,6 +28,8 @@ export class Interface extends React.PureComponent<InterfaceProps> {
         position: "absolute",
         bottom: 0,
         right: 150,
+        display: 'flex',
+        flexDirection: 'row-reverse',
       }}>
         {
           [...this.props.gameState.cardsInCaravan.keys()].map(card => {
@@ -46,6 +49,25 @@ export class Interface extends React.PureComponent<InterfaceProps> {
               />
             );
           })
+        }
+        {
+          this.props.gameState.canChangeParty() &&
+          <button
+            style={{
+              backgroundColor: "transparent",
+              imageRendering: "pixelated",
+              width: 150,
+              height: "auto",
+              padding: 8,
+              margin: "auto",
+              marginRight: "10px",
+              color: "white",
+              fontSize: 20,
+            }}
+            onClick={this.props.onClickChangeParty}
+          >
+            Change Party
+          </button>
         }
       </div>
       {/* Idol */}
