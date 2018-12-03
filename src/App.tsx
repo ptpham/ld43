@@ -61,6 +61,11 @@ class App extends React.Component<{ game: Game }, AppState>  {
 
     switch (caravanLocation.locationType) {
       case 'Start':
+        // add my current caravan back to the pool
+        for (let card of this.state.gameState.cardsInCaravan) {
+          this.state.gameState.cardsInWholeGame.add(card);
+        }
+        this.state.gameState.cardsInCaravan = new Set();
         return (
           <CardChooser 
             gameState={state} 
