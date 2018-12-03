@@ -4,7 +4,7 @@ import { Location } from "./location";
 import { C, Debug } from "./constants";
 import { Line } from "./lib/line";
 import * as Graph from '../game/graph';
-import { CONTINUE_TEXT } from "./events";
+import { CONTINUE_TEXT } from "./eventDefinition";
 
 export class GraphSprite extends PIXI.Sprite implements IEntity {
   state: State;

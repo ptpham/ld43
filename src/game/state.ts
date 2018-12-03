@@ -5,7 +5,7 @@ import { CardType } from './data';
 import { IEntity } from './entity';
 import { Location } from './location';
 import { GameMap } from './gamemap';
-import { EventOption, EventType, EventItem } from './events';
+import { EventOption, EventType, EventItem } from './eventDefinition';
 import { BlightManager } from './blightmanager';
 
 export type IdolState = 

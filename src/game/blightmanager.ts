@@ -4,7 +4,7 @@ import { Node } from './graph';
 import { SeedRandomGenerator } from './constants';
 import { Particles } from './particles';
 import { IEntity } from './entity';
-import { EventType } from './events';
+import { EventType } from './eventDefinition';
 //import * from 'crypto';
 
 export class BlightManager implements IEntity {
