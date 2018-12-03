@@ -470,7 +470,7 @@ const DesertFiller: EventType = {
   stopsProgress: false,
   options: [
     {
-      skillRequired: { type: "specific-skill", skill: "Cartographer", withoutRequirement: "Everything" },
+      skillRequired: { type: "specific-skill", skill: "Cartographer", withoutRequirement: "Unlabeled" },
       description: "Locate an easy path through the desert.",
       followUpText : "With the cartographer's help, you locate a hidden oasis among the dunes!.",
       outcome: [{ type: "gain-meat", amount: 10, hidden: true, }],
