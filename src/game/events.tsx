@@ -55,11 +55,13 @@ export type EventType = {
   whenBlighted?: EventType;
 }
 
-const PassOn = ({ price = 0 }): EventOption => ({
+export const CONTINUE_TEXT = "Continue with your journey.";
+
+const PassOn = (props: { price: number }): EventOption => ({
   skillRequired: { type: "no-skill" },
-  description  : "Pass on.",
+  description  : CONTINUE_TEXT,
   followUpText : "",
-  outcome: price === 0 ? [] : [{ type: "lose-meat", amount: price, hidden: false }],
+  outcome: props.price === 0 ? [] : [{ type: "lose-meat", amount: props.price, hidden: false }],
 });
 
 const GameFinish: EventType = {
@@ -400,21 +402,21 @@ const GoblinNest: EventType = {
 
 const ForestFiller: EventType = {
   location     : "Forest",
-  description  : "Your party makes it through the forest with little difficulty. Everyone remarks on how unremarkable the forest was.",
+  description  : "Your party makes it through the forest. Everyone remarks on how unremarkable the forest was.",
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
-    PassOn({ price: 0 }),
+    PassOn({ price: 10 }),
   ]
 };
 
 const GoblinNestFiller: EventType = {
   location     : "GoblinNest",
-  description  : "Your party comes to the goblin nest, only to find it abandoned long ago. The mystery nags at you, but you move on.",
+  description  : "Your party comes to the goblin nest, only to find it abandoned long ago. The mystery nags at you.",
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
-    PassOn({ price: 0 }),
+    PassOn({ price: 5 }),
   ]
 };
 
@@ -424,7 +426,7 @@ const BarbarianVillageFiller: EventType = {
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
-    PassOn({ price: 0 }),
+    PassOn({ price: 10 }),
   ]
 };
 
@@ -434,7 +436,7 @@ const RiverFiller: EventType = {
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
-    PassOn({ price: 0 }),
+    PassOn({ price: 10 }),
   ]
 };
 
@@ -444,7 +446,13 @@ const SwampFiller: EventType = {
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
-    PassOn({ price: 0 }),
+    {
+      skillRequired: { type: "specific-skill", skill: "Bard", withoutRequirement: "Everything" },
+      description: "Play some catchy tunes.",
+      followUpText : "When you stop and rest, the bard picks up her instrument and plays you a catchy tune. Suddenly an ogre appears out of the swamp! He says he likes your music, blushing a little. He offers you some swamp flowers and a bag of dried piranha innards. You begrudgingly accept.",
+      outcome: [{ type: "gain-meat", amount: 10, hidden: true, }],
+    },
+    PassOn({ price: 10 }),
   ]
 };
 
@@ -454,7 +462,13 @@ const DesertFiller: EventType = {
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
-    PassOn({ price: 0 }),
+    {
+      skillRequired: { type: "specific-skill", skill: "Cartographer", withoutRequirement: "Everything" },
+      description: "Locate an easy path through the desert.",
+      followUpText : "With the cartographer's help, you locate a hidden oasis among the dunes!.",
+      outcome: [{ type: "gain-meat", amount: 10, hidden: true, }],
+    },
+    PassOn({ price: 10 }),
   ]
 };
 
@@ -464,11 +478,27 @@ const MountainFiller: EventType = {
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
-    PassOn({ price: 0 }),
+    PassOn({ price: 10 }),
   ]
 };
 
-ForestFiller;
+const ForestRandomGood: EventType = {
+  location     : "Forest",
+  description  : "As your party makes it through the forest, you successfully hunt a wild deer!",
+  difficulty   : EventDifficulty.FreeMeat,
+  stopsProgress: false,
+  options: [
+    {
+      skillRequired: { type: "no-skill" },
+      description  : "Take the meat.",
+      followUpText : 
+      `You'll eat well for the next few days.`,
+      outcome      : [{ type: "gain-meat", amount: 30, hidden: false }],
+      updateEventTo: ForestFiller,
+    },
+  ]
+};
+
 export const AllEvents: EventType[] = [
   // Finish
   GameFinish,
@@ -476,6 +506,7 @@ export const AllEvents: EventType[] = [
   // Forest
 
   ForestElfEvent,
+  ForestRandomGood,
   //ForestElfEventBlighted,
   //ForestFiller,
 

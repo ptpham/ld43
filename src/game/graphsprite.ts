@@ -4,6 +4,7 @@ import { Location } from "./location";
 import { C, Debug } from "./constants";
 import { Line } from "./lib/line";
 import * as Graph from '../game/graph';
+import { CONTINUE_TEXT } from "./events";
 
 export class GraphSprite extends PIXI.Sprite implements IEntity {
   state: State;
@@ -22,7 +23,7 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
     const visitedNodes = this.state.visitedNodes;
     let visibleNodes = new Set<Graph.Node>();
 
-    if (Debug.FOG_OF_WAR_OFF || this.state.hasWon) {
+    if (Debug.FOG_OF_WAR_OFF) {
       visibleNodes = new Set(this.state.graph);
     } else {
       this.state.graph.forEach(node => {
@@ -95,9 +96,41 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
         node.event &&
         !node.eventSeen &&
         node.event.options && (
+          node.event.options.length === 1 && 
+          node.event.options[0].description === CONTINUE_TEXT
+        ) &&
+        visitedNodes.has(node)
+      ) {
+        // add meat text
+        const outcome = node.event.options[0].outcome[0];
+
+        if (outcome.type === "lose-meat") {
+          const text = new PIXI.Text(
+            "-" + outcome.amount, {
+              fontFamily: "Softsquare",
+              fontSize  : 24, 
+              fill      : 0xff0000, 
+              align     : 'left',
+              dropShadow: true,
+              dropShadowColor: "black",
+              dropShadowDistance: 2,
+            }
+          );
+
+          this.graphSprite.addChild(text);
+
+          text.x = node.position.x - text.width / 2;
+          text.y = node.position.y - text.height / 2;
+        }
+      }
+
+      if (
+        node.event &&
+        !node.eventSeen &&
+        node.event.options && (
           node.event.options.length > 1 || (
             node.event.options.length === 1 && 
-            node.event.options[0].outcome.length !== 0
+            node.event.options[0].description !== CONTINUE_TEXT
           )
         ) &&
         visitedNodes.has(node)

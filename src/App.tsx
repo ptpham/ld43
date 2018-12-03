@@ -66,12 +66,23 @@ class App extends React.Component<{ game: Game }, AppState>  {
 
     switch (caravanLocation.locationType) {
       case 'Start':
-        return (
-          <CardChooser 
-            gameState={state} 
-            onDone={ cards => this.onSelectCards(cards) }
-          />
-        );
+        if (this.state.gameState.cardsInCaravan.size === 0) {
+          // add my current caravan back to the pool
+          for (let card of this.state.gameState.cardsInCaravan) {
+            this.state.gameState.cardsInWholeGame.add(card);
+          }
+
+          this.state.gameState.cardsInCaravan = new Set();
+
+          return (
+            <CardChooser 
+              gameState={state} 
+              onDone={ cards => this.onSelectCards(cards) }
+            />
+          );
+        }
+
+        return null;
       default:
         return null;
     }
@@ -81,7 +92,10 @@ class App extends React.Component<{ game: Game }, AppState>  {
     let { gameState, isEventVisible } = this.state;
 
     if (gameState.isLocationDone) return null;
-    if (gameState.caravanLocation.locationType === "Start") {
+    if (
+      gameState.caravanLocation.locationType === "Start" &&
+      gameState.cardsInCaravan.size === 0
+    ) {
       return <div className={`modal ${isEventVisible ? 'show-map' : ''}`}>
         { !isEventVisible ? <button onClick={() => this.setState({ isEventVisible: true })}>Hide Event</button> : null }
         { isEventVisible ? <button className="glowing" onClick={() => this.setState({ isEventVisible: false })}>Show Event</button> : null }
