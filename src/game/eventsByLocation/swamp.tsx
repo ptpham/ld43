@@ -37,7 +37,7 @@ const SwampBlighted: EventType = {
       description: "Barter with the toad.",
       followUpText: "You offer some meat to the giant toad. It appears to be pleased and grants you a red orb.",
       outcome: [
-        { type: "lose-meat", amount: 20, hidden: false },
+        { type: "lose-meat", amount: 5, hidden: false },
         { type: "gain-item", item: "Red Orb" },
       ],
     },
