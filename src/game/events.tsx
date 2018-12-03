@@ -433,10 +433,16 @@ const BarbarianVillageFiller: EventType = {
 
 const RiverFiller: EventType = {
   location     : "River",
-  description  : "The party arrives at a river. Some logs and stones left behind by previous travellers makes it easy to ford.",
+  description  : "The party arrives at a river. A makeshift bridge, consisting of some logs and stones left behind by previous travellers, makes it easy to cross.",
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
+    {
+      skillRequired: { type: "specific-skill", skill: "Merchant", withoutRequirement: "Everything" },
+      description: "Find the river gypsies.",
+      followUpText : "The merchant is good friends with a band of gypsies who travels up and down the river, trading goods along the way. Reading the signs along the riverbank that they leave behind, he is able to find them, and you have a fun little party together.",
+      outcome: [{ type: "gain-meat", amount: 10, hidden: true, }],
+    },
     PassOn({ price: 10 }),
   ]
 };
@@ -473,12 +479,47 @@ const DesertFiller: EventType = {
   ],
 };
 
+const DesertBlighted: EventType = {
+  location     : "Desert",
+  description  : "The caravan makes its way over an unwelcoming desert. The air is hot and the sand is harsh, and a wild wolf pack accosts you as you attempt to cross.",
+  difficulty   : EventDifficulty.NothingHappens,
+  stopsProgress: false,
+  options: [
+    {
+      skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Everything" },
+      description: "Slay the wolves from afar.",
+      followUpText : "You quietly equip some poison arrows and shoot down the wolves from a distance. The corpses are tainted and are not edible.",
+      outcome: [{ type: "lose-meat", amount: 0, hidden: true, }],
+    },
+    {
+      skillRequired: { type: "specific-skill", skill: "Woodsman", withoutRequirement: "Everything" },
+      description: "Fight off the wolves in melee.",
+      followUpText : "You pick off a few wolves from range and engage the rest by hand. You come out battered but the victor as the wolves scatter.",
+      outcome: [{ type: "lose-meat", amount: 10, hidden: true, }],
+    },
+    {
+      skillRequired: { type: "specific-skill", skill: "Fool", withoutRequirement: "Everything" },
+      description: "Leave behind a member of your party as bait.",
+      followUpText : "You tell the fool that the big dogs have candy and want to snuggle. He tries to snuggle them. You get away while they are distracted.",
+      outcome: [{ type: "lose-member-strong", skill: "Fool" }],
+    },
+    PassOn({ price: 20 }),
+  ],
+}
+DesertFiller.whenBlighted = DesertBlighted;
+
 const MountainFiller: EventType = {
   location     : "Mountain",
   description  : "The mountain looms threateningly over the party, but after a few days of exploring, you find a pass that allows you to get through with little difficulty.",
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
+    {
+      skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Everything" },
+      description: "Pratice some mountaineering.",
+      followUpText : "The assassin is experienced in climbing buildings. She scales the cliff and lets down a rope for you to rappel up. This saves you a good few days of climbing!",
+      outcome: [{ type: "lose-meat", amount: 0, hidden: false }],
+    },
     PassOn({ price: 10 }),
   ]
 };

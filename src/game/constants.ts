@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 export class Debug {
-  public static AUTO_CHOOSE_CARAVAN = true;
+  public static AUTO_CHOOSE_CARAVAN = false;
   public static FOG_OF_WAR_OFF      = false;
   public static SeedRandom          = true;
 }
