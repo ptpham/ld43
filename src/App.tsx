@@ -7,6 +7,11 @@ import { Toolbar } from './components/meat';
 import { Sidebar } from './components/sidebar';
 import { CardType } from './game/data';
 import { ActionChooser } from './components/actionchooser';
+import { printLocationTypeSummary } from './check';
+
+if (true) {
+  printLocationTypeSummary();
+}
 
 type AppState = {
   isEventVisible: boolean;

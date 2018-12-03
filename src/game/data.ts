@@ -42,7 +42,20 @@ export const LocationTypeData: { [key in LocationType]: {
   BarbarianVillage: {}
 };
 
+export const SkillTypeData: { [key in SkillType]: boolean } = {
+  "Architect": true,
+  "Assassin": true,
+  "Bard": true,
+  "Cartographer": true,
+  "Priest": true,
+  "Woodsman": true,
+  "Sage": true,
+  "Merchant": true,
+  "Fool": true
+};
+
 export const LocationTypeNames = Object.keys(LocationTypeData);
+export const SkillTypeNames = Object.keys(SkillTypeData);
 
 export type CardType = {
   skill: SkillType;
