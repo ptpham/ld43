@@ -8,15 +8,15 @@ export function printLocationTypeSummary() {
     let locationEvents = _.filter(AllEvents, x => x.location == locationType);
     console.log(`Location ${locationType} has ${locationEvents.length}`);
 
-    console.log('Difficulty distribution:');
+    console.log('\tDifficulty distribution:');
     for (let i = 0; i < EventDifficulty.MaxDifficulty; i++) {
-      console.log(`\t${i} - ${_.filter(locationEvents, x => x.difficulty == i).length}`);
+      console.log(`\t\t${i} - ${_.filter(locationEvents, x => x.difficulty == i).length}`);
     }
 
     let skillsUsed = new Set(_.flatMap(locationEvents, e => _.map(e.options, 'skillRequired.skill')));
-    console.log('Character usage:');
+    console.log('\tCharacter usage:');
     for (let skill of SkillTypeNames) {
-      console.log(`\t${skill} - ${skillsUsed.has(skill)}`);
+      console.log(`\t\t${skill} - ${skillsUsed.has(skill)}`);
     }
   }
 }
