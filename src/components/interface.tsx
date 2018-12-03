@@ -28,6 +28,7 @@ export class Interface extends React.PureComponent<InterfaceProps> {
         position: "absolute",
         bottom: 0,
         right: 150,
+        height: 100,
         display: 'flex',
         flexDirection: 'row-reverse',
       }}>
