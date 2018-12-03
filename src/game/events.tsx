@@ -6,8 +6,9 @@ import { SwampEvents } from './eventsByLocation/swamp';
 import { CanyonEvents } from './eventsByLocation/canyon';
 import { FinalEvents } from './eventsByLocation/final';
 import { GoblinNestFillerEvents } from './eventsByLocation/goblinnestfiller';
-
-export const CONTINUE_TEXT = "Continue with your journey.";
+import { BarbarianVillageFillerEvents } from './eventsByLocation/barbarianvillagefiller';
+import { RiverEvents } from './eventsByLocation/river';
+import { ForestFillerEvents } from './eventsByLocation/forestfiller';
 
 const ForestThatIsCutDown: EventType = {
   location     : "Forest",
@@ -63,7 +64,7 @@ const ForestElvesHappy: EventType = {
 
 const ForestElfEvent: EventType = {
   location     : "Forest",
-  stopsProgress: true,
+  stopsProgress: false,
   description: 
     `You come to a misty forest. You hear the echo of soft, sad voices in the
     distance, but every time you come closer, they go further away. Passing
@@ -88,7 +89,7 @@ const ForestElfEvent: EventType = {
         { type: "gain-item", item: "Tailisman" }
       ],
     },
-    PassOn({ price: 10 }),
+    //PassOn({ price: 10 }),
   ],
 };
 
@@ -98,7 +99,7 @@ const ForestElfEventBlighted: EventType = {
     `You come to a dark, misty forest. You hear the shrill echo of eerie laughter in the
     distance, and you feel uneasy. Passing through will not be easy.`,
   difficulty   : EventDifficulty.NothingHappens,
-  stopsProgress: true,
+  stopsProgress: false,
   options: [
     {
       skillRequired: { type: "specific-skill", skill: "Woodsman", withoutRequirement: "Everything" },
@@ -123,7 +124,7 @@ const ForestElfEventBlighted: EventType = {
       }],
       updateEventTo: ForestElfEvent
     },
-    PassOn({ price: 40 }),
+    //PassOn({ price: 40 }),
   ]
 };
 ForestElfEvent.whenBlighted = ForestElfEventBlighted;
@@ -202,7 +203,6 @@ const BlightedBarbarianVillageWornDown: EventType = {
       `You gesture to the giant barbarian your intentions to repair the buildings. He punches you in the head.
       Looks like he didn't understand very much.`,
       outcome      : [{ type: "lose-meat", amount: 10, hidden: true }],
-      //updateEventTo: BarbarianVillageRepaired,
     },
     {
       skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Unlabeled" },
@@ -223,7 +223,7 @@ const BlightedBarbarianVillageWornDown: EventType = {
         difficulty: EventDifficulty.NormalDifficutly,
         stopsProgress: false,
         options: [
-          PassOn({ price: 0 }),
+          PassOn({ price: 10 }),
         ]
       },
     },
@@ -269,7 +269,7 @@ const GoblinNest: EventType = {
             outcome: [{ type: "lose-meat", amount: 10, hidden: true }],
             updateEventTo: {
               location: "GoblinNest",
-              stopsProgress: true,
+              stopsProgress: false,
               description: `
                 You approach the outskirts of a nest of goblins. There is a serviceable tower built here.
                 `,
@@ -326,60 +326,6 @@ const GoblinNest: EventType = {
   ],
 };
 
-const ForestFiller: EventType = {
-  location     : "Forest",
-  description  : "Your party makes it through the forest. Everyone remarks on how unremarkable the forest was.",
-  difficulty   : EventDifficulty.NothingHappens,
-  stopsProgress: false,
-  options: [
-    PassOn({ price: 10 }),
-  ]
-};
-
-const BarbarianVillageFiller: EventType = {
-  location     : "BarbarianVillage",
-  description  : "Your party comes to the barbarian village - but apparently it's filled with very sleepy barbarians who are more interested in napping than coming out to greet you.",
-  difficulty   : EventDifficulty.NothingHappens,
-  stopsProgress: false,
-  options: [
-    PassOn({ price: 10 }),
-  ]
-};
-
-const RiverFiller: EventType = {
-  location     : "River",
-  description  : "The party arrives at a river. A makeshift bridge, consisting of some logs and stones left behind by previous travellers, makes it easy to cross.",
-  difficulty   : EventDifficulty.NothingHappens,
-  stopsProgress: false,
-  options: [
-    {
-      skillRequired: { type: "specific-skill", skill: "Merchant", withoutRequirement: "Unlabeled" },
-      description: "Find the river gypsies.",
-      followUpText : "The merchant is good friends with a band of gypsies who travels up and down the river, trading goods along the way. Reading the signs along the riverbank that they leave behind, he is able to find them, and you have a fun little party together.",
-      outcome: [{ type: "gain-meat", amount: 10, hidden: true, }],
-    },
-    PassOn({ price: 10 }),
-  ]
-};
-
-
-const ForestRandomGood: EventType = {
-  location     : "Forest",
-  description  : "As your party makes it through the forest, you successfully hunt a wild deer!",
-  difficulty   : EventDifficulty.FreeMeat,
-  stopsProgress: false,
-  options: [
-    {
-      skillRequired: { type: "no-skill" },
-      description  : "Take the meat.",
-      followUpText : 
-      `You'll eat well for the next few days.`,
-      outcome      : [{ type: "gain-meat", amount: 30, hidden: false }],
-      updateEventTo: ForestFiller,
-    },
-  ]
-};
-
 export const AllEvents: EventType[] = [
   // Finish
   ...FinalEvents,
@@ -387,24 +333,20 @@ export const AllEvents: EventType[] = [
   // Forest
 
   ForestElfEvent,
-  ForestRandomGood,
   //ForestElfEventBlighted,
-  //ForestFiller,
+  ...ForestFillerEvents,
 
   // GoblinNest
 
   GoblinNest,
   ...GoblinNestFillerEvents,
 
-  // BarbarianVillage
-
   BarbarianVillageWornDown,
-  BarbarianVillageFiller,
   //BlightedBarbarianVillageWornDown,
 
-  // River
+  ...BarbarianVillageFillerEvents,
 
-  RiverFiller,
+  ...RiverEvents,
 
   ...DesertEvents,
 
