@@ -55,11 +55,11 @@ export type EventType = {
   whenBlighted?: EventType;
 }
 
-const PassOn = ({ price = 0 }): EventOption => ({
+const PassOn = (props: { price: number }): EventOption => ({
   skillRequired: { type: "no-skill" },
-  description  : "Pass on.",
+  description  : "Continue with your journey.",
   followUpText : "",
-  outcome: price === 0 ? [] : [{ type: "lose-meat", amount: price, hidden: false }],
+  outcome: props.price === 0 ? [] : [{ type: "lose-meat", amount: props.price, hidden: false }],
 });
 
 const GameFinish: EventType = {
@@ -400,21 +400,21 @@ const GoblinNest: EventType = {
 
 const ForestFiller: EventType = {
   location     : "Forest",
-  description  : "Your party makes it through the forest with little difficulty. Everyone remarks on how unremarkable the forest was.",
+  description  : "Your party makes it through the forest. Everyone remarks on how unremarkable the forest was.",
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
-    PassOn({ price: 0 }),
+    PassOn({ price: 10 }),
   ]
 };
 
 const GoblinNestFiller: EventType = {
   location     : "GoblinNest",
-  description  : "Your party comes to the goblin nest, only to find it abandoned long ago. The mystery nags at you, but you move on.",
+  description  : "Your party comes to the goblin nest, only to find it abandoned long ago. The mystery nags at you.",
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
-    PassOn({ price: 0 }),
+    PassOn({ price: 5 }),
   ]
 };
 
@@ -424,7 +424,7 @@ const BarbarianVillageFiller: EventType = {
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
-    PassOn({ price: 0 }),
+    PassOn({ price: 10 }),
   ]
 };
 
@@ -434,7 +434,7 @@ const RiverFiller: EventType = {
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
-    PassOn({ price: 0 }),
+    PassOn({ price: 10 }),
   ]
 };
 
@@ -444,7 +444,7 @@ const SwampFiller: EventType = {
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
-    PassOn({ price: 0 }),
+    PassOn({ price: 10 }),
   ]
 };
 
@@ -454,7 +454,7 @@ const DesertFiller: EventType = {
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
-    PassOn({ price: 0 }),
+    PassOn({ price: 10 }),
   ]
 };
 
@@ -464,7 +464,7 @@ const MountainFiller: EventType = {
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
-    PassOn({ price: 0 }),
+    PassOn({ price: 10 }),
   ]
 };
 
@@ -482,7 +482,6 @@ const ForestRandomGood: EventType = {
       outcome      : [{ type: "gain-meat", amount: 30, hidden: false }],
       updateEventTo: ForestFiller,
     },
-    PassOn({ price: 0 }),
   ]
 };
 
