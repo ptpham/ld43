@@ -311,6 +311,9 @@ export class State {
           }
 
           case "end-run": {
+            // drop the idol
+            this.onDropIdol();
+
             // put all cards back at hometown
 
             const cards = this.cardsInCaravan.keys();

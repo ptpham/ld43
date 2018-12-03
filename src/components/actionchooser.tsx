@@ -195,7 +195,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
               </span>
           });
         } else {
-          throw new Error("should be impossible! " + sacrificeOutcome);
+          //throw new Error("should be impossible! " + sacrificeOutcome);
         }
       }
     }
