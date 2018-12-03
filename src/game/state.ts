@@ -68,7 +68,7 @@ export class State {
   constructor(stage: PIXI.Container) {
     const graphOptions = {
       width: C.CANVAS_WIDTH - 100, // TODO(bowei): this should be MAP_WIDTH and MAP_HEIGHT once we get scrolling working
-      height: C.CANVAS_HEIGHT - 100,
+      height: C.CANVAS_HEIGHT - 200, // Leave some room for ui
       spacing: 80
     };
 

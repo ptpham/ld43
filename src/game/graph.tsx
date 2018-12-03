@@ -160,7 +160,7 @@ export function candidateEdgeHasIntersection(nodes: Node[], first: Node, second:
 
 export function generateRiver(nodes: Node[], options: GenerateOptions): PIXI.Point[] {
   const { width, height } = options;
-  const line = new Line({ x1: width * SeedRandom(), x2: width * SeedRandom(), y1: -64, y2: height + 64 });
+  const line = new Line({ x1: width * SeedRandom(), x2: width * SeedRandom(), y1: -200, y2: height + 200 });
 
   const snake = [new PIXI.Point(line.x1, line.y1)];
   nodes.forEach((node: Node) => {
