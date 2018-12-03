@@ -381,7 +381,9 @@ export class State {
       this.caravanLocation.event = option.updateEventTo;
     }
 
-    if (this.caravanLocation.event && this.caravanLocation.event.stopsProgress) {
+    if (
+      newCaravanLocation === this.caravanLocation &&
+      this.caravanLocation.event && this.caravanLocation.event.stopsProgress) {
       newCaravanLocation = this.lastCaravanLocation;
     }
 
