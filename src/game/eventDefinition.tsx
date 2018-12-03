@@ -3,6 +3,7 @@ import { LocationType, SkillType } from "./data";
 
 export type EventItem =
   | "Tailisman"
+  | "Golden Snake"
 
 export type EventOutcome = 
   | { type: "gain-meat"; amount: number; hidden: boolean }

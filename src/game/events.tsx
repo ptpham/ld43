@@ -3,6 +3,7 @@ import { EventDifficulty, EventOption, EventType, PassOn } from './eventDefiniti
 import { DesertEvents } from './eventsByLocation/desert';
 import { MountainEvents } from './eventsByLocation/mountain';
 import { SwampEvents } from './eventsByLocation/swamp';
+import { CanyonEvents } from './eventsByLocation/canyon';
 import { GoblinNestFillerEvents } from './eventsByLocation/goblinnestfiller';
 
 export const CONTINUE_TEXT = "Continue with your journey.";
@@ -14,7 +15,7 @@ export const VolcanoStayOption: EventOption = {
   outcome: [{ type: "lose-meat", amount: 20, hidden: false }],
 };
 
-const GameFinish: EventType = {
+const Finale: EventType = {
   location: "Finish",
   description: `
     Lava bubbles inside the volcano's mouth.`,
@@ -49,7 +50,7 @@ export const FinalGambit: EventType = {
         The earth jolts, sending you backwards.
       `,
       outcome: [{ type: "turn-back" }],
-      updateEventTo: GameFinish,
+      updateEventTo: Finale,
     },
     VolcanoStayOption
   ],
@@ -429,7 +430,7 @@ const ForestRandomGood: EventType = {
 export const AllEvents: EventType[] = [
   // Finish
   FinalGambit,
-  GameFinish,
+  Finale,
 
   // Forest
 
@@ -458,4 +459,6 @@ export const AllEvents: EventType[] = [
   ...MountainEvents,
 
   ...SwampEvents,
+
+  ...CanyonEvents,
 ];
