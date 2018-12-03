@@ -266,6 +266,8 @@ export class State {
 
   public handleChooseEventOption(option: EventOption): void {
     let newCaravanLocation = this.caravanLocation;
+    let swapLocation = false;
+
     if (option.outcome) {
       const outcomes = 
         Array.isArray(option.outcome)
@@ -338,9 +340,7 @@ export class State {
             }
 
             // move player back home too
-            // this should retrigger the card choosing logic
-            // WHY DOESNT IT
-
+            swapLocation = true;
             newCaravanLocation = this.hometownLocation;
             this.meat = C.STARTING_MEAT;
             this.choosingCharacters = true;
@@ -383,10 +383,14 @@ export class State {
     }
 
     if (newCaravanLocation !== this.caravanLocation) {
-      this.moveCaravan(
-        newCaravanLocation,
-        true
-      );
+      if (swapLocation) {
+        this.caravanLocation = newCaravanLocation;
+      } else {
+        this.moveCaravan(
+          newCaravanLocation,
+          true
+        );
+      }
     }
 
     this.activeEvent = undefined;
