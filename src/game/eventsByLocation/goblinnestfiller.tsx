@@ -8,7 +8,7 @@ const GoblinNestFiller: EventType = {
   stopsProgress: false,
   options: [
     {
-      skillRequired: {type: "specific-skill", skill: "Fool", withoutRequirement: "Invisible"},
+      skillRequired: {type: "specific-skill", skill: "Fool", withoutRequirement: "Unlabeled"},
       description: "Go into the houses and break all the pots",
       followUpText: "You let the fool do as he pleases. Unfortunately you find out this is a mistake as he goes into all the houses, breaks all the pots, and molests a few chickens. The chickens are not pleased, and somehow more chickens appear exact revenge upon the party. You try to remember not to molest the chickens next time. ",
       outcome: [{ type: 'lose-meat', amount: 60, hidden: true}],
