@@ -180,14 +180,14 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
 
       const sacrificeOutcome = outcomes.filter(x => x.type === 'lose-member-weak' || x.type === 'lose-member-strong')[0];
       if (sacrificeOutcome) {
-        if (sacrificeOutcome.type === 'lose-member-weak') {
+        if (sacrificeOutcome.type === 'lose-member-weak' && !sacrificeOutcome.hidden) {
           to_ret.push({
             node: 
               <span style={{ color: "red "}}>
                 Lose { sacrificeOutcome.skill } temporarily.
               </span>
           });
-        } else if (sacrificeOutcome.type === 'lose-member-strong') {
+        } else if (sacrificeOutcome.type === 'lose-member-strong' && !sacrificeOutcome.hidden) {
           to_ret.push({
             node: 
               <span style={{ color: "red "}}>
@@ -291,11 +291,11 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
         )
       });
 
-      const everyOptionTooExpensive = options.every(x => {
-        return x.outcome.some(outcome => 
-          outcome.type === "lose-meat" && 
-          outcome.amount >= this.props.gameState.meat
-        );
+      const everyOptionTooExpensive = options.every(option => {
+        const { renderNothingElse } = this.renderRequirement(option);
+        const { cantBuy } = this.renderCost(option);
+
+        return !!(renderNothingElse || cantBuy);
       });
 
       const turnBackOption: EventOption = {
