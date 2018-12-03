@@ -3,7 +3,7 @@ import { EventDifficulty, EventType, PassOn } from '../eventDefinition';
 
 const MountainFiller: EventType = {
   location     : "Mountain",
-  description  : "The mountain looms threateningly over the party, but after a few days of exploring, you find a pass that allows you to get through with little difficulty.",
+  description  : "The mountain looms threateningly over the party. A pass exists, but it looks treacherous.",
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [

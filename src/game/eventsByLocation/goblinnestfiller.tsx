@@ -28,7 +28,7 @@ const GoblinNestFiller: EventType = {
             skillRequired: {type: "specific-skill", skill: "Architect", withoutRequirement: "Unlabeled"},
             description: "Turn some of the dwellings into human-size shelters.",
             followUpText: "It takes some ingenuity but you are able to convert some of the abandoned goblin dwellings to human-sized ones. They are pretty rickety, though, and probably won't last very long after you leave.",
-            outcome: [{ type: 'lose-meat', amount: 0, hidden: false}]
+            outcome: []
           },
           PassOn({ price: 5 }),
         ]
@@ -38,7 +38,7 @@ const GoblinNestFiller: EventType = {
       skillRequired: {type: "specific-skill", skill: "Architect", withoutRequirement: "Unlabeled"},
       description: "Turn some of the dwellings into human-size shelters.",
       followUpText: "It takes some ingenuity but you are able to convert some of the abandoned goblin dwellings to human-sized ones. They are pretty rickety, though, and probably won't last very long after you leave.",
-      outcome: [{ type: 'lose-meat', amount: 0, hidden: false}]
+      outcome: []
     },
     PassOn({ price: 5 }),
   ]

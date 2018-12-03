@@ -120,7 +120,11 @@ export class Location extends PIXI.Graphics implements IEntity {
     if (!this.sprite) { return; }
 
     if (!(this.sprite as any).visited) {
-      this.sprite.tint = 0x0;
+      if (this.mousedOver) {
+        this.sprite.tint = 0x333333;
+      } else {
+        this.sprite.tint = 0x0;
+      }
     } else {
       if (this.selected) {
         this.sprite.tint = 0xffff00;
