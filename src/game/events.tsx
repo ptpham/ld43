@@ -447,7 +447,7 @@ const MountainFiller: EventType = {
       skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Unlabeled" },
       description: "Nimbly scale the mountain.",
       followUpText : "The assassin is experienced in climbing buildings. She scales the cliff and lets down a rope for you to rappel up. This saves you a good few days of climbing!",
-      outcome: [{ type: "lose-meat", amount: 0, hidden: false }],
+      outcome: [],
     },
     {
       skillRequired: { type: "specific-skill", skill: "Architect", withoutRequirement: "Unlabeled" },

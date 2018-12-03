@@ -291,11 +291,11 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
         )
       });
 
-      const everyOptionTooExpensive = options.every(x => {
-        return x.outcome.some(outcome => 
-          outcome.type === "lose-meat" && 
-          outcome.amount >= this.props.gameState.meat
-        );
+      const everyOptionTooExpensive = options.every(option => {
+        const { renderNothingElse } = this.renderRequirement(option);
+        const { cantBuy } = this.renderCost(option);
+
+        return !!(renderNothingElse || cantBuy);
       });
 
       const turnBackOption: EventOption = {
