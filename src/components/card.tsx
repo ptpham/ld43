@@ -37,42 +37,52 @@ export class Card extends React.Component<CardProps, CardState> {
   public render(): JSX.Element {
     return (
       <div
-        onClick = { () => {
-          //console.log("cawas clicked", this.props.card, this.props.gameState);
-          //this.props.gameState.active_caravan.push(this.props.card);
-        } }
         style={{
           display: "inline-block",
-          border: "1px solid lightgray",
-          height: "200px",
-          width: "100px",
           margin: "0 20px 10px 20px",
-          backgroundImage: `url(${imageMap.get(this.props.card.skill)}`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: '100%'
         }}
       >
-        <div>
-          {
-            this.state.selected
-              ? <strong>{ this.props.card.skill }</strong>
-              : this.props.card.skill
-          }
-        </div>
-        <div>Meat: { this.props.card.meat }</div>
+        <a 
+          style={{
+            textDecoration: "none",
+            color: "black",
+          }}
+          onClick={() => { 
+              this.setState({ selected: !this.state.selected })
 
-        <div style={{ paddingTop: "20px" }}>
-          <a 
-            onClick={() => { 
-                this.setState({ selected: !this.state.selected })
-
-                this.props.onChangeSelection(this.props.card, !this.state.selected);
-              }
+              this.props.onChangeSelection(this.props.card, !this.state.selected);
             }
-            href="javascript:;">
-            { this.state.selected ? "Unselect" : "Select" }
-          </a>
-        </div>
+          }
+          href="javascript:;"
+        >
+
+          <div
+            style={{
+              height: "200px",
+              width: "100px",
+              backgroundImage: `url(${imageMap.get(this.props.card.skill)}`,
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: '100%',
+              ...{ opacity: this.state.selected ? 1 : undefined },
+            }}
+            className="cardhover"
+          />
+
+          <div>
+            {
+              this.state.selected
+                ? <strong>{ this.props.card.skill }</strong>
+                : this.props.card.skill
+            }
+          </div>
+
+          <div style={{ 
+            paddingTop: "0px" ,
+            color: "blue",
+            }}>
+              { this.state.selected ? "Unselect" : "Select" }
+          </div>
+        </a>
       </div>
     );
   }

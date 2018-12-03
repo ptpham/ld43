@@ -62,10 +62,11 @@ export class CardChooser extends React.Component<CardChooserProps, CardChooserSt
       >
         <div
           style={{
-            fontSize: "20px",
-            paddingBottom: "10px"
+            fontSize: "30px",
+            paddingBottom: "10px",
+            textAlign: "center",
           }}
-        >Choose your Caravan! {this.props.gameState.cardsInWholeGame.size} characters available! </div>
+        >Choose your Caravan!</div>
 
         <div>
           {
