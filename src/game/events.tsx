@@ -438,7 +438,7 @@ const RiverFiller: EventType = {
   stopsProgress: false,
   options: [
     {
-      skillRequired: { type: "specific-skill", skill: "Merchant", withoutRequirement: "Everything" },
+      skillRequired: { type: "specific-skill", skill: "Merchant", withoutRequirement: "Unlabeled" },
       description: "Find the river gypsies.",
       followUpText : "The merchant is good friends with a band of gypsies who travels up and down the river, trading goods along the way. Reading the signs along the riverbank that they leave behind, he is able to find them, and you have a fun little party together.",
       outcome: [{ type: "gain-meat", amount: 10, hidden: true, }],
@@ -454,7 +454,7 @@ const SwampFiller: EventType = {
   stopsProgress: false,
   options: [
     {
-      skillRequired: { type: "specific-skill", skill: "Bard", withoutRequirement: "Everything" },
+      skillRequired: { type: "specific-skill", skill: "Bard", withoutRequirement: "Unlabeled" },
       description: "Play some catchy tunes.",
       followUpText : "When you stop and rest, the bard picks up her instrument and plays you a catchy tune. Suddenly an ogre appears out of the swamp! He says he likes your music, blushing a little. He offers you some swamp flowers and a bag of dried piranha innards. You begrudgingly accept.",
       outcome: [{ type: "gain-meat", amount: 10, hidden: true, }],
@@ -486,19 +486,19 @@ const DesertBlighted: EventType = {
   stopsProgress: false,
   options: [
     {
-      skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Everything" },
+      skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Unlabeled" },
       description: "Slay the wolves from afar.",
       followUpText : "You quietly equip some poison arrows and shoot down the wolves from a distance. The corpses are tainted and are not edible.",
       outcome: [{ type: "lose-meat", amount: 0, hidden: true, }],
     },
     {
-      skillRequired: { type: "specific-skill", skill: "Woodsman", withoutRequirement: "Everything" },
+      skillRequired: { type: "specific-skill", skill: "Woodsman", withoutRequirement: "Unlabeled" },
       description: "Fight off the wolves in melee.",
       followUpText : "You pick off a few wolves from range and engage the rest by hand. You come out battered but the victor as the wolves scatter.",
       outcome: [{ type: "lose-meat", amount: 10, hidden: true, }],
     },
     {
-      skillRequired: { type: "specific-skill", skill: "Fool", withoutRequirement: "Everything" },
+      skillRequired: { type: "specific-skill", skill: "Fool", withoutRequirement: "Unlabeled" },
       description: "Leave behind a member of your party as bait.",
       followUpText : "You tell the fool that the big dogs have candy and want to snuggle. He tries to snuggle them. You get away while they are distracted.",
       outcome: [{ type: "lose-member-strong", skill: "Fool" }],
@@ -515,7 +515,7 @@ const MountainFiller: EventType = {
   stopsProgress: false,
   options: [
     {
-      skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Everything" },
+      skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Unlabeled" },
       description: "Nimbly scale the mountain.",
       followUpText : "The assassin is experienced in climbing buildings. She scales the cliff and lets down a rope for you to rappel up. This saves you a good few days of climbing!",
       outcome: [{ type: "lose-meat", amount: 0, hidden: false }],
