@@ -27,13 +27,13 @@ const DesertBlighted: EventType = {
       skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Unlabeled" },
       description: "Slay the wolves from afar.",
       followUpText : "You quietly equip some poison arrows and shoot down the wolves from a distance. The corpses are tainted and are not edible.",
-      outcome: [{ type: "lose-meat", amount: 0, hidden: true, }],
+      outcome: [],
     },
     {
       skillRequired: { type: "specific-skill", skill: "Woodsman", withoutRequirement: "Unlabeled" },
       description: "Fight off the wolves in melee.",
       followUpText : "You pick off a few wolves from range and engage the rest by hand. You come out battered but the victor as the wolves scatter.",
-      outcome: [{ type: "lose-meat", amount: 10, hidden: true, }],
+      outcome: [],
     },
     {
       skillRequired: { type: "specific-skill", skill: "Fool", withoutRequirement: "Unlabeled" },
