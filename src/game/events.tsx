@@ -6,8 +6,6 @@ import { SwampEvents } from './eventsByLocation/swamp';
 import { CanyonEvents } from './eventsByLocation/canyon';
 import { GoblinNestFillerEvents } from './eventsByLocation/goblinnestfiller';
 
-export const CONTINUE_TEXT = "Continue with your journey.";
-
 export const VolcanoStayOption: EventOption = {
   skillRequired: { type: "no-skill" },
   description: "Camp on the volcano.",
@@ -39,7 +37,7 @@ export const FinalGambit: EventType = {
   description: `
     Strange clouds rise from the volcano as it bubbles.
     They prevent you from approaching the mouth.`,
-  stopsProgress: true,
+  stopsProgress: false,
   difficulty: EventDifficulty.NormalDifficutly,
   options: [
     {
@@ -110,7 +108,7 @@ const ForestElvesHappy: EventType = {
 
 const ForestElfEvent: EventType = {
   location     : "Forest",
-  stopsProgress: true,
+  stopsProgress: false,
   description: 
     `You come to a misty forest. You hear the echo of soft, sad voices in the
     distance, but every time you come closer, they go further away. Passing
@@ -135,7 +133,7 @@ const ForestElfEvent: EventType = {
         { type: "gain-item", item: "Tailisman" }
       ],
     },
-    PassOn({ price: 10 }),
+    //PassOn({ price: 10 }),
   ],
 };
 
@@ -145,7 +143,7 @@ const ForestElfEventBlighted: EventType = {
     `You come to a dark, misty forest. You hear the shrill echo of eerie laughter in the
     distance, and you feel uneasy. Passing through will not be easy.`,
   difficulty   : EventDifficulty.NothingHappens,
-  stopsProgress: true,
+  stopsProgress: false,
   options: [
     {
       skillRequired: { type: "specific-skill", skill: "Woodsman", withoutRequirement: "Everything" },
@@ -170,7 +168,7 @@ const ForestElfEventBlighted: EventType = {
       }],
       updateEventTo: ForestElfEvent
     },
-    PassOn({ price: 40 }),
+    //PassOn({ price: 40 }),
   ]
 };
 ForestElfEvent.whenBlighted = ForestElfEventBlighted;
@@ -249,7 +247,6 @@ const BlightedBarbarianVillageWornDown: EventType = {
       `You gesture to the giant barbarian your intentions to repair the buildings. He punches you in the head.
       Looks like he didn't understand very much.`,
       outcome      : [{ type: "lose-meat", amount: 10, hidden: true }],
-      //updateEventTo: BarbarianVillageRepaired,
     },
     {
       skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Unlabeled" },
@@ -270,7 +267,7 @@ const BlightedBarbarianVillageWornDown: EventType = {
         difficulty: EventDifficulty.NormalDifficutly,
         stopsProgress: false,
         options: [
-          PassOn({ price: 0 }),
+          PassOn({ price: 10 }),
         ]
       },
     },
@@ -316,7 +313,7 @@ const GoblinNest: EventType = {
             outcome: [{ type: "lose-meat", amount: 10, hidden: true }],
             updateEventTo: {
               location: "GoblinNest",
-              stopsProgress: true,
+              stopsProgress: false,
               description: `
                 You approach the outskirts of a nest of goblins. There is a serviceable tower built here.
                 `,
