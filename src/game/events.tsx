@@ -1,69 +1,8 @@
-import { LocationType, SkillType } from "./data";
 
-export type EventItem =
-  | "Tailisman"
-
-export type EventOutcome = 
-  | { type: "gain-meat"; amount: number; hidden: boolean }
-  | { type: "lose-meat"; amount: number; hidden: boolean }
-  | { type: "lose-member-strong"; skill: SkillType; }
-  | { type: "lose-member-weak"; skill: SkillType; }
-  | { type: "gain-item"; item: EventItem }
-  | { type: "turn-back"; }
-  | { type: "end-run"; }
-
-export type Requirement =
-  | { 
-      type: "specific-skill"; 
-      skill: SkillType; 
-      withoutRequirement: "Invisible" | "Unlabeled" | "Everything" 
-    }
-  | { 
-      type: "specific-item"; 
-      skill: EventItem; 
-      withoutRequirement: "Invisible" | "Unlabeled" | "Everything" 
-    }
-  | { type: "no-skill"      ; }
-
-export enum EventDifficulty {
-  NothingHappens   = 0,
-  FreeMeat         = 1,
-  NormalDifficutly = 2,
-  HardDifficulty   = 3,
-
-  // This is a placeholder difficulty, please do not make events at this difficulty
-  MaxDifficulty    = 4,
-
-  // let's not use this one (unless they do something stupid)
-  LoseMeat         = 5,
-}
-
-export type EventOption = {
-  skillRequired : Requirement;
-  description   : string;
-  followUpText  : string;
-  outcome       : EventOutcome[];
-  updateEventTo?: EventType;
-  winsGame   ?: boolean;
-}
-
-export type EventType = {
-  location     : LocationType;
-  stopsProgress: boolean;
-  description  : string;
-  difficulty   : EventDifficulty;
-  options      : EventOption[];
-  whenBlighted?: EventType;
-}
+import { EventDifficulty, EventOption, EventType, PassOn } from './eventDefinition';
+import { DesertEvents } from './eventsByLocation/desert';
 
 export const CONTINUE_TEXT = "Continue with your journey.";
-
-const PassOn = (props: { price: number }): EventOption => ({
-  skillRequired: { type: "no-skill" },
-  description  : CONTINUE_TEXT,
-  followUpText : "",
-  outcome: props.price === 0 ? [] : [{ type: "lose-meat", amount: props.price, hidden: false }],
-});
 
 const GameFinish: EventType = {
   location: "Finish",
@@ -475,51 +414,6 @@ const SwampFiller: EventType = {
   ]
 };
 
-const DesertFiller: EventType = {
-  location     : "Desert",
-  description  : "The caravan makes its way over a desert. The air is hot and the sand is harsh.",
-  difficulty   : EventDifficulty.NothingHappens,
-  stopsProgress: false,
-  options: [
-    {
-      skillRequired: { type: "specific-skill", skill: "Cartographer", withoutRequirement: "Unlabeled" },
-      description: "Locate an easy path through the desert.",
-      followUpText : "With the cartographer's help, you locate a hidden oasis among the dunes!.",
-      outcome: [{ type: "gain-meat", amount: 10, hidden: true, }],
-    },
-    PassOn({ price: 10 }),
-  ],
-};
-
-const DesertBlighted: EventType = {
-  location     : "Desert",
-  description  : "The caravan makes its way over an unwelcoming desert. The air is hot and the sand is harsh, and a wild wolf pack accosts you as you attempt to cross.",
-  difficulty   : EventDifficulty.NothingHappens,
-  stopsProgress: false,
-  options: [
-    {
-      skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Unlabeled" },
-      description: "Slay the wolves from afar.",
-      followUpText : "You quietly equip some poison arrows and shoot down the wolves from a distance. The corpses are tainted and are not edible.",
-      outcome: [{ type: "lose-meat", amount: 0, hidden: true, }],
-    },
-    {
-      skillRequired: { type: "specific-skill", skill: "Woodsman", withoutRequirement: "Unlabeled" },
-      description: "Fight off the wolves in melee.",
-      followUpText : "You pick off a few wolves from range and engage the rest by hand. You come out battered but the victor as the wolves scatter.",
-      outcome: [{ type: "lose-meat", amount: 10, hidden: true, }],
-    },
-    {
-      skillRequired: { type: "specific-skill", skill: "Fool", withoutRequirement: "Unlabeled" },
-      description: "Leave behind a member of your party as bait.",
-      followUpText : "You tell the fool that the big dogs have candy and want to snuggle. He tries to snuggle them. You get away while they are distracted.",
-      outcome: [{ type: "lose-member-strong", skill: "Fool" }],
-    },
-    PassOn({ price: 20 }),
-  ],
-}
-DesertFiller.whenBlighted = DesertBlighted;
-
 const MountainFiller: EventType = {
   location     : "Mountain",
   description  : "The mountain looms threateningly over the party, but after a few days of exploring, you find a pass that allows you to get through with little difficulty.",
@@ -542,7 +436,7 @@ const MountainFiller: EventType = {
         description: "This mountain pass is much easier to cross now that there is a real trail.",
         difficulty: EventDifficulty.NothingHappens,
         stopsProgress: false,
-        options: [ PassOn({price: 10}) ]
+        options: [ PassOn({price: 0}) ]
       }
     },
     PassOn({ price: 10 }),
@@ -598,7 +492,7 @@ export const AllEvents: EventType[] = [
 
   // Desert
 
-  DesertFiller,
+  ...DesertEvents,
 
   // Mountain
 

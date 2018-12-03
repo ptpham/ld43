@@ -2,7 +2,7 @@
 import React from 'react';
 import { State } from '../game/state';
 import _ from 'lodash';
-import { EventType, EventOption } from '../game/events';
+import { EventType, EventOption } from '../game/eventDefinition';
 
 const EventButton = (props: { 
   onClick ?: () => void;
@@ -86,9 +86,10 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
             renderNothingElse: true 
           };
         } else if (opt.skillRequired.withoutRequirement === "Everything") {
-          return (
-            { node: <strong>{ opt.skillRequired.skill } :</strong> }
-          );
+          return ({ 
+            node: <span><strong>{ opt.skillRequired.skill } :</strong> ???? </span>,
+            renderNothingElse: true,
+          });
         } else {
           const x: never = opt.skillRequired.withoutRequirement;
 
