@@ -55,9 +55,11 @@ export type EventType = {
   whenBlighted?: EventType;
 }
 
+export const CONTINUE_TEXT = "Continue with your journey.";
+
 const PassOn = (props: { price: number }): EventOption => ({
   skillRequired: { type: "no-skill" },
-  description  : "Continue with your journey.",
+  description  : CONTINUE_TEXT,
   followUpText : "",
   outcome: props.price === 0 ? [] : [{ type: "lose-meat", amount: props.price, hidden: false }],
 });
