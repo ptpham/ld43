@@ -449,7 +449,7 @@ const RiverFiller: EventType = {
 
 const SwampFiller: EventType = {
   location     : "Swamp",
-  description  : "After another day's journey, the party arrives at a swamp. The going is slow, but you make it out mostly unscathed.",
+  description  : "After another day's journey, the party arrives at a swamp. The going is slow.",
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
@@ -465,7 +465,7 @@ const SwampFiller: EventType = {
 
 const DesertFiller: EventType = {
   location     : "Desert",
-  description  : "The caravan makes its way over a desert. The air is hot and the sand is harsh, but you make it through.",
+  description  : "The caravan makes its way over a desert. The air is hot and the sand is harsh.",
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
