@@ -54,6 +54,6 @@ DesertFiller.whenBlighted = DesertBlighted;
 
 export const DesertEvents = [
   DesertFiller,
-  DesertBlighted
+  //DesertBlighted
 ];
 

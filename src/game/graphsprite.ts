@@ -4,7 +4,7 @@ import { Location } from "./location";
 import { C, Debug } from "./constants";
 import { Line } from "./lib/line";
 import * as Graph from '../game/graph';
-import { CONTINUE_TEXT } from "./eventDefinition";
+import { CONTINUE_TEXT, EventOutcome } from "./eventDefinition";
 
 export class GraphSprite extends PIXI.Sprite implements IEntity {
   state: State;
@@ -101,10 +101,10 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
         ) &&
         visitedNodes.has(node)
       ) {
-        // add meat text
-        const outcome = node.event.options[0].outcome[0];
+        // add meat text // TODO(grant): fix this possibly being undefined
+        const outcome: EventOutcome | undefined = node.event.options[0].outcome[0];
 
-        if (outcome.type === "lose-meat") {
+        if (outcome && outcome.type === "lose-meat") {
           const text = new PIXI.Text(
             "-" + outcome.amount, {
               fontFamily: "Softsquare",
