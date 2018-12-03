@@ -54,6 +54,7 @@ export class State {
   lastCaravanLocation : Graph.Node;
   caravanLocation     : Graph.Node;
   volcanoLocation     : Graph.Node;
+  hometownLocation    : Graph.Node;
   selectedNextLocation: Location | undefined;
   mousedOverLocation  : Location | undefined;
   isLocationDone      : boolean;
@@ -90,6 +91,7 @@ export class State {
     this.graph = Graph.addLocationBasedData(this.graph, C.CANVAS_WIDTH);
 
     this.caravanLocation = this.graph.find(node => node.locationType === 'Start')!;
+    this.hometownLocation = this.caravanLocation;
     this.volcanoLocation = this.graph.find(node => node.locationType === 'Finish')!;
     this.lastCaravanLocation = this.caravanLocation;
 
@@ -304,6 +306,25 @@ export class State {
             if (c) {
               this.cardsInWholeGame.add(c);
             }
+
+            break;
+          }
+
+          case "end-run": {
+            // put all cards back at hometown
+
+            const cards = this.cardsInCaravan.keys();
+
+            this.cardsInCaravan = new Set();
+
+            for (const card of cards) {
+              this.cardsInWholeGame.add(card);
+            }
+
+            // move player back home too
+            // this should retrigger the card choosing logic
+
+            this.caravanLocation = this.hometownLocation;
 
             break;
           }

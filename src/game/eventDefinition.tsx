@@ -11,6 +11,7 @@ export type EventOutcome =
   | { type: "lose-member-weak"; skill: SkillType; }
   | { type: "gain-item"; item: EventItem }
   | { type: "turn-back"; }
+  | { type: "end-run"; }
 
 export type Requirement =
   | { 

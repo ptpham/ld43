@@ -1,9 +1,9 @@
 
 import { EventDifficulty, EventType, PassOn } from '../eventDefinition';
 
-export const DesertFiller: EventType = {
+const DesertFiller: EventType = {
   location     : "Desert",
-  description  : "The caravan makes its way over a desert. The air is hot and the sand is harsh, but you make it through.",
+  description  : "The caravan makes its way over a desert. The air is hot and the sand is harsh.",
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
@@ -17,7 +17,37 @@ export const DesertFiller: EventType = {
   ],
 };
 
+const DesertBlighted: EventType = {
+  location     : "Desert",
+  description  : "The caravan makes its way over an unwelcoming desert. The air is hot and the sand is harsh, and a wild wolf pack accosts you as you attempt to cross.",
+  difficulty   : EventDifficulty.NothingHappens,
+  stopsProgress: false,
+  options: [
+    {
+      skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Everything" },
+      description: "Slay the wolves from afar.",
+      followUpText : "You quietly equip some poison arrows and shoot down the wolves from a distance. The corpses are tainted and are not edible.",
+      outcome: [{ type: "lose-meat", amount: 0, hidden: true, }],
+    },
+    {
+      skillRequired: { type: "specific-skill", skill: "Woodsman", withoutRequirement: "Everything" },
+      description: "Fight off the wolves in melee.",
+      followUpText : "You pick off a few wolves from range and engage the rest by hand. You come out battered but the victor as the wolves scatter.",
+      outcome: [{ type: "lose-meat", amount: 10, hidden: true, }],
+    },
+    {
+      skillRequired: { type: "specific-skill", skill: "Fool", withoutRequirement: "Everything" },
+      description: "Leave behind a member of your party as bait.",
+      followUpText : "You tell the fool that the big dogs have candy and want to snuggle. He tries to snuggle them. You get away while they are distracted.",
+      outcome: [{ type: "lose-member-strong", skill: "Fool" }],
+    },
+    PassOn({ price: 20 }),
+  ],
+}
+DesertFiller.whenBlighted = DesertBlighted;
+
 export const DesertEvents = [
-  DesertFiller
+  DesertFiller,
+  DesertBlighted
 ];
 

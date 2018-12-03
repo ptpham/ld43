@@ -372,17 +372,23 @@ const BarbarianVillageFiller: EventType = {
 
 const RiverFiller: EventType = {
   location     : "River",
-  description  : "The party arrives at a river. Some logs and stones left behind by previous travellers makes it easy to ford.",
+  description  : "The party arrives at a river. A makeshift bridge, consisting of some logs and stones left behind by previous travellers, makes it easy to cross.",
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
+    {
+      skillRequired: { type: "specific-skill", skill: "Merchant", withoutRequirement: "Everything" },
+      description: "Find the river gypsies.",
+      followUpText : "The merchant is good friends with a band of gypsies who travels up and down the river, trading goods along the way. Reading the signs along the riverbank that they leave behind, he is able to find them, and you have a fun little party together.",
+      outcome: [{ type: "gain-meat", amount: 10, hidden: true, }],
+    },
     PassOn({ price: 10 }),
   ]
 };
 
 const SwampFiller: EventType = {
   location     : "Swamp",
-  description  : "After another day's journey, the party arrives at a swamp. The going is slow, but you make it out mostly unscathed.",
+  description  : "After another day's journey, the party arrives at a swamp. The going is slow.",
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
@@ -402,6 +408,25 @@ const MountainFiller: EventType = {
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
+    {
+      skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Everything" },
+      description: "Nimbly scale the mountain.",
+      followUpText : "The assassin is experienced in climbing buildings. She scales the cliff and lets down a rope for you to rappel up. This saves you a good few days of climbing!",
+      outcome: [{ type: "lose-meat", amount: 0, hidden: false }],
+    },
+    {
+      skillRequired: { type: "specific-skill", skill: "Architect", withoutRequirement: "Unlabeled" },
+      description: "Create a footpath.",
+      followUpText : "You decide to clear out a switchback trail to make it easier to cross next time.",
+      outcome: [{ type: "lose-member-weak", skill: "Architect" }],
+      updateEventTo: {
+        location: "Mountain",
+        description: "This mountain pass is much easier to cross now that there is a real trail.",
+        difficulty: EventDifficulty.NothingHappens,
+        stopsProgress: false,
+        options: [ PassOn({price: 10}) ]
+      }
+    },
     PassOn({ price: 10 }),
   ]
 };
