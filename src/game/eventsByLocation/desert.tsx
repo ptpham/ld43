@@ -39,7 +39,7 @@ const DesertBlighted: EventType = {
       skillRequired: { type: "specific-skill", skill: "Fool", withoutRequirement: "Unlabeled" },
       description: "Leave behind a member of your party as bait.",
       followUpText : "You tell the fool that the big dogs have candy and want to snuggle. He tries to snuggle them. You get away while they are distracted.",
-      outcome: [{ type: "lose-member-strong", skill: "Fool" }],
+      outcome: [{ type: "lose-member-strong", skill: "Fool" , hidden: false}],
     },
     PassOn({ price: 20 }),
   ],
