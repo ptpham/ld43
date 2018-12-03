@@ -5,6 +5,7 @@ import { MountainEvents } from './eventsByLocation/mountain';
 import { SwampEvents } from './eventsByLocation/swamp';
 import { CanyonEvents } from './eventsByLocation/canyon';
 import { GoblinNestFillerEvents } from './eventsByLocation/goblinnestfiller';
+import { BarbarianVillageFillerEvents } from './eventsByLocation/barbarianvillagefiller';
 
 export const VolcanoStayOption: EventOption = {
   skillRequired: { type: "no-skill" },
@@ -380,16 +381,6 @@ const ForestFiller: EventType = {
   ]
 };
 
-const BarbarianVillageFiller: EventType = {
-  location     : "BarbarianVillage",
-  description  : "Your party comes to the barbarian village - but apparently it's filled with very sleepy barbarians who are more interested in napping than coming out to greet you.",
-  difficulty   : EventDifficulty.NothingHappens,
-  stopsProgress: false,
-  options: [
-    PassOn({ price: 10 }),
-  ]
-};
-
 const RiverFiller: EventType = {
   location     : "River",
   description  : "The party arrives at a river. A makeshift bridge, consisting of some logs and stones left behind by previous travellers, makes it easy to cross.",
@@ -444,7 +435,8 @@ export const AllEvents: EventType[] = [
   // BarbarianVillage
 
   BarbarianVillageWornDown,
-  BarbarianVillageFiller,
+  //BarbarianVillageFiller,
+  ...BarbarianVillageFillerEvents,
   //BlightedBarbarianVillageWornDown,
 
   // River
