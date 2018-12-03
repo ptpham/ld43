@@ -21,6 +21,7 @@ export type IdolState =
 export type GameMode = 
   | "Moving On Map"
   | "Looking At Event"
+  | "Ending";
 
 /**
  * This will be the god object that holds all state. 
@@ -130,25 +131,39 @@ export class State {
       ] as CardType[]);
 
       this.isLocationDone = true;
+      this.cardsInWholeGame = new Set(
+        [
+          { skill: "Architect"      , meat: 1, },
+          { skill: "Cartographer"   , meat: 1, },
+          { skill: "Sage"           , meat: 1, },
+          { skill: "Merchant"       , meat: 1, },
+          { skill: "Bard"           , meat: 1, },
+          { skill: "Fool"           , meat: 1, },
+        ] as CardType[]
+      );
+    } else {
+      this.cardsInWholeGame = new Set(
+        [
+          { skill: "Woodsman"       , meat: 1, },
+          { skill: "Priest"         , meat: 1, },
+          { skill: "Assassin"       , meat: 1, },
+          { skill: "Architect"      , meat: 1, },
+          { skill: "Cartographer"   , meat: 1, },
+          { skill: "Sage"           , meat: 1, },
+          { skill: "Merchant"       , meat: 1, },
+          { skill: "Bard"           , meat: 1, },
+          { skill: "Fool"           , meat: 1, },
+        ] as CardType[]
+      );
     }
-
-    this.cardsInWholeGame = new Set(
-      [
-        { skill: "Woodsman"       , meat: 1, },
-        { skill: "Priest"         , meat: 1, },
-        { skill: "Assassin"       , meat: 1, },
-        { skill: "Architect"      , meat: 1, },
-        { skill: "Cartographer"   , meat: 1, },
-        { skill: "Sage"           , meat: 1, },
-        { skill: "Merchant"       , meat: 1, },
-        { skill: "Bard"           , meat: 1, },
-        { skill: "Fool"           , meat: 1, },
-      ] as CardType[]
-    );
 
   }
   
   getGameMode(): GameMode {
+    if (this.hasWon) {
+      return "Ending";
+    }
+
     if (this.activeEvent) {
       return "Looking At Event";
     }
