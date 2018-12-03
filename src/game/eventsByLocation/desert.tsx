@@ -13,6 +13,12 @@ const DesertFiller: EventType = {
       followUpText : "With the cartographer's help, you locate a hidden oasis among the dunes!.",
       outcome: [{ type: "gain-meat", amount: 10, hidden: true, }],
     },
+    {
+      skillRequired: { type: "specific-skill", skill: "Priest", withoutRequirement: "Unlabeled" },
+      description: "Pray for rain to cool your people.",
+      followUpText : "Your priest calls to the clouds. His piety is rewarded with a gentle drizzle that keeps your caravan cool.",
+      outcome: []
+    },
     PassOn({ price: 10 }),
   ],
 };
