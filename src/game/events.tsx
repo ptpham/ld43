@@ -244,7 +244,6 @@ const BlightedBarbarianVillageWornDown: EventType = {
         ]
       },
     },
-    PassOn({ price: 40 }),
   ]
 };
 BarbarianVillageWornDown.whenBlighted = BlightedBarbarianVillageWornDown;
@@ -341,7 +340,6 @@ const GoblinNest: EventType = {
         ]
       }
     },
-    PassOn({ price: 20 }),
   ],
 };
 
