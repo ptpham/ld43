@@ -7,8 +7,8 @@ export type EventItem =
 export type EventOutcome = 
   | { type: "gain-meat"; amount: number; hidden: boolean }
   | { type: "lose-meat"; amount: number; hidden: boolean }
-  | { type: "lose-member-strong"; skill: SkillType; }
-  | { type: "lose-member-weak"; skill: SkillType; }
+  | { type: "lose-member-strong"; skill: SkillType; hidden: boolean }
+  | { type: "lose-member-weak"; skill: SkillType; hidden: boolean }
   | { type: "gain-item"; item: EventItem }
   | { type: "turn-back"; }
   | { type: "end-run"; }
