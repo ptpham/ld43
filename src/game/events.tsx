@@ -1,66 +1,11 @@
-import { LocationType, SkillType } from "./data";
 
-export type EventItem =
-  | "Tailisman"
+import { EventDifficulty, EventOption, EventType, PassOn } from './eventDefinition';
+import { DesertEvents } from './eventsByLocation/desert';
+import { MountainEvents } from './eventsByLocation/mountain';
+import { SwampEvents } from './eventsByLocation/swamp';
+import { GoblinNestFillerEvents } from './eventsByLocation/goblinnestfiller';
 
-export type EventOutcome = 
-  | { type: "gain-meat"; amount: number; hidden: boolean }
-  | { type: "lose-meat"; amount: number; hidden: boolean }
-  | { type: "lose-member-strong"; skill: SkillType; }
-  | { type: "lose-member-weak"; skill: SkillType; }
-  | { type: "gain-item"; item: EventItem }
-  | { type: "turn-back"; }
-
-export type Requirement =
-  | { 
-      type: "specific-skill"; 
-      skill: SkillType; 
-      withoutRequirement: "Invisible" | "Unlabeled" | "Everything" 
-    }
-  | { 
-      type: "specific-item"; 
-      skill: EventItem; 
-      withoutRequirement: "Invisible" | "Unlabeled" | "Everything" 
-    }
-  | { type: "no-skill"      ; }
-
-export enum EventDifficulty {
-  NothingHappens   = 0,
-  FreeMeat         = 1,
-  NormalDifficutly = 2,
-  HardDifficulty   = 3,
-
-  // This is a placeholder difficulty, please do not make events at this difficulty
-  MaxDifficulty    = 4,
-
-  // let's not use this one (unless they do something stupid)
-  LoseMeat         = 5,
-}
-
-export type EventOption = {
-  skillRequired : Requirement;
-  description   : string;
-  followUpText  : string;
-  outcome       : EventOutcome[];
-  updateEventTo?: EventType;
-  winsGame   ?: boolean;
-}
-
-export type EventType = {
-  location     : LocationType;
-  stopsProgress: boolean;
-  description  : string;
-  difficulty   : EventDifficulty;
-  options      : EventOption[];
-  whenBlighted?: EventType;
-}
-
-const PassOn = (props: { price: number }): EventOption => ({
-  skillRequired: { type: "no-skill" },
-  description  : "Continue with your journey.",
-  followUpText : "",
-  outcome: props.price === 0 ? [] : [{ type: "lose-meat", amount: props.price, hidden: false }],
-});
+export const CONTINUE_TEXT = "Continue with your journey.";
 
 const GameFinish: EventType = {
   location: "Finish",
@@ -103,6 +48,7 @@ const CutDownForestOption: EventOption = {
     {
       type  : "lose-member-weak",
       skill: "Woodsman",
+      hidden: false
     },
   ],
   updateEventTo: ForestThatIsCutDown,
@@ -190,6 +136,7 @@ const ForestElfEventBlighted: EventType = {
       outcome: [{
         type: "lose-member-strong",
         skill: "Priest",
+        hidden: false
       }],
       updateEventTo: ForestElfEvent
     },
@@ -283,7 +230,7 @@ const BlightedBarbarianVillageWornDown: EventType = {
         `Strong and tough as they are, it seems no one left is nearly as observant as old Thok the gatekeeper. Leaving your assassin behind, he slowly and strategically takes out all members of the ruling faction.`,
       outcome      : [
         { type: "lose-meat", amount: 10, hidden: false },
-        { type: "lose-member-strong", skill: "Assassin" }
+        { type: "lose-member-strong", skill: "Assassin", hidden: false }
       ], // TODO: lose assassin
       updateEventTo: {
         location: "BarbarianVillage",
@@ -408,16 +355,6 @@ const ForestFiller: EventType = {
   ]
 };
 
-const GoblinNestFiller: EventType = {
-  location     : "GoblinNest",
-  description  : "Your party comes to the goblin nest, only to find it abandoned long ago. The mystery nags at you.",
-  difficulty   : EventDifficulty.NothingHappens,
-  stopsProgress: false,
-  options: [
-    PassOn({ price: 5 }),
-  ]
-};
-
 const BarbarianVillageFiller: EventType = {
   location     : "BarbarianVillage",
   description  : "Your party comes to the barbarian village - but apparently it's filled with very sleepy barbarians who are more interested in napping than coming out to greet you.",
@@ -430,43 +367,20 @@ const BarbarianVillageFiller: EventType = {
 
 const RiverFiller: EventType = {
   location     : "River",
-  description  : "The party arrives at a river. Some logs and stones left behind by previous travellers makes it easy to ford.",
+  description  : "The party arrives at a river. A makeshift bridge, consisting of some logs and stones left behind by previous travellers, makes it easy to cross.",
   difficulty   : EventDifficulty.NothingHappens,
   stopsProgress: false,
   options: [
+    {
+      skillRequired: { type: "specific-skill", skill: "Merchant", withoutRequirement: "Unlabeled" },
+      description: "Find the river gypsies.",
+      followUpText : "The merchant is good friends with a band of gypsies who travels up and down the river, trading goods along the way. Reading the signs along the riverbank that they leave behind, he is able to find them, and you have a fun little party together.",
+      outcome: [{ type: "gain-meat", amount: 10, hidden: true, }],
+    },
     PassOn({ price: 10 }),
   ]
 };
 
-const SwampFiller: EventType = {
-  location     : "Swamp",
-  description  : "After another day's journey, the party arrives at a swamp. The going is slow, but you make it out mostly unscathed.",
-  difficulty   : EventDifficulty.NothingHappens,
-  stopsProgress: false,
-  options: [
-    PassOn({ price: 10 }),
-  ]
-};
-
-const DesertFiller: EventType = {
-  location     : "Desert",
-  description  : "The caravan makes its way over a desert. The air is hot and the sand is harsh, but you make it through.",
-  difficulty   : EventDifficulty.NothingHappens,
-  stopsProgress: false,
-  options: [
-    PassOn({ price: 10 }),
-  ]
-};
-
-const MountainFiller: EventType = {
-  location     : "Mountain",
-  description  : "The mountain looms threateningly over the party, but after a few days of exploring, you find a pass that allows you to get through with little difficulty.",
-  difficulty   : EventDifficulty.NothingHappens,
-  stopsProgress: false,
-  options: [
-    PassOn({ price: 10 }),
-  ]
-};
 
 const ForestRandomGood: EventType = {
   location     : "Forest",
@@ -499,7 +413,7 @@ export const AllEvents: EventType[] = [
   // GoblinNest
 
   GoblinNest,
-  GoblinNestFiller,
+  ...GoblinNestFillerEvents,
 
   // BarbarianVillage
 
@@ -511,15 +425,9 @@ export const AllEvents: EventType[] = [
 
   RiverFiller,
 
-  // Swamp
+  ...DesertEvents,
 
-  SwampFiller,
+  ...MountainEvents,
 
-  // Desert
-
-  DesertFiller,
-
-  // Mountain
-
-  MountainFiller,
+  ...SwampEvents,
 ];

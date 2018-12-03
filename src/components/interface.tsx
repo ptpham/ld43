@@ -1,6 +1,6 @@
 import React from "react";
 import { State } from "../game/state";
-import { Card } from "../components/card";
+import { CardToAsset } from "../game/data";
 
 type InterfaceProps = {
   gameState: State;
@@ -31,15 +31,17 @@ export class Interface extends React.PureComponent<InterfaceProps> {
         {
           [...this.props.gameState.cardsInCaravan.keys()].map(card => {
             return (
-              <Card
-                card={card}
-                gameState={this.props.gameState}
-                onChangeSelection={() => {}}
-                hideContents
+              <div
                 style={{
+                  display: "inline-block",
                   width: 40,
                   height: 80,
-                  margin: "5px 10px",
+                  margin: "8px 10px 8px 0",
+                  backgroundImage: `url(${CardToAsset.get(card.skill)}`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: '100%',
+                  border: "1px solid white",
+                  imageRendering: "pixelated",
                 }}
               />
             );

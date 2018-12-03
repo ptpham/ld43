@@ -5,7 +5,7 @@ import { CardType } from './data';
 import { IEntity } from './entity';
 import { Location } from './location';
 import { GameMap } from './gamemap';
-import { EventOption, EventType, EventItem } from './events';
+import { EventOption, EventType, EventItem } from './eventDefinition';
 import { BlightManager } from './blightmanager';
 
 export type IdolState = 
@@ -54,6 +54,7 @@ export class State {
   lastCaravanLocation : Graph.Node;
   caravanLocation     : Graph.Node;
   volcanoLocation     : Graph.Node;
+  hometownLocation    : Graph.Node;
   selectedNextLocation: Location | undefined;
   mousedOverLocation  : Location | undefined;
   isLocationDone      : boolean;
@@ -90,6 +91,7 @@ export class State {
     this.graph = Graph.addLocationBasedData(this.graph, C.CANVAS_WIDTH);
 
     this.caravanLocation = this.graph.find(node => node.locationType === 'Start')!;
+    this.hometownLocation = this.caravanLocation;
     this.volcanoLocation = this.graph.find(node => node.locationType === 'Finish')!;
     this.lastCaravanLocation = this.caravanLocation;
 
@@ -131,21 +133,31 @@ export class State {
       ] as CardType[]);
 
       this.isLocationDone = true;
+      this.cardsInWholeGame = new Set(
+        [
+          { skill: "Architect"      , meat: 1, },
+          { skill: "Cartographer"   , meat: 1, },
+          { skill: "Sage"           , meat: 1, },
+          { skill: "Merchant"       , meat: 1, },
+          { skill: "Bard"           , meat: 1, },
+          { skill: "Fool"           , meat: 1, },
+        ] as CardType[]
+      );
+    } else {
+      this.cardsInWholeGame = new Set(
+        [
+          { skill: "Woodsman"       , meat: 1, },
+          { skill: "Priest"         , meat: 1, },
+          { skill: "Assassin"       , meat: 1, },
+          { skill: "Architect"      , meat: 1, },
+          { skill: "Cartographer"   , meat: 1, },
+          { skill: "Sage"           , meat: 1, },
+          { skill: "Merchant"       , meat: 1, },
+          { skill: "Bard"           , meat: 1, },
+          { skill: "Fool"           , meat: 1, },
+        ] as CardType[]
+      );
     }
-
-    this.cardsInWholeGame = new Set(
-      [
-        { skill: "Woodsman"       , meat: 1, },
-        { skill: "Priest"         , meat: 1, },
-        { skill: "Assassin"       , meat: 1, },
-        { skill: "Architect"      , meat: 1, },
-        { skill: "Cartographer"   , meat: 1, },
-        { skill: "Sage"           , meat: 1, },
-        { skill: "Merchant"       , meat: 1, },
-        { skill: "Bard"           , meat: 1, },
-        { skill: "Fool"           , meat: 1, },
-      ] as CardType[]
-    );
 
   }
   
@@ -300,6 +312,29 @@ export class State {
             if (c) {
               this.cardsInWholeGame.add(c);
             }
+
+            break;
+          }
+
+          case "end-run": {
+            // drop the idol
+            this.onDropIdol();
+
+            // put all cards back at hometown
+
+            const cards = this.cardsInCaravan.keys();
+
+            this.cardsInCaravan = new Set();
+
+            for (const card of cards) {
+              this.cardsInWholeGame.add(card);
+            }
+
+            // move player back home too
+            // this should retrigger the card choosing logic
+
+            this.caravanLocation = this.hometownLocation;
+            this.meat = C.STARTING_MEAT;
 
             break;
           }

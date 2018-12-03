@@ -69,3 +69,11 @@ button.glowing {
 .event-button {
   color: black;
 }
+
+.cardhover {
+  opacity: 0.25;
+}
+
+.cardhover:hover {
+  opacity: 0.75;
+}

@@ -2,7 +2,7 @@
 import React from 'react';
 import { State } from '../game/state';
 import _ from 'lodash';
-import { EventType, EventOption } from '../game/events';
+import { EventType, EventOption } from '../game/eventDefinition';
 
 const EventButton = (props: { 
   onClick ?: () => void;
@@ -86,9 +86,10 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
             renderNothingElse: true 
           };
         } else if (opt.skillRequired.withoutRequirement === "Everything") {
-          return (
-            { node: <strong>{ opt.skillRequired.skill } :</strong> }
-          );
+          return ({ 
+            node: <span><strong>{ opt.skillRequired.skill } :</strong> ???? </span>,
+            renderNothingElse: true,
+          });
         } else {
           const x: never = opt.skillRequired.withoutRequirement;
 
@@ -179,14 +180,14 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
 
       const sacrificeOutcome = outcomes.filter(x => x.type === 'lose-member-weak' || x.type === 'lose-member-strong')[0];
       if (sacrificeOutcome) {
-        if (sacrificeOutcome.type === 'lose-member-weak') {
+        if (sacrificeOutcome.type === 'lose-member-weak' && !sacrificeOutcome.hidden) {
           to_ret.push({
             node: 
               <span style={{ color: "red "}}>
                 Lose { sacrificeOutcome.skill } temporarily.
               </span>
           });
-        } else if (sacrificeOutcome.type === 'lose-member-strong') {
+        } else if (sacrificeOutcome.type === 'lose-member-strong' && !sacrificeOutcome.hidden) {
           to_ret.push({
             node: 
               <span style={{ color: "red "}}>
@@ -194,7 +195,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
               </span>
           });
         } else {
-          throw new Error("should be impossible! " + sacrificeOutcome);
+          //throw new Error("should be impossible! " + sacrificeOutcome);
         }
       }
     }
@@ -290,11 +291,25 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
         )
       });
 
+      const everyOptionTooExpensive = options.every(option => {
+        const { renderNothingElse } = this.renderRequirement(option);
+        const { cantBuy } = this.renderCost(option);
+
+        return !!(renderNothingElse || cantBuy);
+      });
+
       const turnBackOption: EventOption = {
         skillRequired: { type: "no-skill" },
         description  : "Turn back.",
         followUpText : "",
         outcome      : [{ type: "turn-back" }],
+      };
+
+      const regroupOption: EventOption = {
+        skillRequired: { type: "no-skill" },
+        description  : "We're running out of meat! Return to hometown and regroup.",
+        followUpText : "",
+        outcome      : [{ type: "end-run" }],
       };
 
       return (
@@ -312,6 +327,11 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
           {
             everyOptionCostsMoney &&
               this.renderButton(turnBackOption)
+          }
+
+          {
+            everyOptionTooExpensive &&
+              this.renderButton(regroupOption)
           }
         </>
       );
@@ -409,6 +429,20 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
                     }}
                   >
                     You have left behind your { outcome.skill }. (S)he will return home alone.
+                  </div>
+                )
+              }
+
+              if (outcome.type === "end-run") {
+                return (
+                  <div
+                    style={{
+                      backgroundColor: "lightblue",
+                      padding: "5px",
+                      margin: "10px 0 0 0"
+                    }}
+                  >
+                    You have run out of food, so you return to your hometown to regroup.
                   </div>
                 )
               }
