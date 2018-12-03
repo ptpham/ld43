@@ -377,7 +377,7 @@ const RiverFiller: EventType = {
   stopsProgress: false,
   options: [
     {
-      skillRequired: { type: "specific-skill", skill: "Merchant", withoutRequirement: "Everything" },
+      skillRequired: { type: "specific-skill", skill: "Merchant", withoutRequirement: "Unlabeled" },
       description: "Find the river gypsies.",
       followUpText : "The merchant is good friends with a band of gypsies who travels up and down the river, trading goods along the way. Reading the signs along the riverbank that they leave behind, he is able to find them, and you have a fun little party together.",
       outcome: [{ type: "gain-meat", amount: 10, hidden: true, }],
@@ -393,7 +393,7 @@ const SwampFiller: EventType = {
   stopsProgress: false,
   options: [
     {
-      skillRequired: { type: "specific-skill", skill: "Bard", withoutRequirement: "Everything" },
+      skillRequired: { type: "specific-skill", skill: "Bard", withoutRequirement: "Unlabeled" },
       description: "Play some catchy tunes.",
       followUpText : "When you stop and rest, the bard picks up her instrument and plays you a catchy tune. Suddenly an ogre appears out of the swamp! He says he likes your music, blushing a little. He offers you some swamp flowers and a bag of dried piranha innards. You begrudgingly accept.",
       outcome: [{ type: "gain-meat", amount: 10, hidden: true, }],
@@ -409,7 +409,7 @@ const MountainFiller: EventType = {
   stopsProgress: false,
   options: [
     {
-      skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Everything" },
+      skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Unlabeled" },
       description: "Nimbly scale the mountain.",
       followUpText : "The assassin is experienced in climbing buildings. She scales the cliff and lets down a rope for you to rappel up. This saves you a good few days of climbing!",
       outcome: [{ type: "lose-meat", amount: 0, hidden: false }],
