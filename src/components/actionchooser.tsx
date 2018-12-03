@@ -68,27 +68,30 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
   renderRequirement(opt: EventOption): {
     node              : React.ReactNode;
     renderNothingElse?: boolean;
+    selectable        : boolean;
   } {
     if (opt.skillRequired.type === "specific-skill") {
       const skill         = opt.skillRequired.skill;
       const doWeHaveSkill = [...this.props.gameState.cardsInCaravan.keys()].filter(x => x.skill === skill).length > 0;
 
-      if (doWeHaveSkill) {
+      if (doWeHaveSkill && (!opt.requiresIdol || this.props.gameState.idolState.state === 'carried')) {
         return (
-          { node: <strong>{ opt.skillRequired.skill } :</strong> }
+          { node: <strong>{opt.skillRequired.skill} :</strong>, selectable: true }
         );
       } else {
         if (opt.skillRequired.withoutRequirement === "Invisible") {
-          return { node: null };
+          return { node: null, selectable: false };
         } else if (opt.skillRequired.withoutRequirement === "Unlabeled") {
           return { 
             node: <strong>?????????????</strong>,
-            renderNothingElse: true 
+            renderNothingElse: true,
+            selectable: false,
           };
         } else if (opt.skillRequired.withoutRequirement === "Everything") {
           return ({ 
             node: <span><strong>{ opt.skillRequired.skill } :</strong> ???? </span>,
             renderNothingElse: true,
+            selectable: false,
           });
         } else {
           const x: never = opt.skillRequired.withoutRequirement;
@@ -104,19 +107,20 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
 
       if (doWeHaveItem) {
         return (
-          { node: <strong>Use { item } :</strong> }
+          { node: <strong>Use {item} :</strong>, selectable: true}
         );
       } else {
         if (opt.skillRequired.withoutRequirement === "Invisible") {
-          return { node: null };
+          return { node: null, selectable: false };
         } else if (opt.skillRequired.withoutRequirement === "Unlabeled") {
           return { 
             node: <strong>?????????????</strong>,
-            renderNothingElse: true 
+            renderNothingElse: true,
+            selectable: false
           };
         } else if (opt.skillRequired.withoutRequirement === "Everything") {
           return (
-            { node: <strong>{ item } :</strong> }
+            { node: <strong>{item} :</strong>, selectable: false}
           );
         } else {
           const x: never = opt.skillRequired.withoutRequirement;
@@ -125,7 +129,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
         }
       }
     } else if (opt.skillRequired.type === "no-skill") {
-      return { node: null };
+      return { node: null, selectable: true };
     } else {
       const x: never = opt.skillRequired;
 
@@ -284,8 +288,9 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
     if (this.state.mode.type === "choice") {
       const options = this.props.event.options;
 
-      const everyOptionCostsMoney = options.every(x => {
-        return x.outcome.some(outcome => 
+      const everySelectableOptionCostsMoney = options.every(option => {
+        const { selectable } = this.renderRequirement(option);
+        return !selectable || option.outcome.some(outcome => 
           outcome.type === "lose-meat" ||
           (outcome.type === "gain-meat" && outcome.hidden)
         )
@@ -325,7 +330,7 @@ export class ActionChooser extends React.Component<EventChooserProps, EventChoos
           }
 
           {
-            everyOptionCostsMoney &&
+            everySelectableOptionCostsMoney &&
               this.renderButton(turnBackOption)
           }
 

@@ -5,7 +5,7 @@ import { Point } from './lib/point';
 import { LocationType, LocationTypeNames } from './data';
 import _ from 'lodash';
 import { EventType, EventDifficulty } from "./eventDefinition";
-import { AllEvents } from './events';
+import { AllEvents, FinalGambit } from './events';
 
 export class Node {
   // not counting disadvantages due to idol etc
@@ -211,6 +211,11 @@ export function addLocationBasedData(nodes: Node[], width: number): Node[] {
   // Add events to nodes
   let maxDifficulty = EventDifficulty.MaxDifficulty;
   return nodes.map(node => {
+    if (node.locationType === 'Finish') {
+      node.event = FinalGambit;
+      return node;
+    }
+
     let desiredDifficulty = _.clamp(Math.floor(maxDifficulty*node.position.x/width + Math.random() - 0.5), 0, maxDifficulty - 1);
     if (node.neighbors.length > 4) desiredDifficulty++;
 
@@ -227,6 +232,7 @@ export function addLocationBasedData(nodes: Node[], width: number): Node[] {
         break;
       }
     }
+
     return node;
   });
 }

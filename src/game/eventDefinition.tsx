@@ -45,7 +45,8 @@ export type EventOption = {
   followUpText  : string;
   outcome       : EventOutcome[];
   updateEventTo?: EventType;
-  winsGame   ?: boolean;
+  requiresIdol ?: boolean;
+  winsGame     ?: boolean;
 }
 
 export type EventType = {

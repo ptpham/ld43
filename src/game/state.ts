@@ -273,6 +273,7 @@ export class State {
   }
 
   public handleChooseEventOption(option: EventOption): void {
+    let newCaravanLocation = this.caravanLocation;
     if (option.outcome) {
       const outcomes = 
         Array.isArray(option.outcome)
@@ -299,10 +300,7 @@ export class State {
           }
 
           case "turn-back": {
-            this.moveCaravan(
-              this.lastCaravanLocation,
-              true
-            );
+            newCaravanLocation = this.lastCaravanLocation;
 
             break;
           }
@@ -352,6 +350,7 @@ export class State {
 
             this.caravanLocation = this.hometownLocation;
             this.meat = C.STARTING_MEAT;
+            this.choosingCharacters = true;
 
             break;
           }
@@ -383,14 +382,18 @@ export class State {
     }
 
     if (this.caravanLocation.event && this.caravanLocation.event.stopsProgress) {
-      this.moveCaravan(
-        this.lastCaravanLocation,
-        /* retreat */ true
-      );
+      newCaravanLocation = this.lastCaravanLocation;
     }
 
     if (option.winsGame) {
       this.winGame();
+    }
+
+    if (newCaravanLocation !== this.caravanLocation) {
+      this.moveCaravan(
+        newCaravanLocation,
+        true
+      );
     }
 
     this.activeEvent = undefined;
