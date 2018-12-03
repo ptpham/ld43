@@ -382,7 +382,6 @@ const ForestFiller: EventType = {
   ]
 };
 
-
 const ForestRandomGood: EventType = {
   location     : "Forest",
   description  : "As your party makes it through the forest, you successfully hunt a wild deer!",
