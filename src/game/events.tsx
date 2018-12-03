@@ -516,9 +516,22 @@ const MountainFiller: EventType = {
   options: [
     {
       skillRequired: { type: "specific-skill", skill: "Assassin", withoutRequirement: "Everything" },
-      description: "Pratice some mountaineering.",
+      description: "Nimbly scale the mountain.",
       followUpText : "The assassin is experienced in climbing buildings. She scales the cliff and lets down a rope for you to rappel up. This saves you a good few days of climbing!",
       outcome: [{ type: "lose-meat", amount: 0, hidden: false }],
+    },
+    {
+      skillRequired: { type: "specific-skill", skill: "Architect", withoutRequirement: "Unlabeled" },
+      description: "Create a footpath.",
+      followUpText : "You decide to clear out a switchback trail to make it easier to cross next time.",
+      outcome: [{ type: "lose-member-weak", skill: "Architect" }],
+      updateEventTo: {
+        location: "Mountain",
+        description: "This mountain pass is much easier to cross now that there is a real trail.",
+        difficulty: EventDifficulty.NothingHappens,
+        stopsProgress: false,
+        options: [ PassOn({price: 10}) ]
+      }
     },
     PassOn({ price: 10 }),
   ]
