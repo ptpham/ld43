@@ -101,10 +101,10 @@ export class GraphSprite extends PIXI.Sprite implements IEntity {
         ) &&
         visitedNodes.has(node)
       ) {
-        // add meat text // TODO(grant): fix this possibly being undefined
+        // add meat text
         const outcome: EventOutcome | undefined = node.event.options[0].outcome[0];
 
-        if (outcome && outcome.type === "lose-meat") {
+        if (outcome != null && outcome.type === "lose-meat") {
           const text = new PIXI.Text(
             "-" + outcome.amount, {
               fontFamily: "Softsquare",

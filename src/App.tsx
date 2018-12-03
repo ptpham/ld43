@@ -97,8 +97,6 @@ class App extends React.Component<{ game: Game }, AppState>  {
       gameState.cardsInCaravan.size === 0
     ) {
       return <div className={`modal ${isEventVisible ? 'show-map' : ''}`}>
-        { !isEventVisible ? <button onClick={() => this.setState({ isEventVisible: true })}>Hide Event</button> : null }
-        { isEventVisible ? <button className="glowing" onClick={() => this.setState({ isEventVisible: false })}>Show Event</button> : null }
         <div className="content"> { this.renderCurrentLocation(gameState) } </div>
       </div>;
     }
