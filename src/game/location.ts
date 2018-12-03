@@ -51,6 +51,8 @@ export class Location extends PIXI.Graphics implements IEntity {
       this.sprite = makeSprite(PIXI.loader.resources['desert'].texture);
     } else if (node.locationType == 'Swamp') {
       this.sprite = makeSprite(PIXI.loader.resources['swamp'].texture);
+    } else if (node.locationType == 'River' || node.locationType == 'Canyon') {
+      this.sprite = makeSprite(PIXI.loader.resources['brokenbridge'].texture);
     }
 
     if (this.sprite) {
@@ -103,26 +105,11 @@ export class Location extends PIXI.Graphics implements IEntity {
       return;
     }
 
-    // if (this.selected) {
-    //   this.selected = false;
-      // we just double clicked this node
-      // can only select nodes adjacent to current caravan location to move caravan to
+    if (this.state.caravanLocation.neighbors.indexOf(this.node) > -1) {
+      this.state.moveCaravan(this.node);
+    }
 
-      if (this.state.caravanLocation.neighbors.indexOf(this.node) > -1) {
-        this.state.moveCaravan(this.node);
-      }
-
-      this.state.selectedNextLocation = undefined;
-    // } else {
-    //   // unselect the other guy
-    //   let lastLocation = this.state.selectedNextLocation;
-    //   if (lastLocation) {
-    //     lastLocation.selected = false;
-    //     lastLocation.render();
-    //   }
-    //   this.state.selectedNextLocation = this;
-    //   this.selected = true;
-    // }
+    this.state.selectedNextLocation = undefined;
 
     this.render();
   }

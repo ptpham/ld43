@@ -26,6 +26,7 @@ export class C {
     'todo',
     'idol',
     'barbarian',
+    'brokenbridge',
     'canyon',
     'caravan',
     'cloud_0',
