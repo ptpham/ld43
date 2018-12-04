@@ -6,7 +6,7 @@ import { IEntity } from './entity';
 import { Location } from './location';
 import { GameMap } from './gamemap';
 import { EventOption, EventType, EventItem } from './eventDefinition';
-import { BlightManager } from './blightmanager';
+import { IdolBlightDanger, BlightManager } from './blightmanager';
 
 export type IdolState = 
   | {
@@ -214,7 +214,7 @@ export class State {
     }
   }
 
-  public getIdolBlightDanger(): { text: string, remaining: number} {
+  public getIdolBlightDanger(): IdolBlightDanger {
     return this.blightManager.getIdolBlightDanger(this.time.for_idol, this.idolState);
   }
 

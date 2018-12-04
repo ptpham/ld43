@@ -5,7 +5,13 @@ import { SeedRandomGenerator } from './constants';
 import { Particles } from './particles';
 import { IEntity } from './entity';
 import { EventType } from './eventDefinition';
+import { shuffle } from './lib/random';
 //import * from 'crypto';
+
+export type IdolBlightDanger = {
+  text: "Minimal" | "Low" | "Medium" | "High" | "Catastrophic",
+  remaining: number,
+};
 
 export class BlightManager implements IEntity {
   // reserve undefined so we can garbage collect unused particles properly without race conditions
@@ -64,16 +70,47 @@ export class BlightManager implements IEntity {
 
     let random = SeedRandomGenerator(this.computeSeed(state, idol_position));
 
-    for (let degree = 0; degree < 2 /* lol */; degree++ ){
-      let neighbors: Node[] = neighborsByDegree[degree];
-      for (let node of neighbors) {
-        if (state.blightedNodes.has(node)) {
-          continue;
-        }
-        if (random() < 0.4) {
-          this.imminent.push(node);
-        }
+    let level = 0;
+    let maxDegree = 1;
+
+    const blightDanger = state.getIdolBlightDanger();
+    switch (blightDanger.text) {
+      case "Minimal":
+        break;
+      case "Low":
+        level = 1;
+        break;
+      case "Medium":
+        level = 2;
+        break;
+      case "High":
+        level = 3;
+        maxDegree = 2;
+        break;
+      case "Catastrophic":
+        level = 4;
+        maxDegree = 2;
+        break;
+    }
+
+    if (random() > 0.4) {
+      level++;
+    }
+
+    const eligibleNeighbors = [...neighborsByDegree[1]];
+    if (maxDegree === 2) {
+      eligibleNeighbors.push(...neighborsByDegree[2]);
+    }
+
+    const shuffledNeighbors = shuffle(eligibleNeighbors, random);
+    const blighted = [idol_position];
+    blighted.push(...shuffledNeighbors.slice(0, level));
+
+    for (let node of blighted) {
+      if (state.blightedNodes.has(node)) {
+        continue;
       }
+      this.imminent.push(node);
     }
 
     // rerender
@@ -82,9 +119,9 @@ export class BlightManager implements IEntity {
     }
   }
 
-  public getIdolBlightDanger(time_for_idol: number, idolState: IdolState): { text: string, remaining: number} {
+  public getIdolBlightDanger(time_for_idol: number, idolState: IdolState): IdolBlightDanger {
     let t = time_for_idol;
-    let to_ret: { text: string, remaining: number } = { text: "", remaining: 0};
+    let to_ret: IdolBlightDanger = { text: "Minimal", remaining: 0};
     if (t < 2) {
       to_ret = { text: "Minimal", remaining: 2 - t };
     } else if (t < 4) {
